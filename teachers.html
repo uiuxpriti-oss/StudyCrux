@@ -3703,7 +3703,7 @@ const CL = {t:'#0B7A6E',d:'#0F2A47',a:'#B45309',r:'#B42318',p:'#6D28D9',b:'#1D4E
 const card = (k,v,sub,vc) => ({k,v,sub,vc:vc||CL.d});
 const BDG = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],grey:['#F1F3F5','#667085'],blue:['#E9F1FD','#1D4ED8'],violet:['#F0EAFD','#6D28D9']};
 
-const TABS = ['Overview','Journey','Personal','Professional','Recruitment','Employment','Teaching','Students','Performance','Attendance & Leave','Finance & Payroll','Documents','Activity Log'];
+const TABS = ['Overview','Journey','Personal & Professional','Recruitment & Employment','Course & Batch','Teaching','Students','Performance','Reviews & Ratings','Attendance','Schedule','Achievements','Payslips','Documents','Login Devices','Communication','Finance & Payroll','Activity Log'];
 
 const SEC = {
   'Overview': [
@@ -3746,8 +3746,8 @@ const SEC = {
       {t:'Contract Renewed',d:'12 Mar 2026 · 10:30',by:'HR',note:'Valid till 31 Mar 2027 · retainer ₹78,000',att:'Contract-2026.pdf'}
     ]}
   ],
-  'Personal': [
-    {t:'BASIC DETAILS',type:'kv',rows:[
+  'Personal & Professional': [
+    {t:'PERSONAL INFORMATION',type:'kv',rows:[
       ['Gender','Male'],['Date of Birth','18 July 1983'],['Blood Group','B+'],['Nationality','Indian'],
       ['Languages','Hindi (native) · English (fluent) · Urdu (conversational)'],['Marital Status','Married']]},
     {t:'IDENTITY',type:'kv',rows:[
@@ -3760,12 +3760,13 @@ const SEC = {
     {t:'EMERGENCY CONTACTS',type:'list',rows:[
       {ic:'1',c:'blue',t:'Sunita Verma — Spouse',s:'+91 98100 55110 · primary contact'},
       {ic:'2',c:'grey',t:'Rakesh Verma — Brother',s:'+91 98100 66220 · secondary contact'}]},
-    {t:'SOCIAL & PROFESSIONAL LINKS',type:'kv',rows:[
+    {t:'CONTACT INFORMATION',type:'kv',rows:[
+      ['Mobile','+91 98100 11001'],['Alternate Mobile','+91 98100 44221'],
+      ['Official Email','vikram.verma@studycrux.io'],['Personal Email','vikram.verma83@gmail.com'],
+      ['Current Address','B-14, Green Park Extension, New Delhi 110016'],
+      ['Permanent Address','H-22, Civil Lines, Lucknow 226001'],
       ['LinkedIn','linkedin.com/in/vikramverma-iii'],['Portfolio','vikramverma.teach'],
       ['YouTube','youtube.com/@insuranceclarity'],['Teaching Website','claimsmastery.in']]},
-    {t:'ACTIONS',type:'actions',btns:[['Edit Personal Details'],['Update Bank Details'],['Request Re-verification']]}
-  ],
-  'Professional': [
     {t:'EXPERIENCE SUMMARY',type:'cards',cards:[
       card('TEACHING','12 yrs','8 yrs at StudyCrux',CL.t),card('INDUSTRY','9 yrs','pre-teaching career',CL.d),
       card('INSURANCE DOMAIN','15 yrs','combined exposure',CL.p),card('AWARDS','4','internal + external',CL.a)]},
@@ -3776,6 +3777,14 @@ const SEC = {
       ['Additional Qualification','MBA Finance & Insurance — FMS Delhi (2011)'],
       ['Professional Licenses','IRDAI Licentiate — Trainer Certification (valid till 31 Dec 2027)'],
       ['Teaching Certification','Certified Online Instructor — NIIT (2019)']]},
+    {t:'SKILLS & EXPERTISE',type:'chips',items:['Claims Management','Underwriting','Policy Law','Risk Analysis','IRDAI Regulation','Case-based teaching','Moodle LMS','Zoom','Power BI','Hindi + English delivery']},
+    {t:'EXPERIENCE',right:'Employers before and at StudyCrux',type:'table',
+      cols:['Organization','Role','From','To','Duration','Domain'],
+      trs:[
+        ['StudyCrux','Senior Faculty — Claims & Underwriting','Mar 2018','Present','8 yrs 5 m','Insurance education'],
+        ['NIIT Insurance Academy','Lead Trainer','Jun 2014','Feb 2018','3 yrs 9 m','Training'],
+        ['HDFC Ergo','Senior Claims Manager','Aug 2009','May 2014','4 yrs 10 m','General insurance'],
+        ['ICICI Lombard','Claims Officer','Jul 2005','Jul 2009','4 yrs','General insurance']]},
     {t:'EXPERTISE & PREFERENCES',type:'kv',rows:[
       ['Areas of Expertise','Claims · Underwriting · Policy Law · Risk Analysis'],
       ['Subjects Can Teach','IC-38 Full Prep · IC-38 Starter · Life Insurance Elite · Taxation basics'],
@@ -3788,13 +3797,16 @@ const SEC = {
       {ic:'★',c:'amber',t:'Top 5% faculty rating — 3 consecutive years',s:'2023, 2024, 2025'},
       {ic:'★',c:'green',t:'IRDAI Curriculum Contributor',s:'2024 · claims module review panel'},
       {ic:'★',c:'green',t:'Published — Claims Handling Casebook',s:'2022 · used as StudyCrux reference material'}]},
-    {t:'MEDIA',type:'table',cols:['Asset','Type','Uploaded','Duration','Status'],trs:[
-      ['Resume — Vikram Verma 2026','PDF','2026-03-12','—',['Verified','green']],
-      ['Demo Lecture — Claims Basics','Video','2018-01-18','42 min',['Archived','grey']],
-      ['Faculty Introduction Video','Video','2024-06-02','3 min',['Published','green']]]},
-    {t:'ACTIONS',type:'actions',btns:[['Edit Professional Profile'],['Add Certification'],['Replace Intro Video']]}
+    {t:'DOCUMENTS',right:'Profile documents · full library in the Documents tab',type:'table',
+      cols:['Document','Type','Uploaded','Expiry','Status'],trs:[
+        ['Resume — Vikram Verma 2026','PDF','2026-03-12','—',['Verified','green']],
+        ['PAN Card','PDF','2018-03-02','—',['Verified','green']],
+        ['Aadhaar','PDF','2018-03-02','—',['Verified','green']],
+        ['IRDAI Licentiate','PDF','2024-01-08','2027-12-31',['Verified','green']],
+        ['Faculty Introduction Video','Video','2024-06-02','—',['Published','green']]]},
+    {t:'ACTIONS',type:'actions',btns:[['Edit Personal Details'],['Edit Professional Profile'],['Update Bank Details'],['Add Certification'],['Request Re-verification']]}
   ],
-  'Recruitment': [
+  'Recruitment & Employment': [
     {t:'HIRING SNAPSHOT',type:'cards',cards:[
       card('SOURCE','Career page','applied Jan 2018',CL.d),card('INTERVIEW AVG','8.8','across 4 rounds',CL.t),
       card('DEMO RATING','4.6','3 evaluators',CL.a),card('OUTCOME','Selected','offer accepted',CL.t)]},
@@ -3802,31 +3814,42 @@ const SEC = {
       ['Application ID','APP-1042'],['Application Source','Career page'],['Referred By','—'],
       ['Application Date','02 January 2018'],['Recruiter Assigned','P. Bose — HR'],
       ['Recruitment Status','Closed — Hired']]},
-    {t:'INTERVIEW HISTORY',right:'4 rounds + demo',type:'table',
-      cols:['Round','Date','Interviewer / Panel','Mode','Score','Recommendation','Status'],
+    {t:'INTERVIEW HISTORY',right:'4 rounds + demo · scores, results and recommendations',type:'table',
+      cols:['Round','Date','Interviewer / Panel','Mode','Score','Result','Recommendation','Status'],
       trs:[
-        ['HR Screening','2018-01-09','P. Bose (HR)','Telephonic','8.4 / 10','Proceed',['Cleared','green']],
-        ['Technical Interview','2018-01-12','Academic Panel — 2 members','Video','9.1 / 10','Strong hire',['Cleared','green']],
-        ['Academic Interview','2018-01-15','Academic Head','In-person','8.7 / 10','Proceed',['Cleared','green']],
-        ['Demo Lecture','2018-01-18','3 evaluators','In-person','4.6 / 5','Strong hire',['Cleared','green']],
-        ['Final HR Discussion','2018-01-21','P. Bose (HR)','In-person','—','Release offer',['Cleared','green']]]},
+        ['HR Screening','2018-01-09','P. Bose (HR)','Telephonic','8.4 / 10',['Selected','green'],'Proceed',['Cleared','green']],
+        ['Technical Interview','2018-01-12','Academic Panel — 2 members','Video','9.1 / 10',['Selected','green'],'Strong hire',['Cleared','green']],
+        ['Academic Interview','2018-01-15','Academic Head','In-person','8.7 / 10',['Selected','green'],'Proceed',['Cleared','green']],
+        ['Demo Lecture','2018-01-18','3 evaluators','In-person','9.2 / 10',['Selected','green'],'Strong hire',['Cleared','green']],
+        ['Final HR Discussion','2018-01-21','P. Bose (HR)','In-person','8.8 / 10',['Selected','green'],'Release offer',['Cleared','green']]]},
+    {t:'INTERVIEW SCORES',right:'Out of 10 · average 8.8',type:'chart',bars:[
+      {label:'HR',val:'8.4',h:'118px'},{label:'Tech',val:'9.1',h:'128px'},{label:'Academic',val:'8.7',h:'122px'},
+      {label:'Demo',val:'9.2',h:'130px'},{label:'Final',val:'8.8',h:'124px'}]},
     {t:'EVALUATION RATINGS',right:'Panel consensus',type:'bars',rows:[
       {label:'Subject knowledge',sub:'Academic panel',pct:'94%',color:'#0E9384'},
       {label:'Teaching skills',sub:'Demo evaluators',pct:'92%',color:'#0E9384'},
       {label:'Communication skills',sub:'HR + panel',pct:'88%',color:'#0E9384'},
       {label:'Student engagement (demo)',sub:'Demo evaluators',pct:'90%',color:'#0E9384'}]},
-    {t:'OFFER & NEGOTIATION',type:'kv',rows:[
+    {t:'RECOMMENDATIONS',right:'Recorded by each panel',type:'list',rows:[
+      {ic:'★',c:'green',t:'Academic Panel — Strong hire',s:'Claims expertise verified against live settlement files · recommended for senior band'},
+      {ic:'★',c:'green',t:'Demo Evaluators — Strong hire',s:'Case-led delivery rated 9.2 / 10 by all three evaluators'},
+      {ic:'✓',c:'blue',t:'HR — Proceed',s:'Flexible on batch timings · no notice-period conflict'},
+      {ic:'✓',c:'green',t:'Academic Head — Release offer',s:'Unanimous recommendation · offer at senior faculty band'}]},
+    {t:'COMPENSATION DETAILS',type:'kv',rows:[
+      ['Compensation Mode','Fixed Salary + Lecture-wise'],
       ['Expected Salary','₹60,000 per month'],['Offered Salary','₹62,000 per month'],
-      ['Negotiated Salary','₹62,000 — accepted as offered'],['Employment Type','Full-Time'],
+      ['Negotiated Salary','₹62,000 — accepted as offered'],['Current Salary','₹78,000 per month'],
+      ['Per-lecture Rate','₹1,500 per lecture'],['Employment Type','Full-Time'],
+      ['Payment Cycle','Monthly · processed on the 5th'],
       ['Proposed Joining Date','12 March 2018'],['Offer Letter','Generated 24 Jan 2018 · signed 27 Jan 2018'],
       ['Offer Acceptance','Accepted'],['Joining Confirmation','Confirmed']]},
-    {t:'VERIFICATION & REFERENCES',type:'list',rows:[
+    {t:'ONBOARDING STATUS',right:'All three stages complete',type:'list',rows:[
+      {ic:'✓',c:'green',t:'Stage 1 — Candidate Application & Recruitment',s:'Completed 22 Jan 2018 · selected by unanimous panel recommendation'},
+      {ic:'✓',c:'green',t:'Stage 2 — Employee Verification & Onboarding',s:'Completed 12 Mar 2018 · payroll, identity, compliance and system access done'},
+      {ic:'✓',c:'green',t:'Stage 3 — Academic Setup & Teaching Readiness',s:'Completed 26 Mar 2018 · first batch IC-38 Morning (BT-044)'},
       {ic:'✓',c:'green',t:'Background verification — VerifyPro',s:'Cleared 02 Feb 2018 · employment and education verified'},
       {ic:'✓',c:'green',t:'Reference — Ex-manager, HDFC Ergo',s:'Positive · confirmed 6 yrs claims experience'},
       {ic:'✓',c:'green',t:'Reference — Head of Training, III Mumbai',s:'Positive · confirmed trainer certification'}]},
-    {t:'ACTIONS',type:'actions',btns:[['Download Hiring Pack'],['View Demo Recording'],['Export Interview Scores']]}
-  ],
-  'Employment': [
     {t:'EMPLOYMENT SNAPSHOT',type:'cards',cards:[
       card('TENURE','8 yrs 5 m','since Mar 2018',CL.t),card('GRADE','F-3','senior faculty band',CL.d),
       card('CTC','₹9.36L','annual',CL.p),card('CONTRACT ENDS','31 Mar 2027','233 days left',CL.a)]},
@@ -3845,7 +3868,7 @@ const SEC = {
         ['2021-07-01','Department transfer','General Studies','Insurance Studies','₹66,000','HR'],
         ['2020-04-01','Annual revision','Faculty','Faculty','₹62,000 → ₹66,000','HR'],
         ['2018-09-12','Confirmation','Probation','Confirmed','₹62,000','HR']]},
-    {t:'ACTIONS',type:'actions',btns:[['Generate Contract'],['Initiate Revision'],['Transfer Department'],['Initiate Exit',1]]}
+    {t:'ACTIONS',type:'actions',btns:[['Download Hiring Pack'],['View Demo Recording'],['Export Interview Scores'],['Generate Contract'],['Initiate Revision'],['Transfer Department'],['Initiate Exit',1]]}
   ],
   'Teaching': [
     {t:'TEACHING SNAPSHOT',type:'cards',cards:[
@@ -3968,12 +3991,28 @@ const SEC = {
         ['FY 2023–24','Academic Head','4.4 / 5','Meets expectations','No change','2025-03-31']]},
     {t:'PERFORMANCE ACTIONS',type:'actions',btns:[['Generate Performance Report'],['Schedule Review Meeting'],['Add Internal Note'],['Recommend Promotion'],['Issue Warning',1]]}
   ],
-  'Attendance & Leave': [
+  'Attendance': [
     {t:'ATTENDANCE SUMMARY',type:'cards',cards:[
-      card('THIS MONTH','96%','38 of 42 classes',CL.t),card('WORK HOURS','142 h','this quarter',CL.d),
-      card('LATE ARRIVALS','4','last 90 days',CL.a),card('EARLY EXITS','1','last 90 days',CL.a),
-      card('LEAVE BALANCE','8 days','of 18 annual',CL.t),card('LEAVE TAKEN','10 days','this year',CL.d),
-      card('PENDING REQUESTS','1','awaiting approval',CL.a),card('UNAVAILABLE SLOTS','2','declared this week',CL.p)]},
+      card('ATTENDANCE','96%','38 of 42 sessions',CL.t),card('SESSIONS ATTENDED','38','this month',CL.t),
+      card('SESSIONS MISSED','4','this month',CL.r),card('LATE ARRIVALS','4','last 90 days',CL.a),
+      card('EARLY DEPARTURES','1','last 90 days',CL.a),card('WORK HOURS','142 h','this quarter',CL.d),
+      card('LEAVE BALANCE','8 days','of 18 annual',CL.t),card('PENDING REQUESTS','1','awaiting approval',CL.a)]},
+    {t:'ATTENDANCE BREAKDOWN',right:'Rolling 6 months',type:'chart',bars:[
+      {label:'Mar',val:'92%',h:'110px'},{label:'Apr',val:'94%',h:'118px'},{label:'May',val:'95%',h:'122px'},
+      {label:'Jun',val:'93%',h:'114px'},{label:'Jul',val:'97%',h:'130px'},{label:'Aug',val:'96%',h:'126px'}]},
+    {t:'SESSION-WISE RECORDS',right:'Date-wise · every scheduled session',type:'table',
+      cols:['Date','Session','Course','Batch','Scheduled','Actual Start','Actual End','Status'],
+      trs:[
+        ['2026-08-10','Claims Settlement 04','IC-38 Full Prep','Batch A — Morning','07:00 – 09:00','06:52','09:04',['Present','green']],
+        ['2026-08-10','Underwriting Basics','IC-38 Full Prep','Batch B — Evening','18:00 – 20:00','18:02','20:04',['Present','green']],
+        ['2026-08-09','Policy Law 07','Life Insurance Elite','Batch B1','07:00 – 09:00','07:04','09:10',['Present','green']],
+        ['2026-08-08','Risk Analysis 03','IC-38 Full Prep','Batch A — Morning','07:00 – 09:00','07:31','09:00',['Late','amber']],
+        ['2026-08-07','Claims Settlement 03','IC-38 Full Prep','Batch A — Morning','07:00 – 09:00','06:55','08:50',['Present','green']],
+        ['2026-08-06','Mock Review','IC-38 Full Prep','Batch A — Morning','10:00 – 12:00','10:00','12:20',['Present','green']],
+        ['2026-08-05','Policy Law 06','Life Insurance Elite','Batch B1','07:00 – 09:00','—','—',['Approved leave','blue']],
+        ['2026-08-05','Underwriting 02','IC-38 Full Prep','Batch B — Evening','18:00 – 20:00','—','—',['Missed','red']],
+        ['2026-08-04','Claims Settlement 02','IC-38 Full Prep','Batch A — Morning','07:00 – 09:00','06:58','09:02',['Present','green']],
+        ['2026-08-03','Intro to Risk','IC-38 Starter','Batch C','09:00 – 11:00','09:02','10:41',['Early exit','amber']]]},
     {t:'DAILY ATTENDANCE',right:'Last 8 working days',type:'table',
       cols:['Date','Scheduled','First Login','Last Logout','Classes Held','Late','Work Hours','Status'],
       trs:[
@@ -4056,6 +4095,197 @@ const SEC = {
         ['Medical Declaration','Compliance','v1','Teacher','2018-03-12','HR','—',['Verified','green']],
         ['Faculty Handbook Acknowledgement','Compliance','—','—','—','—','—',['Missing','red']]]},
     {t:'DOCUMENT ACTIONS',type:'actions',btns:[['Request Re-upload'],['Download All'],['Mark Verified'],['View Version History'],['Revoke Document',1]]}
+  ],
+  'Course & Batch': [
+    {t:'ALLOCATION SNAPSHOT',type:'cards',cards:[
+      card('COURSES ASSIGNED','3','2 live · 1 recorded',CL.p),card('BATCHES ASSIGNED','4','across 3 courses',CL.t),
+      card('TOTAL STUDENTS','186','currently enrolled',CL.d),card('WEEKLY HOURS','12 h','of 16 h capacity',CL.t),
+      card('UNALLOCATED','1','batch awaiting teacher',CL.a),card('ALLOCATION HEALTH','Healthy','no conflicts',CL.t)]},
+    {t:'COURSE-LEVEL VIEW',right:'One course → many batches',type:'table',
+      cols:['Course','Course Code','Batches','Assigned Teachers','Students','Status','Allocation'],
+      trs:[
+        ['IC-38 Full Prep','C-101','2','Dr. Vikram Verma +1','112',['Active','green'],['Allocated','green']],
+        ['Life Insurance Elite','C-204','1','Dr. Vikram Verma','48',['Active','green'],['Allocated','green']],
+        ['Claims Masterclass — Recorded','C-330','—','Dr. Vikram Verma','26',['Active','green'],['Direct profile','blue']],
+        ['IC-38 Starter','C-118','1','Unassigned','—',['Inactive','grey'],['Unallocated','red']]]},
+    {t:'BATCH-LEVEL VIEW',right:'Batches for the selected courses',type:'table',
+      cols:['Batch','Course','Assigned Teacher','Students','Start','End','Schedule','Status','Allocation'],
+      trs:[
+        ['Batch A — Morning (BT-201)','IC-38 Full Prep','Dr. Vikram Verma','64','2026-04-01','2026-10-31','Mon–Fri · 07:00–09:00',['Active','green'],['Allocated','green']],
+        ['Batch B — Evening (BT-205)','IC-38 Full Prep','Dr. Vikram Verma','48','2026-05-15','2026-12-15','Mon–Fri · 18:00–20:00',['Active','green'],['Allocated','green']],
+        ['Batch B1 (BT-312)','Life Insurance Elite','Dr. Vikram Verma','48','2026-06-01','2027-01-31','Tue/Thu · 07:00–09:00',['Active','green'],['Allocated','green']],
+        ['Batch C (BT-118)','IC-38 Starter','Unassigned','—','2026-09-01','2027-02-28','Sat/Sun · 09:00–11:00',['Starting soon','blue'],['Unallocated','red']]]},
+    {t:'WORKLOAD',right:'Weekly teaching hours against contracted capacity',type:'bars',rows:[
+      {label:'IC-38 Full Prep — Batch A',sub:'Mon–Fri · 10 h/week',pct:'62%',color:'#0E9384'},
+      {label:'IC-38 Full Prep — Batch B',sub:'Mon–Fri · 10 h/week',pct:'62%',color:'#0E9384'},
+      {label:'Life Insurance Elite — B1',sub:'Tue/Thu · 4 h/week',pct:'25%',color:'#5AC0B0'},
+      {label:'Total contracted load',sub:'12 h of 16 h capacity',pct:'75%',color:'#0E9384'}]},
+    {t:'ALLOCATION ACTIONS',type:'actions',btns:[['Assign Teacher'],['Reassign Teacher'],['Allocate to Batch'],['View Batch Details'],['View Course Details'],['Add Teacher'],['Remove Teacher',1]]}
+  ],
+  'Reviews & Ratings': [
+    {t:'RATING OVERVIEW',type:'cards',cards:[
+      card('OVERALL RATING','4.8','from 412 reviews',CL.a),card('TOTAL REVIEWS','412','lifetime',CL.d),
+      card('5-STAR','318','77% of reviews',CL.t),card('THIS MONTH','28','new reviews',CL.t),
+      card('AVG THIS QUARTER','4.8','stable',CL.t),card('RESPONSE RATE','94%','reviews replied to',CL.t),
+      card('PENDING MODERATION','3','awaiting review',CL.a),card('DEPT RANK','#2','of 34 faculty',CL.p)]},
+    {t:'RATING BREAKDOWN',right:'Distribution across 412 reviews',type:'bars',rows:[
+      {label:'5 stars',sub:'318 reviews',pct:'77%',color:'#0E9384'},
+      {label:'4 stars',sub:'62 reviews',pct:'15%',color:'#5AC0B0'},
+      {label:'3 stars',sub:'21 reviews',pct:'5%',color:'#F0A72A'},
+      {label:'2 stars',sub:'7 reviews',pct:'2%',color:'#F0A72A'},
+      {label:'1 star',sub:'4 reviews',pct:'1%',color:'#E06A5E'}]},
+    {t:'RATING TRENDS',right:'Monthly average · rolling 6 months',type:'chart',bars:[
+      {label:'Mar',val:'4.5',h:'112px'},{label:'Apr',val:'4.6',h:'118px'},{label:'May',val:'4.6',h:'118px'},
+      {label:'Jun',val:'4.7',h:'126px'},{label:'Jul',val:'4.8',h:'134px'},{label:'Aug',val:'4.8',h:'134px'}]},
+    {t:'STUDENT REVIEWS',right:'Course / batch associated · moderated before publishing',type:'reviews',rows:[
+      {id:'FB-8801',product:'IC-38 Full Prep · Batch A — Morning',rating:5,date:'6 Aug 2026',state:'Published',
+       text:'The claims module finally clicked. Every doubt was answered in the same session and the case studies were genuinely practical.'},
+      {id:'FB-8788',product:'IC-38 Full Prep · Batch B — Evening',rating:4.5,date:'2 Aug 2026',state:'Published',
+       text:'Excellent depth on underwriting. Evening batch sometimes runs slightly over the scheduled time.'},
+      {id:'FB-8772',product:'Life Insurance Elite · Batch B1',rating:5,date:'30 Jul 2026',state:'Published',
+       text:'Policy law explained through actual disputes rather than definitions. Easily the best module this year.'},
+      {id:'FB-8760',product:'Life Insurance Elite · Batch B1',rating:3,date:'28 Jul 2026',state:'Pending',
+       text:'Good teaching but the pace in policy law was too fast for a first-time batch.'},
+      {id:'FB-8744',product:'IC-38 Full Prep · Batch A — Morning',rating:5,date:'24 Jul 2026',state:'Published',
+       text:'Mock reviews after every module made the difference. Cleared IC-38 in the first attempt.'},
+      {id:'FB-8721',product:'Claims Masterclass — Recorded',rating:4,date:'19 Jul 2026',state:'Published',
+       text:'Recorded sessions are well structured, though a couple of chapters could use updated notes.'}]},
+    {t:'RATING DIMENSIONS',right:'Student feedback · last 90 days',type:'bars',rows:[
+      {label:'Subject knowledge',sub:'412 responses',pct:'96%',color:'#0E9384'},
+      {label:'Clarity of explanation',sub:'412 responses',pct:'94%',color:'#0E9384'},
+      {label:'Doubt resolution',sub:'389 responses',pct:'90%',color:'#0E9384'},
+      {label:'Punctuality',sub:'412 responses',pct:'96%',color:'#0E9384'},
+      {label:'Engagement & pace',sub:'401 responses',pct:'84%',color:'#5AC0B0'},
+      {label:'Study material quality',sub:'366 responses',pct:'79%',color:'#F0A72A'}]},
+    {t:'REVIEW ACTIONS',type:'actions',btns:[['Moderate Pending Reviews'],['Export Reviews'],['Request Feedback Round'],['Reply to Review']]}
+  ],
+  'Schedule': [
+    {t:'SCHEDULE SNAPSHOT',type:'cards',cards:[
+      card('UPCOMING CLASSES','12','next 7 days',CL.b),card('TODAY','2','sessions scheduled',CL.t),
+      card('COMPLETED','38','this month',CL.t),card('CANCELLED','2','this month',CL.a),
+      card('SUBSTITUTED','1','this month',CL.p),card('WEEKLY HOURS','12 h','of 16 h capacity',CL.d)]},
+    {t:'UPCOMING CLASSES',right:'Next 7 days',type:'table',
+      cols:['Date','Time','Course','Batch','Class Type','Mode','Substitute','Status'],
+      trs:[
+        ['2026-08-12','07:00 – 09:00','IC-38 Full Prep','Batch A — Morning','Regular Class','Live Online','—',['Scheduled','blue']],
+        ['2026-08-12','18:00 – 20:00','IC-38 Full Prep','Batch B — Evening','Regular Class','Live Online','—',['Scheduled','blue']],
+        ['2026-08-13','07:00 – 09:00','Life Insurance Elite','Batch B1','Regular Class','Live Online','—',['Scheduled','blue']],
+        ['2026-08-14','07:00 – 09:00','IC-38 Full Prep','Batch A — Morning','Doubt Session','Live Online','R. Kumar',['Substitute assigned','amber']],
+        ['2026-08-15','10:00 – 12:00','IC-38 Full Prep','Batch A — Morning','Mock Review','Live Online','—',['Scheduled','blue']],
+        ['2026-08-16','09:00 – 11:00','IC-38 Starter','Batch C','Workshop','Hybrid','—',['Draft','grey']]]},
+    {t:'COMPLETED CLASSES',right:'Last 6 sessions',type:'table',
+      cols:['Date','Time','Course','Batch','Class Type','Attendance','Recording','Status'],
+      trs:[
+        ['2026-08-10','07:00 – 09:00','IC-38 Full Prep','Batch A — Morning','Regular Class','61 of 64','Published',['Completed','green']],
+        ['2026-08-10','18:00 – 20:00','IC-38 Full Prep','Batch B — Evening','Regular Class','44 of 48','Published',['Completed','green']],
+        ['2026-08-09','07:00 – 09:00','Life Insurance Elite','Batch B1','Regular Class','45 of 48','Published',['Completed','green']],
+        ['2026-08-08','07:00 – 09:00','IC-38 Full Prep','Batch A — Morning','Regular Class','58 of 64','Published',['Completed','green']],
+        ['2026-08-07','07:00 – 09:00','IC-38 Full Prep','Batch A — Morning','Regular Class','62 of 64','Pending upload',['Completed','green']],
+        ['2026-08-06','10:00 – 12:00','IC-38 Full Prep','Batch A — Morning','Mock Review','60 of 64','Published',['Completed','green']]]},
+    {t:'CALENDAR VIEW',right:'Mon – Sat · IST',type:'timetable'},
+    {t:'SCHEDULE ACTIONS',type:'actions',btns:[['Schedule Live Class'],['Reschedule Class'],['Assign Substitute'],['Export Schedule'],['Cancel Class',1]]}
+  ],
+  'Achievements': [
+    {t:'ACHIEVEMENT SNAPSHOT',type:'cards',cards:[
+      card('TOTAL AWARDS','9','internal + external',CL.a),card('THIS YEAR','3','2026 to date',CL.t),
+      card('CERTIFICATIONS','5','active credentials',CL.p),card('MILESTONES','7','career milestones',CL.d),
+      card('RECOGNITIONS','4','peer + student',CL.t),card('PUBLICATIONS','2','reference material',CL.b)]},
+    {t:'AWARDS & RECOGNITION',right:'Newest first',type:'list',rows:[
+      {ic:'★',c:'amber',t:'Faculty of the Year — StudyCrux 2025',s:'Awarded Mar 2026 · highest combined rating and student outcome'},
+      {ic:'★',c:'amber',t:'Top 5% faculty rating — 3 consecutive years',s:'2023, 2024, 2025 · sustained rating above 4.6'},
+      {ic:'★',c:'green',t:'IRDAI Curriculum Contributor',s:'2024 · claims module review panel'},
+      {ic:'★',c:'green',t:'Published — Claims Handling Casebook',s:'2022 · adopted as StudyCrux reference material'},
+      {ic:'★',c:'blue',t:'Mentor of the Year — nominated',s:'2025 · mentored 6 new faculty through onboarding'},
+      {ic:'★',c:'violet',t:'100% batch pass rate — IC-38 Morning',s:'2024 · first faculty to achieve a full-batch pass'}]},
+    {t:'MILESTONES',right:'Career milestones at StudyCrux',type:'table',
+      cols:['Date','Milestone','Detail','Category'],
+      trs:[
+        ['2026-03-12','Contract renewed at senior band','₹72,000 → ₹78,000 · exceeds expectations','Employment'],
+        ['2025-11-04','1,000th live session delivered','Across 8 years and 14 batches','Teaching'],
+        ['2025-03-18','Faculty of the Year','Highest combined rating and outcome','Award'],
+        ['2024-06-02','24 recorded lectures published','Claims Masterclass recorded series','Content'],
+        ['2023-04-01','Promoted to Senior Faculty','Faculty → Senior Faculty (F-3)','Employment'],
+        ['2022-08-15','Casebook published','Claims Handling Casebook','Publication'],
+        ['2018-03-26','First batch taught','IC-38 Morning (BT-044)','Teaching']]},
+    {t:'CERTIFICATIONS',right:'Active credentials',type:'table',
+      cols:['Certification','Issuing Body','Issued','Valid Till','Status'],
+      trs:[
+        ['Fellowship — FIII','Insurance Institute of India','2011-06-20','—',['Lifetime','green']],
+        ['IRDAI Licentiate — Trainer','IRDAI','2024-01-08','2027-12-31',['Active','green']],
+        ['Certified Online Instructor','NIIT','2019-09-14','—',['Lifetime','green']],
+        ['MBA Finance & Insurance','FMS Delhi','2011-05-30','—',['Lifetime','green']],
+        ['Advanced Claims Certification','Chartered Insurance Institute','2016-02-11','2026-11-30',['Expiring','amber']]]},
+    {t:'ACHIEVEMENT ACTIONS',type:'actions',btns:[['Add Achievement'],['Upload Certificate'],['Nominate for Award'],['Export Achievements']]}
+  ],
+  'Payslips': [
+    {t:'PAYSLIP SNAPSHOT',type:'cards',cards:[
+      card('LAST NET PAY','₹75,150','Jul 2026 · paid',CL.t),card('CURRENT CYCLE','Aug 2026','pending review',CL.a),
+      card('YTD GROSS','₹6.42L','Apr–Aug 2026',CL.d),card('YTD DEDUCTIONS','₹64,200','TDS + others',CL.a),
+      card('YTD NET','₹5.78L','credited',CL.t),card('PAYSLIPS','29','available to download',CL.p)]},
+    {t:'PAYSLIP HISTORY',right:'Newest first · download or view any period',type:'table',
+      cols:['Payslip ID','Pay Period','Gross','Deductions','Net Payable','Payment Date','Status'],
+      trs:[
+        ['PS-2026-08','Aug 2026 · 01–31 Aug','₹83,500','₹8,350','₹75,150','2026-09-05',['Pending','amber']],
+        ['PS-2026-07','Jul 2026 · 01–31 Jul','₹78,000','₹7,800','₹70,200','2026-08-05',['Paid','green']],
+        ['PS-2026-06','Jun 2026 · 01–30 Jun','₹78,000','₹7,800','₹70,200','2026-07-05',['Paid','green']],
+        ['PS-2026-05','May 2026 · 01–31 May','₹78,000','₹9,300','₹68,700','2026-06-05',['Paid','green']],
+        ['PS-2026-04','Apr 2026 · 01–30 Apr','₹78,000','₹7,800','₹70,200','2026-05-05',['Paid','green']],
+        ['PS-2026-03','Mar 2026 · 01–31 Mar','₹72,000','₹7,200','₹64,800','2026-04-05',['Paid','green']],
+        ['PS-2026-02','Feb 2026 · 01–28 Feb','₹72,000','₹7,200','₹64,800','2026-03-05',['Paid','green']],
+        ['PS-2026-01','Jan 2026 · 01–31 Jan','₹72,000','₹8,400','₹63,600','2026-02-05',['Paid','green']]]},
+    {t:'CURRENT CYCLE BREAKDOWN',right:'Aug 2026 · pending review',type:'kv',rows:[
+      ['Basic Salary','₹78,000'],['Lecture Earnings','₹4,500 · 3 eligible lectures'],
+      ['Recording Bonus','₹1,000'],['Gross Amount','₹83,500'],
+      ['TDS u/s 194J (10%)','−₹8,350'],['Unpaid Leave Deduction','₹0'],
+      ['Other Deductions','₹0'],['Net Payable','₹75,150'],
+      ['Payment Mode','Bank transfer · HDFC ••••4482'],['Expected Payment Date','05 September 2026']]},
+    {t:'PAYSLIP ACTIONS',type:'actions',btns:[['Download Payslip'],['View Payslip'],['Download All (ZIP)'],['Download Form 16'],['Email Payslip'],['Raise Adjustment']]}
+  ],
+  'Login Devices': [
+    {t:'ACCESS SNAPSHOT',type:'cards',cards:[
+      card('ACTIVE SESSIONS','2','current devices',CL.t),card('KNOWN DEVICES','5','lifetime',CL.d),
+      card('LAST LOGIN','Today · 06:52','Delhi, IN',CL.t),card('FAILED ATTEMPTS','0','last 30 days',CL.t),
+      card('NEW DEVICES','1','last 30 days',CL.a),card('2FA','Enabled','authenticator app',CL.t)]},
+    {t:'LOGIN DEVICES',right:'Current and previous sessions',type:'table',
+      cols:['Device','Browser','Operating System','IP / Location','Login Date & Time','Last Active','Session'],
+      trs:[
+        ['MacBook Pro 14"','Chrome 128','macOS 15.2','103.21.58.14 · Delhi, IN','2026-08-11 · 06:52','2 minutes ago',['Current','green']],
+        ['iPhone 15','Safari 18','iOS 18.3','103.21.58.77 · Delhi, IN','2026-08-11 · 06:10','1 hour ago',['Active','green']],
+        ['Windows Desktop','Edge 127','Windows 11','49.36.184.22 · Delhi, IN','2026-08-09 · 18:04','2 days ago',['Previous','grey']],
+        ['iPad Air','Safari 18','iPadOS 18.2','103.21.58.90 · Delhi, IN','2026-08-04 · 09:22','7 days ago',['Previous','grey']],
+        ['Samsung Galaxy S23','Chrome 127','Android 15','172.16.44.8 · Lucknow, IN','2026-07-28 · 14:40','14 days ago',['Previous','grey']]]},
+    {t:'RECENT ACCESS ACTIVITY',right:'Last 30 days',type:'table',
+      cols:['When','Event','Device','IP / Location','Result'],
+      trs:[
+        ['2026-08-11 · 06:52','Login','MacBook Pro 14"','103.21.58.14 · Delhi, IN',['Success','green']],
+        ['2026-08-11 · 06:10','Login','iPhone 15','103.21.58.77 · Delhi, IN',['Success','green']],
+        ['2026-08-09 · 18:04','Login','Windows Desktop','49.36.184.22 · Delhi, IN',['Success','green']],
+        ['2026-08-04 · 09:22','New device registered','iPad Air','103.21.58.90 · Delhi, IN',['Verified','blue']],
+        ['2026-07-28 · 14:40','Login','Samsung Galaxy S23','172.16.44.8 · Lucknow, IN',['Success','green']]]},
+    {t:'DEVICE ACTIONS',type:'actions',btns:[['Log Out Device'],['Log Out All Devices'],['Remove Device',1],['Reset Password'],['Force 2FA Re-enrolment']]}
+  ],
+  'Communication': [
+    {t:'COMMUNICATION SNAPSHOT',type:'cards',cards:[
+      card('CRUX CHAT','Open','24 messages',CL.t),card('TOTAL MESSAGES','142','lifetime',CL.d),
+      card('THIS MONTH','24','sent + received',CL.t),card('AVG RESPONSE','2.4 h','teacher replies',CL.t),
+      card('UNREAD','1','awaiting admin reply',CL.a),card('LAST CONTACT','Today · 09:12','Crux Chat',CL.t)]},
+    {t:'COMMUNICATION HISTORY',right:'Searchable · filter by type and date',type:'table',
+      cols:['Date & Time','Channel','Direction','Type','Subject','Sent By','Status'],
+      trs:[
+        ['2026-08-11 · 09:12','Crux Chat','Admin → Teacher','Schedule','Substitute needed for 14 Aug doubt session','R. Kumar',['Delivered','green']],
+        ['2026-08-10 · 17:40','Crux Chat','Teacher → Admin','Query','Requesting notes upload deadline extension','Dr. Vikram Verma',['Replied','green']],
+        ['2026-08-09 · 11:02','Email','Admin → Teacher','Payroll','August payout cycle opens 1 Sep','Finance Bot',['Delivered','green']],
+        ['2026-08-08 · 08:15','Crux Chat','Admin → Teacher','Performance','Batch B attendance dipped below 80%','Academic Head',['Read','blue']],
+        ['2026-08-05 · 14:30','WhatsApp','Admin → Teacher','Reminder','Class starting in 30 minutes','Automated',['Delivered','green']],
+        ['2026-08-02 · 10:00','Crux Chat','Teacher → Admin','Leave','Sick leave request for 5 Aug','Dr. Vikram Verma',['Resolved','green']],
+        ['2026-07-30 · 16:22','Email','Admin → Teacher','Documents','Police verification expiring 30 Sep','Automated',['Delivered','green']]]},
+    {t:'CRUX CHAT — RECENT CONVERSATION',right:'Direct thread with this teacher',type:'list',rows:[
+      {ic:'A',c:'blue',t:'R. Kumar (Coordinator) · Today 09:12',s:'Can you cover the 14 Aug doubt session, or should I assign a substitute?'},
+      {ic:'T',c:'green',t:'Dr. Vikram Verma · Today 09:31',s:'Please assign a substitute for 14 Aug — I have a prior commitment that morning.'},
+      {ic:'A',c:'blue',t:'R. Kumar (Coordinator) · Today 09:40',s:'Noted. R. Kumar assigned as substitute and the batch has been notified.'},
+      {ic:'T',c:'green',t:'Dr. Vikram Verma · Yesterday 17:40',s:'Requesting a two-day extension on the Policy Law notes upload.'},
+      {ic:'A',c:'blue',t:'Academic Head · Yesterday 18:05',s:'Approved — new deadline is 13 Aug. Please publish to Batch B1 once uploaded.'}]},
+    {t:'COMMUNICATION ACTIONS',type:'actions',btns:[['Open Crux Chat'],['Send Message'],['Search Conversation'],['Export History'],['Send Reminder']]}
   ],
   'Activity Log': [
     {t:'AUDIT TRAIL',right:'Immutable · every action recorded',type:'audit',rows:[
@@ -4763,7 +4993,7 @@ class Component extends DCLogic {
               F('Batch','batch','Batch A — Morning (BT-101)','select',['All batches','Batch A — Morning (BT-101)','Batch B — Evening (BT-103)','Batch B1 — Morning (BT-204)']),
               F('Subject','subject','A note from your faculty','text',null,{span:'span 2'}),
               F('Message','body','','textarea',null,{span:'span 3',placeholder:'What the batch needs to know.'}),
-              C('Channels','ch',['In-app','Email'],['In-app','Email','SMS','WhatsApp'])]],
+              C('Channels','ch',['Crux Chat','Email'],['Crux Chat','Email','SMS','WhatsApp'])]],
             'Flag At-Risk Students': ['Flag At-Risk Students','Creates follow-up tasks for the coordinator',[
               F('Criteria','criteria','Attendance below 60%','select',['Attendance below 60%','Mock average below 50%','No login for 7 days','Assignments below 50%']),
               F('Matching students','count','8 students match in this teacher\\u2019s batches','readonly',null,{span:'span 2'}),
@@ -4852,7 +5082,7 @@ class Component extends DCLogic {
               C('Documents','docs',['Police Verification'],['PAN Card','Aadhaar','Fellowship Certificate','IRDAI Licentiate','Cancelled Cheque','Police Verification','Faculty Handbook Acknowledgement']),
               F('Reason','reason','Expiring soon','select',['Expiring soon','Expired','Illegible copy','Wrong document','Missing pages','Policy update']),
               F('Due within','due','7 days','select',['3 days','7 days','14 days','30 days']),
-              C('Notify via','ch',['Email','In-app'],['Email','SMS','WhatsApp','In-app'])]],
+              C('Notify via','ch',['Email','Crux Chat'],['Email','SMS','WhatsApp','Crux Chat'])]],
             'Download All': ['Download All Documents','Bundles the document set',[
               C('Include','include',['Verified documents'],['Verified documents','Pending documents','Expired documents','Compliance acknowledgements','Contracts']),
               C('Format','format',['ZIP archive'],['ZIP archive','Single PDF'])]],
@@ -5098,19 +5328,19 @@ class Component extends DCLogic {
         }
 
         if (kind==='template') {
-          const chans = s.tmCh || ['Email','WhatsApp','In-app'];
+          const chans = s.tmCh || ['Email','WhatsApp','Crux Chat'];
           return wrap({title: ctx.name ? 'Edit Template' : 'Create Template', width:'840px',
             sub: ctx.name ? (ctx.name+' · '+(ctx.id||'TPL-1001')) : 'Content is separate from rules — one template can serve many rules',
             groups:[
               {t:'Template', fields:[
                 this.f('Template name *','tmName',ctx.name||'','text',null,{span:'span 2',placeholder:'Class Starting in 30 Minutes'}),
                 this.f('Category','tmCat',ctx.cat||'Live Class','select',['Live Class','Scheduling','Performance','Documents','Payroll','Compliance','Onboarding','System']),
-                this.fchips('Channels','tmCh',chans,['Email','SMS','WhatsApp','In-app','Push'])]},
+                this.fchips('Channels','tmCh',chans,['Email','SMS','WhatsApp','Crux Chat','Push'])]},
               {t:'Content', fields:[
                 this.f('Subject','tmSubject','Your StudyCrux class starts in 30 minutes','text',null,{span:'span 3'}),
                 this.f('Message body','tmBody','Hi {{teacher_name}},\\n\\nYour {{course_name}} class is scheduled to begin at {{class_time}}.\\n\\nCourse: {{course_name}}\\nBatch: {{batch_name}}\\nTopic: {{topic}}\\nDuration: {{duration}}\\n\\nJoin your class here: {{meeting_link}}','textarea',null,{span:'span 3'}),
                 this.f('SMS variant (160 char)','tmSms','StudyCrux: your {{course_name}} class starts at {{class_time}}. Join: {{meeting_link}}','text',null,{span:'span 3'}),
-                this.f('In-app title','tmInapp','Class starting soon','text',null,{span:'span 2'}),
+                this.f('Crux Chat title','tmInapp','Class starting soon','text',null,{span:'span 2'}),
                 this.f('Call to action','tmCta','Join Class','text')]},
               {t:'Variables & preview', fields:[
                 this.fkv('Available variables', [
@@ -5121,7 +5351,7 @@ class Component extends DCLogic {
                   ['Documents','{{document_name}} · {{expiry_date}} · {{days_remaining}}'],
                   ['Payroll','{{payout_amount}} · {{payout_date}}']]),
                 this.f('Preview as','tmPreviewAs','Dr. Vikram Verma','select',TEACHERS.map(t=>t[0])),
-                this.f('Preview surface','tmPreviewOn','WhatsApp','select',['Email','WhatsApp','SMS','In-app','Mobile push']),
+                this.f('Preview surface','tmPreviewOn','WhatsApp','select',['Email','WhatsApp','SMS','Crux Chat','Mobile push']),
                 this.f('Status','tmStatus','Active','select',['Active','Draft','Needs review','Archived'])]}],
             info:'Rules decide when and to whom · templates decide what is sent. Editing here updates every rule using this template.',
             infoDisplay:'flex',
@@ -5139,14 +5369,14 @@ class Component extends DCLogic {
             sub:(ctx.name||'Class starting in 30 minutes')+' · 4 versions',
             groups:[
               {t:'Version 4 — current · 09 Aug 2026 by Admin User', fields:[
-                this.fkv('', [['Trigger offset','30 min → 60 min before'],['Channels','WhatsApp + In-app → WhatsApp + SMS + In-app'],
+                this.fkv('', [['Trigger offset','30 min → 60 min before'],['Channels','WhatsApp + Crux Chat → WhatsApp + SMS + Crux Chat'],
                   ['Audience','Teacher → Teacher + Coordinator'],['Reason','Too many late joins in evening batches']])]},
               {t:'Version 3 — 22 Jul 2026 by R. Kumar', fields:[
                 this.fkv('', [['Priority','Low → Informational'],['Quiet hours','Not respected → Respected'],['Reason','Reduce night-time noise for faculty']])]},
               {t:'Version 2 — 14 Jun 2026 by Admin User', fields:[
                 this.fkv('', [['Frequency cap','None → Max 3 per day'],['Reason','Duplicate alerts during back-to-back sessions']])]},
               {t:'Version 1 — 02 Apr 2026 by Admin User', fields:[
-                this.fkv('', [['Created','Initial rule'],['Trigger','30 min before every live session'],['Channels','WhatsApp + In-app']])]}],
+                this.fkv('', [['Created','Initial rule'],['Trigger','30 min before every live session'],['Channels','WhatsApp + Crux Chat']])]}],
             info:'Historical versions are immutable — restoring one creates a new version rather than overwriting the current rule.',
             infoDisplay:'flex',
             primaryLabel:'Restore Version 3',
@@ -5220,7 +5450,7 @@ class Component extends DCLogic {
                 this.f('Subject','msSubject','StudyCrux — '+type,'text',null,{span:'span 3'}),
                 this.f('Message','msBody',TPL[type],'textarea',null,{span:'span 3',placeholder:'Write the message the teacher will receive.'})]},
               {t:'Delivery', fields:[
-                this.fchips('Channels','msCh',['Email','In-app'],['Email','SMS','WhatsApp','In-app']),
+                this.fchips('Channels','msCh',['Email','Crux Chat'],['Email','SMS','WhatsApp','Crux Chat']),
                 this.fradio('When','msWhen','Send now',['Send now','Schedule send']),
                 this.f('Send at','msAt','2026-08-13','date'),
                 this.f('Copy to','msCc','Coordinator','select',['Nobody','Coordinator','Academic head','HR','Coordinator + Academic head']),
@@ -5229,9 +5459,9 @@ class Component extends DCLogic {
             infoDisplay:'flex',
             primaryLabel: (s.msWhen==='Schedule send') ? 'Schedule Message' : 'Send Message',
             primary: ()=>{
-              if (!(s.msCh||['Email','In-app']).length) return this.setState({fmErr:'Select at least one channel.'});
+              if (!(s.msCh||['Email','Crux Chat']).length) return this.setState({fmErr:'Select at least one channel.'});
               close();
-              this.fire('Message sent — '+who, ((s.msCh||['Email','In-app']).join(', '))+' · '+(s.msSubject||type)); }});
+              this.fire('Message sent — '+who, ((s.msCh||['Email','Crux Chat']).join(', '))+' · '+(s.msSubject||type)); }});
         }
 
         if (kind==='schedule') {
@@ -5254,7 +5484,7 @@ class Component extends DCLogic {
                 this.f('Recurrence','scRep','Does not repeat','select',['Does not repeat','Every weekday','Mon / Wed / Fri','Weekly on this day','Every 2 weeks']),
                 this.f('Coordinator','scCoord','R. Kumar','select',['R. Kumar','S. Patel','A. Nair','P. Bose']),
                 this.fradio('Recording','scRec','Auto-record and publish',['Auto-record and publish','Record, hold for review','Do not record']),
-                this.fchips('Notify','scNotify',['Email','In-app'],['Email','SMS','WhatsApp','In-app']),
+                this.fchips('Notify','scNotify',['Email','Crux Chat'],['Email','SMS','WhatsApp','Crux Chat']),
                 this.f('Agenda / notes for students','scNote','','textarea',null,{span:'span 3',placeholder:'What this session covers, pre-reading, what to bring.'})]}],
             warn: clash ? teacher+' already teaches Batch A — Morning (BT-101) at 10:00 on weekdays. Pick another slot or reassign the teacher.' : '',
             warnDisplay: clash ? 'flex' : 'none',
@@ -5402,7 +5632,7 @@ class Component extends DCLogic {
                 this.f('Substitute teacher','suT',sub,'select',['Ritu Bansal','Neha Kulkarni','Prof. Arun Mehta','Ayesha Khan','Shalini Nair']),
                 this.f('Availability check','suAvail',LOAD[sub],'readonly'),
                 this.fradio('Payout treatment','suPayout','Credit the substitute',['Credit the substitute','Split 50 / 50','No change']),
-                this.fchips('Notify','suNotify',['Email','WhatsApp','In-app'],['Email','SMS','WhatsApp','In-app']),
+                this.fchips('Notify','suNotify',['Email','WhatsApp','Crux Chat'],['Email','SMS','WhatsApp','Crux Chat']),
                 this.f('Handover note for the substitute','suNote','','textarea',null,{span:'span 3',placeholder:'Where the last session ended, what must be covered, pending doubts.'})]}],
             warn: over ? sub+' is already above the 16 h weekly cap. Approving this will push them further over capacity.' : '',
             warnDisplay: over ? 'flex' : 'none',
@@ -5420,11 +5650,11 @@ class Component extends DCLogic {
             groups:[
               {t:'Rule', fields:[
                 this.fkv('', [['Rule', rule],['Trigger', ctx.trigger||'30 min before every live session'],
-                  ['Live audience', ctx.audience||'Assigned teacher + coordinator'],['Channels', (ctx.ch||['In-app','WhatsApp']).join(', ')]])]},
+                  ['Live audience', ctx.audience||'Assigned teacher + coordinator'],['Channels', (ctx.ch||['Crux Chat','WhatsApp']).join(', ')]])]},
               {t:'Test delivery', fields:[
                 this.f('Send test to','tsTo','My admin contact','select',['My admin contact','A specific teacher','A specific coordinator','A custom address']),
                 this.f('Recipient','tsWho','Admin User · admin@studycrux.io','text'),
-                this.fchips('Channels for this test','tsCh',['Email'],['Email','SMS','WhatsApp','In-app']),
+                this.fchips('Channels for this test','tsCh',['Email'],['Email','SMS','WhatsApp','Crux Chat']),
                 this.f('Message preview','tsMsg','[TEST] Your class "Claims Module 08" for Batch A — Morning (BT-101) starts in 30 minutes. Join link: studycrux.io/live/bt-101','textarea',null,{span:'span 3'})]}],
             info:'A test alert never reaches the real audience — it goes only to the recipient above and is excluded from delivery analytics.',
             infoDisplay:'flex',
@@ -5455,7 +5685,7 @@ class Component extends DCLogic {
               this.fradio('Escalation path','ruPath','Coordinator → Academic head',['Coordinator → Academic head','Academic head only','HR → Academic head','No escalation'])]}],
 
             [{t:'Channels & content', fields:[
-              this.fchips('Channels','ruChannels',['Email','In-app'],['Email','SMS','WhatsApp','In-app']),
+              this.fchips('Channels','ruChannels',['Email','Crux Chat'],['Email','SMS','WhatsApp','Crux Chat']),
               this.f('Priority','ruPriority','Normal','select',['Low','Normal','High','Critical']),
               this.fradio('Include deep link','ruLink','Yes — link to the session',['Yes — link to the session','Yes — link to the faculty profile','No link']),
               this.f('Message template','ruMsg','Hi {{teacher_name}}, your class "{{class_title}}" for {{batch_name}} starts in {{offset}}. Join: {{join_link}}','textarea',null,{span:'span 3'}),
@@ -5469,7 +5699,7 @@ class Component extends DCLogic {
               this.f('End date (optional)','ruEnd','','date')]},
              {t:'Review', fields:[
               this.fkv('', [['Rule', s.ruName||ctx.rule||'Untitled rule'],['Trigger', (s.ruEvent||'Before a live session starts')+' · '+(s.ruThreshold||'30 minutes')],
-                ['Audience', (s.ruAudience||['Teacher']).join(', ')],['Channels', (s.ruChannels||['Email','In-app']).join(', ')],
+                ['Audience', (s.ruAudience||['Teacher']).join(', ')],['Channels', (s.ruChannels||['Email','Crux Chat']).join(', ')],
                 ['Priority', s.ruPriority||'Normal'],['Quiet hours', s.ruQuiet||'Yes'],['Escalation', s.ruEsc||'After 2 misses']]),
               this.fchecks('Pre-activation checks',[['Trigger configured',1],['Audience selected',1],['Message template set',1],['Test alert sent',0]])]}]
           ][step];
@@ -5486,11 +5716,11 @@ class Component extends DCLogic {
             primary: ()=>{
               if (step===0 && !(s.ruName||ctx.rule||'').trim()) return this.setState({fmErr:'Give the rule a name.'});
               if (step===1 && !(s.ruAudience||['Teacher']).length) return this.setState({fmErr:'Select at least one audience.'});
-              if (step===2 && !(s.ruChannels||['Email','In-app']).length) return this.setState({fmErr:'Select at least one channel.'});
+              if (step===2 && !(s.ruChannels||['Email','Crux Chat']).length) return this.setState({fmErr:'Select at least one channel.'});
               if (step<3) return this.setState({fmStep:step+1, fmErr:null});
               close();
               this.fire((editing?'Rule saved — ':'Rule created — ')+(s.ruName||ctx.rule),
-                (s.ruEvent||'Before a live session starts')+' → '+((s.ruAudience||['Teacher']).join(', '))+' via '+((s.ruChannels||['Email','In-app']).join(', '))); }});
+                (s.ruEvent||'Before a live session starts')+' → '+((s.ruAudience||['Teacher']).join(', '))+' via '+((s.ruChannels||['Email','Crux Chat']).join(', '))); }});
         }
 
         if (kind==='reminder') {
@@ -5509,7 +5739,7 @@ class Component extends DCLogic {
                 this.f('Subject','rmSubject','Reminder: upload your session recording','text',null,{span:'span 3'}),
                 this.f('Message','rmMsg','Hi {{teacher_name}}, the recording for {{class_name}} ({{batch_name}}) has not been uploaded yet. Please upload it within 24 hours so students can revise. {{action_link}}','textarea',null,{span:'span 3'})]},
               {t:'Delivery', fields:[
-                this.fchips('Channels','rmCh',['In-app','Email'],['In-app','Email','WhatsApp','SMS','Push']),
+                this.fchips('Channels','rmCh',['Crux Chat','Email'],['Crux Chat','Email','WhatsApp','SMS','Push']),
                 this.fradio('When','rmWhen','Send now',['Send now','Schedule send']),
                 this.f('Scheduled time','rmSchedTime','2026-08-12','date'),
                 this.fradio('Require acknowledgement','rmAck','Yes',['Yes','No']),
@@ -5519,11 +5749,11 @@ class Component extends DCLogic {
             infoDisplay:'flex',
             primaryLabel: (s.rmWhen==='Schedule send') ? 'Schedule Reminder' : 'Send Reminder',
             primary: ()=>{
-              if (!(s.rmCh||['In-app','Email']).length) return this.setState({fmErr:'Select at least one channel.'});
+              if (!(s.rmCh||['Crux Chat','Email']).length) return this.setState({fmErr:'Select at least one channel.'});
               if (!(s.rmSubject||'').trim()) return this.setState({fmErr:'Enter a subject.'});
               close();
               this.fire('Reminder '+((s.rmWhen==='Schedule send')?'scheduled':'sent')+' — '+(s.rmType||'Upcoming class'),
-                (s.rmTo==='A specific teacher' ? (s.rmWho||'Dr. Vikram Verma') : (s.rmTo||'A specific teacher'))+' · '+((s.rmCh||['In-app','Email']).join(', '))); }});
+                (s.rmTo==='A specific teacher' ? (s.rmWho||'Dr. Vikram Verma') : (s.rmTo||'A specific teacher'))+' · '+((s.rmCh||['Crux Chat','Email']).join(', '))); }});
         }
 
         if (kind==='report') {
@@ -5813,7 +6043,7 @@ class Component extends DCLogic {
       alCoord: s.alCoord, setAlCoord:(e)=>this.setState({alCoord:e.target.value}),
       alTeacherOpts: TEACHERS.filter(t=>t[12]==='Active').map(t=>({o:t[0]})),
       alCoordOpts: ['R. Kumar','S. Patel','A. Nair','P. Bose'].map(o=>({o})),
-      alNotifyChips: ['Email','SMS','WhatsApp','In-app'].map(ch=>{
+      alNotifyChips: ['Email','SMS','WhatsApp','Crux Chat'].map(ch=>{
         const on = (s.alNotify||[]).includes(ch);
         return {ch, bd: on?'#0E9384':'#E5E3DC', bg: on?'#EEF6F5':'#fff', fg: on?'#0B7A6E':'#475467', fw: on?'700':'600',
           pick:()=>this.setState(x=>({alNotify: (x.alNotify||[]).includes(ch) ? x.alNotify.filter(v=>v!==ch) : [...(x.alNotify||[]), ch]}))};
@@ -6130,7 +6360,7 @@ class Component extends DCLogic {
       ],
       remHealth: [
         ['Delivery service','Operational','green'],['WhatsApp','Operational','green'],['Email','Operational','green'],
-        ['SMS','Degraded','amber'],['In-app','Operational','green'],['Failed notifications','7','red'],
+        ['SMS','Degraded','amber'],['Crux Chat','Operational','green'],['Failed notifications','7','red'],
         ['Rules with errors','1','red'],['Templates needing review','2','amber']
       ].map(([k,v,c])=>({k,v, bg:BDG[c][0], fg:BDG[c][1]})),
 
@@ -6147,22 +6377,22 @@ class Component extends DCLogic {
       }),
 
       remRules: [
-        {name:'Class starting in 30 minutes',cat:'Live Class',kind:'Reminder',pri:'Informational',trigger:'30 min before every live session',audience:'Assigned teacher + coordinator',ch:['In-app','WhatsApp'],on:true,sent:'86 sent/day',rate:'97.7% delivered',esc:'No escalation'},
-        {name:'Session not started 5 minutes after slot',cat:'Live Class',kind:'Alert',pri:'High',trigger:'5 min after scheduled start with no join',audience:'Teacher → coordinator → ops escalation',ch:['SMS','WhatsApp','In-app'],on:true,sent:'4 sent/day',rate:'100% delivered',esc:'L2 after 10 min · L3 after 15 min'},
-        {name:'Teacher has not joined for 15 minutes',cat:'Live Class',kind:'Alert',pri:'Critical',trigger:'15 min after scheduled start with no join',audience:'Coordinator + academic head',ch:['SMS','WhatsApp','In-app'],on:true,sent:'1 sent/week',rate:'100% delivered',esc:'Immediate — bypasses quiet hours'},
-        {name:'Recording not uploaded within 24 h',cat:'Live Class',kind:'Reminder',pri:'Medium',trigger:'24 h after a completed live session',audience:'Assigned teacher',ch:['Email','In-app'],on:true,sent:'6 sent/day',rate:'98.4% delivered',esc:'Coordinator after 12 h · head after 24 h'},
-        {name:'Rating dropped below 4.0',cat:'Teacher Performance',kind:'Alert',pri:'High',trigger:'Rolling 12-session average under 4.0',audience:'Teacher, coordinator, academic head',ch:['Email','In-app'],on:true,sent:'1 sent/week',rate:'100% delivered',esc:'Academic head immediately'},
-        {name:'Attendance below 60% in a batch',cat:'Teacher Performance',kind:'Alert',pri:'Medium',trigger:'Weekly batch attendance check',audience:'Teacher + coordinator',ch:['In-app'],on:false,sent:'paused',rate:'—',esc:'No escalation'},
+        {name:'Class starting in 30 minutes',cat:'Live Class',kind:'Reminder',pri:'Informational',trigger:'30 min before every live session',audience:'Assigned teacher + coordinator',ch:['Crux Chat','WhatsApp'],on:true,sent:'86 sent/day',rate:'97.7% delivered',esc:'No escalation'},
+        {name:'Session not started 5 minutes after slot',cat:'Live Class',kind:'Alert',pri:'High',trigger:'5 min after scheduled start with no join',audience:'Teacher → coordinator → ops escalation',ch:['SMS','WhatsApp','Crux Chat'],on:true,sent:'4 sent/day',rate:'100% delivered',esc:'L2 after 10 min · L3 after 15 min'},
+        {name:'Teacher has not joined for 15 minutes',cat:'Live Class',kind:'Alert',pri:'Critical',trigger:'15 min after scheduled start with no join',audience:'Coordinator + academic head',ch:['SMS','WhatsApp','Crux Chat'],on:true,sent:'1 sent/week',rate:'100% delivered',esc:'Immediate — bypasses quiet hours'},
+        {name:'Recording not uploaded within 24 h',cat:'Live Class',kind:'Reminder',pri:'Medium',trigger:'24 h after a completed live session',audience:'Assigned teacher',ch:['Email','Crux Chat'],on:true,sent:'6 sent/day',rate:'98.4% delivered',esc:'Coordinator after 12 h · head after 24 h'},
+        {name:'Rating dropped below 4.0',cat:'Teacher Performance',kind:'Alert',pri:'High',trigger:'Rolling 12-session average under 4.0',audience:'Teacher, coordinator, academic head',ch:['Email','Crux Chat'],on:true,sent:'1 sent/week',rate:'100% delivered',esc:'Academic head immediately'},
+        {name:'Attendance below 60% in a batch',cat:'Teacher Performance',kind:'Alert',pri:'Medium',trigger:'Weekly batch attendance check',audience:'Teacher + coordinator',ch:['Crux Chat'],on:false,sent:'paused',rate:'—',esc:'No escalation'},
         {name:'Document expiring in 30 days',cat:'Documents',kind:'Reminder',pri:'Low',trigger:'30 days before document validity ends',audience:'Teacher + HR',ch:['Email','WhatsApp'],on:true,sent:'2 sent/week',rate:'96.2% delivered',esc:'HR after expiry'},
-        {name:'Document expired',cat:'Documents',kind:'Alert',pri:'Critical',trigger:'On the day validity ends',audience:'Teacher + HR + compliance',ch:['Email','SMS','In-app'],on:true,sent:'1 sent/week',rate:'100% delivered',esc:'Compliance immediately'},
+        {name:'Document expired',cat:'Documents',kind:'Alert',pri:'Critical',trigger:'On the day validity ends',audience:'Teacher + HR + compliance',ch:['Email','SMS','Crux Chat'],on:true,sent:'1 sent/week',rate:'100% delivered',esc:'Compliance immediately'},
         {name:'Onboarding incomplete after 7 days',cat:'Onboarding',kind:'Reminder',pri:'Medium',trigger:'7 days after application with pending parts',audience:'Candidate + recruiter',ch:['Email','WhatsApp'],on:true,sent:'3 sent/week',rate:'94.8% delivered',esc:'Recruiter after 14 days'},
-        {name:'Schedule conflict detected',cat:'Scheduling',kind:'Alert',pri:'Critical',trigger:'Two classes overlap for one teacher or batch',audience:'Coordinator + ops',ch:['In-app','Email'],on:true,sent:'2 sent/week',rate:'100% delivered',esc:'Ops after 2 h'},
-        {name:'Substitute required',cat:'Scheduling',kind:'Alert',pri:'High',trigger:'Leave approved on a published class',audience:'Coordinator + candidate substitutes',ch:['WhatsApp','In-app'],on:true,sent:'1 sent/day',rate:'99.1% delivered',esc:'Academic head after 4 h'},
+        {name:'Schedule conflict detected',cat:'Scheduling',kind:'Alert',pri:'Critical',trigger:'Two classes overlap for one teacher or batch',audience:'Coordinator + ops',ch:['Crux Chat','Email'],on:true,sent:'2 sent/week',rate:'100% delivered',esc:'Ops after 2 h'},
+        {name:'Substitute required',cat:'Scheduling',kind:'Alert',pri:'High',trigger:'Leave approved on a published class',audience:'Coordinator + candidate substitutes',ch:['WhatsApp','Crux Chat'],on:true,sent:'1 sent/day',rate:'99.1% delivered',esc:'Academic head after 4 h'},
         {name:'Payout statement published',cat:'Payroll',kind:'Reminder',pri:'Informational',trigger:'On payout cycle approval',audience:'Teacher',ch:['Email','WhatsApp'],on:true,sent:'96 per cycle',rate:'95.8% delivered',esc:'No escalation'},
-        {name:'Payment failed',cat:'Payroll',kind:'Alert',pri:'High',trigger:'Bank or gateway rejects a disbursement',audience:'Finance + teacher',ch:['Email','In-app'],on:true,sent:'2 per cycle',rate:'100% delivered',esc:'Finance lead after 24 h'},
+        {name:'Payment failed',cat:'Payroll',kind:'Alert',pri:'High',trigger:'Bank or gateway rejects a disbursement',audience:'Finance + teacher',ch:['Email','Crux Chat'],on:true,sent:'2 per cycle',rate:'100% delivered',esc:'Finance lead after 24 h'},
         {name:'Contract renewal due in 60 days',cat:'Compliance',kind:'Reminder',pri:'Low',trigger:'60 days before contract end date',audience:'Teacher + HR + finance',ch:['Email'],on:true,sent:'3 sent/month',rate:'97.4% delivered',esc:'HR after 30 days'},
-        {name:'Mandatory training pending',cat:'Compliance',kind:'Reminder',pri:'Medium',trigger:'14 days before training due date',audience:'Teacher + HR',ch:['Email','In-app'],on:true,sent:'4 sent/month',rate:'98.0% delivered',esc:'HR on due date'},
-        {name:'Notification delivery failure',cat:'System',kind:'Alert',pri:'High',trigger:'Provider returns failed or undelivered',audience:'Ops team',ch:['In-app','Email'],on:true,sent:'7 sent/day',rate:'100% delivered',esc:'Ops lead after 1 h'}
+        {name:'Mandatory training pending',cat:'Compliance',kind:'Reminder',pri:'Medium',trigger:'14 days before training due date',audience:'Teacher + HR',ch:['Email','Crux Chat'],on:true,sent:'4 sent/month',rate:'98.0% delivered',esc:'HR on due date'},
+        {name:'Notification delivery failure',cat:'System',kind:'Alert',pri:'High',trigger:'Provider returns failed or undelivered',audience:'Ops team',ch:['Crux Chat','Email'],on:true,sent:'7 sent/day',rate:'100% delivered',esc:'Ops lead after 1 h'}
       ].filter(r =>
         (!(s.remCat) || r.cat===s.remCat) &&
         ((s.rmState||'All')==='All' || (s.rmState==='ACTIVE' ? r.on : !r.on)) &&
@@ -6184,13 +6414,13 @@ class Component extends DCLogic {
         archive: this.guard('Archive Rule',[['Rule',r.name],['Category',r.cat],['Effect','Stops firing · stays in history'],['Reversible','Yes — restore from archive']])})),
 
       remTemplates: [
-        ['Class Reminder','TPL-1001','Live Class',['WhatsApp','In-app'],'3 rules','Active','Today','green'],
-        ['Session Not Started','TPL-1004','Live Class',['SMS','WhatsApp','In-app'],'2 rules','Active','Today','green'],
-        ['Recording Missing','TPL-1008','Live Class',['Email','In-app'],'2 rules','Active','Yesterday','green'],
+        ['Class Reminder','TPL-1001','Live Class',['WhatsApp','Crux Chat'],'3 rules','Active','Today','green'],
+        ['Session Not Started','TPL-1004','Live Class',['SMS','WhatsApp','Crux Chat'],'2 rules','Active','Today','green'],
+        ['Recording Missing','TPL-1008','Live Class',['Email','Crux Chat'],'2 rules','Active','Yesterday','green'],
         ['Document Expiry','TPL-1012','Compliance',['Email','WhatsApp'],'4 rules','Active','2 days ago','green'],
-        ['Rating Alert','TPL-1016','Performance',['Email','In-app'],'2 rules','Needs review','6 days ago','amber'],
+        ['Rating Alert','TPL-1016','Performance',['Email','Crux Chat'],'2 rules','Needs review','6 days ago','amber'],
         ['Payout Published','TPL-1020','Payroll',['Email','WhatsApp'],'1 rule','Active','Last week','green'],
-        ['Substitute Request','TPL-1024','Scheduling',['WhatsApp','In-app'],'2 rules','Active','Last week','green'],
+        ['Substitute Request','TPL-1024','Scheduling',['WhatsApp','Crux Chat'],'2 rules','Active','Last week','green'],
         ['Onboarding Nudge','TPL-1028','Onboarding',['Email'],'1 rule','Needs review','2 weeks ago','amber']
       ].map(([name,id,cat,ch,used,state,updated,c])=>({name,id,cat,used,state,updated,
         chips:ch.map(x=>({x})), sBg:BDG[c][0], sFg:BDG[c][1],
@@ -6216,15 +6446,15 @@ class Component extends DCLogic {
         ['WhatsApp','1,250','1,218','32','97.4%','green'],
         ['Email','890','871','19','97.9%','green'],
         ['SMS','450','421','29','93.6%','amber'],
-        ['In-app','1,620','1,620','0','100%','green'],
+        ['Crux Chat','1,620','1,620','0','100%','green'],
         ['Push','108','96','12','88.9%','red']
       ].map(([ch,sent,del,fail,rate,c])=>({ch,sent,del,fail,rate,
         rateFg: c==='green' ? '#15803D' : c==='amber' ? '#B45309' : '#B42318'})),
 
       remSettings: [
-        {t:'General', rows:[['Automated alerts','Enabled'],['Default priority','Medium'],['Default channel','In-app + Email'],['Default timezone','Asia/Kolkata'],['Retry attempts','3']]},
-        {t:'Quiet hours', rows:[['Window','22:00 – 07:00 IST'],['During quiet hours','Delay until the window ends'],['Exceptions','Critical alerts sent immediately'],['In-app during quiet hours','Allowed']]},
-        {t:'Delivery & fallback', rows:[['Retry failed notifications','Yes · every 15 min'],['Maximum retries','3'],['Primary channel','WhatsApp'],['Fallback channel','SMS'],['Final escalation','In-app + coordinator']]},
+        {t:'General', rows:[['Automated alerts','Enabled'],['Default priority','Medium'],['Default channel','Crux Chat + Email'],['Default timezone','Asia/Kolkata'],['Retry attempts','3']]},
+        {t:'Quiet hours', rows:[['Window','22:00 – 07:00 IST'],['During quiet hours','Delay until the window ends'],['Exceptions','Critical alerts sent immediately'],['Crux Chat during quiet hours','Allowed']]},
+        {t:'Delivery & fallback', rows:[['Retry failed notifications','Yes · every 15 min'],['Maximum retries','3'],['Primary channel','WhatsApp'],['Fallback channel','SMS'],['Final escalation','Crux Chat + coordinator']]},
         {t:'Duplicate protection', rows:[['Duplicate suppression','Enabled'],['Cooldown period','6 hours'],['Frequency cap','Max 3 per teacher per day'],['Suppression rule','Informational muted when a critical alert is open']]},
         {t:'Escalation', rows:[['Escalation','Enabled'],['Default L2 delay','2 hours'],['Default L3 delay','6 hours'],['Leave-aware routing','On — substitutes notified instead'],['Substitute-aware routing','On']]},
         {t:'Security & audit', rows:[['Admin approval for critical rules','Required'],['Audit logging','Enabled'],['Rule change history','Retained 24 months'],['Suppression window','Configurable per teacher']]}
@@ -6233,7 +6463,7 @@ class Component extends DCLogic {
 
       remLog: [
         ['12:18 PM','Class starting in 30 minutes','Dr. Vikram Verma','WhatsApp','Delivered','green','30-min trigger','Live Class','Informational','Automated'],
-        ['12:18 PM','Class starting in 30 minutes','R. Kumar (coordinator)','In-app','Read','green','30-min trigger','Live Class','Informational','Automated'],
+        ['12:18 PM','Class starting in 30 minutes','R. Kumar (coordinator)','Crux Chat','Read','green','30-min trigger','Live Class','Informational','Automated'],
         ['11:05 AM','Recording not uploaded within 24 h','Shalini Nair','Email','Delivered','green','24 h condition','Live Class','Medium','Automated'],
         ['10:41 AM','Session not started 5 min after slot','Girish Menon','SMS','Failed — invalid number','red','5-min trigger','Live Class','High','Automated'],
         ['10:12 AM','Substitute required','Ritu Bansal','WhatsApp','Read','green','Leave approved','Scheduling','High','Escalated'],
@@ -6277,27 +6507,27 @@ class Component extends DCLogic {
 
       remBar: this.bar([
         ['Rule state','rmState',['All','ACTIVE','PAUSED']],
-        ['Channel','rmChannel',['All','Email','SMS','WhatsApp','In-app']],
+        ['Channel','rmChannel',['All','Email','SMS','WhatsApp','Crux Chat']],
         ['Audience','rmAudience',['All','Teacher','Coordinator','HR','Finance']],
         ['Priority','rmPriority',['All','Critical','High','Medium','Low','Informational']]
       ], ['rmState','rmChannel','rmAudience','rmPriority'], 'Showing all alert rules'),
       remRules: [
-        {name:'Class starting in 30 minutes',cat:'Live Class',kind:'Reminder',pri:'Informational',trigger:'30 min before every live session',audience:'Assigned teacher + coordinator',ch:['In-app','WhatsApp'],on:true,sent:'86 sent/day',rate:'97.7% delivered',esc:'No escalation',state:'Active'},
-        {name:"Teacher hasn't joined 5 min after start",cat:'Live Class',kind:'Alert',pri:'High',trigger:'5 min after scheduled start with no join',audience:'Teacher → coordinator → ops',ch:['SMS','WhatsApp','In-app'],on:true,sent:'4 sent/day',rate:'92.1% delivered',esc:'L2 after 10 min · L3 after 15 min',state:'Active'},
-        {name:'Live class unavailable — 15 min no-show',cat:'Live Class',kind:'Alert',pri:'Critical',trigger:'15 min after start with no join',audience:'Academic head + ops',ch:['SMS','WhatsApp','In-app'],on:true,sent:'1 sent/week',rate:'100% delivered',esc:'Immediate — bypasses quiet hours',state:'Active'},
-        {name:'Recording not uploaded within 24 h',cat:'Live Class',kind:'Reminder',pri:'Medium',trigger:'24 h after a completed live session',audience:'Assigned teacher',ch:['Email','In-app'],on:true,sent:'6 sent/day',rate:'98.4% delivered',esc:'Coordinator after 12 h · head after 24 h',state:'Active'},
-        {name:'Class rescheduled',cat:'Scheduling',kind:'Reminder',pri:'Medium',trigger:'On schedule change',audience:'Teacher + coordinator + students',ch:['WhatsApp','In-app','Email'],on:true,sent:'11 sent/day',rate:'96.8% delivered',esc:'No escalation',state:'Active'},
-        {name:'Schedule conflict detected',cat:'Scheduling',kind:'Alert',pri:'High',trigger:'Double booking or availability clash',audience:'Coordinator + academic ops',ch:['In-app','Email'],on:true,sent:'2 sent/week',rate:'100% delivered',esc:'Ops after 2 h',state:'Active'},
-        {name:'Rating dropped below 4.0',cat:'Performance',kind:'Alert',pri:'High',trigger:'Rolling 12-session average under 4.0 (min 5 sessions)',audience:'Teacher, coordinator, academic head',ch:['Email','In-app'],on:true,sent:'1 sent/week',rate:'100% delivered',esc:'Academic head after 24 h',state:'Active'},
-        {name:'Attendance below 60% in a batch',cat:'Performance',kind:'Alert',pri:'Medium',trigger:'Weekly batch attendance check',audience:'Teacher + coordinator',ch:['In-app'],on:false,sent:'paused',rate:'—',esc:'No escalation',state:'Paused'},
+        {name:'Class starting in 30 minutes',cat:'Live Class',kind:'Reminder',pri:'Informational',trigger:'30 min before every live session',audience:'Assigned teacher + coordinator',ch:['Crux Chat','WhatsApp'],on:true,sent:'86 sent/day',rate:'97.7% delivered',esc:'No escalation',state:'Active'},
+        {name:"Teacher hasn't joined 5 min after start",cat:'Live Class',kind:'Alert',pri:'High',trigger:'5 min after scheduled start with no join',audience:'Teacher → coordinator → ops',ch:['SMS','WhatsApp','Crux Chat'],on:true,sent:'4 sent/day',rate:'92.1% delivered',esc:'L2 after 10 min · L3 after 15 min',state:'Active'},
+        {name:'Live class unavailable — 15 min no-show',cat:'Live Class',kind:'Alert',pri:'Critical',trigger:'15 min after start with no join',audience:'Academic head + ops',ch:['SMS','WhatsApp','Crux Chat'],on:true,sent:'1 sent/week',rate:'100% delivered',esc:'Immediate — bypasses quiet hours',state:'Active'},
+        {name:'Recording not uploaded within 24 h',cat:'Live Class',kind:'Reminder',pri:'Medium',trigger:'24 h after a completed live session',audience:'Assigned teacher',ch:['Email','Crux Chat'],on:true,sent:'6 sent/day',rate:'98.4% delivered',esc:'Coordinator after 12 h · head after 24 h',state:'Active'},
+        {name:'Class rescheduled',cat:'Scheduling',kind:'Reminder',pri:'Medium',trigger:'On schedule change',audience:'Teacher + coordinator + students',ch:['WhatsApp','Crux Chat','Email'],on:true,sent:'11 sent/day',rate:'96.8% delivered',esc:'No escalation',state:'Active'},
+        {name:'Schedule conflict detected',cat:'Scheduling',kind:'Alert',pri:'High',trigger:'Double booking or availability clash',audience:'Coordinator + academic ops',ch:['Crux Chat','Email'],on:true,sent:'2 sent/week',rate:'100% delivered',esc:'Ops after 2 h',state:'Active'},
+        {name:'Rating dropped below 4.0',cat:'Performance',kind:'Alert',pri:'High',trigger:'Rolling 12-session average under 4.0 (min 5 sessions)',audience:'Teacher, coordinator, academic head',ch:['Email','Crux Chat'],on:true,sent:'1 sent/week',rate:'100% delivered',esc:'Academic head after 24 h',state:'Active'},
+        {name:'Attendance below 60% in a batch',cat:'Performance',kind:'Alert',pri:'Medium',trigger:'Weekly batch attendance check',audience:'Teacher + coordinator',ch:['Crux Chat'],on:false,sent:'paused',rate:'—',esc:'No escalation',state:'Paused'},
         {name:'Document expiring in 30 days',cat:'Documents',kind:'Reminder',pri:'Low',trigger:'30 days before document validity ends',audience:'Teacher + HR',ch:['Email','WhatsApp'],on:true,sent:'2 sent/week',rate:'100% delivered',esc:'HR after 7 days',state:'Active'},
-        {name:'Document expired',cat:'Documents',kind:'Alert',pri:'Critical',trigger:'On document validity end date',audience:'Teacher + HR + compliance',ch:['Email','WhatsApp','In-app'],on:true,sent:'1 sent/month',rate:'100% delivered',esc:'Compliance immediately',state:'Active'},
+        {name:'Document expired',cat:'Documents',kind:'Alert',pri:'Critical',trigger:'On document validity end date',audience:'Teacher + HR + compliance',ch:['Email','WhatsApp','Crux Chat'],on:true,sent:'1 sent/month',rate:'100% delivered',esc:'Compliance immediately',state:'Active'},
         {name:'Payout statement published',cat:'Payroll',kind:'Reminder',pri:'Informational',trigger:'On payout cycle approval',audience:'Teacher',ch:['Email','WhatsApp'],on:true,sent:'96 sent/cycle',rate:'98.9% delivered',esc:'No escalation',state:'Active'},
-        {name:'Payment failed',cat:'Payroll',kind:'Alert',pri:'Critical',trigger:'Bank transfer returns a failure',audience:'Teacher + Finance',ch:['SMS','Email','In-app'],on:true,sent:'2 sent/cycle',rate:'96.2% delivered',esc:'Finance immediately',state:'Active'},
+        {name:'Payment failed',cat:'Payroll',kind:'Alert',pri:'Critical',trigger:'Bank transfer returns a failure',audience:'Teacher + Finance',ch:['SMS','Email','Crux Chat'],on:true,sent:'2 sent/cycle',rate:'96.2% delivered',esc:'Finance immediately',state:'Active'},
         {name:'Contract renewal due in 60 days',cat:'Compliance',kind:'Reminder',pri:'Low',trigger:'60 days before contract end date',audience:'Teacher + HR + Finance',ch:['Email'],on:true,sent:'3 sent/month',rate:'100% delivered',esc:'HR after 30 days',state:'Active'},
         {name:'Onboarding incomplete after 7 days',cat:'Onboarding',kind:'Alert',pri:'Medium',trigger:'7 days in the same onboarding stage',audience:'Candidate + recruiter',ch:['Email','WhatsApp'],on:true,sent:'4 sent/week',rate:'94.4% delivered',esc:'HR head after 14 days',state:'Active'},
-        {name:'Notification delivery failure',cat:'System',kind:'Alert',pri:'High',trigger:'Provider returns failed or undelivered',audience:'Ops team',ch:['In-app','Email'],on:true,sent:'7 sent/day',rate:'—',esc:'Ops immediately',state:'Error'},
-        {name:'Meeting link unavailable',cat:'System',kind:'Alert',pri:'Critical',trigger:'Join link fails health check 10 min before class',audience:'Teacher + coordinator + ops',ch:['SMS','WhatsApp','In-app'],on:true,sent:'1 sent/week',rate:'100% delivered',esc:'Ops immediately',state:'Active'}
+        {name:'Notification delivery failure',cat:'System',kind:'Alert',pri:'High',trigger:'Provider returns failed or undelivered',audience:'Ops team',ch:['Crux Chat','Email'],on:true,sent:'7 sent/day',rate:'—',esc:'Ops immediately',state:'Error'},
+        {name:'Meeting link unavailable',cat:'System',kind:'Alert',pri:'Critical',trigger:'Join link fails health check 10 min before class',audience:'Teacher + coordinator + ops',ch:['SMS','WhatsApp','Crux Chat'],on:true,sent:'1 sent/week',rate:'100% delivered',esc:'Ops immediately',state:'Active'}
       ].filter(r => ((s.remCat||'All')==='All' || r.cat===s.remCat)) .filter(r =>
         ((s.rmState||'All')==='All' || (s.rmState==='ACTIVE' ? r.on : !r.on)) &&
         ((s.rmChannel||'All')==='All' || r.ch.some(c=>c.includes(s.rmChannel))) &&
@@ -6318,15 +6548,15 @@ class Component extends DCLogic {
         edit: ()=>this.setState({fm:'rule', fmStep:0, fmErr:null, fmCtx:{rule:r.name, trigger:r.trigger, audience:r.audience, ch:r.ch}}),
         test: ()=>this.setState({fm:'test', fmStep:0, fmErr:null, fmCtx:{rule:r.name, trigger:r.trigger, audience:r.audience, ch:r.ch}})})),
       remTemplates: [
-        ['TPL-01','Class Reminder','Live Class',['WhatsApp','In-app'],'3 rules','Active','Today','green'],
-        ['TPL-02','Recording Missing','Live Class',['Email','In-app'],'2 rules','Active','Yesterday','green'],
+        ['TPL-01','Class Reminder','Live Class',['WhatsApp','Crux Chat'],'3 rules','Active','Today','green'],
+        ['TPL-02','Recording Missing','Live Class',['Email','Crux Chat'],'2 rules','Active','Yesterday','green'],
         ['TPL-03','Document Expiry','Compliance',['Email','WhatsApp'],'4 rules','Active','2 days ago','green'],
-        ['TPL-04','Teacher No-Show Escalation','Live Class',['SMS','WhatsApp','In-app'],'2 rules','Active','3 days ago','green'],
+        ['TPL-04','Teacher No-Show Escalation','Live Class',['SMS','WhatsApp','Crux Chat'],'2 rules','Active','3 days ago','green'],
         ['TPL-05','Payout Published','Payroll',['Email','WhatsApp'],'1 rule','Active','1 week ago','green'],
         ['TPL-06','Payment Failed','Payroll',['SMS','Email'],'1 rule','Needs review','2 weeks ago','amber'],
-        ['TPL-07','Rating Below Threshold','Performance',['Email','In-app'],'2 rules','Active','1 week ago','green'],
+        ['TPL-07','Rating Below Threshold','Performance',['Email','Crux Chat'],'2 rules','Active','1 week ago','green'],
         ['TPL-08','Onboarding Nudge','Onboarding',['Email','WhatsApp'],'3 rules','Needs review','1 month ago','amber'],
-        ['TPL-09','Schedule Conflict','Scheduling',['In-app','Email'],'1 rule','Draft','Today','grey']
+        ['TPL-09','Schedule Conflict','Scheduling',['Crux Chat','Email'],'1 rule','Draft','Today','grey']
       ].map(([id,name,cat,ch,used,state,updated,c])=>({id,name,cat,used,updated,state,
         chips:ch.map(x=>({x})), sBg:BDG[c][0], sFg:BDG[c][1],
         edit: this.act('Template editor — '+name,'Subject, body and variables per channel'),
@@ -6343,8 +6573,8 @@ class Component extends DCLogic {
       ].map(([k,v],i)=>({k,v,bg: i%2 ? '#FAF9F4' : '#fff'})),
       remLog: [
         ['12:18 PM','Class starting in 30 minutes','Dr. Vikram Verma','Live Class','30-min trigger','WhatsApp','Delivered','green','Automated','Informational'],
-        ['12:18 PM','Class starting in 30 minutes','R. Kumar (coordinator)','Live Class','30-min trigger','In-app','Read','green','Automated','Informational'],
-        ['11:52 AM','Recording not uploaded within 24 h','Dr. Vikram Verma','Live Class','24 h condition','In-app','Acknowledged','green','Automated','Medium'],
+        ['12:18 PM','Class starting in 30 minutes','R. Kumar (coordinator)','Live Class','30-min trigger','Crux Chat','Read','green','Automated','Informational'],
+        ['11:52 AM','Recording not uploaded within 24 h','Dr. Vikram Verma','Live Class','24 h condition','Crux Chat','Acknowledged','green','Automated','Medium'],
         ['11:05 AM','Recording not uploaded within 24 h','Shalini Nair','Live Class','24 h condition','Email','Opened','green','Automated','Medium'],
         ['10:41 AM',"Teacher hasn't joined 5 min after start",'Girish Menon','Live Class','5-min trigger','SMS','Failed — invalid number','red','Automated','High'],
         ['10:46 AM',"Teacher hasn't joined — L2 escalation",'S. Patel (coordinator)','Live Class','Escalation L2','WhatsApp','Delivered','green','Escalated','High'],
@@ -6365,7 +6595,7 @@ class Component extends DCLogic {
       remBar2: this.bar([
         ['Date','rhDate',['All','Today','Yesterday','Last 7 days','Last 30 days','Custom range']],
         ['Category','rhCat',['All','Live Class','Scheduling','Performance','Documents','Payroll','Compliance','Onboarding','System','Manual']],
-        ['Channel','rhCh',['All','Email','WhatsApp','SMS','In-app','Push']],
+        ['Channel','rhCh',['All','Email','WhatsApp','SMS','Crux Chat','Push']],
         ['Delivery status','rhState',['All','Queued','Sent','Delivered','Read','Opened','Failed','Undelivered','Acknowledged']],
         ['Source','rhSrc',['All','Automated','Manual','Scheduled','Escalated']],
         ['Priority','rhPri',['All','Informational','Low','Medium','High','Critical']],
@@ -6396,7 +6626,7 @@ class Component extends DCLogic {
         ['WhatsApp','1,250','1,218','32','97.4%','#0E9384'],
         ['Email','890','871','19','97.9%','#0E9384'],
         ['SMS','450','421','29','93.6%','#F0A72A'],
-        ['In-app','1,620','1,620','0','100%','#0E9384'],
+        ['Crux Chat','1,620','1,620','0','100%','#0E9384'],
         ['Push','620','604','16','97.4%','#0E9384']
       ].map(([ch,sent,del,fail,rate,color])=>({ch,sent,del,fail,rate,color,
         rateFg: parseFloat(rate)>=97 ? '#15803D' : parseFloat(rate)>=95 ? '#B45309' : '#B42318'})),
@@ -6411,9 +6641,9 @@ class Component extends DCLogic {
         {label:'Escalation rate',v:'2.1%',note:'alerts that escalated',fg:'#B45309'}
       ],
       remSettings: [
-        {t:'General', rows:[['Automated alerts','Enabled'],['Default priority','Medium'],['Default channel','In-app + Email'],['Default timezone','Asia/Kolkata (IST)'],['Default retry attempts','3']]},
-        {t:'Quiet hours', rows:[['Quiet hours','22:00 – 07:00'],['During quiet hours','Delay until quiet hours end'],['Exceptions','High and Critical alerts send immediately'],['In-app during quiet hours','Allowed']]},
-        {t:'Delivery & fallback', rows:[['Retry failed notifications','Enabled'],['Maximum retries','3'],['Retry interval','5 minutes'],['Primary channel','WhatsApp'],['Fallback channel','SMS'],['Final escalation','In-app + coordinator']]},
+        {t:'General', rows:[['Automated alerts','Enabled'],['Default priority','Medium'],['Default channel','Crux Chat + Email'],['Default timezone','Asia/Kolkata (IST)'],['Default retry attempts','3']]},
+        {t:'Quiet hours', rows:[['Quiet hours','22:00 – 07:00'],['During quiet hours','Delay until quiet hours end'],['Exceptions','High and Critical alerts send immediately'],['Crux Chat during quiet hours','Allowed']]},
+        {t:'Delivery & fallback', rows:[['Retry failed notifications','Enabled'],['Maximum retries','3'],['Retry interval','5 minutes'],['Primary channel','WhatsApp'],['Fallback channel','SMS'],['Final escalation','Crux Chat + coordinator']]},
         {t:'Duplicate protection', rows:[['Duplicate suppression','Enabled'],['Cooldown period','6 hours'],['Frequency cap','Max 3 per teacher per rule per day'],['Priority suppression','Informational alerts suppressed when a Critical alert is open for the same teacher']]},
         {t:'Escalation', rows:[['Escalation','Enabled'],['Default escalation delay','2 hours'],['Escalation path','Teacher → coordinator → academic head'],['Leave-aware routing','On — reminders reroute to the substitute'],['Substitute-aware routing','On — future class alerts follow the substitute']]},
         {t:'Security & audit', rows:[['Admin approval for Critical rules','Required'],['Audit logging','Enabled — immutable'],['Rule change history','Retained indefinitely'],['Suppression windows','Admins may suppress per teacher with a reason']]}
