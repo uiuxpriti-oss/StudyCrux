@@ -3131,6 +3131,105 @@
 
       <sc-if value="{{ isPerformance }}" hint-placeholder-val="{{ false }}">
         <div>
+      <div style="display:{{ tPerfSegDisplay }};gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;margin-bottom:16px;width:fit-content">
+        <sc-for list="{{ tPerfSegs }}" as="sg" hint-placeholder-count="2">
+          <button onClick="{{ sg.pick }}" style="height:34px;padding:0 18px;border:0;border-radius:8px;font-size:13px;cursor:pointer;background:{{ sg.bg }};color:{{ sg.fg }};font-weight:{{ sg.weight }};white-space:nowrap">{{ sg.label }}</button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ isTPerfReports }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px;flex-wrap:wrap">
+              <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter reports</span>
+              <span style="display:{{ tRpBar.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ tRpBar.count }}</span>
+              <span style="flex:1"></span>
+              <button onClick="{{ tRpBar.reset }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+              <button onClick="{{ tRpExportAll }}" style="display:flex;align-items:center;gap:7px;height:32px;padding:0 14px;border-radius:8px;border:0;background:#0E9384;font-size:12px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 11l4 4 4-4M4 21h16" /></svg>Export
+              </button>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+              <sc-for list="{{ tRpBar.selects }}" as="p" hint-placeholder-count="5">
+                <div style="min-width:0">
+                  <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ p.label }}</label>
+                  <select value="{{ p.value }}" onChange="{{ p.set }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+                    <sc-for list="{{ p.opts }}" as="o" hint-placeholder-count="5">
+                      <option>{{ o.o }}</option>
+                    </sc-for>
+                  </select>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:14px;margin-bottom:16px">
+            <sc-for list="{{ tRpCards }}" as="r" hint-placeholder-count="9">
+              <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px;display:flex;flex-direction:column">
+                <div style="display:flex;align-items:flex-start;gap:12px">
+                  <div style="width:36px;height:36px;flex:none;border-radius:10px;background:{{ r.ibg }};display:grid;place-items:center;color:{{ r.ifg }}">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6v3H9zM7 5H5v15h14V5h-2M9 12h6M9 16h4" /></svg>
+                  </div>
+                  <div style="min-width:0;flex:1">
+                    <div style="font-size:14px;font-weight:700;color:#0F2A47;letter-spacing:-.01em;text-wrap:pretty">{{ r.title }}</div>
+                    <div style="font-size:12px;color:#6B7C93;margin-top:5px;line-height:1.55;text-wrap:pretty">{{ r.desc }}</div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:13px">
+                  <sc-for list="{{ r.chips }}" as="c" hint-placeholder-count="3">
+                    <span style="font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:#F6F5F0;color:#6B7C93">{{ c.c }}</span>
+                  </sc-for>
+                </div>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:15px">
+                  <span style="font-size:11.5px;color:#98A2B3;flex:1">{{ r.meta }}</span>
+                  <button onClick="{{ r.run }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12px;font-weight:700;color:#0B7A6E;cursor:pointer;white-space:nowrap" style-hover="background:#E2F1EE">Generate</button>
+                  <button onClick="{{ r.export }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Export</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+            <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+              <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Recent exports</div>
+              <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Reports generated in the last 30 days · files remain available for 90 days</div>
+            </div>
+            <div style="overflow-x:auto">
+              <table style="width:100%;min-width:980px;border-collapse:collapse">
+                <thead>
+                  <tr style="background:#FCFBF7">
+                    <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">JOB</th>
+                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">REPORT</th>
+                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RANGE</th>
+                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">FORMAT</th>
+                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">REQUESTED BY</th>
+                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">WHEN</th>
+                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th>
+                    <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <sc-for list="{{ tRpJobs }}" as="j" hint-placeholder-count="6">
+                    <tr style-hover="background:#FCFBF7">
+                      <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#98A2B3;font-family:ui-monospace,monospace;white-space:nowrap">{{ j.id }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ j.report }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ j.range }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ j.format }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ j.by }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ j.when }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ j.sBg }};color:{{ j.sFg }};white-space:nowrap">{{ j.status }}</span></td>
+                      <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right;white-space:nowrap">
+                        <button onClick="{{ j.download }}" style="display:{{ j.dlDisplay }};align-items:center;height:29px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Download</button>
+                      </td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isTPerfList }}" hint-placeholder-val="{{ false }}">
         <div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:13px;margin-bottom:16px">
@@ -5159,7 +5258,48 @@ class Component extends DCLogic {
       isGrid: s.route==='list' && s.view==='grid', isListView: s.route==='list' && s.view==='list',
       isOnboarding: s.route==='onboarding', isAllocation: s.route==='allocation', isSchedules: s.route==='schedules',
       isReminders: s.route==='reminders', isPayouts: s.route==='payouts', isPerformance: s.route==='performance',
-      isTPerfList: s.route==='performance' && !s.perfWho, isTPerf360: s.route==='performance' && !!s.perfWho,
+      isTPerfList: s.route==='performance' && !s.perfWho && (s.perfSeg||'overview')==='overview',
+      isTPerfReports: s.route==='performance' && !s.perfWho && s.perfSeg==='reports',
+      isTPerf360: s.route==='performance' && !!s.perfWho,
+      tPerfSegDisplay: s.perfWho ? 'none' : 'flex',
+      tPerfSegs: [['Performance Overview','overview'],['Performance & Reports','reports']].map(([label,k])=>{
+        const on = (s.perfSeg||'overview')===k;
+        return {label, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'700':'500',
+          pick:()=>this.setState({perfSeg:k})};
+      }),
+      tRpBar: this.bar([
+        ['Teacher','rpfTeacher',['All',...TEACHERS.map(t=>t[0])]],
+        ['Course','rpfCourse',['All',...TCOURSES.map(c=>c[0])]],
+        ['Batch','rpfBatch',['All',...TBATCHES.map(b=>b[1])]],
+        ['Date range','rpfRange',['All','Today','Last 7 days','Last 30 days','This month','This quarter','FY 2026–27']],
+        ['Performance status','rpfStatus',['All','Excellent','Good','Needs Attention','Critical']]
+      ], ['rpfTeacher','rpfCourse','rpfBatch','rpfRange','rpfStatus'], 'Showing every performance report'),
+      tRpExportAll: ()=>this.setState({fm:'export', fmCtx:{type:'Performance Summary'}, fmStep:0, fmErr:null}),
+      tRpCards: [
+        ['Teacher-wise Performance','Overall score, teaching hours, rating and attendance for each teacher.',['Teacher','Score','Trend'],'#E6F4F1','#0B7A6E','Updated daily · 8 teachers'],
+        ['Course-wise Performance','Performance rolled up by course across every assigned teacher.',['Course','Completion','Rating'],'#F0EAFD','#6D28D9','Updated daily · 5 courses'],
+        ['Batch-wise Performance','Batch-level delivery, attendance and outcome metrics.',['Batch','Attendance','Outcome'],'#E9F1FD','#1D4ED8','Updated daily · 17 batches'],
+        ['Attendance Report','Attendance percentage, sessions attended and missed, late arrivals.',['Attendance','Sessions','Late'],'#EEF6F5','#0B7A6E','Updated hourly'],
+        ['Teaching Hours Report','Hours delivered against contracted capacity, per teacher and batch.',['Hours','Capacity','Load'],'#FEF3E2','#B45309','Updated daily'],
+        ['Student Rating Report','Ratings and review volume by teacher, course and batch.',['Rating','Reviews','Trend'],'#FDF3D6','#8A5A0B','Updated daily · 412 reviews'],
+        ['Course Completion Report','Syllabus and batch completion against plan.',['Completion','Plan','Variance'],'#E7F7EE','#15803D','Updated weekly'],
+        ['Student Engagement Report','Participation, doubt resolution and assignment submission.',['Engagement','Doubts','Assignments'],'#E6F4F1','#0B7A6E','Updated daily'],
+        ['Performance Trends','Rolling six-month movement across every performance dimension.',['Trend','6 months','Forecast'],'#F0EAFD','#6D28D9','Updated monthly']
+      ].map(([title,desc,chips,ibg,ifg,meta])=>({title,desc,meta,ibg,ifg,
+        chips:chips.map(c=>({c})),
+        run: ()=>this.setState({fm:'report', fmStep:0, fmErr:null, fmCtx:{type:'Faculty Performance Scorecard', report:title}}),
+        export: ()=>this.setState({fm:'export', fmStep:0, fmErr:null, fmCtx:{type:title}})})),
+      tRpJobs: [
+        ['JOB-88214','Teacher-wise Performance','Last 30 days','XLSX','Admin User','Today · 09:12','Ready','green'],
+        ['JOB-88209','Attendance Report','This month','XLSX','Academic Head','Today · 08:40','Ready','green'],
+        ['JOB-88201','Student Rating Report','This quarter','PDF','Admin User','Yesterday · 18:22','Ready','green'],
+        ['JOB-88196','Teaching Hours Report','Last 30 days','CSV','Finance Admin','Yesterday · 11:05','Ready','green'],
+        ['JOB-88190','Course Completion Report','FY 2026–27','XLSX','Academic Head','10 Aug · 16:48','Running','amber'],
+        ['JOB-88184','Performance Trends','Last 6 months','PDF','Admin User','09 Aug · 10:30','Failed','red']
+      ].map(([id,report,range,format,by,when,status,c])=>({id,report,range,format,by,when,status,
+        sBg:BDG[c][0], sFg:BDG[c][1],
+        dlDisplay: status==='Ready' ? 'inline-flex' : 'none',
+        download: this.act('Download started — '+report, format+' · '+range)})),
       q: s.q, setQ:(e)=>this.setState({q:e.target.value}),
       goList: ()=>this.setState({route:'list'}),
       addTeacher: ()=>this.setState({fm:'onboard', fmCtx:{}, fmStep:0, fmErr:null}),
