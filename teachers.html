@@ -488,6 +488,9 @@
                   <option>Draft</option><option>Submitted</option><option>Under Review</option><option>Changes Required</option><option>Approved</option><option>Active</option><option>Suspended</option><option>Deactivated</option>
                 </select>
                 <button onClick="{{ wizSave }}" style="height:36px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Save draft</button>
+                <button onClick="{{ wizViewDocs }}" style="display:flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6v3H9zM7 5H5v15h14V5h-2M9 12h6M9 16h4" /></svg>View Documents
+                </button>
                 <button onClick="{{ wizSchedInterview }}" style="display:flex;align-items:center;gap:8px;height:36px;padding:0 16px;border-radius:9px;border:0;background:#0B5C8A;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#084A6F">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M8 3v4M16 3v4M3 10h18M12 14v4M10 16h4" /></svg>Schedule Interview
                 </button>
@@ -535,17 +538,107 @@
                     <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
                       <div style="display:flex;align-items:center;gap:10px;padding:13px 17px;background:#FCFBF7;border-bottom:1px solid #F2F0EA">
                         <span style="width:3px;height:13px;border-radius:2px;background:#0E9384"></span>
-                        <span style="font-size:11.5px;font-weight:700;letter-spacing:.07em;color:#475467">{{ g.t }}</span>
+                        <span style="font-size:11.5px;font-weight:700;letter-spacing:.07em;color:#475467;flex:1">{{ g.t }}</span>
+                        <button onClick="{{ g.startEdit }}" style="display:{{ g.canEdit }};align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" /></svg>Edit
+                        </button>
                       </div>
 
                       <sc-if value="{{ g.isFields }}" hint-placeholder-val="{{ true }}">
-                        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 16px;padding:17px">
-                          <sc-for list="{{ g.fields }}" as="fd" hint-placeholder-count="6">
-                            <div style="min-width:0">
-                              <div style="font-size:11px;font-weight:600;color:#7A8699;margin-bottom:6px">{{ fd.label }}</div>
-                              <div style="min-height:38px;display:flex;align-items:center;padding:8px 12px;border:1px solid #EDEBE4;border-radius:9px;background:#FCFBF7;font-size:12.5px;font-weight:500;color:#0F2A47;text-wrap:pretty">{{ fd.value }}</div>
+                        <div>
+                          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 16px;padding:17px">
+                            <sc-for list="{{ g.fields }}" as="fd" hint-placeholder-count="6">
+                              <div style="min-width:0">
+                                <div style="font-size:11px;font-weight:600;color:#7A8699;margin-bottom:6px">{{ fd.label }}</div>
+                                <div style="display:{{ g.viewDisplay }};min-height:38px;align-items:center;padding:8px 12px;border:1px solid #EDEBE4;border-radius:9px;background:#FCFBF7;font-size:12.5px;font-weight:500;color:#0F2A47;text-wrap:pretty">{{ fd.value }}</div>
+                                <input value="{{ fd.value }}" onChange="{{ fd.set }}" style="display:{{ g.editDisplay }};width:100%;height:38px;padding:0 12px;border:1px solid #BFE3DC;border-radius:9px;font-size:12.5px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
+                              </div>
+                            </sc-for>
+                          </div>
+                          <div style="display:{{ g.editBarDisplay }};align-items:center;gap:10px;padding:0 17px 17px">
+                            <span style="font-size:11.5px;color:#98A2B3;flex:1">Changes are validated and written to the teacher profile on save.</span>
+                            <button onClick="{{ g.cancelEdit }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Cancel</button>
+                            <button onClick="{{ g.saveEdit }}" style="height:32px;padding:0 15px;border-radius:8px;border:0;background:#0E9384;font-size:12px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Save changes</button>
+                          </div>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ g.isSkills }}" hint-placeholder-val="{{ false }}">
+                        <div style="padding:17px">
+                          <div style="display:flex;flex-wrap:wrap;gap:8px">
+                            <sc-for list="{{ g.skills }}" as="sk" hint-placeholder-count="6">
+                              <span style="display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 8px 0 13px;border-radius:999px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12.5px;font-weight:600;color:#0B7A6E">
+                                {{ sk.sk }}
+                                <button onClick="{{ sk.remove }}" style="width:19px;height:19px;border:0;border-radius:50%;background:#D6EAE6;color:#0B7A6E;font-size:12px;font-weight:800;line-height:1;cursor:pointer;display:grid;place-items:center" style-hover="background:#C2DFD9">×</button>
+                              </span>
+                            </sc-for>
+                            <button onClick="{{ g.addSkill }}" style="display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 14px;border-radius:999px;border:1px dashed #BFE3DC;background:#fff;font-size:12.5px;font-weight:700;color:#0B7A6E;cursor:pointer" style-hover="background:#F7FBFA">
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Add Skill
+                            </button>
+                          </div>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ g.isComp }}" hint-placeholder-val="{{ false }}">
+                        <div style="padding:17px">
+                          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+                            <div style="min-width:0;flex:1">
+                              <div style="font-size:11px;font-weight:600;color:#7A8699;margin-bottom:6px">Compensation Mode</div>
+                              <div style="display:flex;align-items:center;gap:9px">
+                                <span style="font-size:14px;font-weight:800;color:#0F2A47">{{ g.compMode }}</span>
+                                <span style="font-size:12px;color:#6B7C93;text-wrap:pretty">{{ g.compDetail }}</span>
+                              </div>
                             </div>
-                          </sc-for>
+                            <button onClick="{{ g.editComp }}" style="display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 14px;border-radius:9px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12.5px;font-weight:700;color:#0B7A6E;cursor:pointer;white-space:nowrap" style-hover="background:#E2F1EE">
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" /></svg>Edit Compensation Mode
+                            </button>
+                          </div>
+                          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px">
+                            <sc-for list="{{ g.compModes }}" as="m" hint-placeholder-count="3">
+                              <div style="min-width:0;border:1.5px solid {{ m.bd }};background:{{ m.bg }};border-radius:11px;padding:12px 14px;font-size:12.5px;font-weight:{{ m.fw }};color:{{ m.fg }}">{{ m.m }}</div>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ g.isInterviews }}" hint-placeholder-val="{{ false }}">
+                        <div>
+                          <div style="display:flex;align-items:center;gap:10px;padding:12px 17px;border-bottom:1px solid #F7F5F0;background:#FCFBF7">
+                            <span style="font-size:12px;color:#6B7C93;flex:1">Scores are captured out of 10 · results and recommendations remain editable after submission.</span>
+                            <span style="font-size:12px;font-weight:700;color:#0B7A6E;white-space:nowrap">Average {{ g.ivAvg }}</span>
+                          </div>
+                          <div style="overflow-x:auto">
+                            <table style="width:100%;min-width:900px;border-collapse:collapse">
+                              <thead>
+                                <tr style="background:#fff">
+                                  <th style="padding:11px 16px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F2F0EA;white-space:nowrap">ROUND</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F2F0EA;white-space:nowrap">DATE</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F2F0EA;white-space:nowrap">PANEL</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F2F0EA;white-space:nowrap">MODE</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F2F0EA;white-space:nowrap">SCORE</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F2F0EA;white-space:nowrap">RESULT</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F2F0EA;white-space:nowrap">RECOMMENDATION</th>
+                                  <th style="padding:11px 16px 11px 13px;border-bottom:1px solid #F2F0EA"></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <sc-for list="{{ g.ivs }}" as="iv" hint-placeholder-count="5">
+                                  <tr style-hover="background:#FCFBF7">
+                                    <td style="padding:11px 16px;border-bottom:1px solid #F7F5F0;font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ iv.round }}</td>
+                                    <td style="padding:11px 13px;border-bottom:1px solid #F7F5F0;font-size:12.5px;color:#475467;white-space:nowrap">{{ iv.date }}</td>
+                                    <td style="padding:11px 13px;border-bottom:1px solid #F7F5F0;font-size:12.5px;color:#475467;white-space:nowrap">{{ iv.panel }}</td>
+                                    <td style="padding:11px 13px;border-bottom:1px solid #F7F5F0;font-size:12.5px;color:#475467;white-space:nowrap">{{ iv.mode }}</td>
+                                    <td style="padding:11px 13px;border-bottom:1px solid #F7F5F0;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ iv.scoreLabel }}</td>
+                                    <td style="padding:11px 13px;border-bottom:1px solid #F7F5F0"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ iv.rBg }};color:{{ iv.rFg }};white-space:nowrap">{{ iv.result }}</span></td>
+                                    <td style="padding:11px 13px;border-bottom:1px solid #F7F5F0;font-size:12.5px;color:#475467;white-space:nowrap">{{ iv.reco }}</td>
+                                    <td style="padding:11px 16px 11px 13px;border-bottom:1px solid #F7F5F0;text-align:right">
+                                      <button onClick="{{ iv.edit }}" style="height:29px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Edit</button>
+                                    </td>
+                                  </tr>
+                                </sc-for>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </sc-if>
 
@@ -565,6 +658,16 @@
                               </div>
                               <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ d.sBg }};color:{{ d.sFg }};white-space:nowrap">{{ d.state }}</span>
                               <button onClick="{{ d.act }}" style="height:29px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Open</button>
+                              <div style="position:relative">
+                                <button onClick="{{ d.toggleMenu }}" style="width:29px;height:29px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;cursor:pointer;display:grid;place-items:center;color:#475467" style-hover="background:#F6F5F0">
+                                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg>
+                                </button>
+                                <div style="display:{{ d.menuDisplay }};position:absolute;right:0;top:33px;z-index:40;min-width:186px;background:#fff;border:1px solid #E5E3DC;border-radius:11px;box-shadow:0 12px 30px rgba(16,24,40,.14);overflow:hidden;padding:5px">
+                                  <sc-for list="{{ d.items }}" as="mi" hint-placeholder-count="5">
+                                    <button onClick="{{ mi.pick }}" style="display:block;width:100%;text-align:left;padding:9px 11px;border:0;border-radius:8px;background:transparent;font-size:12.5px;font-weight:600;color:{{ mi.fg }};cursor:pointer;white-space:nowrap" style-hover="background:{{ mi.hbg }}">{{ mi.label }}</button>
+                                  </sc-for>
+                                </div>
+                              </div>
                             </div>
                           </sc-for>
                         </div>
@@ -3975,6 +4078,11 @@ const SEC = {
 
 
 const G = (t, fields) => ({t, fields});
+const GE = (t, fields, key) => ({t, fields, editable:true, ekey:key});
+
+const IV_RESULTS = ['Selected','Rejected','On Hold','Needs Re-interview'];
+const IV_RECOS = ['Strong hire','Proceed','Hold for second opinion','Do not proceed'];
+const COMP_MODES = ['Fixed Salary','Per Lecture','Profit Sharing'];
 
 const PIPE = [
   ['APP-4021','Dr. Kavya Iyer','Ethics · Regulatory Framework',1,'Part 3 — Recruitment Evaluation','P. Bose — HR',72,'On track','green','2026-08-10'],
@@ -3994,14 +4102,14 @@ const WIZ = [
    parts:[
     {name:'Part 1 — Personal & Professional', obj:'Collect the candidate\u2019s identity, contact details, and professional background.', pct:100,
      groups:[
-      G('Personal Information',[['Profile Photo','Uploaded'],['Full Name','Dr. Kavya Iyer'],['Gender','Female'],['Date of Birth','14 March 1988'],['Nationality','Indian'],['Languages Known','Tamil, English, Hindi'],['Marital Status','Married']]),
-      G('Contact Information',[['Primary Mobile Number','+91 98400 21188'],['Alternate Mobile Number','+91 98400 33110'],['Personal Email Address','kavya.iyer@gmail.com'],['Current Address','12/4 Anna Nagar West, Chennai 600040'],['Permanent Address','Same as current address'],['Emergency Contact Name','Ramesh Iyer (spouse)'],['Emergency Contact Number','+91 98400 44220']]),
-      G('Professional Information',[['Current Designation','Senior Trainer — Compliance'],['Current Organization','Bharat Insurance Academy'],['Total Teaching Experience','8 years 2 months'],['Industry Experience','5 years'],['Insurance Domain Experience','11 years combined'],['Areas of Expertise','Ethics · Regulatory Framework · Policy Law'],['Subjects Interested in Teaching','IC-38 Full Prep · Life Insurance Elite'],['Preferred Language of Instruction','English + Tamil'],['Preferred Teaching Mode','Hybrid'],['Professional Bio','Trains compliance and ethics through regulator case files; built the IRDAI ethics module used by two academies.']])],
+      GE('Personal Information',[['Profile Photo','Uploaded'],['Full Name','Dr. Kavya Iyer'],['Gender','Female'],['Date of Birth','14 March 1988'],['Nationality','Indian'],['Languages Known','Tamil, English, Hindi'],['Marital Status','Married']],'p1personal'),
+      GE('Contact Information',[['Primary Mobile Number','+91 98400 21188'],['Alternate Mobile Number','+91 98400 33110'],['Personal Email Address','kavya.iyer@gmail.com'],['Current Address','12/4 Anna Nagar West, Chennai 600040'],['Permanent Address','Same as current address'],['Emergency Contact Name','Ramesh Iyer (spouse)'],['Emergency Contact Number','+91 98400 44220']],'p1contact'),
+      GE('Professional Information',[['Current Designation','Senior Trainer — Compliance'],['Current Organization','Bharat Insurance Academy'],['Total Teaching Experience','8 years 2 months'],['Industry Experience','5 years'],['Insurance Domain Experience','11 years combined'],['Areas of Expertise','Ethics · Regulatory Framework · Policy Law'],['Subjects Interested in Teaching','IC-38 Full Prep · Life Insurance Elite'],['Preferred Language of Instruction','English + Tamil'],['Preferred Teaching Mode','Hybrid'],['Professional Bio','Trains compliance and ethics through regulator case files; built the IRDAI ethics module used by two academies.']],'p1prof')],
      checks:[['Personal details completed',1],['Contact information completed',1],['Professional profile completed',1]]},
     {name:'Part 2 — Education, Skills & Documents', obj:'Verify the candidate\u2019s qualifications, certifications, and supporting documents.', pct:80,
      groups:[
-      G('Educational Qualifications',[['Highest Qualification','Ph.D. — Insurance Law'],['University / Institution','University of Madras'],['Year of Passing','2016'],['Specialization','Regulatory Framework & Ethics'],['Additional Qualifications','LLB — 2010'],['Professional Certifications','Associate — Insurance Institute of India'],['Teaching Certifications','Certified Corporate Trainer (2019)'],['Insurance Licenses','IRDAI Licentiate · valid till 30 Jun 2028']]),
-      G('Skills & Competencies',[['Technical Skills','Excel, Power BI, Google Workspace'],['LMS Experience','Moodle · 4 years'],['Presentation Skills','Advanced'],['Digital Teaching Tools','Zoom, Miro, pen tablet'],['Languages for Teaching','English, Tamil']]),
+      GE('Educational Qualifications',[['Highest Qualification','Ph.D. — Insurance Law'],['University / Institution','University of Madras'],['Year of Passing','2016'],['Specialization','Regulatory Framework & Ethics'],['Additional Qualifications','LLB — 2010'],['Professional Certifications','Associate — Insurance Institute of India'],['Teaching Certifications','Certified Corporate Trainer (2019)'],['Insurance Licenses','IRDAI Licentiate · valid till 30 Jun 2028']],'p2edu'),
+      {t:'Skills & Competencies', kind:'skills'},
       {t:'Document Uploads', kind:'docs', rows:[
         ['Resume / CV','Verified','green','Uploaded 02 Aug 2026 · verified by P. Bose'],
         ['Cover Letter','Uploaded','blue','Uploaded 02 Aug 2026 · optional'],
@@ -4016,16 +4124,11 @@ const WIZ = [
      checks:[['Education verified',1],['Documents uploaded',1],['Skills recorded',1]]},
     {name:'Part 3 — Recruitment Evaluation & Decision', obj:'Track the complete recruitment workflow until the candidate is selected or rejected.', pct:64,
      groups:[
-      G('Application Information',[['Application Source','Referral — faculty network'],['Referred By','Prof. Arun Mehta (TCH-2005)'],['Application Date','02 August 2026'],['Recruiter Assigned','P. Bose — HR'],['Current Recruitment Status','Panel Interview — scheduled 12 Aug']]),
-      {t:'Interview Management', kind:'table', cols:['Round','Date','Panel','Mode','Score','Recommendation','Status'], rows:[
-        ['HR Screening','2026-08-04','P. Bose (HR)','Telephonic','8.6 / 10','Proceed',['Cleared','green']],
-        ['Technical Interview','2026-08-07','Academic Panel — 2','Video','9.0 / 10','Strong hire',['Cleared','green']],
-        ['Academic Interview','2026-08-09','Academic Head','Video','8.8 / 10','Proceed',['Cleared','green']],
-        ['Demo Lecture','2026-08-10','3 evaluators','Video','4.6 / 5','Strong hire',['Cleared','green']],
-        ['Final HR Discussion','2026-08-12','P. Bose (HR)','In-person','—','—',['Scheduled','blue']]]},
-      G('Interview Evaluation',[['Interview Scores','8.8 average across 3 rounds'],['Academic Panel Feedback','Exceptional regulatory depth; strong case-based delivery'],['HR Feedback','Professional, flexible on batch timings'],['Demo Lecture Rating','4.6 / 5'],['Communication Skills Rating','4.7 / 5'],['Subject Knowledge Rating','4.9 / 5'],['Teaching Skills Rating','4.5 / 5'],['Overall Recommendation','Strong hire — recommend Part-Time to start']]),
-      G('Compensation',[['Expected Salary','₹95,000 per month'],['Offered Salary','—'],['Negotiated Salary','—'],['Employment Type','Part-Time'],['Proposed Joining Date','01 September 2026']]),
-      G('Final Decision',[['Selected / Rejected / On Hold','Pending final HR discussion'],['Rejection Reason','Not applicable'],['Offer Letter Generated','Not yet'],['Offer Acceptance Status','—'],['Joining Confirmation','—']])],
+      GE('Application Information',[['Application Source','Referral — faculty network'],['Referred By','Prof. Arun Mehta (TCH-2005)'],['Application Date','02 August 2026'],['Recruiter Assigned','P. Bose — HR'],['Current Recruitment Status','Panel Interview — scheduled 12 Aug']],'p3app'),
+      {t:'Interview Management', kind:'interviews'},
+      GE('Interview Evaluation',[['Interview Scores','8.8 average across 3 rounds'],['Academic Panel Feedback','Exceptional regulatory depth; strong case-based delivery'],['HR Feedback','Professional, flexible on batch timings'],['Demo Lecture Rating','4.6 / 5'],['Communication Skills Rating','4.7 / 5'],['Subject Knowledge Rating','4.9 / 5'],['Teaching Skills Rating','4.5 / 5'],['Overall Recommendation','Strong hire — recommend Part-Time to start']],'p3eval'),
+      {t:'Compensation', kind:'comp'},
+      GE('Final Decision',[['Selected / Rejected / On Hold','Pending final HR discussion'],['Rejection Reason','Not applicable'],['Offer Letter Generated','Not yet'],['Offer Acceptance Status','—'],['Joining Confirmation','—']],'p3final')],
      checks:[['Recruitment process completed',0],['Final hiring decision recorded',0],['Candidate moved to Employee Onboarding',0]]}]},
 
   {n:2, title:'Employee Verification & Onboarding', owner:'HR & Administration', goal:'Complete legal, compliance, payroll, and system setup',
@@ -4109,6 +4212,15 @@ const FIN = [
 class Component extends DCLogic {
   state = { route:'dash', view:'grid', tab:'All', q:'',
     tfOpen:false, tfSubject:'All', tfMode:'All', tfPayout:'All', tfRating:'All', tfLang:'All',
+    wizEdit:null, wizVals:{}, wizDocMenu:null,
+    wizSkills:['Excel','Power BI','Google Workspace','Moodle LMS','Zoom','Miro','Pen tablet','Case-based delivery'],
+    wizCompMode:'Fixed Salary',
+    wizIvs:[
+      {round:'HR Screening',date:'2026-08-04',panel:'P. Bose (HR)',mode:'Telephonic',score:'8.6',result:'Selected',reco:'Proceed'},
+      {round:'Technical Interview',date:'2026-08-07',panel:'Academic Panel — 2',mode:'Video',score:'9.0',result:'Selected',reco:'Strong hire'},
+      {round:'Academic Interview',date:'2026-08-09',panel:'Academic Head',mode:'Video',score:'8.8',result:'Selected',reco:'Proceed'},
+      {round:'Demo Lecture',date:'2026-08-10',panel:'3 evaluators',mode:'Video',score:'9.2',result:'Selected',reco:'Strong hire'},
+      {round:'Final HR Discussion',date:'2026-08-12',panel:'P. Bose (HR)',mode:'In-person',score:'',result:'On Hold',reco:'Hold for second opinion'}],
     toast:'', toastMsg:'', toastSub:'' };
 
   initials = (n) => n.replace(/^(Dr\.|Prof\.)\s+/,'').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
@@ -4902,6 +5014,89 @@ class Component extends DCLogic {
                 methods.join(' + ')+' · effective '+(s.cpFrom||'01 Sep 2026')+' · '+(s.cpReason||'Contract revision')); }});
         }
 
+        if (kind==='skill') {
+          return wrap({title:'Add Skill', width:'560px',
+            sub:'Skills appear on the candidate record and the teacher profile',
+            groups:[{t:'Skill', fields:[
+              this.f('Skill name *','skName','','text',null,{span:'span 3',placeholder:'e.g. Case-based delivery'}),
+              this.f('Category','skCat','Teaching','select',['Teaching','Technical','Domain','Language','Platform']),
+              this.f('Proficiency','skLevel','Advanced','select',['Beginner','Intermediate','Advanced','Expert'])]}],
+            primaryLabel:'Add Skill',
+            primary: ()=>{
+              const n = (s.skName||'').trim();
+              if (!n) return this.setState({fmErr:'Enter a skill name.'});
+              if ((s.wizSkills||[]).includes(n)) return this.setState({fmErr:'That skill is already listed.'});
+              this.setState(x=>({wizSkills:[...(x.wizSkills||[]), n], fm:null, fmStep:0, fmErr:null, skName:''}));
+              this.fire('Skill added — '+n, (s.skCat||'Teaching')+' · '+(s.skLevel||'Advanced')); }});
+        }
+
+        if (kind==='ivedit') {
+          return wrap({title:'Edit Interview — '+(ctx.round||'Round'), width:'720px',
+            sub:'Interview details stay editable after submission · every change is audit-logged',
+            groups:[
+              {t:'Round', fields:[
+                this.f('Round','ivrRound',ctx.round||'','text'),
+                this.f('Date','ivrDate',ctx.date||'2026-08-12','date'),
+                this.f('Mode','ivrMode',ctx.mode||'Video','select',['Video','Telephonic','In-person']),
+                this.f('Panel','ivrPanel',ctx.panel||'','text',null,{span:'span 3'})]},
+              {t:'Evaluation', fields:[
+                this.f('Interview Score (0–10) *','ivrScore',ctx.score||'','text',null,{placeholder:'0 – 10'}),
+                this.f('Interview Result','ivrResult',ctx.result||'On Hold','select',IV_RESULTS),
+                this.f('Recommendation','ivrReco',ctx.reco||'Proceed','select',IV_RECOS),
+                this.f('Panel remarks','ivrNotes','','textarea',null,{span:'span 3',placeholder:'Strengths, gaps and any follow-up needed.'})]}],
+            info:'Scores are recorded out of 10. Changing a result after submission notifies the recruiter and the academic head.',
+            infoDisplay:'flex',
+            primaryLabel:'Save Interview',
+            primary: ()=>{
+              const raw = (s.ivrScore!==undefined ? s.ivrScore : (ctx.score||'')).toString().trim();
+              const n = parseFloat(raw);
+              if (raw!=='' && (isNaN(n) || n<0 || n>10)) return this.setState({fmErr:'Interview score must be a number between 0 and 10.'});
+              const i = ctx.idx;
+              this.setState(x=>({wizIvs:(x.wizIvs||[]).map((v,j)=> j===i ? {...v,
+                round: s.ivrRound!==undefined ? s.ivrRound : v.round,
+                date: s.ivrDate!==undefined ? s.ivrDate : v.date,
+                panel: s.ivrPanel!==undefined ? s.ivrPanel : v.panel,
+                mode: s.ivrMode!==undefined ? s.ivrMode : v.mode,
+                score: raw,
+                result: s.ivrResult!==undefined ? s.ivrResult : v.result,
+                reco: s.ivrReco!==undefined ? s.ivrReco : v.reco} : v),
+                fm:null, fmStep:0, fmErr:null,
+                ivrRound:undefined, ivrDate:undefined, ivrPanel:undefined, ivrMode:undefined,
+                ivrScore:undefined, ivrResult:undefined, ivrReco:undefined}));
+              this.fire('Interview updated — '+(s.ivrRound||ctx.round),
+                (raw ? raw+' / 10 · ' : '')+(s.ivrResult||ctx.result)); }});
+        }
+
+        if (kind==='compmode') {
+          const mode = s.cmMode || s.wizCompMode || 'Fixed Salary';
+          const detail = mode==='Fixed Salary' ? [
+              this.f('Monthly salary','cmSalary','₹95,000','text'),
+              this.f('Salary cycle','cmCycle','1st – last day','select',['1st – last day','16th – 15th','Custom']),
+              this.f('Payment frequency','cmFreq','Monthly','select',['Monthly','Fortnightly'])]
+            : mode==='Per Lecture' ? [
+              this.f('Rate per lecture','cmRate','₹2,100','text'),
+              this.f('Standard duration','cmDur','60 min','select',['45 min','60 min','90 min','120 min']),
+              this.f('Minimum duration to qualify','cmMinDur','45 min','select',['30 min','45 min','60 min'])]
+            : [
+              this.f('Teacher share','cmShare','30%','text'),
+              this.f('Calculation basis','cmBasis','Net revenue','select',['Gross revenue','Net revenue','Net profit']),
+              this.f('Settlement cycle','cmSettle','Monthly','select',['Monthly','Quarterly'])];
+          return wrap({title:'Edit Compensation Mode', width:'720px',
+            sub:'Applies to this candidate from the effective date onward',
+            groups:[
+              {t:'Payment method', fields:[
+                this.fradio('Compensation mode','cmMode',mode,COMP_MODES)]},
+              {t:mode+' details', fields:[...detail,
+                this.f('Effective from','cmFrom','2026-09-01','date'),
+                this.f('Employment type','cmEmp','Part-Time','select',['Part-Time','Full-Time','Visiting','Contract'])]}],
+            info:'Historical payouts keep the rate that applied at the time — this change affects cycles from the effective date onward.',
+            infoDisplay:'flex',
+            primaryLabel:'Save Compensation Mode',
+            primary: ()=>{
+              this.setState({wizCompMode:mode, fm:null, fmStep:0, fmErr:null});
+              this.fire('Compensation mode updated — '+mode, 'Effective '+(s.cmFrom||'01 Sep 2026')+' · '+(s.cmEmp||'Part-Time')); }});
+        }
+
         if (kind==='template') {
           const chans = s.tmCh || ['Email','WhatsApp','In-app'];
           return wrap({title: ctx.name ? 'Edit Template' : 'Create Template', width:'840px',
@@ -5399,20 +5594,73 @@ class Component extends DCLogic {
         return (st.parts[s.wizPart||0]||st.parts[0]).pct+'%'; })(),
       wizGroups: (()=>{ const st = WIZ.find(x=>x.n===(s.wizStage||1))||WIZ[0];
         const part = st.parts[s.wizPart||0] || st.parts[0];
-        return part.groups.map(g=>({
+        const vals = s.wizVals || {};
+        const DOC_ACTS = [['View / Open','view'],['Download','download'],['Upload','upload'],['Re-upload / Replace','replace'],['Remove','remove']];
+        return part.groups.map(g=>{
+          const editing = g.editable && s.wizEdit===g.ekey;
+          return {
           t:g.t,
           isFields: !g.kind, isDocs: g.kind==='docs', isTable: g.kind==='table', isText: g.kind==='text',
+          isSkills: g.kind==='skills', isInterviews: g.kind==='interviews', isComp: g.kind==='comp',
           text: g.text||'',
-          fields: (g.fields||[]).map(([label,value])=>({label, value})),
-          docs: (g.rows||[]).filter(()=>g.kind==='docs').map(([name,state,c,meta])=>({name,state,meta,
-            sBg:BDG[c][0], sFg:BDG[c][1],
-            act: this.act(name+' — opened', meta)})),
+          canEdit: g.editable ? 'inline-flex' : 'none',
+          editing, viewDisplay: editing ? 'none' : 'grid', editDisplay: editing ? 'grid' : 'none',
+          editBarDisplay: editing ? 'flex' : 'none',
+          startEdit: ()=>this.setState({wizEdit:g.ekey}),
+          cancelEdit: ()=>this.setState({wizEdit:null}),
+          saveEdit: ()=>{ this.setState({wizEdit:null});
+            this.fire(g.t+' updated', 'Saved to the candidate record · reflected across the teacher profile'); },
+          fields: (g.fields||[]).map(([label,value],fi)=>{
+            const vk = g.ekey+'|'+fi;
+            return {label, value: vals[vk]!==undefined ? vals[vk] : value,
+              set:(e)=>this.setState(x=>({wizVals:{...(x.wizVals||{}), [vk]:e.target.value}}))};
+          }),
+          docs: (g.rows||[]).filter(()=>g.kind==='docs').map(([name,state,c,meta],di)=>{
+            const mk = (g.ekey||g.t)+'|doc|'+di;
+            return {name,state,meta, sBg:BDG[c][0], sFg:BDG[c][1],
+              menuDisplay: s.wizDocMenu===mk ? 'block' : 'none',
+              toggleMenu: ()=>this.setState(x=>({wizDocMenu: x.wizDocMenu===mk ? null : mk})),
+              act: this.act(name+' — opened', meta),
+              items: DOC_ACTS.map(([label,kind])=>({label,
+                fg: kind==='remove' ? '#B42318' : '#344054',
+                hbg: kind==='remove' ? '#FEF7F6' : '#F6F5F0',
+                pick: kind==='remove'
+                  ? ()=>{ this.setState({wizDocMenu:null,
+                      mGuard:{title:'Remove Document', rows:[['Document',name],['Current state',state],['Effect','Removed from the candidate record'],['Recoverable','30 days in Trash'],['Audit','Logged with your admin ID']]}}); }
+                  : ()=>{ this.setState({wizDocMenu:null});
+                      this.fire(name+' — '+label, kind==='view' ? meta
+                        : kind==='download' ? 'Download started · PDF'
+                        : kind==='upload' ? 'PDF, JPG or PNG · max 10 MB'
+                        : 'Replaces the current file · previous version kept in history'); }}))};
+          }),
+          skills: (s.wizSkills||[]).map((sk,i)=>({sk,
+            remove: ()=>this.setState(x=>({wizSkills:(x.wizSkills||[]).filter((_,j)=>j!==i)}))})),
+          addSkill: ()=>this.setState({fm:'skill', fmStep:0, fmErr:null, fmCtx:{}}),
+          ivs: (s.wizIvs||[]).map((iv,i)=>{
+            const R = {Selected:['#E7F7EE','#15803D'], Rejected:['#FDE8E8','#B42318'],
+              'On Hold':['#FEF3E2','#B45309'], 'Needs Re-interview':['#E9F1FD','#1D4ED8']}[iv.result] || ['#F1F3F5','#667085'];
+            return {...iv, scoreLabel: iv.score ? iv.score+' / 10' : '—',
+              rBg:R[0], rFg:R[1],
+              edit: ()=>this.setState({fm:'ivedit', fmStep:0, fmErr:null, fmCtx:{idx:i, ...iv}})};
+          }),
+          ivAvg: (()=>{ const sc=(s.wizIvs||[]).map(v=>parseFloat(v.score)).filter(v=>!isNaN(v));
+            return sc.length ? (sc.reduce((a,b)=>a+b,0)/sc.length).toFixed(1)+' / 10' : '—'; })(),
+          compMode: s.wizCompMode || 'Fixed Salary',
+          compDetail: {'Fixed Salary':'₹95,000 per month · monthly cycle, paid on the 5th',
+            'Per Lecture':'₹2,100 per lecture · 60 min standard, min 45 min to qualify',
+            'Profit Sharing':'30% of net course revenue after tax, refunds and gateway fees'}[s.wizCompMode||'Fixed Salary'],
+          compModes: COMP_MODES.map(m=>({m, on: (s.wizCompMode||'Fixed Salary')===m,
+            bd: (s.wizCompMode||'Fixed Salary')===m ? '#0E9384' : '#E5E3DC',
+            bg: (s.wizCompMode||'Fixed Salary')===m ? '#EEF6F5' : '#fff',
+            fg: (s.wizCompMode||'Fixed Salary')===m ? '#0B7A6E' : '#475467',
+            fw: (s.wizCompMode||'Fixed Salary')===m ? '700' : '600'})),
+          editComp: ()=>this.setState({fm:'compmode', fmStep:0, fmErr:null, fmCtx:{}}),
           cols: (g.cols||[]).map(c=>({c})),
           trs: (g.kind==='table' ? g.rows : []).map((row,i)=>({bg: i%2 ? '#FCFBF7' : '#fff',
             cells: row.map(v => Array.isArray(v)
               ? {isPill:true, isPlain:false, v:v[0], pBg:BDG[v[1]][0], pFg:BDG[v[1]][1]}
               : {isPill:false, isPlain:true, v})}))
-        })); })(),
+        }; }); })(),
       wizChecks: (()=>{ const st = WIZ.find(x=>x.n===(s.wizStage||1))||WIZ[0];
         const part = st.parts[s.wizPart||0] || st.parts[0];
         return part.checks.map(([label,done])=>({label,
@@ -5430,6 +5678,8 @@ class Component extends DCLogic {
       wizAppStatus: s.wizAppStatus || 'Under Review',
       setWizAppStatus: (e)=>{ this.setState({wizAppStatus:e.target.value});
         this.fire('Application status updated','Now '+e.target.value+' · audit-logged'); },
+      wizViewDocs: ()=>{ this.setState({wizEdit:null, wizStage:1, wizPart:1, wizDocMenu:null});
+        this.fire('Candidate documents', 'Part 2 — every submitted document with its verification state'); },
       wizSchedInterview: ()=>this.setState({fm:'interview', fmStep:0, fmErr:null,
         fmCtx:{candidate:(PIPE.find(p=>p[0]===s.wizCand)||[])[1]||'Candidate', appId:s.wizCand||'APP-4021'}}),
       obPipeRows: PIPE.filter(p=>
