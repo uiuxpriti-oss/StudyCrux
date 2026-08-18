@@ -86,7 +86,156 @@
     <header style="flex:none;display:flex;align-items:flex-start;gap:24px;padding:24px 32px 18px">
       <div style="flex:1;min-width:0">
         <div style="display:flex;align-items:center;gap:10px">
-          <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+          <sc-if value="{{ fm.open }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ fm.cancel }}" style="position:fixed;inset:0;background:rgba(11,31,62,.46);z-index:84"></div>
+        <div style="position:fixed;z-index:85;top:50%;left:50%;transform:translate(-50%,-50%);width:{{ fm.width }};max-width:95vw;max-height:92vh;display:flex;flex-direction:column;background:#fff;border-radius:16px;box-shadow:0 30px 80px rgba(11,31,62,.32);overflow:hidden">
+          <div style="padding:20px 24px;border-bottom:1px solid #F0EEE7">
+            <div style="display:flex;align-items:flex-start;gap:12px">
+              <div style="min-width:0;flex:1">
+                <div style="font-size:17px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">{{ fm.title }}</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:5px;text-wrap:pretty">{{ fm.sub }}</div>
+              </div>
+              <button onClick="{{ fm.cancel }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+              </button>
+            </div>
+            <div style="display:{{ fm.stepDisplay }};gap:10px;margin-top:16px">
+              <sc-for list="{{ fm.steps }}" as="st" hint-placeholder-count="4">
+                <div onClick="{{ st.pick }}" style="flex:1;min-width:0;cursor:pointer">
+                  <div style="height:4px;border-radius:3px;background:{{ st.barBg }}"></div>
+                  <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+                    <span style="width:19px;height:19px;flex:none;border-radius:50%;background:{{ st.nBg }};color:{{ st.nFg }};display:grid;place-items:center;font-size:10.5px;font-weight:800">{{ st.n }}</span>
+                    <span style="font-size:11.5px;font-weight:{{ st.weight }};color:{{ st.fg }};min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ st.label }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:18px">
+            <sc-for list="{{ fm.groups }}" as="g" hint-placeholder-count="2">
+              <div>
+                <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+                  <span style="width:3px;height:12px;border-radius:2px;background:#0E9384"></span>
+                  <span style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#475467">{{ g.t }}</span>
+                  <span style="flex:1;height:1px;background:#F2F0EA"></span>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 16px">
+                  <sc-for list="{{ g.fields }}" as="fd" hint-placeholder-count="6">
+                    <div style="grid-column:{{ fd.span }};min-width:0">
+                      <label style="display:block;font-size:11.5px;font-weight:600;color:#344054;margin-bottom:7px">{{ fd.label }}</label>
+
+                      <sc-if value="{{ fd.isText }}" hint-placeholder-val="{{ true }}">
+                        <input value="{{ fd.value }}" onChange="{{ fd.set }}" placeholder="{{ fd.placeholder }}" style="width:100%;height:38px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
+                      </sc-if>
+
+                      <sc-if value="{{ fd.isDate }}" hint-placeholder-val="{{ false }}">
+                        <input type="date" value="{{ fd.value }}" onChange="{{ fd.set }}" style="width:100%;height:38px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
+                      </sc-if>
+
+                      <sc-if value="{{ fd.isSelect }}" hint-placeholder-val="{{ false }}">
+                        <select value="{{ fd.value }}" onChange="{{ fd.set }}" style="width:100%;height:38px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0">
+                          <sc-for list="{{ fd.opts }}" as="o" hint-placeholder-count="4">
+                            <option>{{ o.o }}</option>
+                          </sc-for>
+                        </select>
+                      </sc-if>
+
+                      <sc-if value="{{ fd.isArea }}" hint-placeholder-val="{{ false }}">
+                        <textarea value="{{ fd.value }}" onChange="{{ fd.set }}" rows="3" placeholder="{{ fd.placeholder }}" style="width:100%;padding:11px 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;line-height:1.55;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box;resize:vertical;font-family:inherit"></textarea>
+                      </sc-if>
+
+                      <sc-if value="{{ fd.isRead }}" hint-placeholder-val="{{ false }}">
+                        <div style="min-height:38px;display:flex;align-items:center;padding:9px 12px;border:1px solid #EDEBE4;border-radius:9px;background:#FCFBF7;font-size:12.5px;font-weight:500;color:#475467;text-wrap:pretty">{{ fd.value }}</div>
+                      </sc-if>
+
+                      <sc-if value="{{ fd.isChips }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;flex-wrap:wrap;gap:7px">
+                          <sc-for list="{{ fd.items }}" as="c" hint-placeholder-count="4">
+                            <button onClick="{{ c.pick }}" style="height:32px;padding:0 13px;border-radius:999px;border:1px solid {{ c.bd }};background:{{ c.bg }};font-size:12.5px;font-weight:{{ c.fw }};color:{{ c.fg }};cursor:pointer">{{ c.o }}</button>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ fd.isRadio }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;flex-wrap:wrap;gap:9px">
+                          <sc-for list="{{ fd.items }}" as="c" hint-placeholder-count="3">
+                            <div onClick="{{ c.pick }}" style="display:flex;align-items:center;gap:9px;border:1.5px solid {{ c.bd }};background:{{ c.bg }};border-radius:10px;padding:9px 13px;cursor:pointer">
+                              <span style="width:15px;height:15px;flex:none;border-radius:50%;border:1.5px solid {{ c.bd }};display:grid;place-items:center">
+                                <span style="width:8px;height:8px;border-radius:50%;background:{{ c.dot }}"></span>
+                              </span>
+                              <span style="font-size:12.5px;font-weight:600;color:{{ c.fg }}">{{ c.o }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ fd.isUploads }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                          <sc-for list="{{ fd.items }}" as="u" hint-placeholder-count="4">
+                            <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid #F7F5F0;background:#FCFBF7">
+                              <div style="min-width:0;flex:1">
+                                <div style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ u.name }}</div>
+                                <div style="font-size:10.5px;font-weight:600;color:{{ u.reqFg }};margin-top:2px">{{ u.req }}</div>
+                              </div>
+                              <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ u.sBg }};color:{{ u.sFg }};white-space:nowrap">{{ u.state }}</span>
+                              <button onClick="{{ u.pick }}" style="height:29px;padding:0 12px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:11.5px;font-weight:600;color:#0B7A6E;cursor:pointer;white-space:nowrap">Upload</button>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ fd.isKv }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                          <sc-for list="{{ fd.items }}" as="kv" hint-placeholder-count="4">
+                            <div style="display:grid;grid-template-columns:180px 1fr;gap:12px;padding:10px 14px;background:{{ kv.bg }};border-bottom:1px solid #F7F5F0">
+                              <span style="font-size:12px;color:#7A8699">{{ kv.k }}</span>
+                              <span style="font-size:12.5px;font-weight:600;color:#0F2A47;text-wrap:pretty">{{ kv.v }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ fd.isChecks }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px">
+                          <sc-for list="{{ fd.items }}" as="c" hint-placeholder-count="4">
+                            <div style="display:flex;align-items:center;gap:9px;border:1px solid #F0EEE7;border-radius:10px;padding:10px 12px;background:#FCFBF7">
+                              <span style="width:18px;height:18px;flex:none;border-radius:6px;border:1.5px solid {{ c.bd }};background:{{ c.bg }};color:#fff;display:grid;place-items:center;font-size:10.5px;font-weight:800">{{ c.mark }}</span>
+                              <span style="font-size:12.5px;font-weight:600;color:{{ c.fg }};text-wrap:pretty">{{ c.t }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+
+            <div style="display:{{ fm.warnDisplay }};align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;background:#FEF3E2">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2.1" stroke-linecap="round" style="flex:none;margin-top:1px"><path d="M12 3 2.5 20h19z" /><path d="M12 9v5M12 17h.01" /></svg>
+              <span style="font-size:12.5px;font-weight:600;color:#8A5A0B;text-wrap:pretty">{{ fm.warn }}</span>
+            </div>
+            <div style="display:{{ fm.infoDisplay }};align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;background:#EEF6F5">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0B7A6E" stroke-width="2.1" stroke-linecap="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
+              <span style="font-size:12.5px;color:#0B7A6E;text-wrap:pretty">{{ fm.info }}</span>
+            </div>
+            <div style="display:{{ fm.errDisplay }};align-items:center;gap:9px;padding:11px 14px;border-radius:10px;background:#FDE8E8">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.1" stroke-linecap="round" style="flex:none"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16h.01" /></svg>
+              <span style="font-size:12.5px;font-weight:600;color:#B42318">{{ fm.err }}</span>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+            <button onClick="{{ fm.back }}" style="display:{{ fm.backDisplay }};align-items:center;height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">Back</button>
+            <span style="flex:1"></span>
+            <button onClick="{{ fm.cancel }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Cancel</button>
+            <button onClick="{{ fm.primary }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">{{ fm.primaryLabel }}</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
             <button onClick="{{ goList }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
             </button>
@@ -733,29 +882,41 @@
 
       <sc-if value="{{ isAllocation }}" hint-placeholder-val="{{ false }}">
         <div>
-          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px">
-            <sc-for list="{{ allocKpis }}" as="k" hint-placeholder-count="4">
-              <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:15px 17px">
-                <div style="font-size:12px;font-weight:500;color:#6B7C93">{{ k.label }}</div>
-                <div style="font-size:25px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:6px">{{ k.n }}</div>
-                <div style="font-size:11.5px;font-weight:600;color:{{ k.fg }};margin-top:4px">{{ k.note }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px;margin-bottom:16px">
+            <sc-for list="{{ tAlKpis }}" as="k" hint-placeholder-count="6">
+              <div onClick="{{ k.go }}" style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:15px 17px;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.06)">
+                <div style="font-size:11.5px;font-weight:500;color:#6B7C93;text-wrap:pretty">{{ k.label }}</div>
+                <div style="font-size:25px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:5px">{{ k.n }}</div>
+                <div style="font-size:11px;font-weight:600;color:{{ k.fg }};margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
               </div>
             </sc-for>
           </div>
 
-                    <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
-              <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter batches</span>
-              <span style="display:{{ allocBar.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ allocBar.count }}</span>
-              <span style="flex:1"></span>
-              <button onClick="{{ allocBar.reset }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:15px;flex-wrap:wrap">
+            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;flex:none">
+              <sc-for list="{{ tAlViews }}" as="v" hint-placeholder-count="3">
+                <button onClick="{{ v.pick }}" style="height:32px;padding:0 16px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ v.bg }};color:{{ v.fg }};font-weight:{{ v.weight }}">{{ v.label }}</button>
+              </sc-for>
             </div>
-            <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px">
-              <sc-for list="{{ allocBar.selects }}" as="p" hint-placeholder-count="5">
+            <div style="position:relative;flex:1 1 260px;min-width:0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:13px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
+              <input value="{{ tAlQ }}" onChange="{{ tSetAlQ }}" placeholder="Search course, batch or teacher…" style="width:100%;height:38px;padding:0 13px 0 35px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
+            </div>
+            <button onClick="{{ tAlReset }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            <button onClick="{{ tAlBulk }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Bulk actions</button>
+            <button onClick="{{ tAlExport }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export</button>
+            <button onClick="{{ tAlCreate }}" style="display:flex;align-items:center;gap:7px;flex:none;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Create Batch
+            </button>
+          </div>
+
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+              <sc-for list="{{ tAlFilters }}" as="p" hint-placeholder-count="6">
                 <div style="min-width:0">
                   <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ p.label }}</label>
                   <select value="{{ p.value }}" onChange="{{ p.set }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
-                    <sc-for list="{{ p.opts }}" as="o" hint-placeholder-count="4">
+                    <sc-for list="{{ p.opts }}" as="o" hint-placeholder-count="5">
                       <option>{{ o.o }}</option>
                     </sc-for>
                   </select>
@@ -764,68 +925,291 @@
             </div>
           </div>
 
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden;margin-bottom:16px">
-            <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
-              <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Batch → teacher → coordinator mapping</div>
-              <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Live courses carry a batch entity · recorded courses attach directly to the student profile</div>
-            </div>
-            <div style="overflow-x:auto">
-              <table style="width:100%;min-width:1280px;border-collapse:collapse">
-                <thead>
-                  <tr style="background:#FCFBF7">
-                    <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">COURSE</th>
-                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCH</th>
-                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SHIFT</th>
-                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STUDENTS</th>
-                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHER</th>
-                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COORDINATOR</th>
-                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">WEEKLY HOURS</th>
-                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATE</th>
-                    <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <sc-for list="{{ allocRows }}" as="r" hint-placeholder-count="8">
-                    <tr style-hover="background:#FCFBF7">
-                      <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE">
-                        <div style="font-size:13px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.course }}</div>
-                        <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.cid }}</div>
-                      </td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE">
-                        <div style="font-size:12.5px;font-weight:600;color:#344054;white-space:nowrap">{{ r.batch }}</div>
-                        <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.bid }}</div>
-                      </td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.shift }}</td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:13px;font-weight:600;color:#0F2A47">{{ r.students }}</td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:{{ r.teacherFg }};white-space:nowrap">{{ r.teacher }}</td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.coord }}</td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ r.hours }}</td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.state }}</span></td>
-                      <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right;white-space:nowrap">
-                        <button onClick="{{ r.reassign }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;margin-right:7px" style-hover="background:#F6F5F0">Reassign</button>
-                        <button onClick="{{ r.allocate }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;cursor:pointer" style-hover="background:#E2F1EE">Allocate</button>
-                      </td>
-                    </tr>
-                  </sc-for>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
-            <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Faculty load &amp; conflicts</div>
-            <div style="font-size:12.5px;color:#6B7C93;margin-top:2px;margin-bottom:18px">Weekly teaching hours against contracted capacity · above 100% needs rebalancing</div>
-            <div style="display:flex;flex-direction:column;gap:14px">
-              <sc-for list="{{ allocLoad }}" as="b" hint-placeholder-count="6">
-                <div>
-                  <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px">
-                    <span style="font-size:13px;font-weight:600;color:#0F2A47">{{ b.label }}</span>
-                    <span style="font-size:11.5px;color:#98A2B3;flex:1">{{ b.sub }}</span>
-                    <span style="font-size:13px;font-weight:800;color:#0F2A47">{{ b.pct }}</span>
+          <sc-if value="{{ tAlIsCourses }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px">
+              <sc-for list="{{ tAlCourseRows }}" as="c" hint-placeholder-count="5">
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div onClick="{{ c.toggle }}" style="display:flex;align-items:center;gap:13px;padding:16px 20px;cursor:pointer;flex-wrap:wrap" style-hover="background:#FCFBF7">
+                    <div style="min-width:0;flex:1 1 260px">
+                      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                        <span style="font-size:15px;font-weight:700;color:#0F2A47;letter-spacing:-.01em;text-wrap:pretty">{{ c.course }}</span>
+                        <span style="font-size:10.5px;color:#98A2B3;font-family:ui-monospace,monospace">{{ c.cid }}</span>
+                        <span style="font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ c.hBg }};color:{{ c.hFg }}">{{ c.health }}</span>
+                      </div>
+                      <div style="font-size:12px;color:#7A8699;margin-top:5px">{{ c.summary }}</div>
+                    </div>
+                    <div style="flex:none;text-align:center;width:74px">
+                      <div style="font-size:10px;color:#98A2B3">ACTIVE</div>
+                      <div style="font-size:16px;font-weight:800;color:#15803D;margin-top:3px">{{ c.active }}</div>
+                    </div>
+                    <button onClick="{{ c.manage }}" style="flex:none;height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Manage Batches</button>
+                    <button onClick="{{ c.viewCourse }}" style="flex:none;height:32px;padding:0 13px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;cursor:pointer">View Course</button>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.3" stroke-linecap="round" style="flex:none;transform:{{ c.rot }};transition:transform .18s"><path d="M6 9l6 6 6-6" /></svg>
                   </div>
-                  <div style="height:8px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ b.pct }};max-width:100%;border-radius:5px;background:{{ b.color }}"></div></div>
+                  <div style="display:{{ c.bodyDisplay }};border-top:1px solid #F2F0EA">
+                    <div style="overflow-x:auto">
+                      <table style="width:100%;min-width:1180px;border-collapse:collapse">
+                        <thead>
+                          <tr style="background:#FCFBF7">
+                            <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCH</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHER</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COORDINATOR</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ENROLLMENT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">START</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">END</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">MODE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ALLOCATION</th>
+                            <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <sc-for list="{{ c.kids }}" as="b" hint-placeholder-count="4">
+                        <tr style-hover="background:#FCFBF7">
+                          <td onClick="{{ b.open }}" style="padding:11px 20px;border-bottom:1px solid #F5F3EE;cursor:pointer">
+                            <div style="font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ b.batch }}</div>
+                            <div style="font-size:10px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ b.bid }}</div>
+                          </td>
+                          <td onClick="{{ b.coordOpen }}" style="padding:11px 13px;border-bottom:1px solid #F5F3EE;cursor:pointer">
+                            <div style="font-size:12.5px;font-weight:600;color:{{ b.coordFg }};white-space:nowrap">{{ b.coord }}</div>
+                            <div style="font-size:10px;color:#98A2B3;margin-top:2px">Backup: {{ b.backup }}</div>
+                          </td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE">
+                            <div style="font-size:12.5px;color:{{ b.teacherFg }};white-space:nowrap">{{ b.teacher }}</div>
+                            <div style="font-size:10px;color:#98A2B3;margin-top:2px">Sub: {{ b.sub }}</div>
+                          </td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE">
+                            <div style="display:flex;align-items:center;gap:9px">
+                              <div style="width:56px;height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ b.w }};border-radius:4px;background:{{ b.capColor }}"></div></div>
+                              <span style="font-size:12px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ b.enrolled }}</span>
+                            </div>
+                            <div style="font-size:10px;color:#98A2B3;margin-top:3px">{{ b.pct }} · {{ b.capBand }}</div>
+                          </td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ b.start }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ b.end }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ b.mode }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ b.sBg }};color:{{ b.sFg }};white-space:nowrap">{{ b.status }}</span></td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ b.aBg }};color:{{ b.aFg }};white-space:nowrap">{{ b.alloc }}</span></td>
+                          <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right;white-space:nowrap;position:relative">
+                            <button onClick="{{ b.assign }}" style="display:{{ b.assignDisplay }};align-items:center;height:29px;padding:0 11px;border-radius:8px;border:0;background:#0E9384;font-size:11.5px;font-weight:700;color:#fff;cursor:pointer;margin-right:6px">Assign</button>
+                            <button onClick="{{ b.reassign }}" style="display:{{ b.reassignDisplay }};align-items:center;height:29px;padding:0 11px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;margin-right:6px">Reassign</button>
+                            <button onClick="{{ b.menu }}" style="width:28px;height:28px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:inline-grid;place-items:center;cursor:pointer;color:#98A2B3;vertical-align:middle">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg>
+                            </button>
+                            <div style="display:{{ b.menuDisplay }};position:absolute;top:38px;right:20px;width:210px;max-height:320px;overflow-y:auto;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;z-index:40;text-align:left">
+                              <sc-for list="{{ b.menuItems }}" as="m" hint-placeholder-count="8">
+                                <div onClick="{{ m.pick }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:{{ m.fg }};cursor:pointer;border-top:{{ m.bt }};margin-top:{{ m.mt }};padding-top:{{ m.pt }}" style-hover="background:{{ m.hbg }}">{{ m.label }}</div>
+                              </sc-for>
+                            </div>
+                          </td>
+                        </tr>
+                          </sc-for>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div style="display:{{ c.emptyDisplay }};padding:28px 20px;text-align:center">
+                      <div style="font-size:13px;font-weight:700;color:#475467">No batches match the current filters</div>
+                      <div style="font-size:11.5px;color:#98A2B3;margin-top:5px">Reset the filters, or create a batch for this course.</div>
+                    </div>
+                  </div>
                 </div>
               </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ tAlIsBatches }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden;margin-bottom:16px">
+              <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">All batches</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Every batch across every course · click a batch for its 360° view</div>
+              </div>
+              <div style="overflow-x:auto">
+                <table style="width:100%;min-width:1320px;border-collapse:collapse">
+                  <thead>
+                    <tr style="background:#FCFBF7">
+                      <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COURSE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCH</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHER</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COORDINATOR</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ENROLLMENT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">START</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">END</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">MODE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ALLOCATION</th>
+                      <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <sc-for list="{{ tAlBatchRows }}" as="b" hint-placeholder-count="8">
+                      <tr style-hover="background:#FCFBF7">
+                        <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47">{{ b.course }}</td>
+                        <td onClick="{{ b.open }}" style="padding:11px 13px;border-bottom:1px solid #F5F3EE;cursor:pointer">
+                          <div style="font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ b.batch }}</div>
+                          <div style="font-size:10px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ b.bid }}</div>
+                        </td>
+                        <td onClick="{{ b.coordOpen }}" style="padding:11px 13px;border-bottom:1px solid #F5F3EE;cursor:pointer">
+                          <div style="font-size:12.5px;font-weight:600;color:{{ b.coordFg }};white-space:nowrap">{{ b.coord }}</div>
+                          <div style="font-size:10px;color:#98A2B3;margin-top:2px">Backup: {{ b.backup }}</div>
+                        </td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE">
+                          <div style="font-size:12.5px;color:{{ b.teacherFg }};white-space:nowrap">{{ b.teacher }}</div>
+                          <div style="font-size:10px;color:#98A2B3;margin-top:2px">Sub: {{ b.sub }}</div>
+                        </td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE">
+                          <div style="display:flex;align-items:center;gap:9px">
+                            <div style="width:56px;height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ b.w }};border-radius:4px;background:{{ b.capColor }}"></div></div>
+                            <span style="font-size:12px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ b.enrolled }}</span>
+                          </div>
+                          <div style="font-size:10px;color:#98A2B3;margin-top:3px">{{ b.pct }} · {{ b.capBand }}</div>
+                        </td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ b.start }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ b.end }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ b.mode }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ b.sBg }};color:{{ b.sFg }};white-space:nowrap">{{ b.status }}</span></td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ b.aBg }};color:{{ b.aFg }};white-space:nowrap">{{ b.alloc }}</span></td>
+                        <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right;white-space:nowrap;position:relative">
+                          <button onClick="{{ b.assign }}" style="display:{{ b.assignDisplay }};align-items:center;height:29px;padding:0 11px;border-radius:8px;border:0;background:#0E9384;font-size:11.5px;font-weight:700;color:#fff;cursor:pointer;margin-right:6px">Assign</button>
+                          <button onClick="{{ b.reassign }}" style="display:{{ b.reassignDisplay }};align-items:center;height:29px;padding:0 11px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;margin-right:6px">Reassign</button>
+                          <button onClick="{{ b.menu }}" style="width:28px;height:28px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:inline-grid;place-items:center;cursor:pointer;color:#98A2B3;vertical-align:middle">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg>
+                          </button>
+                          <div style="display:{{ b.menuDisplay }};position:absolute;top:38px;right:20px;width:210px;max-height:320px;overflow-y:auto;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;z-index:40;text-align:left">
+                            <sc-for list="{{ b.menuItems }}" as="m" hint-placeholder-count="8">
+                              <div onClick="{{ m.pick }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:{{ m.fg }};cursor:pointer;border-top:{{ m.bt }};margin-top:{{ m.mt }};padding-top:{{ m.pt }}" style-hover="background:{{ m.hbg }}">{{ m.label }}</div>
+                            </sc-for>
+                          </div>
+                        </td>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+              <div style="display:{{ tAlBatchEmpty }};padding:36px 20px;text-align:center">
+                <div style="font-size:13.5px;font-weight:700;color:#475467">No batches match these filters</div>
+                <div style="font-size:12px;color:#98A2B3;margin-top:5px">Reset the filters, or create a batch.</div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ tAlIsCoords }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden;margin-bottom:16px">
+              <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Teacher workload</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Allocation load per coordinator · click a name for the full profile</div>
+              </div>
+              <div style="overflow-x:auto">
+                <table style="width:100%;min-width:980px;border-collapse:collapse">
+                  <thead>
+                    <tr style="background:#FCFBF7">
+                      <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHER</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COURSES</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ACTIVE BATCHES</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STUDENTS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">WORKLOAD</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th>
+                      <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <sc-for list="{{ tAlCoordRows }}" as="r" hint-placeholder-count="9">
+                      <tr style-hover="background:#FCFBF7">
+                        <td onClick="{{ r.open }}" style="padding:11px 20px;border-bottom:1px solid #F5F3EE;cursor:pointer">
+                          <div style="display:flex;align-items:center;gap:10px">
+                            <div style="width:30px;height:30px;flex:none;border-radius:50%;background:{{ r.avBg }};display:grid;place-items:center;color:#fff;font-size:10.5px;font-weight:700">{{ r.init }}</div>
+                            <div>
+                              <div style="font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.name }}</div>
+                              <div style="font-size:10px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.id }}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ r.courses }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:13px;font-weight:700;color:#0F2A47">{{ r.active }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ r.students }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE">
+                          <div style="display:flex;align-items:center;gap:10px">
+                            <div style="width:110px;height:7px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ r.w }};border-radius:5px;background:{{ r.barBg }}"></div></div>
+                            <span style="font-size:12.5px;font-weight:800;color:#0F2A47">{{ r.pct }}</span>
+                          </div>
+                        </td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.band }}</span></td>
+                        <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right;white-space:nowrap">
+                          <button onClick="{{ r.assign }}" style="height:29px;padding:0 11px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:11.5px;font-weight:600;color:#0B7A6E;cursor:pointer;margin-right:6px">Assign batch</button>
+                          <button onClick="{{ r.open }}" style="height:29px;padding:0 11px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer">View Profile</button>
+                        </td>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </sc-if>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:16px">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+              <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Allocation alerts</div>
+                <span style="flex:1"></span>
+                <span style="font-size:12px;font-weight:700;color:#B42318">6 open</span>
+              </div>
+              <sc-for list="{{ tAlAlerts }}" as="a" hint-placeholder-count="6">
+                <div style="display:flex;align-items:flex-start;gap:11px;padding:13px 20px;border-bottom:1px solid #F5F3EE;flex-wrap:wrap">
+                  <span style="width:8px;height:8px;flex:none;border-radius:50%;background:{{ a.dot }};margin-top:5px"></span>
+                  <div style="min-width:0;flex:1 1 200px">
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                      <span style="font-size:12.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ a.title }}</span>
+                      <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ a.sBg }};color:{{ a.sFg }}">{{ a.sev }}</span>
+                    </div>
+                    <div style="font-size:11.5px;color:#7A8699;margin-top:4px;text-wrap:pretty">{{ a.desc }}</div>
+                  </div>
+                  <button onClick="{{ a.view }}" style="flex:none;height:29px;padding:0 11px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer">View</button>
+                  <button onClick="{{ a.act }}" style="flex:none;height:29px;padding:0 12px;border-radius:8px;border:0;background:#0E9384;font-size:11.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap">Resolve</button>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Allocation health</div>
+                  <span style="flex:1"></span>
+                  <span style="font-size:26px;font-weight:800;color:#0E9384;letter-spacing:-.03em">{{ alHealth.n }}</span>
+                  <span style="font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:#E7F7EE;color:#15803D">{{ alHealth.label }}</span>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:14px">
+                  <span style="font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:999px;background:#E7F7EE;color:#15803D">{{ alHealth.assigned }}</span>
+                  <span style="font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:999px;background:#FEF3E2;color:#B45309">{{ alHealth.pending }}</span>
+                  <span style="font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:999px;background:#FDE8E8;color:#B42318">{{ alHealth.unassigned }}</span>
+                </div>
+                <div style="font-size:11px;font-weight:700;letter-spacing:.07em;color:#98A2B3;margin:18px 0 11px">ENROLLMENT DISTRIBUTION</div>
+                <div style="display:flex;flex-wrap:wrap;gap:9px">
+                  <sc-for list="{{ tAlEnrollDist }}" as="e" hint-placeholder-count="5">
+                    <button onClick="{{ e.pick }}" style="display:flex;align-items:center;gap:8px;height:34px;padding:0 13px;border-radius:999px;border:1px solid #E5E3DC;background:#fff;cursor:pointer" style-hover="background:#F6F5F0">
+                      <span style="width:8px;height:8px;border-radius:50%;background:{{ e.color }}"></span>
+                      <span style="font-size:12px;color:#475467">{{ e.label }}</span>
+                      <span style="font-size:12px;font-weight:800;color:#0F2A47">{{ e.n }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+                <div style="font-size:11px;font-weight:700;letter-spacing:.07em;color:#98A2B3;margin:18px 0 11px">BATCH DISTRIBUTION BY COURSE</div>
+                <div style="display:flex;flex-direction:column;gap:11px">
+                  <sc-for list="{{ tAlBatchDist }}" as="d" hint-placeholder-count="5">
+                    <div onClick="{{ d.go }}" style="cursor:pointer">
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+                        <span style="font-size:12px;color:#475467;flex:1;min-width:0;text-wrap:pretty">{{ d.course }}</span>
+                        <span style="font-size:12px;font-weight:800;color:#0F2A47">{{ d.n }}</span>
+                      </div>
+                      <div style="height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ d.w }};border-radius:4px;background:#0E9384"></div></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Allocation history</div>
+                  <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Every coordinator change with reason and author</div>
+                </div>
+                <div style="overflow-x:auto">
+                  <table style="width:100%;border-collapse:collapse">
+                    <thead>
+                      <tr style="background:#FCFBF7">
+                        <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCH</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PREVIOUS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">NEW</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EFFECTIVE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">REASON</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">CHANGED BY</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <sc-for list="{{ tAlHistory }}" as="h" hint-placeholder-count="6">
+                        <tr style-hover="background:#FCFBF7">
+                          <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE;font-size:12px;font-weight:600;font-family:ui-monospace,monospace;color:#0F2A47">{{ h.batch }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:{{ h.prevFg }};white-space:nowrap">{{ h.prev }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;font-weight:600;color:{{ h.nextFg }};white-space:nowrap">{{ h.next }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ h.date }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467">{{ h.reason }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#98A2B3;white-space:nowrap">{{ h.by }}</td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -4487,6 +4871,56 @@ const TPBATCH = [
   ['IC-38 Starter · Batch C',0,0,0,0,0,'—','grey']
 ];
 
+
+const ALLOC_HIST = [
+  ['BT-201','Ritu Bansal','Dr. Vikram Verma','10 Aug 2026','Workload balancing','Admin User'],
+  ['BT-318','—','Unassigned','13 Aug 2026','New batch created','Admin User'],
+  ['BT-131','Rahul Kumar','Shalini Nair','12 Aug 2026','Teacher on leave','Anita Rao'],
+  ['BT-205B','—','Neha Kulkarni','11 Aug 2026','New batch','Admin User'],
+  ['BT-412','Ayesha Khan','Ritu Bansal','05 Aug 2026','Batch restructuring','Admin User'],
+  ['BT-508','Shalini Nair','—','02 Aug 2026','Batch paused','Anita Rao']
+];
+
+const TCOURSES = [
+  ['IC-38 Full Prep','C-101',5,3,186,3,'Active','Healthy','green'],
+  ['Life Insurance Elite','C-204',4,2,143,2,'Active','Healthy','green'],
+  ['IC-38 Starter','C-118',3,1,96,2,'Active','Needs attention','amber'],
+  ['Health Crux Pro','C-330',3,2,112,2,'Active','Healthy','green'],
+  ['Exam Strategy','C-312',2,1,48,1,'Active','Critical','red']
+];
+
+// course, batch, id, teacher, backup, coordinator, substitute, enrolled, capacity, start, end, status, statusColor, alloc, allocColor, mode
+const TBATCHES = [
+  ['C-101','Batch A — Morning','BT-201','Dr. Vikram Verma','Ritu Bansal','R. Kumar','—',64,70,'01 Apr 2026','31 Oct 2026','Active','green','Assigned','green','Live Online'],
+  ['C-101','Batch B — Evening','BT-205','Dr. Vikram Verma','—','R. Kumar','Ritu Bansal',48,55,'15 May 2026','15 Dec 2026','Active','green','Assigned','green','Live Online'],
+  ['C-101','Batch C — Afternoon','BT-310','Prof. Arun Mehta','—','S. Patel','—',31,45,'01 Jun 2026','31 Dec 2026','Active','green','Assigned','green','Live Online'],
+  ['C-101','Batch D — Fast-Track','BT-318','—','—','S. Patel','—',22,40,'01 Sep 2026','30 Nov 2026','Upcoming','blue','Unassigned','red','Hybrid'],
+  ['C-101','Batch E — Weekend','BT-322','Ritu Bansal','—','A. Nair','—',38,45,'01 Mar 2026','30 Jun 2026','Completed','grey','Assigned','green','Live Online'],
+  ['C-204','Batch B1','BT-312','Dr. Vikram Verma','—','S. Patel','—',48,50,'01 Jun 2026','31 Jan 2027','Active','green','Assigned','green','Live Online'],
+  ['C-204','Batch B2 — Evening','BT-205B','Neha Kulkarni','—','R. Kumar','—',42,50,'15 Jul 2026','15 Feb 2027','Active','green','Assigned','green','Live Online'],
+  ['C-204','Batch B3','BT-330','Ayesha Khan','—','A. Nair','—',50,50,'01 Aug 2026','28 Feb 2027','Full','amber','Pending Acceptance','amber','Live Online'],
+  ['C-204','Batch B4','BT-344','—','—','—','—',30,45,'01 Oct 2026','31 Mar 2027','Configured','grey','Unassigned','red','Live Online'],
+  ['C-118','Batch C','BT-118','—','—','A. Nair','—',26,40,'01 Sep 2026','28 Feb 2027','Upcoming','blue','Unassigned','red','Hybrid'],
+  ['C-118','Batch C2 — Morning','BT-124','Rahul Kumar','—','R. Kumar','—',34,40,'01 Jul 2026','31 Dec 2026','Active','green','Assigned','green','Live Online'],
+  ['C-118','Batch C3','BT-131','Shalini Nair','—','S. Patel','—',36,45,'15 Aug 2026','15 Feb 2027','Active','green','Reassignment Pending','amber','Live Online'],
+  ['C-330','Batch H1','BT-401','Ayesha Khan','—','A. Nair','—',56,60,'01 May 2026','30 Nov 2026','Active','green','Assigned','green','Live Online'],
+  ['C-330','Batch H2 — Fast-Track','BT-408','—','—','R. Kumar','—',33,45,'01 Sep 2026','31 Dec 2026','Upcoming','blue','Unassigned','red','Recorded'],
+  ['C-330','Batch H3','BT-412','Ritu Bansal','—','S. Patel','—',23,45,'01 Apr 2026','30 Jun 2026','Archived','grey','Assigned','green','Live Online'],
+  ['C-312','Batch S1','BT-501','Shalini Nair','—','A. Nair','—',26,30,'01 Aug 2026','30 Sep 2026','Active','green','Assigned','green','Live Online'],
+  ['C-312','Batch S2','BT-508','—','—','—','—',22,30,'01 Sep 2026','31 Oct 2026','Paused','amber','Allocation Conflict','red','Live Online']
+];
+
+const TCWL = [
+  ['Dr. Vikram Verma','TCH-2001',3,4,186,12,'High','amber'],
+  ['Neha Kulkarni','TCH-2002',2,3,143,10,'Normal','green'],
+  ['Prof. Arun Mehta','TCH-2005',3,5,212,15,'Overloaded','red'],
+  ['Ritu Bansal','TCH-2008',2,3,148,9,'Normal','green'],
+  ['Ayesha Khan','TCH-2010',2,3,132,11,'High','amber'],
+  ['Rahul Kumar','TCH-2003',2,4,176,13,'High','amber'],
+  ['Shalini Nair','TCH-2012',2,2,96,7,'Normal','green'],
+  ['Deepak Rao','TCH-2009',1,2,84,5,'Low','grey']
+];
+
 class Component extends DCLogic {
   state = { route:'dash', view:'grid', tab:'All', q:'',
     tfOpen:false, tfSubject:'All', tfMode:'All', tfPayout:'All', tfRating:'All', tfLang:'All',
@@ -4557,6 +4991,64 @@ class Component extends DCLogic {
   fchecks = (label, rows) => ({...this.flags('checks'), label, kind:'checks', span:'span 3',
     items: rows.map(([t, on])=>({t, bg: on?'#0E9384':'#fff', bd: on?'#0E9384':'#DFDDD4',
       mark: on?'✓':'', fg: on?'#0F2A47':'#98A2B3'}))});
+
+  tDecorateBatch = (b, courseName) => {
+    const s = this.state;
+    const [cid,batch,bid,teacher,backup,coord,sub,enrolled,capacity,start,end,status,sc,alloc,ac,mode] = b;
+    const pct = Math.round(enrolled/capacity*100);
+    const capBand = pct>=100 ? 'Full' : pct>=90 ? 'Near capacity' : pct>=50 ? 'Normal' : 'Low enrollment';
+    return {
+      course: courseName || (TCOURSES.find(c=>c[1]===cid)||['',''])[0],
+      batch, bid, coord:teacher, backup, teacher:coord, sub, mode,
+      enrolled: enrolled+' / '+capacity, pct: pct+'%', w: Math.min(100,pct)+'%', capBand,
+      capColor: pct>=100 ? '#E88B78' : pct>=90 ? '#F0A72A' : pct>=50 ? '#0E9384' : '#98A2B3',
+      start, end, status, alloc,
+      sBg:BDG[sc][0], sFg:BDG[sc][1], aBg:BDG[ac][0], aFg:BDG[ac][1],
+      coordFg: teacher==='—' ? '#B42318' : '#0F2A47',
+      teacherFg: coord==='—' ? '#98A2B3' : '#475467',
+      assignDisplay: teacher==='—' ? 'inline-flex' : 'none',
+      reassignDisplay: teacher==='—' ? 'none' : 'inline-flex',
+      menuDisplay: s.tAlMenu===bid ? 'block' : 'none',
+      menu: ()=>this.setState({tAlMenu: s.tAlMenu===bid ? null : bid}),
+      open: ()=>this.setState({tAlBatch:bid}),
+      coordOpen: teacher==='—' ? (()=>{}) : (()=>this.setState({route:'profile', teacher:(TEACHERS.find(t=>t[0]===teacher)||[])[1]||'TCH-2001'})),
+      assign: ()=>this.setState({fm:'assignTeacher', fmCtx:{batch:batch, bid, course:courseName, current:teacher}, fmStep:0, fmErr:null}),
+      reassign: ()=>this.setState({fm:'reassignTeacher', fmCtx:{batch:batch, bid, course:courseName, current:teacher}, fmStep:0, fmErr:null}),
+      menuItems: [
+        ['View Batch',0],['Edit Batch',0],['Assign Teacher',0],['Reassign Teacher',0],
+        ['Add Teacher',0],['Remove Teacher',1],['Add Substitute',0],
+        ['View Students',0],['Move Students',0],['View Schedule',0],['Send Announcement',0],
+        ['Duplicate Batch',0],['Export Batch Data',0],
+        ['Pause Batch',1],['Complete Batch',1],['Cancel Batch',1],['Archive Batch',1]
+      ].map(([label,danger],i)=>({label,
+        fg: danger?'#B42318':'#344054', hbg: danger?'#FEF7F6':'#F7FBFA',
+        bt: (i===6||i===10||i===12) ? '1px solid #F2F0EA' : 'none',
+        mt: (i===6||i===10||i===12) ? '4px' : '0',
+        pt: (i===6||i===10||i===12) ? '8px' : '0',
+        pick: label==='View Batch' ? (()=>this.setState({tAlMenu:null, tAlBatch:bid}))
+          : label==='Assign Teacher' ? (()=>this.setState({tAlMenu:null, fm:'assignTeacher', fmCtx:{batch, bid, course:courseName, current:teacher}, fmStep:0, fmErr:null}))
+          : label==='Reassign Teacher' ? (()=>this.setState({tAlMenu:null, fm:'reassignTeacher', fmCtx:{batch, bid, course:courseName, current:teacher}, fmStep:0, fmErr:null}))
+          : label==='Duplicate Batch' ? (()=>this.setState({tAlMenu:null, fm:'duplicate', fmCtx:{batch, bid, course:courseName}, fmStep:0, fmErr:null}))
+          : label==='Move Students' ? (()=>this.setState({tAlMenu:null, fm:'act', fmCtx:{label:'Transfer Student', who:batch}, fmStep:0, fmErr:null}))
+          : (()=>this.setState({tAlMenu:null, fm:'act', fmStep:0, fmErr:null, fmCtx:{label, danger, who:(courseName||'')+' · '+batch}}))}))
+    };
+  };
+
+  tAlFilteredRows = () => {
+    const s = this.state;
+    const q = (s.tAlQ||'').trim().toLowerCase();
+    const courseName = (cid)=> (TCOURSES.find(c=>c[1]===cid)||['',''])[0];
+    return TBATCHES.filter(b => {
+      const pct = Math.round(b[7]/b[8]*100);
+      return ((s.tAlCourse||'All')==='All' || courseName(b[0])===s.tAlCourse) &&
+        ((s.tAlCoordF||'All')==='All' || (s.tAlCoordF==='Unassigned' ? b[3]==='—' : b[3]===s.tAlCoordF)) &&
+        ((s.tAlStatus||'All')==='All' || b[11]===s.tAlStatus) &&
+        ((s.tAlAlloc||'All')==='All' || b[13]===s.tAlAlloc) &&
+        ((s.tAlMode||'All')==='All' || b[15]===s.tAlMode) &&
+        ((s.tAlEnroll||'All')==='All' || (s.tAlEnroll==='Full' ? pct>=100 : s.tAlEnroll==='Below 50%' ? pct<50 : s.tAlEnroll==='50–75%' ? (pct>=50&&pct<75) : s.tAlEnroll==='75–90%' ? (pct>=75&&pct<90) : (pct>=90&&pct<100))) &&
+        (!q || (b[1]+b[2]+b[3]+b[5]+courseName(b[0])).toLowerCase().includes(q));
+    }).map(b=>this.tDecorateBatch(b));
+  };
 
   subStagesFor = (idx) => ['Required','Searching','Suggested','Invited','Accepted','Assigned'].map((st,i)=>({st,
     bg: i<idx ? '#0E9384' : i===idx ? '#F0A72A' : '#E5E3DC',
@@ -4680,7 +5172,7 @@ class Component extends DCLogic {
       pfSchedule: ()=>this.setState({fm:'schedule', fmCtx:{teacher:(TEACHERS.find(x=>x[1]===s.teacher)||TEACHERS[0])[0]}, fmStep:0, fmErr:null}),
       pfReport: ()=>this.setState({fm:'report', fmCtx:{type:'Faculty Performance Scorecard'}, fmStep:0, fmErr:null}),
 
-      subNav: [['dash','Dashboard'],['onboarding','Onboarding & Recruitment'],['list','All Teachers'],['allocation','Course Allocation'],['schedules','Schedules'],['reminders','Reminders & Alerts'],['payouts','Payouts'],['performance','Performance Report']].map(([k,label])=>{
+      subNav: [['dash','Dashboard'],['onboarding','Onboarding & Recruitment'],['list','All Teachers'],['allocation','Course & Batch Allocation'],['schedules','Schedules'],['reminders','Reminders & Alerts'],['payouts','Payouts'],['performance','Performance Report']].map(([k,label])=>{
         const on = s.route===k || (k==='list' && (s.route==='profile' || s.route==='onboarding'));
         return {label, bg:on?'#14335C':'transparent', fg:on?'#fff':'#9FB2CC', weight:on?'600':'500',
           bar:on?'#0E9384':'transparent', go:()=>this.setState({route:k})};
@@ -4952,6 +5444,98 @@ class Component extends DCLogic {
         ['15 Aug, 9:30 AM','Announcement published','IC-01 Batch A · 82 students','Mid-term assessment schedule'],
         ['14 Aug, 5:48 PM','Follow-up completed','7 inactive students','4 re-engaged · 3 pending']
       ].map(([when,action,object,detail])=>({when,action,object,detail})),
+
+      tAlKpis: [
+        {label:'Total Courses',n:'5',note:'across 3 tracks',fg:'#6B7C93',go:()=>this.setState({tAlView:'courses'})},
+        {label:'Total Batches',n:'20',note:'11 active · 6 upcoming',fg:'#6B7C93',go:()=>this.setState({tAlView:'batches',tAlAlloc:'All'})},
+        {label:'Allocated Batches',n:'15',note:'75% coverage',fg:'#15803D',go:()=>this.setState({tAlView:'batches',tAlAlloc:'Assigned'})},
+        {label:'Unassigned Batches',n:'4',note:'needs a teacher',fg:'#B42318',go:()=>this.setState({tAlView:'batches',tAlAlloc:'Unassigned'})},
+        {label:'Active Teachers',n:'9',note:'holding at least 1 batch',fg:'#15803D',go:()=>this.setState({tAlView:'coords'})},
+        {label:'Students Under Coordination',n:'711',note:'across allocated batches',fg:'#6B7C93',go:()=>this.setState({tAlView:'batches'})}
+      ],
+      tAlViews: [['Courses','courses'],['Batches','batches'],['Teachers','teachers']].map(([label,k])=>{
+        const on = (s.tAlView||'courses')===k;
+        return {label, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'600':'500',
+          pick:()=>this.setState({tAlView:k})};
+      }),
+      tAlIsCourses: (s.tAlView||'courses')==='courses', tAlIsBatches: s.tAlView==='batches', tAlIsCoords: s.tAlView==='teachers',
+      tAlQ: s.tAlQ||'', setAlQ:(e)=>this.setState({tAlQ:e.target.value}),
+      tAlFilters: [
+        ['Course','tAlCourse',['All'].concat(TCOURSES.map(c=>c[0]))],
+        ['Teacher','tAlCoordF',['All'].concat(TCWL.map(c=>c[0])).concat(['Unassigned'])],
+        ['Batch status','tAlStatus',['All','Draft','Configured','Upcoming','Active','Full','Paused','Completed','Cancelled','Archived']],
+        ['Allocation','tAlAlloc',['All','Assigned','Unassigned','Pending Acceptance','Reassignment Pending','Allocation Conflict']],
+        ['Enrollment','tAlEnroll',['All','Below 50%','50–75%','75–90%','90–100%','Full']],
+        ['Delivery mode','tAlMode',['All','Live Online','Hybrid','Recorded','Weekend']]
+      ].map(([label,key,opts])=>({label, value:s[key]||'All', opts:opts.map(o=>({o})),
+        set:(e)=>this.setState({[key]:e.target.value})})),
+      tAlReset: ()=>{ this.setState({tAlCourse:'All',tAlCoordF:'All',tAlStatus:'All',tAlAlloc:'All',tAlEnroll:'All',tAlMode:'All',tAlQ:''});
+        this.fire('Filters reset','Showing every course and batch'); },
+      tAlCreate: ()=>this.setState({fm:'batch', fmCtx:{}, fmStep:0, fmErr:null}),
+      tAlExport: ()=>this.setState({fm:'export', fmCtx:{}, fmStep:0, fmErr:null}),
+      tAlBulk: ()=>this.setState({fm:'bulk', fmCtx:{}, fmStep:0, fmErr:null}),
+
+      tAlCourseRows: (()=>{
+        const open = s.tAlOpenCourse;
+        return TCOURSES.map(([course,cid,batches,active,students,coords,status,health,hc])=>{
+          const kids = TBATCHES.filter(b=>b[0]===cid);
+          const shown = kids.filter(b=>{
+            const pct = Math.round(b[7]/b[8]*100);
+            return ((s.tAlStatus||'All')==='All' || b[11]===s.tAlStatus) &&
+              ((s.tAlAlloc||'All')==='All' || b[13]===s.tAlAlloc) &&
+              ((s.tAlCoordF||'All')==='All' || (s.tAlCoordF==='Unassigned' ? b[3]==='—' : b[3]===s.tAlCoordF)) &&
+              ((s.tAlMode||'All')==='All' || b[15]===s.tAlMode);
+          });
+          const isOpen = open===cid;
+          return {course, cid, batches:String(batches), active:String(active), students:String(students),
+            coords:String(coords), status, health, hBg:BDG[hc][0], hFg:BDG[hc][1],
+            summary:batches+' batches · '+students+' students · '+coords+' teachers',
+            rot: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+            bodyDisplay: isOpen ? 'block' : 'none',
+            toggle: ()=>this.setState({tAlOpenCourse: isOpen ? null : cid}),
+            viewCourse: this.act('Course opened — '+course,'Content, chapters, recorded lectures and mock tests'),
+            manage: ()=>this.setState({tAlView:'batches', tAlCourse:course}),
+            emptyDisplay: shown.length ? 'none' : 'block',
+            kids: shown.map(b=>this.tDecorateBatch(b, course))};
+        }).filter(c => (s.tAlCourse||'All')==='All' || c.course===s.tAlCourse);
+      })(),
+
+      tAlBatchRows: this.tAlFilteredRows(),
+      tAlBatchEmpty: this.tAlFilteredRows().length ? 'none' : 'block',
+
+      tAlCoordRows: TCWL.map(([name,id,courses,active,students,pct,band,c])=>({
+        name, id, courses:String(courses), active:String(active), students:String(students),
+        pct:pct+'%', band, w:Math.min(100,pct)+'%',
+        sBg:BDG[c][0], sFg:BDG[c][1],
+        barBg: band==='Overloaded' ? '#E88B78' : band==='High' ? '#F0A72A' : band==='Low' ? '#98A2B3' : '#0E9384',
+        init:this.initials(name), avBg:AVc(name),
+        open: ()=>this.setState({route:'all', prof:name, profTab:'Overview'}),
+        assign: ()=>this.setState({fm:'assignCoord', fmCtx:{teacher:name}, fmStep:0, fmErr:null})})),
+
+      tAlAlerts: [
+        ['4 batches without teachers','IC 01 Batch 03 · IC 02 Batch 04 · IC 11 Batch 05 · Exam Strategy Batch 02','Critical','red','Unassigned'],
+        ['1 teacher over capacity','Sneha Iyer is at 96% workload across 4 active batches','High','amber','Overloaded'],
+        ['1 pending teacher acceptance','Karan Bhatt has not accepted IC 02 Batch 02','High','amber','Pending Acceptance'],
+        ['1 reassignment pending','IC 11 Batch 03 · Ritika Sen → Amit Deshpande','Medium','grey','Reassignment Pending'],
+        ['3 batches missing a primary teacher','IC 02 Batch 04 · IC 11 Batch 05 · Exam Strategy Batch 02','Critical','red','Missing teacher'],
+        ['1 allocation conflict','Taxation Batch 03 is paused with no teacher','Critical','red','Allocation Conflict']
+      ].map(([title,desc,sev,c,filter])=>({title,desc,sev,
+        dot:BDG[c][1], sBg:BDG[c][0], sFg:BDG[c][1],
+        view: ()=>{ this.setState({tAlView:'batches', tAlAlloc: ['Unassigned','Pending Acceptance','Reassignment Pending','Allocation Conflict'].includes(filter) ? filter : 'All'});
+          this.fire('Filtered to '+filter, desc); },
+        act: ()=>this.setState({fm:'assignCoord', fmCtx:{fromAlert:title}, fmStep:0, fmErr:null})})),
+
+      tAlHealth: {n:'92%', label:'Healthy', assigned:'15 assigned', pending:'2 pending', unassigned:'4 unassigned'},
+      tAlEnrollDist: [
+        ['Below 50%','1','#98A2B3'],['50–75%','5','#5AC0B0'],['75–90%','8','#0E9384'],['90–100%','5','#F0A72A'],['Full','1','#E88B78']
+      ].map(([label,n,color])=>({label,n,color,
+        pick:()=>{ this.setState({tAlView:'batches', tAlEnroll:label}); this.fire('Filtered to '+label+' enrollment', n+' batches'); }})),
+      tAlBatchDist: TCOURSES.map(([course,cid,batches])=>({course, n:String(batches),
+        w: Math.round(batches/6*100)+'%',
+        go: ()=>this.setState({tAlView:'batches', tAlCourse:course})})),
+      tAlHistory: ALLOC_HIST.map(([batch,prev,next,date,reason,by])=>({batch,prev,next,date,reason,by,
+        prevFg: prev==='—' ? '#98A2B3' : '#475467',
+        nextFg: next==='—' ? '#B42318' : '#0F2A47'})),
 
       profTabs: TABS.map(t=>{
         const on = (s.tab2||'Overview')===t;
@@ -5491,6 +6075,108 @@ class Component extends DCLogic {
               close();
               this.fire('Compensation updated — '+(ctx.teacher||'Dr. Vikram Verma'),
                 methods.join(' + ')+' · effective '+(s.cpFrom||'01 Sep 2026')+' · '+(s.cpReason||'Contract revision')); }});
+        }
+
+        if (kind==='assignTeacher' || kind==='reassignTeacher' || kind==='assignCoord') {
+          const re_ = kind==='reassignTeacher';
+          const who = ctx.current && ctx.current!=='—' ? ctx.current : '';
+          return wrap({title: re_ ? 'Reassign Teacher' : 'Assign Teacher', width:'760px',
+            sub: (ctx.course ? ctx.course+' · ' : '')+(ctx.batch||ctx.teacher||'Batch allocation'),
+            groups:[
+              {t:'Allocation', fields:[
+                this.f('Batch','atBatch',(ctx.batch||'')+(ctx.bid?' ('+ctx.bid+')':''),'readonly',null,{span:'span 2'}),
+                this.f('Course','atCourse',ctx.course||'IC-38 Full Prep','readonly'),
+                this.f('Current teacher','atCurrent',who||'Unassigned','readonly'),
+                this.f(re_ ? 'New teacher *' : 'Teacher *','atTeacher',TEACHERS[0][0],'select',TEACHERS.map(t=>t[0])),
+                this.f('Effective from','atFrom','2026-08-15','date'),
+                this.f('Allocation scope','atScope','Full batch','select',['Full batch','Co-teaching','Substitute only','Recorded content only']),
+                this.f('Weekly hours','atHours','10 h','select',['4 h','6 h','8 h','10 h','12 h','14 h'])]},
+              {t:'Handover & notification', fields:[
+                this.fradio('Existing sessions','atSessions', re_ ? 'Transfer to new teacher' : 'Assign from effective date',
+                  re_ ? ['Transfer to new teacher','Keep with current teacher','Split by date'] : ['Assign from effective date','Assign all upcoming sessions']),
+                this.fchips('Notify','atNotify',['Crux Chat','Email'],['Crux Chat','Email','SMS','WhatsApp']),
+                this.f('Reason *','atReason','','textarea',null,{span:'span 3',
+                  placeholder:'Required — recorded in the allocation history and audit trail.'})]}],
+            warn: re_ ? 'Reassigning mid-batch notifies enrolled students and the coordinator.' : '',
+            warnDisplay: re_ ? 'flex' : 'none',
+            info:'Capacity is checked before the allocation is saved — an over-capacity teacher is flagged for rebalancing.',
+            infoDisplay:'flex',
+            primaryLabel: re_ ? 'Reassign Teacher' : 'Assign Teacher',
+            primary: ()=>{
+              if (!(s.atReason||'').trim()) return this.setState({fmErr:'Enter a reason — it is recorded in the allocation history.'});
+              const t = s.atTeacher || TEACHERS[0][0];
+              close();
+              this.fire((re_?'Teacher reassigned — ':'Teacher assigned — ')+t,
+                (ctx.batch||'Batch')+' · '+(s.atScope||'Full batch')+' · effective '+(s.atFrom||'15 Aug 2026')); }});
+        }
+
+        if (kind==='batch') {
+          return wrap({title:'Create Batch', width:'800px',
+            sub:'Live courses carry a batch entity · recorded courses attach directly to the student profile',
+            groups:[
+              {t:'Batch', fields:[
+                this.f('Course *','cbCourse',TCOURSES[0][0],'select',TCOURSES.map(c=>c[0])),
+                this.f('Batch name *','cbName','','text',null,{placeholder:'Batch F — Morning'}),
+                this.f('Batch shift','cbShift','Morning','select',['Morning','Afternoon','Evening','Fast-Track','Weekend']),
+                this.f('Capacity','cbCap','50','text'),
+                this.f('Start date','cbStart','2026-09-01','date'),
+                this.f('End date','cbEnd','2027-02-28','date'),
+                this.f('Mode','cbMode','Live Online','select',['Live Online','Hybrid','Offline','Recorded'])]},
+              {t:'Allocation', fields:[
+                this.f('Assign teacher','cbTeacher','Unassigned','select',['Unassigned',...TEACHERS.map(t=>t[0])]),
+                this.f('Coordinator','cbCoord','Unassigned','select',['Unassigned','R. Kumar','S. Patel','A. Nair']),
+                this.f('Schedule','cbSched','Mon–Fri · 07:00–09:00','text',null,{span:'span 3'})]}],
+            primaryLabel:'Create Batch',
+            primary: ()=>{
+              if (!(s.cbName||'').trim()) return this.setState({fmErr:'Enter a batch name.'});
+              close();
+              this.fire('Batch created — '+s.cbName, (s.cbCourse||TCOURSES[0][0])+' · '+(s.cbShift||'Morning')+' · capacity '+(s.cbCap||'50')); }});
+        }
+
+        if (kind==='duplicate') {
+          return wrap({title:'Duplicate Batch', width:'640px',
+            sub:(ctx.course||'')+' · '+(ctx.batch||''),
+            groups:[{t:'New batch', fields:[
+              this.f('Source batch','dpSrc',(ctx.batch||'')+(ctx.bid?' ('+ctx.bid+')':''),'readonly',null,{span:'span 3'}),
+              this.f('New batch name *','dpName','','text',null,{span:'span 2',placeholder:'Batch F — Morning'}),
+              this.f('Start date','dpStart','2026-09-01','date'),
+              this.fchips('Copy across',['dpCopy'],['Schedule','Teacher','Coordinator','Capacity','Content']) ]}],
+            primaryLabel:'Duplicate Batch',
+            primary: ()=>{
+              if (!(s.dpName||'').trim()) return this.setState({fmErr:'Enter a name for the new batch.'});
+              close(); this.fire('Batch duplicated — '+s.dpName, 'Copied from '+(ctx.batch||'source batch')); }});
+        }
+
+        if (kind==='bulk') {
+          return wrap({title:'Bulk Actions', width:'700px',
+            sub:'Applies to every batch matching the current filters',
+            groups:[{t:'Action', fields:[
+              this.f('Action *','bkAction','Assign teacher','select',['Assign teacher','Reassign teacher','Change coordinator','Change status','Export selection']),
+              this.f('Teacher','bkTeacher',TEACHERS[0][0],'select',TEACHERS.map(t=>t[0])),
+              this.f('Scope','bkScope','Filtered batches','select',['Filtered batches','Unallocated batches only','Active batches only']),
+              this.fchips('Notify','bkNotify',['Crux Chat'],['Crux Chat','Email','SMS','WhatsApp']),
+              this.f('Reason','bkReason','','textarea',null,{span:'span 3',placeholder:'Recorded against every affected batch.'})]}],
+            warn:'Bulk changes are applied immediately and written to the allocation history for each batch.',
+            warnDisplay:'flex',
+            primaryLabel:'Apply to Batches',
+            primary: ()=>{ close();
+              this.fire('Bulk action applied — '+(s.bkAction||'Assign teacher'), (s.bkScope||'Filtered batches')+' · audit-logged'); }});
+        }
+
+        if (kind==='export') {
+          return wrap({title:'Export', width:'660px',
+            sub: ctx.type ? (ctx.type+' · choose the format and range') : 'Choose what to export',
+            groups:[{t:'Export', fields:[
+              this.f('Report','exType',ctx.type||'Allocation Summary','select',['Allocation Summary','Batch List','Teacher Workload','Performance Summary','Attendance Report','Teaching Hours Report','Student Rating Report','Course Completion Report','Student Engagement Report']),
+              this.f('Format','exFormat','XLSX','select',['XLSX','CSV','PDF']),
+              this.f('Date range','exRange','This month','select',['Today','This week','This month','This quarter','This year','Custom']),
+              this.fchips('Filters applied','exFilters',['Current filters'],['Current filters','All records']),
+              this.f('Deliver to','exTo','Download','select',['Download','Email to me','Email to finance'])]}],
+            info:'Exports run in the background — large ranges are emailed when ready.',
+            infoDisplay:'flex',
+            primaryLabel:'Export',
+            primary: ()=>{ close();
+              this.fire('Export started — '+(s.exType||ctx.type||'Allocation Summary'), (s.exFormat||'XLSX')+' · '+(s.exRange||'This month')); }});
         }
 
         if (kind==='skill') {
