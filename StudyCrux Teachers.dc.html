@@ -2747,16 +2747,30 @@
 
       <sc-if value="{{ isPerformance }}" hint-placeholder-val="{{ false }}">
         <div>
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
-              <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Scope &amp; comparison</span>
-              <span style="display:{{ perfBar.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ perfBar.count }}</span>
-              <span style="flex:1"></span>
-              <button onClick="{{ perfBar.reset }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
-              <button onClick="{{ perfReport }}" style="height:32px;padding:0 14px;border-radius:8px;border:0;background:#0E9384;font-size:12px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Export</button>
+      <sc-if value="{{ isTPerfList }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:13px;margin-bottom:16px">
+            <sc-for list="{{ tPvKpis }}" as="k" hint-placeholder-count="5">
+              <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:15px 17px">
+                <div style="font-size:11.5px;font-weight:500;color:#6B7C93;text-wrap:pretty">{{ k.label }}</div>
+                <div style="font-size:25px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:5px">{{ k.n }}</div>
+                <div style="font-size:11px;font-weight:600;color:{{ k.fg }};margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:15px;flex-wrap:wrap">
+            <div style="position:relative;flex:1 1 260px;min-width:0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:13px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
+              <input value="{{ tPvQ }}" onChange="{{ tSetPvQ }}" placeholder="Search teacher or ID…" style="width:100%;height:38px;padding:0 13px 0 35px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
             </div>
-            <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px">
-              <sc-for list="{{ perfBar.selects }}" as="p" hint-placeholder-count="5">
+            <button onClick="{{ tPvReset }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            <button onClick="{{ tPvExport }}" style="flex:none;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">Export Report</button>
+          </div>
+
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+              <sc-for list="{{ tPvFilters }}" as="p" hint-placeholder-count="5">
                 <div style="min-width:0">
                   <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ p.label }}</label>
                   <select value="{{ p.value }}" onChange="{{ p.set }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
@@ -2769,512 +2783,511 @@
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin-bottom:16px">
-            <sc-for list="{{ perfKpis }}" as="k" hint-placeholder-count="10">
-              <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:15px 17px">
-                <div style="display:flex;align-items:flex-start;gap:9px">
-                  <div style="min-width:0;flex:1">
-                    <div style="font-size:11.5px;font-weight:500;color:#6B7C93;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.label }}</div>
-                    <div style="font-size:24px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:5px">{{ k.v }}</div>
-                  </div>
-                  <div style="width:32px;height:32px;flex:none;border-radius:9px;background:{{ k.ibg }};display:grid;place-items:center">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ k.ifg }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ k.path }}" /></svg>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:7px;margin-top:8px">
-                  <span style="font-size:11px;font-weight:700;color:{{ k.fg }};white-space:nowrap">{{ k.delta }}</span>
-                  <span style="font-size:11px;color:#98A2B3;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.sub }}</span>
-                </div>
-              </div>
-            </sc-for>
-          </div>
-
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden;margin-bottom:16px">
-            <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA">
-              <div>
-                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Automated insights</div>
-                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Significant movements detected this period</div>
-              </div>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:16px 20px">
-              <sc-for list="{{ perfInsights }}" as="i" hint-placeholder-count="6">
-                <div onClick="{{ i.go }}" style="min-width:0;border:1px solid #F0EEE7;border-radius:12px;padding:14px 16px;background:#FCFBF7;cursor:pointer" style-hover="border-color:#BFE3DC">
-                  <div style="display:flex;align-items:flex-start;gap:10px">
-                    <span style="width:24px;height:24px;flex:none;border-radius:8px;background:{{ i.bg }};color:{{ i.fg }};display:grid;place-items:center;font-size:12px;font-weight:800">{{ i.ic }}</span>
-                    <div style="min-width:0">
-                      <div style="font-size:12.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ i.t }}</div>
-                      <div style="font-size:11.5px;color:#7A8699;margin-top:5px;line-height:1.5;text-wrap:pretty">{{ i.m }}</div>
-                      <div style="font-size:11.5px;font-weight:700;color:#0B7A6E;margin-top:8px">{{ i.action }} →</div>
-                    </div>
-                  </div>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-
-          <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-bottom:16px">
-            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
-              <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-                <div>
-                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Performance trends</div>
-                  <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">{{ perfTrendMetric }} across the selected horizon</div>
-                </div>
-                <span style="flex:1"></span>
-                <div style="display:flex;gap:2px;background:#FCFBF7;border:1px solid #ECEAE2;border-radius:10px;padding:3px">
-                  <sc-for list="{{ perfTrendModes }}" as="t" hint-placeholder-count="3">
-                    <button onClick="{{ t.pick }}" style="height:28px;padding:0 13px;border:0;border-radius:7px;font-size:12px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap">{{ t.label }}</button>
-                  </sc-for>
-                </div>
-              </div>
-              <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:14px">
-                <sc-for list="{{ perfMetricPills }}" as="m" hint-placeholder-count="6">
-                  <button onClick="{{ m.pick }}" style="height:30px;padding:0 12px;border-radius:999px;border:1px solid {{ m.bd }};background:{{ m.bg }};font-size:12px;font-weight:{{ m.fw }};color:{{ m.fg }};cursor:pointer">{{ m.label }}</button>
-                </sc-for>
-              </div>
-              <div style="display:flex;align-items:flex-end;gap:14px;height:206px;margin-top:18px">
-                <sc-for list="{{ perfTrend }}" as="b" hint-placeholder-count="6">
-                  <div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:8px">
-                    <span style="font-size:11px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ b.v }}</span>
-                    <div style="width:100%;height:{{ b.h }};border-radius:7px 7px 0 0;background:{{ b.bg }}"></div>
-                    <span style="font-size:11px;color:#98A2B3;white-space:nowrap">{{ b.label }}</span>
-                  </div>
-                </sc-for>
-              </div>
-            </div>
-
-            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
-              <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
-                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Period comparison</div>
-                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">{{ perfCompareLabel }}</div>
-              </div>
-              <sc-for list="{{ perfCompare }}" as="r" hint-placeholder-count="9">
-                <div style="display:flex;align-items:center;gap:10px;padding:10px 20px;background:{{ r.bg }};border-bottom:1px solid #F5F3EE">
-                  <span style="font-size:12.5px;color:#475467;flex:1;min-width:0">{{ r.metric }}</span>
-                  <span style="font-size:12.5px;font-weight:800;color:#0F2A47;width:56px;text-align:right">{{ r.cur }}</span>
-                  <span style="font-size:11.5px;color:#98A2B3;width:56px;text-align:right">{{ r.prev }}</span>
-                  <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.dBg }};color:{{ r.dFg }};white-space:nowrap;width:72px;text-align:center">{{ r.delta }}</span>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden;margin-bottom:16px">
-            <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
-              <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Teaching &amp; student outcomes</div>
-              <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Teacher activity on the left, learning outcomes on the right · click a row to drill in</div>
-            </div>
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
             <div style="overflow-x:auto">
-              <table style="width:100%;min-width:1420px;border-collapse:collapse">
+              <table style="width:100%;min-width:1320px;border-collapse:collapse">
                 <thead>
                   <tr style="background:#FCFBF7">
-                    <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHER</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SUBJECT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHING HOURS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SESSIONS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ATTENDANCE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COMPLETION</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">QUIZ AVG</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ASSIGNMENTS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">CERTIFICATES</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RATING</th><th style="padding:11px 20px 11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RESPONSE TIME</th>
+                    <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHER</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STUDENTS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCHES</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ATTENDANCE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ENGAGEMENT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COURSE COMPLETION</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ASSIGNMENTS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STUDENT RATING</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHING HOURS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RESPONSE TIME</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PERFORMANCE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LAST ACTIVE</th>
+                    <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <sc-for list="{{ perfTeaching }}" as="r" hint-placeholder-count="9">
-                    <tr onClick="{{ r.open }}" style="cursor:pointer" style-hover="background:#FCFBF7">
-                      <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE">
+                  <sc-for list="{{ tPvRows }}" as="r" hint-placeholder-count="8">
+                    <tr style-hover="background:#FCFBF7">
+                      <td onClick="{{ r.open }}" style="padding:11px 20px;border-bottom:1px solid #F5F3EE;cursor:pointer">
                         <div style="display:flex;align-items:center;gap:10px">
-                          <div style="width:30px;height:30px;flex:none;border-radius:50%;background:{{ r.avBg }};display:grid;place-items:center;color:#fff;font-size:10.5px;font-weight:700">{{ r.init }}</div>
+                          <div style="width:32px;height:32px;flex:none;border-radius:50%;background:{{ r.avBg }};display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">{{ r.init }}</div>
                           <div>
                             <div style="font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.name }}</div>
-                            <div style="font-size:10px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.tid }}</div>
+                            <div style="font-size:10px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.id }}</div>
                           </div>
                         </div>
                       </td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.subject }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap;font-weight:600;color:#0F2A47">{{ r.hours }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.sessions }}</td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }}">{{ r.att }}</span></td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap;font-weight:600;color:#0F2A47">{{ r.completion }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.quiz }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.assign }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.certs }}</td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:13px;font-weight:800;color:{{ r.rFg }};white-space:nowrap">★ {{ r.rating }}</td>
-                      <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:{{ r.respFg }};white-space:nowrap">{{ r.resp }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ r.students }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ r.batches }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ r.attendance }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ r.engagement }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ r.sla }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ r.retention }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#B45309;white-space:nowrap">★ {{ r.satisfaction }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.hours }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.response }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE">
+                        <div style="display:flex;align-items:center;gap:9px">
+                          <div style="width:60px;height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ r.w }};border-radius:4px;background:{{ r.barBg }}"></div></div>
+                          <span style="font-size:13px;font-weight:800;color:{{ r.perfFg }}">{{ r.perf }}</span>
+                        </div>
+                      </td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.status }}</span></td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#98A2B3;white-space:nowrap">{{ r.lastActive }}</td>
+                      <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
+                        <button onClick="{{ r.open }}" style="height:29px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">View</button>
+                      </td>
                     </tr>
                   </sc-for>
                 </tbody>
               </table>
             </div>
           </div>
+        </div>
+      </sc-if>
 
-          <div style="display:grid;grid-template-columns:1fr 1.25fr;gap:16px;margin-bottom:16px">
-            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
-              <div style="font-size:14.5px;font-weight:700;color:#0F2A47">LMS engagement</div>
-              <div style="font-size:12.5px;color:#6B7C93;margin-top:2px;margin-bottom:16px">How actively these students use StudyCrux</div>
-              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
-                <sc-for list="{{ perfEngage }}" as="e" hint-placeholder-count="8">
-                  <div style="min-width:0;border:1px solid #F0EEE7;border-radius:11px;padding:12px 14px;background:#FCFBF7">
-                    <div style="font-size:11px;font-weight:600;color:#7A8699;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ e.label }}</div>
-                    <div style="font-size:19px;font-weight:800;color:#0F2A47;letter-spacing:-.02em;margin-top:5px">{{ e.v }}</div>
-                    <div style="font-size:11px;color:#98A2B3;margin-top:3px;text-wrap:pretty">{{ e.sub }}</div>
-                  </div>
-                </sc-for>
-              </div>
+      <sc-if value="{{ isTPerf360 }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex;align-items:flex-start;gap:14px;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px;margin-bottom:16px;flex-wrap:wrap">
+            <button onClick="{{ tP3Back }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467;margin-top:4px" style-hover="background:#F6F5F0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+            </button>
+            <div style="width:44px;height:44px;flex:none;border-radius:50%;background:#0E9384;display:grid;place-items:center;color:#fff;font-size:14px;font-weight:700">{{ tP3Init }}</div>
+            <div style="min-width:0;flex:1 1 260px">
+              <div style="font-size:18px;font-weight:800;color:#0F2A47;letter-spacing:-.02em">{{ tP3Name }}</div>
+              <div style="font-size:12px;color:#98A2B3;margin-top:5px;text-wrap:pretty">{{ tP3Meta }}</div>
             </div>
+            <span style="flex:none;font-size:12px;font-weight:600;padding:8px 14px;border-radius:9px;background:#FCFBF7;border:1px solid #EDEBE4;color:#475467;white-space:nowrap">{{ tP3Period }}</span>
+            <button onClick="{{ tP3Export }}" style="flex:none;height:36px;padding:0 15px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">Export Report</button>
+          </div>
 
-            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
-              <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Student activity heatmap</div>
-              <div style="font-size:12.5px;color:#6B7C93;margin-top:2px;margin-bottom:16px">Day × time — where student activity concentrates</div>
-              <div style="display:grid;grid-template-columns:64px repeat(7,minmax(0,1fr));gap:5px;margin-bottom:5px">
-                <span></span>
-                <sc-for list="{{ perfHeatDays }}" as="d" hint-placeholder-count="7">
-                  <div style="text-align:center;font-size:10.5px;font-weight:700;color:#98A2B3">{{ d.d }}</div>
-                </sc-for>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:5px">
-                <sc-for list="{{ perfHeatRows }}" as="row" hint-placeholder-count="6">
-                  <div style="display:grid;grid-template-columns:64px repeat(7,minmax(0,1fr));gap:5px">
-                    <div style="display:flex;align-items:center;font-size:10.5px;font-weight:600;color:#7A8699">{{ row.slot }}</div>
-                    <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="7">
-                      <div style="min-width:0;height:30px;border-radius:6px;background:{{ c.bg }};color:{{ c.fg }};display:grid;place-items:center;font-size:10px;font-weight:700">{{ c.v }}</div>
+          <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:4px;margin-bottom:16px;overflow-x:auto">
+            <sc-for list="{{ tP3Tabs }}" as="t" hint-placeholder-count="6">
+              <button onClick="{{ t.pick }}" style="height:34px;padding:0 15px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;flex:none">{{ t.label }}</button>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <sc-if value="{{ tP3IsOverview }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:16px">
+                  <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                    <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467">OVERALL PERFORMANCE</div>
+                    <div style="display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap">
+                      <span style="font-size:44px;font-weight:800;color:#0E9384;letter-spacing:-.03em;line-height:1">{{ tP3Score }}</span>
+                      <span style="font-size:15px;color:#98A2B3;align-self:flex-end;padding-bottom:6px">/ 100</span>
+                      <span style="font-size:12px;font-weight:700;padding:5px 13px;border-radius:999px;background:{{ tP3BandBg }};color:{{ tP3BandFg }}">{{ tP3Band }}</span>
+                    </div>
+                    <div style="font-size:12px;font-weight:600;color:#15803D;margin-top:9px">{{ tP3Delta }}</div>
+                    <div style="display:flex;flex-direction:column;gap:13px;margin-top:20px">
+                      <sc-for list="{{ tP3Dims }}" as="d" hint-placeholder-count="6">
+                        <div>
+                          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap">
+                            <span style="font-size:12.5px;color:#475467;flex:1;min-width:0;text-wrap:pretty">{{ d.label }}</span>
+                            <span style="font-size:10.5px;color:#98A2B3">weight {{ d.weight }}</span>
+                            <span style="font-size:12.5px;font-weight:800;color:#0F2A47">{{ d.score }}</span>
+                          </div>
+                          <div style="height:7px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ d.w }};border-radius:5px;background:{{ d.color }}"></div></div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+
+                  <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                    <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                      <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Attention required</div>
+                      <span style="flex:1"></span>
+                      <span style="font-size:12px;font-weight:700;color:#B42318">5 signals</span>
+                    </div>
+                    <sc-for list="{{ tP3Alerts }}" as="a" hint-placeholder-count="5">
+                      <div onClick="{{ a.go }}" style="display:flex;align-items:flex-start;gap:11px;padding:13px 20px;border-bottom:1px solid #F5F3EE;cursor:pointer" style-hover="background:#FCFBF7">
+                        <span style="width:8px;height:8px;flex:none;border-radius:50%;background:{{ a.dot }};margin-top:5px"></span>
+                        <div style="min-width:0;flex:1">
+                          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                            <span style="font-size:12.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ a.title }}</span>
+                            <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ a.sBg }};color:{{ a.sFg }}">{{ a.sev }}</span>
+                          </div>
+                          <div style="font-size:11.5px;color:#7A8699;margin-top:4px;text-wrap:pretty">{{ a.desc }}</div>
+                        </div>
+                        <span style="flex:none;font-size:11.5px;font-weight:700;color:#0B7A6E;white-space:nowrap">Open →</span>
+                      </div>
                     </sc-for>
                   </div>
-                </sc-for>
-              </div>
-              <div style="font-size:11.5px;color:#98A2B3;margin-top:14px;text-wrap:pretty">{{ perfHeatNote }}</div>
-            </div>
-          </div>
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
-            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
-              <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
-                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Commercial performance</div>
-                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Teacher-attributed revenue for the selected period</div>
-              </div>
-              <sc-for list="{{ perfCommercial }}" as="c" hint-placeholder-count="6">
-                <div style="display:flex;align-items:center;gap:12px;padding:13px 20px;border-bottom:1px solid #F5F3EE">
-                  <div style="min-width:0;flex:1">
-                    <div style="font-size:13px;font-weight:700;color:#0F2A47">{{ c.metric }}</div>
-                    <div style="font-size:11.5px;color:#7A8699;margin-top:3px;text-wrap:pretty">{{ c.detail }}</div>
-                  </div>
-                  <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ c.dBg }};color:{{ c.dFg }};white-space:nowrap">{{ c.delta }}</span>
                 </div>
-              </sc-for>
-            </div>
 
-            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
-              <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Rating dimensions</div>
-              <div style="font-size:12.5px;color:#6B7C93;margin-top:2px;margin-bottom:18px">Platform average across 2,184 student responses</div>
-              <div style="display:flex;flex-direction:column;gap:14px">
-                <sc-for list="{{ perfDim }}" as="b" hint-placeholder-count="6">
-                  <div>
-                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px">
-                      <span style="font-size:13px;font-weight:600;color:#0F2A47">{{ b.label }}</span>
-                      <span style="font-size:11.5px;color:#98A2B3;flex:1">{{ b.sub }}</span>
-                      <span style="font-size:13px;font-weight:800;color:#0F2A47">{{ b.pct }}</span>
-                    </div>
-                    <div style="height:8px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ b.pct }};border-radius:5px;background:{{ b.color }}"></div></div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                  <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467;margin-bottom:14px">KPI SUMMARY — CURRENT · TARGET · TREND</div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+                    <sc-for list="{{ tP3Kpis }}" as="k" hint-placeholder-count="8">
+                      <div style="min-width:0;border:1px solid #F0EEE7;border-radius:11px;padding:13px 15px;background:#FCFBF7">
+                        <div style="font-size:11px;font-weight:600;color:#7A8699;text-wrap:pretty">{{ k.label }}</div>
+                        <div style="font-size:21px;font-weight:800;color:#0F2A47;letter-spacing:-.02em;margin-top:5px">{{ k.v }}</div>
+                        <div style="display:flex;align-items:center;gap:8px;margin-top:5px;flex-wrap:wrap">
+                          <span style="font-size:10.5px;color:#98A2B3">{{ k.target }}</span>
+                          <span style="font-size:11px;font-weight:700;color:{{ k.fg }}">{{ k.trend }}</span>
+                        </div>
+                      </div>
+                    </sc-for>
                   </div>
-                </sc-for>
-              </div>
-            </div>
-          </div>
+                </div>
 
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden;margin-bottom:16px">
-            <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
-              <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Department ranking</div>
-              <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Composite score from teaching activity, student outcomes, satisfaction and commercial contribution</div>
-            </div>
-            <div style="overflow-x:auto">
-              <table style="width:100%;min-width:1080px;border-collapse:collapse">
-                <thead>
-                  <tr style="background:#FCFBF7">
-                    <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RANK</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHER</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SUBJECT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PERFORMANCE SCORE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RATING</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COMPLETION</th><th style="padding:11px 20px 11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">REVENUE</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <sc-for list="{{ perfRanking }}" as="r" hint-placeholder-count="9">
-                    <tr onClick="{{ r.open }}" style="cursor:pointer" style-hover="background:#FCFBF7">
-                      <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE">
-                        <span style="display:inline-grid;place-items:center;width:28px;height:28px;border-radius:9px;background:{{ r.rankBg }};color:{{ r.rankFg }};font-size:12.5px;font-weight:800">{{ r.rank }}</span>
-                      </td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE">
-                        <div style="display:flex;align-items:center;gap:10px">
-                          <div style="width:30px;height:30px;flex:none;border-radius:50%;background:{{ r.avBg }};display:grid;place-items:center;color:#fff;font-size:10.5px;font-weight:700">{{ r.init }}</div>
-                          <div>
-                            <div style="font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.name }}</div>
-                            <div style="font-size:10px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.tid }}</div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                    <div>
+                      <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Performance trend</div>
+                      <div style="font-size:12px;color:#98A2B3;margin-top:3px">{{ tP3TrendMetric }} · last 6 months</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:14px">
+                    <sc-for list="{{ tP3TrendPills }}" as="m" hint-placeholder-count="7">
+                      <button onClick="{{ m.pick }}" style="height:30px;padding:0 12px;border-radius:999px;border:1px solid {{ m.bd }};background:{{ m.bg }};font-size:12px;font-weight:{{ m.fw }};color:{{ m.fg }};cursor:pointer;white-space:nowrap">{{ m.label }}</button>
+                    </sc-for>
+                  </div>
+                  <div style="display:flex;align-items:flex-end;gap:16px;height:198px;margin-top:18px">
+                    <sc-for list="{{ tP3Trend }}" as="b" hint-placeholder-count="6">
+                      <div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:8px">
+                        <span style="font-size:11px;font-weight:700;color:#0F2A47">{{ b.v }}</span>
+                        <div style="width:100%;height:{{ b.h }};border-radius:7px 7px 0 0;background:{{ b.bg }}"></div>
+                        <span style="font-size:11px;color:#98A2B3">{{ b.label }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:16px">
+                  <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                      <div>
+                        <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Workload</div>
+                        <div style="font-size:12px;color:#98A2B3;margin-top:3px;text-wrap:pretty">{{ tP3CapNote }}</div>
+                      </div>
+                      <span style="flex:1"></span>
+                      <span style="font-size:24px;font-weight:800;color:#0F2A47;letter-spacing:-.03em">{{ tP3Capacity }}</span>
+                    </div>
+                    <div style="height:9px;border-radius:6px;background:#F2F0EA;overflow:hidden;margin-top:13px"><div style="height:100%;width:{{ tP3Capacity }};border-radius:6px;background:#0E9384"></div></div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:11px;margin-top:16px">
+                      <sc-for list="{{ tP3Workload }}" as="w" hint-placeholder-count="6">
+                        <div style="min-width:0;border:1px solid #F0EEE7;border-radius:10px;padding:11px 13px;background:#FCFBF7">
+                          <div style="font-size:10.5px;font-weight:600;color:#7A8699;text-wrap:pretty">{{ w.k }}</div>
+                          <div style="font-size:18px;font-weight:800;color:#0F2A47;margin-top:4px">{{ w.v }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+
+                  <div style="display:flex;flex-direction:column;gap:16px">
+                    <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                      <div style="font-size:11px;font-weight:700;letter-spacing:.07em;color:#15803D;margin-bottom:12px">STRENGTHS</div>
+                      <div style="display:flex;flex-direction:column;gap:10px">
+                        <sc-for list="{{ tP3Strengths }}" as="x" hint-placeholder-count="3">
+                          <div style="border:1px solid #F0EEE7;border-left:3px solid #0E9384;border-radius:10px;padding:11px 13px;background:#FCFBF7">
+                            <div style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ x.t }}</div>
+                            <div style="font-size:11.5px;color:#7A8699;margin-top:4px;text-wrap:pretty">{{ x.m }}</div>
                           </div>
-                        </div>
-                      </td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.subject }}</td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE">
-                        <div style="display:flex;align-items:center;gap:10px">
-                          <div style="width:110px;height:7px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ r.w }};border-radius:5px;background:{{ r.scoreFg }}"></div></div>
-                          <span style="font-size:13px;font-weight:800;color:{{ r.scoreFg }}">{{ r.score }}</span>
-                        </div>
-                      </td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:13px;font-weight:800;color:#B45309;white-space:nowrap">★ {{ r.rating }}</td>
-                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap;font-weight:600;color:#0F2A47">{{ r.completion }}</td>
-                      <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap;font-weight:800;color:#0B7A6E">{{ r.revenue }}</td>
-                    </tr>
-                  </sc-for>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
-            <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
-              <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Reports</div>
-              <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Generated in the background · Excel, CSV or PDF</div>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:16px 20px">
-              <sc-for list="{{ perfReports }}" as="rp" hint-placeholder-count="8">
-                <div onClick="{{ rp.run }}" style="min-width:0;border:1px solid #F0EEE7;border-radius:12px;padding:14px 16px;background:#FCFBF7;cursor:pointer" style-hover="border-color:#BFE3DC">
-                  <div style="font-size:12.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ rp.name }}</div>
-                  <div style="font-size:11.5px;color:#7A8699;margin-top:5px;line-height:1.5;text-wrap:pretty">{{ rp.desc }}</div>
-                  <div style="font-size:11.5px;font-weight:700;color:#0B7A6E;margin-top:9px">Generate →</div>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-        </div>
-      </sc-if>
-
-      <sc-if value="{{ perfDrillOpen }}" hint-placeholder-val="{{ false }}">
-        <div onClick="{{ closePerfDrill }}" style="position:fixed;inset:0;background:rgba(11,31,62,.42);z-index:76"></div>
-        <div style="position:fixed;top:0;right:0;bottom:0;width:560px;max-width:94vw;z-index:77;background:#FAF9F5;box-shadow:-16px 0 44px rgba(11,31,62,.22);display:flex;flex-direction:column">
-          <div style="display:flex;align-items:center;gap:13px;padding:18px 22px;background:#0B1F3E;color:#fff">
-            <div style="width:42px;height:42px;flex:none;border-radius:50%;background:#0E9384;display:grid;place-items:center;font-size:14px;font-weight:700">{{ perfDrillInit }}</div>
-            <div style="min-width:0;flex:1">
-              <div style="font-size:16px;font-weight:700;letter-spacing:-.01em">{{ perfDrillName }}</div>
-              <div style="font-size:11.5px;color:#9FB2CC;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ perfDrillSub }}</div>
-            </div>
-            <button onClick="{{ closePerfDrill }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #28456C;background:transparent;display:grid;place-items:center;cursor:pointer;color:#fff">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
-            </button>
-          </div>
-          <div style="flex:1;overflow-y:auto;padding:18px 22px">
-            <div style="font-size:11.5px;font-weight:700;letter-spacing:.07em;color:#7A8699;margin-bottom:10px">PERFORMANCE SNAPSHOT</div>
-            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:12px;overflow:hidden">
-              <sc-for list="{{ perfDrillStats }}" as="d" hint-placeholder-count="12">
-                <div style="display:grid;grid-template-columns:180px 1fr;gap:12px;padding:10px 15px;background:{{ d.bg }};border-bottom:1px solid #F5F3EE">
-                  <span style="font-size:12px;color:#7A8699">{{ d.k }}</span>
-                  <span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ d.v }}</span>
-                </div>
-              </sc-for>
-            </div>
-
-            <div style="font-size:11.5px;font-weight:700;letter-spacing:.07em;color:#7A8699;margin:20px 0 10px">STRENGTHS</div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <sc-for list="{{ perfDrillStrengths }}" as="x" hint-placeholder-count="3">
-                <div style="border:1px solid #ECEAE2;border-radius:11px;padding:12px 14px;background:#fff">
-                  <div style="display:flex;align-items:center;gap:9px">
-                    <span style="width:8px;height:8px;border-radius:50%;background:{{ x.fg }}"></span>
-                    <span style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ x.t }}</span>
+                        </sc-for>
+                      </div>
+                    </div>
+                    <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                      <div style="font-size:11px;font-weight:700;letter-spacing:.07em;color:#B45309;margin-bottom:12px">AREAS REQUIRING ATTENTION</div>
+                      <div style="display:flex;flex-direction:column;gap:10px">
+                        <sc-for list="{{ tP3Gaps }}" as="x" hint-placeholder-count="3">
+                          <div style="border:1px solid #F0EEE7;border-left:3px solid #F0A72A;border-radius:10px;padding:11px 13px;background:#FCFBF7">
+                            <div style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ x.t }}</div>
+                            <div style="font-size:11.5px;color:#7A8699;margin-top:4px;text-wrap:pretty">{{ x.m }}</div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
                   </div>
-                  <div style="font-size:11.5px;color:#7A8699;margin-top:5px;text-wrap:pretty">{{ x.m }}</div>
                 </div>
-              </sc-for>
-            </div>
-
-            <div style="font-size:11.5px;font-weight:700;letter-spacing:.07em;color:#7A8699;margin:20px 0 10px">GAPS TO CLOSE</div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <sc-for list="{{ perfDrillGaps }}" as="x" hint-placeholder-count="2">
-                <div style="border:1px solid #ECEAE2;border-radius:11px;padding:12px 14px;background:#fff">
-                  <div style="display:flex;align-items:center;gap:9px">
-                    <span style="width:8px;height:8px;border-radius:50%;background:{{ x.fg }}"></span>
-                    <span style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ x.t }}</span>
-                  </div>
-                  <div style="font-size:11.5px;color:#7A8699;margin-top:5px;text-wrap:pretty">{{ x.m }}</div>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-          <div style="display:flex;gap:10px;padding:15px 22px;border-top:1px solid #ECEAE2;background:#fff">
-            <button onClick="{{ perfDrillCoach }}" style="flex:1;height:38px;border-radius:9px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:13px;font-weight:700;color:#0B7A6E;cursor:pointer" style-hover="background:#E2F1EE">Create coaching plan</button>
-            <button onClick="{{ perfDrillReview }}" style="flex:1;height:38px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Schedule review</button>
-          </div>
-        </div>
-      </sc-if>
-
-      <sc-if value="{{ fm.open }}" hint-placeholder-val="{{ false }}">
-        <div onClick="{{ fm.cancel }}" style="position:fixed;inset:0;background:rgba(11,31,62,.46);z-index:84"></div>
-        <div style="position:fixed;z-index:85;top:50%;left:50%;transform:translate(-50%,-50%);width:{{ fm.width }};max-width:95vw;max-height:92vh;display:flex;flex-direction:column;background:#fff;border-radius:16px;box-shadow:0 30px 80px rgba(11,31,62,.32);overflow:hidden">
-          <div style="padding:20px 24px;border-bottom:1px solid #F0EEE7">
-            <div style="display:flex;align-items:flex-start;gap:12px">
-              <div style="min-width:0;flex:1">
-                <div style="font-size:17px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">{{ fm.title }}</div>
-                <div style="font-size:12.5px;color:#6B7C93;margin-top:5px;text-wrap:pretty">{{ fm.sub }}</div>
               </div>
-              <button onClick="{{ fm.cancel }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
-              </button>
-            </div>
-            <div style="display:{{ fm.stepDisplay }};gap:10px;margin-top:16px">
-              <sc-for list="{{ fm.steps }}" as="st" hint-placeholder-count="4">
-                <div onClick="{{ st.pick }}" style="flex:1;min-width:0;cursor:pointer">
-                  <div style="height:4px;border-radius:3px;background:{{ st.barBg }}"></div>
-                  <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
-                    <span style="width:19px;height:19px;flex:none;border-radius:50%;background:{{ st.nBg }};color:{{ st.nFg }};display:grid;place-items:center;font-size:10.5px;font-weight:800">{{ st.n }}</span>
-                    <span style="font-size:11.5px;font-weight:{{ st.weight }};color:{{ st.fg }};min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ st.label }}</span>
+            </sc-if>
+
+            <sc-if value="{{ tP3IsStudents }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:15px 20px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
+                    <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467">STUDENT PORTFOLIO</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">Composition of the teacher\u2019s student book</div>
+                  </div>
+                  <div style="padding:18px 20px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+                      <sc-for list="{{ tP3StudentKpis }}" as="k" hint-placeholder-count="8">
+                        <div style="min-width:0;border:1px solid #F0EEE7;border-radius:11px;padding:12px 14px;background:#FCFBF7">
+                          <div style="font-size:11px;font-weight:600;color:#7A8699;text-wrap:pretty">{{ k.label }}</div>
+                          <div style="font-size:19px;font-weight:800;color:#0F2A47;letter-spacing:-.02em;margin-top:5px">{{ k.v }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
                   </div>
                 </div>
-              </sc-for>
-            </div>
-          </div>
-
-          <div style="flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:18px">
-            <sc-for list="{{ fm.groups }}" as="g" hint-placeholder-count="2">
-              <div>
-                <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
-                  <span style="width:3px;height:12px;border-radius:2px;background:#0E9384"></span>
-                  <span style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#475467">{{ g.t }}</span>
-                  <span style="flex:1;height:1px;background:#F2F0EA"></span>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:15px 20px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
+                    <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467">STUDENT HEALTH</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">Click a band to open those students</div>
+                  </div>
+                  <div style="padding:18px 20px">
+                    <div style="display:flex;flex-direction:column;gap:13px">
+                      <sc-for list="{{ tP3StudentHealth }}" as="h" hint-placeholder-count="4">
+                        <div onClick="{{ h.go }}" style="cursor:pointer">
+                          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap">
+                            <span style="width:9px;height:9px;border-radius:3px;background:{{ h.color }}"></span>
+                            <span style="font-size:12.5px;color:#475467">{{ h.label }}</span>
+                            <span style="font-size:11.5px;color:#98A2B3;flex:1;min-width:0">{{ h.n }}</span>
+                            <span style="font-size:12.5px;font-weight:800;color:#0F2A47">{{ h.pct }}</span>
+                          </div>
+                          <div style="height:8px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ h.w }};border-radius:5px;background:{{ h.color }}"></div></div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
                 </div>
-                <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 16px">
-                  <sc-for list="{{ g.fields }}" as="fd" hint-placeholder-count="6">
-                    <div style="grid-column:{{ fd.span }};min-width:0">
-                      <label style="display:block;font-size:11.5px;font-weight:600;color:#344054;margin-bottom:7px">{{ fd.label }}</label>
-
-                      <sc-if value="{{ fd.isText }}" hint-placeholder-val="{{ true }}">
-                        <input value="{{ fd.value }}" onChange="{{ fd.set }}" placeholder="{{ fd.placeholder }}" style="width:100%;height:38px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
-                      </sc-if>
-
-                      <sc-if value="{{ fd.isDate }}" hint-placeholder-val="{{ false }}">
-                        <input type="date" value="{{ fd.value }}" onChange="{{ fd.set }}" style="width:100%;height:38px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
-                      </sc-if>
-
-                      <sc-if value="{{ fd.isSelect }}" hint-placeholder-val="{{ false }}">
-                        <select value="{{ fd.value }}" onChange="{{ fd.set }}" style="width:100%;height:38px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0">
-                          <sc-for list="{{ fd.opts }}" as="o" hint-placeholder-count="4">
-                            <option>{{ o.o }}</option>
-                          </sc-for>
-                        </select>
-                      </sc-if>
-
-                      <sc-if value="{{ fd.isArea }}" hint-placeholder-val="{{ false }}">
-                        <textarea value="{{ fd.value }}" onChange="{{ fd.set }}" rows="3" placeholder="{{ fd.placeholder }}" style="width:100%;padding:11px 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;line-height:1.55;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box;resize:vertical;font-family:inherit"></textarea>
-                      </sc-if>
-
-                      <sc-if value="{{ fd.isRead }}" hint-placeholder-val="{{ false }}">
-                        <div style="min-height:38px;display:flex;align-items:center;padding:9px 12px;border:1px solid #EDEBE4;border-radius:9px;background:#FCFBF7;font-size:12.5px;font-weight:500;color:#475467;text-wrap:pretty">{{ fd.value }}</div>
-                      </sc-if>
-
-                      <sc-if value="{{ fd.isChips }}" hint-placeholder-val="{{ false }}">
-                        <div style="display:flex;flex-wrap:wrap;gap:7px">
-                          <sc-for list="{{ fd.items }}" as="c" hint-placeholder-count="4">
-                            <button onClick="{{ c.pick }}" style="height:32px;padding:0 13px;border-radius:999px;border:1px solid {{ c.bd }};background:{{ c.bg }};font-size:12.5px;font-weight:{{ c.fw }};color:{{ c.fg }};cursor:pointer">{{ c.o }}</button>
-                          </sc-for>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:15px 20px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
+                    <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467">ENGAGEMENT</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">Live, recorded, mock and assignment activity across the portfolio</div>
+                  </div>
+                  <div style="padding:18px 20px">
+                    <div style="display:flex;flex-direction:column;gap:14px">
+                      <sc-for list="{{ tP3Engagement }}" as="b" hint-placeholder-count="6">
+                        <div>
+                          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap">
+                            <span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ b.label }}</span>
+                            <span style="font-size:11.5px;color:#98A2B3;flex:1;min-width:0;text-wrap:pretty">{{ b.sub }}</span>
+                            <span style="font-size:12.5px;font-weight:800;color:#0F2A47">{{ b.pct }}</span>
+                          </div>
+                          <div style="height:8px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ b.w }};border-radius:5px;background:{{ b.color }}"></div></div>
                         </div>
-                      </sc-if>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
 
-                      <sc-if value="{{ fd.isRadio }}" hint-placeholder-val="{{ false }}">
-                        <div style="display:flex;flex-wrap:wrap;gap:9px">
-                          <sc-for list="{{ fd.items }}" as="c" hint-placeholder-count="3">
-                            <div onClick="{{ c.pick }}" style="display:flex;align-items:center;gap:9px;border:1.5px solid {{ c.bd }};background:{{ c.bg }};border-radius:10px;padding:9px 13px;cursor:pointer">
-                              <span style="width:15px;height:15px;flex:none;border-radius:50%;border:1.5px solid {{ c.bd }};display:grid;place-items:center">
-                                <span style="width:8px;height:8px;border-radius:50%;background:{{ c.dot }}"></span>
-                              </span>
-                              <span style="font-size:12.5px;font-weight:600;color:{{ c.fg }}">{{ c.o }}</span>
-                            </div>
-                          </sc-for>
+            <sc-if value="{{ tP3IsSupport }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:15px 20px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
+                    <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467">SUPPORT KPIS</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">The teacher is the student\u2019s primary contact for doubts</div>
+                  </div>
+                  <div style="padding:18px 20px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+                      <sc-for list="{{ tP3SupportKpis }}" as="k" hint-placeholder-count="9">
+                        <div style="min-width:0;border:1px solid #F0EEE7;border-radius:11px;padding:12px 14px;background:#FCFBF7">
+                          <div style="font-size:11px;font-weight:600;color:#7A8699;text-wrap:pretty">{{ k.label }}</div>
+                          <div style="font-size:19px;font-weight:800;color:#0F2A47;letter-spacing:-.02em;margin-top:5px">{{ k.v }}</div>
                         </div>
-                      </sc-if>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:15px 20px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
+                    <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467">SUPPORT FUNNEL</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">Received → Assigned → Responded → In Progress → Resolved</div>
+                  </div>
+                  <div style="padding:18px 20px">
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px">
+                      <sc-for list="{{ tP3Funnel }}" as="f" hint-placeholder-count="5">
+                        <div style="min-width:0;border-radius:11px;padding:13px 15px;background:{{ f.color }}">
+                          <div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:rgba(255,255,255,.75);text-wrap:pretty">{{ f.label }}</div>
+                          <div style="font-size:21px;font-weight:800;color:#fff;letter-spacing:-.02em;margin-top:5px">{{ f.n }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:15px 20px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
+                    <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467">DOUBT CATEGORIES</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">Where doubts originate</div>
+                  </div>
+                  <div style="padding:18px 20px">
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                      <sc-for list="{{ tP3DoubtCats }}" as="d" hint-placeholder-count="7">
+                        <div>
+                          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap">
+                            <span style="width:9px;height:9px;border-radius:3px;background:{{ d.color }}"></span>
+                            <span style="font-size:12.5px;color:#475467;flex:1;min-width:0">{{ d.label }}</span>
+                            <span style="font-size:11.5px;color:#98A2B3">{{ d.n }} doubts</span>
+                            <span style="font-size:12.5px;font-weight:800;color:#0F2A47">{{ d.pct }}</span>
+                          </div>
+                          <div style="height:7px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ d.w }};border-radius:5px;background:{{ d.color }}"></div></div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
 
-                      <sc-if value="{{ fd.isUploads }}" hint-placeholder-val="{{ false }}">
-                        <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
-                          <sc-for list="{{ fd.items }}" as="u" hint-placeholder-count="4">
-                            <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid #F7F5F0;background:#FCFBF7">
-                              <div style="min-width:0;flex:1">
-                                <div style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ u.name }}</div>
-                                <div style="font-size:10.5px;font-weight:600;color:{{ u.reqFg }};margin-top:2px">{{ u.req }}</div>
-                              </div>
-                              <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ u.sBg }};color:{{ u.sFg }};white-space:nowrap">{{ u.state }}</span>
-                              <button onClick="{{ u.pick }}" style="height:29px;padding:0 12px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:11.5px;font-weight:600;color:#0B7A6E;cursor:pointer;white-space:nowrap">Upload</button>
-                            </div>
-                          </sc-for>
+            <sc-if value="{{ tP3IsBatches }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                    <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Batch performance</div>
+                    <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Every batch under this teacher</div>
+                  </div>
+                  <div style="overflow-x:auto">
+                    <table style="width:100%;min-width:980px;border-collapse:collapse">
+                      <thead>
+                        <tr style="background:#FCFBF7">
+                          <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCH</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STUDENTS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ATTENDANCE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ENGAGEMENT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COMPLETION</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">AT RISK</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SATISFACTION</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">HEALTH</th>
+                          <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <sc-for list="{{ tP3BatchRows }}" as="b" hint-placeholder-count="5">
+                          <tr style-hover="background:#FCFBF7">
+                            <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ b.batch }}</td>
+                            <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ b.students }}</td>
+                            <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ b.att }}</td>
+                            <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ b.eng }}</td>
+                            <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ b.comp }}</td>
+                            <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:{{ b.riskFg }}">{{ b.risk }}</td>
+                            <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#B45309;white-space:nowrap">★ {{ b.sat }}</td>
+                            <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ b.sBg }};color:{{ b.sFg }};white-space:nowrap">{{ b.band }}</span></td>
+                            <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
+                              <button onClick="{{ b.open }}" style="height:29px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer">Open</button>
+                            </td>
+                          </tr>
+                        </sc-for>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:15px 20px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
+                    <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467">TEACHER COORDINATION</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">How well the teacher manages assigned faculty</div>
+                  </div>
+                  <div style="padding:18px 20px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+                      <sc-for list="{{ tP3TeacherCoord }}" as="k" hint-placeholder-count="8">
+                        <div style="min-width:0;border:1px solid #F0EEE7;border-radius:11px;padding:12px 14px;background:#FCFBF7">
+                          <div style="font-size:11px;font-weight:600;color:#7A8699;text-wrap:pretty">{{ k.label }}</div>
+                          <div style="font-size:19px;font-weight:800;color:#0F2A47;letter-spacing:-.02em;margin-top:5px">{{ k.v }}</div>
                         </div>
-                      </sc-if>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
 
-                      <sc-if value="{{ fd.isKv }}" hint-placeholder-val="{{ false }}">
-                        <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
-                          <sc-for list="{{ fd.items }}" as="kv" hint-placeholder-count="4">
-                            <div style="display:grid;grid-template-columns:180px 1fr;gap:12px;padding:10px 14px;background:{{ kv.bg }};border-bottom:1px solid #F7F5F0">
-                              <span style="font-size:12px;color:#7A8699">{{ kv.k }}</span>
-                              <span style="font-size:12.5px;font-weight:600;color:#0F2A47;text-wrap:pretty">{{ kv.v }}</span>
-                            </div>
-                          </sc-for>
+            <sc-if value="{{ tP3IsOutcomes }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                    <div>
+                      <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Intervention effectiveness</div>
+                      <div style="font-size:12px;color:#98A2B3;margin-top:3px;text-wrap:pretty">{{ tP3InterventionNote }}</div>
+                    </div>
+                    <span style="flex:1"></span>
+                    <span style="font-size:28px;font-weight:800;color:#0E9384;letter-spacing:-.03em">{{ tP3InterventionRate }}</span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:18px">
+                    <sc-for list="{{ tP3Intervention }}" as="f" hint-placeholder-count="7">
+                      <div style="min-width:0;border-radius:11px;padding:13px 15px;background:{{ f.color }}">
+                        <div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:rgba(255,255,255,.75);text-wrap:pretty">{{ f.label }}</div>
+                        <div style="font-size:21px;font-weight:800;color:#fff;letter-spacing:-.02em;margin-top:5px">{{ f.n }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:15px 20px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
+                    <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467">ACADEMIC OUTCOMES</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">Learning results across the portfolio</div>
+                  </div>
+                  <div style="padding:18px 20px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+                      <sc-for list="{{ tP3Academic }}" as="k" hint-placeholder-count="7">
+                        <div style="min-width:0;border:1px solid #F0EEE7;border-radius:11px;padding:12px 14px;background:#FCFBF7">
+                          <div style="font-size:11px;font-weight:600;color:#7A8699;text-wrap:pretty">{{ k.label }}</div>
+                          <div style="font-size:19px;font-weight:800;color:#0F2A47;letter-spacing:-.02em;margin-top:5px">{{ k.v }}</div>
                         </div>
-                      </sc-if>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:15px 20px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
+                    <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467">RETENTION</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">Students retained, lost and recovered</div>
+                  </div>
+                  <div style="padding:18px 20px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+                      <sc-for list="{{ tP3Retention }}" as="k" hint-placeholder-count="6">
+                        <div style="min-width:0;border:1px solid #F0EEE7;border-radius:11px;padding:12px 14px;background:#FCFBF7">
+                          <div style="font-size:11px;font-weight:600;color:#7A8699;text-wrap:pretty">{{ k.label }}</div>
+                          <div style="font-size:19px;font-weight:800;color:#0F2A47;letter-spacing:-.02em;margin-top:5px">{{ k.v }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
 
-                      <sc-if value="{{ fd.isChecks }}" hint-placeholder-val="{{ false }}">
-                        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px">
-                          <sc-for list="{{ fd.items }}" as="c" hint-placeholder-count="4">
-                            <div style="display:flex;align-items:center;gap:9px;border:1px solid #F0EEE7;border-radius:10px;padding:10px 12px;background:#FCFBF7">
-                              <span style="width:18px;height:18px;flex:none;border-radius:6px;border:1.5px solid {{ c.bd }};background:{{ c.bg }};color:#fff;display:grid;place-items:center;font-size:10.5px;font-weight:800">{{ c.mark }}</span>
-                              <span style="font-size:12.5px;font-weight:600;color:{{ c.fg }};text-wrap:pretty">{{ c.t }}</span>
-                            </div>
-                          </sc-for>
+            <sc-if value="{{ tP3IsActivity }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:15px 20px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
+                    <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467">TEACHER ACTIVITY</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">Volume alone is not performance — it is the input to intervention and outcome</div>
+                  </div>
+                  <div style="padding:18px 20px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+                      <sc-for list="{{ tP3Activity }}" as="k" hint-placeholder-count="8">
+                        <div style="min-width:0;border:1px solid #F0EEE7;border-radius:11px;padding:12px 14px;background:#FCFBF7">
+                          <div style="font-size:11px;font-weight:600;color:#7A8699;text-wrap:pretty">{{ k.label }}</div>
+                          <div style="font-size:19px;font-weight:800;color:#0F2A47;letter-spacing:-.02em;margin-top:5px">{{ k.v }}</div>
                         </div>
-                      </sc-if>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                    <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Goals</div>
+                    <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Current against target for this period</div>
+                  </div>
+                  <sc-for list="{{ tP3Goals }}" as="g" hint-placeholder-count="6">
+                    <div style="padding:13px 20px;border-bottom:1px solid #F5F3EE">
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;flex-wrap:wrap">
+                        <span style="font-size:12.5px;font-weight:600;color:#0F2A47;flex:1 1 140px;min-width:0">{{ g.kpi }}</span>
+                        <span style="font-size:12.5px;font-weight:800;color:#0F2A47">{{ g.cur }}</span>
+                        <span style="font-size:11px;color:#98A2B3">target {{ g.target }}</span>
+                        <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ g.sBg }};color:{{ g.sFg }};white-space:nowrap">{{ g.state }}</span>
+                      </div>
+                      <div style="height:7px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ g.w }};border-radius:5px;background:{{ g.color }}"></div></div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                  <div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#475467;margin-bottom:14px">COMPLIANCE</div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:11px">
+                    <sc-for list="{{ tP3Compliance }}" as="c" hint-placeholder-count="8">
+                      <div style="min-width:0;display:flex;align-items:center;gap:11px;border:1px solid #F0EEE7;border-radius:10px;padding:11px 13px;background:#FCFBF7">
+                        <span style="font-size:12px;color:#475467;flex:1;min-width:0;text-wrap:pretty">{{ c.label }}</span>
+                        <span style="font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ c.sBg }};color:{{ c.sFg }};white-space:nowrap">{{ c.v }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                    <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Audit log</div>
+                    <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Documented teacher actions</div>
+                  </div>
+                  <sc-for list="{{ tP3Audit }}" as="a" hint-placeholder-count="5">
+                    <div style="padding:13px 20px;border-bottom:1px solid #F5F3EE">
+                      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                        <span style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ a.action }}</span>
+                        <span style="font-size:12px;color:#475467">{{ a.object }}</span>
+                        <span style="flex:1"></span>
+                        <span style="font-size:11px;color:#98A2B3;white-space:nowrap">{{ a.when }}</span>
+                      </div>
+                      <div style="font-size:11.5px;color:#7A8699;margin-top:5px;text-wrap:pretty">{{ a.detail }}</div>
                     </div>
                   </sc-for>
                 </div>
               </div>
-            </sc-for>
-
-            <div style="display:{{ fm.warnDisplay }};align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;background:#FEF3E2">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2.1" stroke-linecap="round" style="flex:none;margin-top:1px"><path d="M12 3 2.5 20h19z" /><path d="M12 9v5M12 17h.01" /></svg>
-              <span style="font-size:12.5px;font-weight:600;color:#8A5A0B;text-wrap:pretty">{{ fm.warn }}</span>
-            </div>
-            <div style="display:{{ fm.infoDisplay }};align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;background:#EEF6F5">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0B7A6E" stroke-width="2.1" stroke-linecap="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
-              <span style="font-size:12.5px;color:#0B7A6E;text-wrap:pretty">{{ fm.info }}</span>
-            </div>
-            <div style="display:{{ fm.errDisplay }};align-items:center;gap:9px;padding:11px 14px;border-radius:10px;background:#FDE8E8">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.1" stroke-linecap="round" style="flex:none"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16h.01" /></svg>
-              <span style="font-size:12.5px;font-weight:600;color:#B42318">{{ fm.err }}</span>
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
-            <button onClick="{{ fm.back }}" style="display:{{ fm.backDisplay }};align-items:center;height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">Back</button>
-            <span style="flex:1"></span>
-            <button onClick="{{ fm.cancel }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Cancel</button>
-            <button onClick="{{ fm.primary }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">{{ fm.primaryLabel }}</button>
+            </sc-if>
           </div>
         </div>
       </sc-if>
 
-      <sc-if value="{{ allocOpen }}" hint-placeholder-val="{{ false }}">
-        <div onClick="{{ closeAlloc }}" style="position:fixed;inset:0;background:rgba(11,31,62,.45);z-index:78"></div>
-        <div style="position:fixed;z-index:79;top:50%;left:50%;transform:translate(-50%,-50%);width:560px;max-width:94vw;background:#fff;border-radius:16px;box-shadow:0 30px 80px rgba(11,31,62,.3);overflow:hidden">
-          <div style="padding:20px 24px;border-bottom:1px solid #F0EEE7">
-            <div style="font-size:17px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">{{ allocTitle }}</div>
-            <div style="font-size:12.5px;color:#6B7C93;margin-top:5px">{{ allocBatch }} · {{ allocCourse }}</div>
-          </div>
-          <div style="padding:20px 24px">
-            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
-              <div>
-                <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Assign teacher</label>
-                <select value="{{ alTeacher }}" onChange="{{ setAlTeacher }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0">
-                  <sc-for list="{{ alTeacherOpts }}" as="o" hint-placeholder-count="6">
-                    <option>{{ o.o }}</option>
-                  </sc-for>
-                </select>
-              </div>
-              <div>
-                <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Coordinator</label>
-                <select value="{{ alCoord }}" onChange="{{ setAlCoord }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0">
-                  <sc-for list="{{ alCoordOpts }}" as="o" hint-placeholder-count="4">
-                    <option>{{ o.o }}</option>
-                  </sc-for>
-                </select>
-              </div>
-            </div>
-            <div style="margin-top:16px">
-              <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:8px">Notify via</label>
-              <div style="display:flex;flex-wrap:wrap;gap:8px">
-                <sc-for list="{{ alNotifyChips }}" as="c" hint-placeholder-count="4">
-                  <button onClick="{{ c.pick }}" style="height:32px;padding:0 14px;border-radius:999px;border:1px solid {{ c.bd }};background:{{ c.bg }};font-size:12.5px;font-weight:{{ c.fw }};color:{{ c.fg }};cursor:pointer">{{ c.ch }}</button>
-                </sc-for>
-              </div>
-            </div>
-            <div style="margin-top:16px;padding:12px 14px;border-radius:10px;background:#EEF6F5;font-size:12.5px;color:#0B7A6E">Students already enrolled in this batch are carried over automatically · the teacher's weekly load is re-checked against contracted capacity.</div>
-          </div>
-          <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
-            <button onClick="{{ closeAlloc }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Cancel</button>
-            <button onClick="{{ allocSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">{{ allocCta }}</button>
-          </div>
         </div>
       </sc-if>
 
@@ -4439,6 +4452,41 @@ const FIN = [
   ['Mahesh Gowda','TCH-2011','Recorded Series','Inactive','Lecture-wise','₹3,000/video','Revenue Share','25% of net revenue','₹2.10L','₹1.95L','₹14,774','₹18,240','₹16,200','₹0']
 ];
 
+
+const TPERF = [
+  ['Dr. Vikram Verma','TCH-2001',186,4,96,92,94,98,'4.8',94,'Excellent','green','Today',142,2.4,3],
+  ['Neha Kulkarni','TCH-2002',164,4,94,89,92,96,'4.7',91,'Excellent','green','Today',128,2.9,5],
+  ['Prof. Arun Mehta','TCH-2005',212,5,92,86,90,93,'4.6',88,'Good','green','Today',156,3.4,7],
+  ['Ritu Bansal','TCH-2008',148,3,95,90,93,97,'4.7',92,'Excellent','green','1h ago',112,2.2,4],
+  ['Ayesha Khan','TCH-2010',132,3,90,84,88,91,'4.5',85,'Good','green','Today',98,3.8,8],
+  ['Rahul Kumar','TCH-2003',176,4,88,81,86,89,'4.3',80,'Good','green','2h ago',134,4.6,11],
+  ['Shalini Nair','TCH-2012',96,2,85,76,82,84,'4.1',74,'Needs Attention','amber','1 day ago',72,5.4,14],
+  ['Deepak Rao','TCH-2009',84,2,79,68,74,78,'3.6',62,'Critical','red','3 days ago',58,7.2,19]
+];
+
+const TPDIM = [
+  ['Teaching Delivery',95,25],['Student Engagement',92,20],['Attendance & Punctuality',96,15],
+  ['Course Completion',94,15],['Student Feedback',96,15],['Response & Communication',88,10]
+];
+
+const TPTREND = {
+  'Overall Performance':[86,88,89,91,93,94],
+  'Teaching Hours':[78,82,84,88,92,95],
+  'Attendance':[92,94,95,93,97,96],
+  'Student Rating':[90,92,92,94,96,96],
+  'Course Completion':[88,89,90,92,93,94],
+  'Student Engagement':[84,86,87,89,91,92],
+  'Response Time':[76,80,82,85,87,88]
+};
+
+const TPBATCH = [
+  ['IC-38 Full Prep · Batch A',64,96,94,98,2,'4.9','green'],
+  ['IC-38 Full Prep · Batch B',48,94,90,96,4,'4.7','green'],
+  ['Life Insurance Elite · B1',48,93,88,94,3,'4.6','green'],
+  ['Claims Masterclass — Recorded',26,88,79,86,6,'4.4','amber'],
+  ['IC-38 Starter · Batch C',0,0,0,0,0,'—','grey']
+];
+
 class Component extends DCLogic {
   state = { route:'dash', view:'grid', tab:'All', q:'',
     tfOpen:false, tfSubject:'All', tfMode:'All', tfPayout:'All', tfRating:'All', tfLang:'All',
@@ -4619,6 +4667,7 @@ class Component extends DCLogic {
       isGrid: s.route==='list' && s.view==='grid', isListView: s.route==='list' && s.view==='list',
       isOnboarding: s.route==='onboarding', isAllocation: s.route==='allocation', isSchedules: s.route==='schedules',
       isReminders: s.route==='reminders', isPayouts: s.route==='payouts', isPerformance: s.route==='performance',
+      isTPerfList: s.route==='performance' && !s.perfWho, isTPerf360: s.route==='performance' && !!s.perfWho,
       q: s.q, setQ:(e)=>this.setState({q:e.target.value}),
       goList: ()=>this.setState({route:'list'}),
       addTeacher: ()=>this.setState({fm:'onboard', fmCtx:{}, fmStep:0, fmErr:null}),
@@ -4703,6 +4752,206 @@ class Component extends DCLogic {
         init:this.initials(t[0]), avBg:AVc(t[0]),
         sBg:TS[t[12]][0], sFg:TS[t[12]][1],
         open:()=>this.setState({route:'profile', teacher:t[1]})})),
+
+      tPvKpis: [
+        {label:'Total Teachers',n:'24',note:'active this period',fg:'#6B7C93'},
+        {label:'Average Performance',n:'86%',note:'▲ 3.2% vs last month',fg:'#15803D'},
+        {label:'Students Managed',n:'4,286',note:'179 per teacher',fg:'#6B7C93'},
+        {label:'Avg. Student Satisfaction',n:'4.6',note:'from 2,184 ratings',fg:'#B45309'},
+        {label:'Needs Attention',n:'3',note:'below the 80% target',fg:'#B42318'}
+      ],
+      tPvFilters: [
+        ['Date','tPvDate',['This week','This month','Last 3 months','Custom']],
+        ['Course','tPvCourse',['All','IC-01','IC-02','IC-11']],
+        ['Batch','tPvBatch',['All batches','IC-01 Batch A','IC-02 Batch B','IC-11 Batch C']],
+        ['Performance','tPvBand',['All','Excellent','Good','Needs Attention','Critical']],
+        ['Sort by','tPvSort',['Performance','Attendance','Engagement','Retention','Satisfaction','Support SLA']]
+      ].map(([label,key,opts])=>({label, value:s[key]||(key==='tPvDate'?'This month':key==='tPvSort'?'Performance':'All'), opts:opts.map(o=>({o})),
+        set:(e)=>this.setState({[key]:e.target.value})})),
+      tPvQ: s.tPvQ||'', tSetPvQ:(e)=>this.setState({tPvQ:e.target.value}),
+      tPvReset: ()=>{ this.setState({tPvCourse:'All',tPvBatch:'All',tPvBand:'All',tPvSort:'Performance',tPvDate:'This month',tPvQ:''});
+        this.fire('Filters reset','Showing all teachers'); },
+      tPvExport: ()=>this.setState({fm:'export', fmCtx:{type:'Performance Summary'}, fmStep:0, fmErr:null}),
+      tPvRows: (()=>{
+        const q = (s.tPvQ||'').trim().toLowerCase();
+        const key = {Performance:9, Attendance:4, Engagement:5, 'Course Completion':6, 'Student Rating':8, Assignments:7, 'Teaching Hours':13}[s.tPvSort||'Performance'];
+        return [...TPERF].sort((a,b)=> (parseFloat(b[key])||0) - (parseFloat(a[key])||0))
+          .filter(p => ((s.tPvBand||'All')==='All' || p[10]===s.tPvBand) &&
+            (!q || (p[0]+p[1]).toLowerCase().includes(q)))
+          .map(p=>({
+            name:p[0], id:p[1], students:String(p[2]), batches:String(p[3]),
+            attendance:p[4]+'%', engagement:p[5]+'%', sla:p[6]+'%', retention:p[7]+'%',
+            satisfaction:p[8], perf:p[9]+'%', status:p[10], lastActive:p[12],
+            hours:p[13]+' h', response:p[14]+' h',
+            init:this.initials(p[0]), avBg:AVc(p[0]),
+            sBg:BDG[p[11]][0], sFg:BDG[p[11]][1],
+            perfFg: p[9]>=90 ? '#15803D' : p[9]>=80 ? '#0B7A6E' : p[9]>=70 ? '#B45309' : '#B42318',
+            w: p[9]+'%',
+            barBg: p[9]>=90 ? '#0E9384' : p[9]>=80 ? '#5AC0B0' : p[9]>=70 ? '#F0A72A' : '#E88B78',
+            open: ()=>this.setState({perfWho:p[0], perfTab:'Overview'})}));
+      })(),
+
+      tP3Name: s.perfWho || 'Dr. Vikram Verma',
+      tP3Init: this.initials(s.perfWho || 'Dr. Vikram Verma'),
+      tP3Back: ()=>this.setState({perfWho:null}),
+      tP3Meta: (()=>{ const p = TPERF.find(x=>x[0]===s.perfWho) || TPERF[0];
+        return p[1]+' · Active · '+p[2]+' students · '+p[3]+' batches · '+p[13]+' teaching hours'; })(),
+      tP3Period: 'Aug 1 – Aug 31, 2026',
+      tP3Score: (()=>{ const p = TPERF.find(x=>x[0]===s.perfWho) || TPERF[0]; return String(p[9]); })(),
+      tP3Band: (()=>{ const p = TPERF.find(x=>x[0]===s.perfWho) || TPERF[0]; return p[10]; })(),
+      tP3BandBg: (()=>{ const p = TPERF.find(x=>x[0]===s.perfWho) || TPERF[0]; return BDG[p[11]][0]; })(),
+      tP3BandFg: (()=>{ const p = TPERF.find(x=>x[0]===s.perfWho) || TPERF[0]; return BDG[p[11]][1]; })(),
+      tP3Delta: '↑ 6.4% compared with the previous period',
+      tP3Export: ()=>this.setState({fm:'export', fmCtx:{type:'Performance Summary'}, fmStep:0, fmErr:null}),
+      tP3Tabs: ['Overview','Student Engagement','Communication','Courses & Batches','Outcomes','Trends & Goals'].map(t=>{
+        const on = (s.perfTab||'Overview')===t;
+        return {label:t, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'600':'500',
+          pick:()=>this.setState({perfTab:t})};
+      }),
+      tP3IsOverview: (s.perfTab||'Overview')==='Overview', tP3IsStudents: s.perfTab==='Student Engagement',
+      tP3IsSupport: s.perfTab==='Communication', tP3IsBatches: s.perfTab==='Courses & Batches',
+      tP3IsOutcomes: s.perfTab==='Outcomes', tP3IsActivity: s.perfTab==='Trends & Goals',
+
+      tP3Dims: TPDIM.map(([label,score,weight])=>({label, score:score+'%', weight:weight+'%', w:score+'%',
+        color: score>=93 ? '#0E9384' : score>=88 ? '#5AC0B0' : '#F0A72A'})),
+      tP3Kpis: (()=>{ const p = TPERF.find(x=>x[0]===s.perfWho) || TPERF[0];
+        return [
+          {label:'Teaching Hours',v:String(p[13])+' h',target:'Target 140 h',trend:'▲ 8 h',fg:'#15803D'},
+          {label:'Response Time',v:String(p[14])+' h',target:'Target under 3 h',trend:'▼ 0.6 h',fg:'#15803D'},
+          {label:'Attendance',v:p[4]+'%',target:'Target 95%',trend:'▲ 2.1%',fg:'#15803D'},
+          {label:'Engagement',v:p[5]+'%',target:'Target 90%',trend:'▲ 4.0%',fg:'#15803D'},
+          {label:'Course Completion',v:p[6]+'%',target:'Target 92%',trend:'▲ 3.1%',fg:'#15803D'},
+          {label:'Assignments / Assessments',v:p[7]+'%',target:'Target 95%',trend:'▲ 2.4%',fg:'#15803D'},
+          {label:'Student Rating',v:p[8]+' / 5',target:'Target 4.7',trend:'▲ 0.2',fg:'#15803D'},
+          {label:'Pending Assessments',v:String(p[15]),target:'Target under 5',trend:'▼ 2',fg:'#B45309'}
+        ];
+      })(),
+      tP3Workload: (()=>{ const p = TPERF.find(x=>x[0]===s.perfWho) || TPERF[0];
+        return [['Students',String(p[2])],['Batches',String(p[3])],['Teaching hours',String(p[13])+' h'],
+          ['Pending assessments',String(p[15])],['Avg response',String(p[14])+' h'],['Courses','3']]
+          .map(([k,v])=>({k,v})); })(),
+      tP3Capacity: '84%', tP3CapNote: 'Utilised against configured capacity — compare like-for-like before judging performance',
+      tP3TrendMetric: s.tP3Metric || 'Overall Performance',
+      tP3TrendPills: Object.keys(TPTREND).map(m=>{
+        const on = (s.tP3Metric||'Overall Performance')===m;
+        return {label:m, bd:on?'#0E9384':'#E5E3DC', bg:on?'#EEF6F5':'#fff', fg:on?'#0B7A6E':'#475467', fw:on?'700':'600',
+          pick:()=>this.setState({tP3Metric:m})};
+      }),
+      tP3Trend: (()=>{ const vals = TPTREND[s.tP3Metric||'Overall Performance'];
+        const labels = ['Mar','Apr','May','Jun','Jul','Aug'];
+        const max = Math.max(...vals);
+        return vals.map((v,i)=>({label:labels[i], v:v+'%', h:Math.round(v/max*170)+'px',
+          bg: i===vals.length-1 ? '#0E9384' : v>=max*0.96 ? '#5AC0B0' : '#B7DFD8'}));
+      })(),
+      tP3Alerts: [
+        ['7 students inactive for 14+ days','Across IC-01 Batch A and IC-02 Batch B','Critical','red','Students'],
+        ['3 doubts have breached SLA','Oldest is 3 days past the 4-hour target','High','amber','Support'],
+        ['IC-02 attendance decreased by 8%','87% this month against 95% last month','High','amber','Batches & Teachers'],
+        ['5 students have not attempted the latest mock test',"Full-Length Mock '26 · due 14 Aug",'Medium','grey','Students'],
+        ['2 interventions have had no follow-up','Raised 8 days ago · no recorded outcome','Medium','grey','Outcomes']
+      ].map(([title,desc,sev,c,tab])=>({title,desc,sev,
+        dot:BDG[c][1], sBg:BDG[c][0], sFg:BDG[c][1],
+        go: ()=>{ this.setState({perfTab:tab}); this.fire('Opening '+tab, desc); }})),
+      tP3Strengths: [
+        ['Student support','96% SLA compliance with a 2h 18m average first response'],
+        ['Retention','97% retained — the highest in the department'],
+        ['Compliance','95% — attendance and interventions documented on time']
+      ].map(([t,m])=>({t,m})),
+      tP3Gaps: [
+        ['Teacher & batch operations','88% — two schedule conflicts and one no-show this month'],
+        ['IC-02 engagement','79% against a 91% portfolio average'],
+        ['Mock test participation','5 students have not attempted the latest test']
+      ].map(([t,m])=>({t,m})),
+
+      tP3StudentHealth: [
+        ['Healthy','78%','334 students','#0E9384'],['At risk','12%','51 students','#F0A72A'],
+        ['Inactive','7%','30 students','#E9C46A'],['Critical','3%','13 students','#E88B78']
+      ].map(([label,pct,n,color])=>({label,pct,n,color,w:pct,
+        go: this.act('Opening '+label+' students', n)})),
+      tP3StudentKpis: [
+        ['Total students','428'],['Active students','398'],['Inactive students','30'],['At-risk students','24'],
+        ['Critical students','13'],['New students','18'],['Recovered students','11'],['Dropped students','4']
+      ].map(([label,v])=>({label,v})),
+      tP3Engagement: [
+        ['Live class attendance','94%','#0E9384','2,014 of 2,142 sessions'],
+        ['Recorded lecture completion','81%','#0E9384','avg per enrolled student'],
+        ['Mock test attempts','76%','#5AC0B0','326 of 428 students'],
+        ['Assignment completion','88%','#0E9384','on time'],
+        ['Weekly active students','92%','#0E9384','394 of 428'],
+        ['Active in last 7 days','89%','#0E9384','381 of 428']
+      ].map(([label,pct,color,sub])=>({label,pct,color,sub,w:pct})),
+
+      tP3SupportKpis: [
+        ['Doubts received','486'],['Doubts resolved','458'],['Open doubts','12'],
+        ['Avg first response','2h 18m'],['Avg resolution time','6h 42m'],['SLA compliance','96%'],
+        ['Escalated cases','9'],['Reopened cases','4'],['Student satisfaction','4.8 / 5']
+      ].map(([label,v])=>({label,v})),
+      tP3Funnel: [
+        ['Received','486','#0B1F3E'],['Assigned','486','#14335C'],['Responded','474','#0E9384'],
+        ['In Progress','28','#F0A72A'],['Resolved','458','#15803D']
+      ].map(([label,n,color])=>({label,n,color})),
+      tP3DoubtCats: [
+        ['Recorded class','142','29%','#0E9384'],['Live class','108','22%','#5AC0B0'],
+        ['Mock test','86','18%','#B7DFD8'],['Course','64','13%','#F0A72A'],
+        ['Faculty','38','8%','#E9C46A'],['Technical','32','7%','#E88B78'],
+        ['Account / payment','16','3%','#C8CDD4']
+      ].map(([label,n,pct,color])=>({label,n,pct,color,w:pct})),
+
+      tP3BatchRows: TPBATCH.map(([batch,students,att,eng,comp,risk,sat,c])=>({
+        batch, students:String(students), att:att+'%', eng:eng+'%', comp:comp+'%', risk:String(risk), sat,
+        sBg:BDG[c][0], sFg:BDG[c][1],
+        band: c==='green' ? 'Healthy' : 'Needs attention',
+        riskFg: risk>=10 ? '#B42318' : risk>=6 ? '#B45309' : '#15803D',
+        open: this.act('Batch opened — '+batch, students+' students · '+att+'% attendance')})),
+      tP3TeacherCoord: [
+        ['Teachers assigned','12'],['Active teachers','11'],['Teacher issues','2'],
+        ['Substitutes arranged','5'],['Schedule conflicts','2'],['Teacher no-shows','1'],
+        ['Session disruptions','3'],['Teacher satisfaction','4.5 / 5']
+      ].map(([label,v])=>({label,v})),
+
+      tP3Academic: [
+        ['Average mock score','78%'],['Score improvement','▲ 9.4%'],['Mock test completion','76%'],
+        ['Course completion','84%'],['Assignment completion','88%'],['Certificate eligible','142'],
+        ['Certificates issued','128']
+      ].map(([label,v])=>({label,v})),
+      tP3Retention: [
+        ['Retention rate','97%'],['Dropout rate','3%'],['Renewal rate','88%'],
+        ['Re-enrollment','34 students'],['Students lost','13'],['Students recovered','11']
+      ].map(([label,v])=>({label,v})),
+      tP3Intervention: [
+        ['At risk identified','42','#0B1F3E'],['Alert generated','42','#14335C'],
+        ['Teacher contacted','40','#0E9384'],['Intervention logged','38','#0E9384'],
+        ['Follow-up completed','34','#5AC0B0'],['Recovered','28','#15803D'],['Retained','26','#15803D']
+      ].map(([label,n,color])=>({label,n,color})),
+      tP3InterventionRate: '67%',
+      tP3InterventionNote: '28 of 42 at-risk students recovered after intervention — the measure that matters most',
+
+      tP3Activity: [
+        ['Student follow-ups','186'],['Doubts resolved','458'],['Announcements','48'],
+        ['Attendance actions','214'],['Interventions','38'],['Teacher coordination','96'],
+        ['Escalations','9'],['Batch updates','32']
+      ].map(([label,v])=>({label,v})),
+      tP3Goals: [
+        ['Attendance','94%','95%','99%','amber'],['Support SLA','96%','98%','98%','amber'],
+        ['Retention','97%','97%','100%','green'],['Satisfaction','4.8','4.8','100%','green'],
+        ['Engagement','91%','90%','100%','green'],['Intervention success','67%','70%','96%','amber']
+      ].map(([kpi,cur,target,progress,c])=>({kpi,cur,target,progress,w:progress,
+        color: c==='green' ? '#0E9384' : '#F0A72A',
+        sBg:BDG[c][0], sFg:BDG[c][1],
+        state: c==='green' ? 'On target' : 'Below target'})),
+      tP3Compliance: [
+        ['Attendance submitted on time','98%','green'],['Follow-ups completed','94%','green'],
+        ['Doubts documented','100%','green'],['Interventions documented','89%','amber'],
+        ['Reports submitted','96%','green'],['Student records updated','92%','green'],
+        ['SLA breaches','3','amber'],['Audit exceptions','0','green']
+      ].map(([label,v,c])=>({label,v, sBg:BDG[c][0], sFg:BDG[c][1]})),
+      tP3Audit: [
+        ['16 Aug, 4:20 PM','Intervention logged','Divya Krishnan · low attendance','Contacted by phone · parent informed'],
+        ['16 Aug, 11:05 AM','Doubt resolved','Kabir Mehta · recorded class access','Escalated to technical, resolved in 3h'],
+        ['15 Aug, 6:12 PM','Attendance corrected','Aarav Sharma · 15 Aug session','Network failure verified with faculty'],
+        ['15 Aug, 9:30 AM','Announcement published','IC-01 Batch A · 82 students','Mid-term assessment schedule'],
+        ['14 Aug, 5:48 PM','Follow-up completed','7 inactive students','4 re-engaged · 3 pending']
+      ].map(([when,action,object,detail])=>({when,action,object,detail})),
 
       profTabs: TABS.map(t=>{
         const on = (s.tab2||'Overview')===t;
