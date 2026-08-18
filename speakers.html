@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#FAF9F5;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:#0E9384;text-decoration:none}
+  a:hover{color:#0B7A6E}
+  input,button,select,textarea{font-family:inherit}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:#DFDDD4;border-radius:9px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes shimmer{0%{background-position:-500px 0}100%{background-position:500px 0}}
+  @keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes popIn{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+</style>
+</helmet>
+
+<div style="display:flex;height:100vh;overflow:hidden;background:#FAF9F5;color:#0F2A47">
+
+  <aside style="width:262px;flex:none;background:#0B1F3E;display:flex;flex-direction:column;overflow:hidden">
+    <div style="padding:22px 20px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #1B3358">
+      <div style="width:40px;height:40px;flex:none;border-radius:11px;background:#fff;display:grid;place-items:center">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#0B1F3E" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6v16H4z" /><path d="M14 4h6v7h-6z" /><path d="M14 15.5l2 2 4-4" /></svg>
+      </div>
+      <div>
+        <div style="font-size:20px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.1">StudyCrux</div>
+        <div style="font-size:10.5px;font-weight:600;color:#7E96B8;letter-spacing:.16em;margin-top:3px">SUPER ADMIN</div>
+      </div>
+    </div>
+
+    <nav style="flex:1;overflow-y:auto;padding:16px 14px 10px;display:flex;flex-direction:column;gap:3px">
+      <div onClick="{{ goDash }}" style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></svg>
+        <span>Dashboard</span>
+      </div>
+
+      <div onClick="{{ toggleStudent }}" style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9.5" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /></svg>
+        <span style="flex:1">Student</span>
+        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">2.8k</span>
+        <span style="transform:{{ studentChevron }};display:inline-flex;transition:transform .18s"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg></span>
+      </div>
+      <sc-if value="{{ studentOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="margin:2px 0 6px 24px;padding-left:14px;border-left:1px solid #1B3358;display:flex;flex-direction:column;gap:1px">
+          <div style="padding:8px 12px;border-radius:8px;color:#9FB2CC;font-size:13px;font-weight:500;cursor:pointer" style-hover="color:#fff">All Students</div>
+          <div style="padding:8px 12px;border-radius:8px;color:#9FB2CC;font-size:13px;font-weight:500;cursor:pointer" style-hover="color:#fff">Attendance &amp; Activity</div>
+          <div style="padding:8px 12px;border-radius:8px;color:#9FB2CC;font-size:13px;font-weight:500;cursor:pointer" style-hover="color:#fff">Enrollments &amp; Progress</div>
+          <div style="padding:8px 12px;border-radius:8px;color:#9FB2CC;font-size:13px;font-weight:500;cursor:pointer" style-hover="color:#fff">Payments &amp; Subscriptions</div>
+          <div style="padding:8px 12px;border-radius:8px;color:#9FB2CC;font-size:13px;font-weight:500;cursor:pointer" style-hover="color:#fff">Reports</div>
+        </div>
+      </sc-if>
+
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5 12 4l10 4.5-10 4.5z" /><path d="M6 11v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5" /></svg>
+        <span style="flex:1">Teachers</span>
+        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">2.8k</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2" /><path d="M3 20v-1.5A4.5 4.5 0 0 1 7.5 14h3A4.5 4.5 0 0 1 15 18.5V20" /><path d="M17 11h5M19.5 8.5v5" /></svg>
+        <span style="flex:1">Coordinator</span>
+        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">2.8k</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.4-3.1 8.2-7.5 9.5-4.4-1.3-7.5-5.1-7.5-9.5V6z" /><path d="M9.5 12l1.8 1.8 3.5-3.6" /></svg>
+        <span style="flex:1">Role &amp; Access</span>
+        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">2.8k</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+      </div>
+
+      <div onClick="{{ toggleSpeaker }}" style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#fff;font-size:13.5px;font-weight:600">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="11" rx="3" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0" /><path d="M12 17.5V21" /></svg>
+        <span style="flex:1">Become a Speaker</span>
+        <span style="transform:{{ speakerChevron }};display:inline-flex;transition:transform .18s"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg></span>
+      </div>
+      <sc-if value="{{ speakerOpen }}" hint-placeholder-val="{{ true }}">
+        <div style="margin:2px 0 6px 24px;padding-left:14px;border-left:1px solid #1B3358;display:flex;flex-direction:column;gap:1px">
+          <sc-for list="{{ speakerNav }}" as="n" hint-placeholder-count="6">
+            <div onClick="{{ n.go }}" style="position:relative;padding:8px 12px;border-radius:8px;font-size:13px;font-weight:{{ n.weight }};cursor:pointer;background:{{ n.bg }};color:{{ n.fg }}" style-hover="color:#fff">
+              <span style="position:absolute;left:-15px;top:7px;bottom:7px;width:2.5px;border-radius:2px;background:{{ n.bar }}"></span>
+              {{ n.label }}
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </nav>
+
+    <div style="padding:14px">
+      <div style="display:flex;align-items:center;gap:11px;background:#14335C;border-radius:13px;padding:11px 12px">
+        <div style="width:36px;height:36px;flex:none;border-radius:50%;background:#2C5A8A;display:grid;place-items:center;color:#fff;font-size:12.5px;font-weight:700">SJ</div>
+        <div style="min-width:0">
+          <div style="font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Dr. Sarah Johnson</div>
+          <div style="font-size:11px;color:#8FA6C4;margin-top:1px">Super Admin · Global scope</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0">
+    <header style="flex:none;display:flex;align-items:flex-start;gap:24px;padding:26px 32px 20px">
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:10px">
+          <sc-if value="{{ showBack }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ goBack }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+            </button>
+          </sc-if>
+          <h1 style="margin:0;font-size:23px;font-weight:700;letter-spacing:-.02em;color:#0F2A47">{{ pageTitle }}</h1>
+        </div>
+        <p style="margin:6px 0 0;font-size:13.5px;color:#6B7C93">{{ pageSub }}</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding-top:4px">
+        <div style="display:flex;align-items:center;gap:9px;width:318px;height:38px;padding:0 15px;border:1px solid #E5E3DC;background:#fff;border-radius:999px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" /></svg>
+          <input placeholder="Search Speakers, Applications, Sessions..." style="border:0;outline:0;flex:1;font-size:13px;color:#0F2A47;background:transparent" />
+        </div>
+        <button style="width:38px;height:38px;border-radius:50%;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4L3 21l1.1-4.6A8.4 8.4 0 1 1 21 11.5z" /></svg>
+        </button>
+        <button onClick="{{ openNotifs }}" style="position:relative;width:38px;height:38px;border-radius:50%;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 8-3 8h18s-3-1-3-8" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></svg>
+          <span style="position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:#E5484D;border:1.5px solid #fff"></span>
+        </button>
+        <button style="width:38px;height:38px;border-radius:50%;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2" /><path d="M9.6 9.2a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.7-.9 1.3v.5" /><path d="M12 16.8h.01" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <div style="flex:1;overflow-y:auto;padding:4px 32px 40px">
+
+      <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <div style="font-size:13px;font-weight:500;color:#6B7C93">Total Speakers</div>
+                <div style="font-size:30px;font-weight:700;letter-spacing:-.03em;color:#0F2A47;margin-top:8px">1,284</div>
+                <div style="font-size:11.5px;font-weight:600;color:#15803D;margin-top:7px">▲ 6.2% vs last month</div>
+              </div>
+              <div style="width:44px;height:44px;border-radius:50%;background:#E6F4F1;display:grid;place-items:center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E9384" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="11" rx="3" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0" /><path d="M12 17.5V21" /></svg>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <div style="font-size:13px;font-weight:500;color:#6B7C93">Pending Applications</div>
+                <div style="font-size:30px;font-weight:700;letter-spacing:-.03em;color:#0F2A47;margin-top:8px">86</div>
+                <div style="font-size:11.5px;font-weight:600;color:#B45309;margin-top:7px">14 breaching 5-day SLA</div>
+              </div>
+              <div style="width:44px;height:44px;border-radius:50%;background:#FEF3E2;display:grid;place-items:center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" /><path d="M14 3v6h6" /></svg>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <div style="font-size:13px;font-weight:500;color:#6B7C93">Live Today</div>
+                <div style="font-size:30px;font-weight:700;letter-spacing:-.03em;color:#0F2A47;margin-top:8px">12</div>
+                <div style="font-size:11.5px;font-weight:600;color:#1D4ED8;margin-top:7px">38 sessions scheduled this week</div>
+              </div>
+              <div style="width:44px;height:44px;border-radius:50%;background:#E9F1FD;display:grid;place-items:center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.2 1.9" /></svg>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <div style="font-size:13px;font-weight:500;color:#6B7C93">Pending Payouts</div>
+                <div style="font-size:30px;font-weight:700;letter-spacing:-.03em;color:#0F2A47;margin-top:8px">₹4.28L</div>
+                <div style="font-size:11.5px;font-weight:600;color:#B42318;margin-top:7px">Awaiting Finance release</div>
+              </div>
+              <div style="width:44px;height:44px;border-radius:50%;background:#FDE8E8;display:grid;place-items:center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2" stroke-linecap="round"><path d="M6 4h12M6 9h12M9.5 4c4 0 5.5 1.6 5.5 4s-1.5 4-5.5 4H6l7.5 8" /></svg>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1.45fr 1fr;gap:18px">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px 18px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between">
+                <div>
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Applications received</div>
+                  <div style="font-size:12.5px;color:#6B7C93;margin-top:3px">Last 12 months · 1,284 total</div>
+                </div>
+                <div style="display:flex;gap:6px">
+                  <span style="font-size:11.5px;font-weight:600;color:#0B7A6E;background:#EEF6F5;padding:5px 10px;border-radius:7px">Monthly</span>
+                  <span style="font-size:11.5px;font-weight:500;color:#98A2B3;padding:5px 10px">Weekly</span>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-end;gap:12px;height:170px;margin-top:22px">
+                <sc-for list="{{ appChart }}" as="b" hint-placeholder-count="12">
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">
+                    <div style="width:100%;max-width:34px;height:{{ b.h }};border-radius:6px 6px 3px 3px;background:{{ b.bg }}"></div>
+                    <span style="font-size:10.5px;font-weight:500;color:#98A2B3">{{ b.m }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+              <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Approval funnel</div>
+              <div style="font-size:12.5px;color:#6B7C93;margin-top:3px">Conversion from application to active</div>
+              <div style="display:flex;flex-direction:column;gap:14px;margin-top:20px">
+                <sc-for list="{{ funnel }}" as="f" hint-placeholder-count="5">
+                  <div>
+                    <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px">
+                      <span style="font-weight:500;color:#344054">{{ f.label }}</span>
+                      <span style="font-weight:700;color:#0F2A47">{{ f.n }}</span>
+                    </div>
+                    <div style="height:8px;border-radius:5px;background:#F2F0EA;overflow:hidden">
+                      <div style="height:100%;width:{{ f.w }};border-radius:5px;background:{{ f.bg }}"></div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1.45fr 1fr;gap:18px">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #F2F0EA">
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Recent activity</div>
+                <span onClick="{{ goApps }}" style="font-size:12.5px;font-weight:600;color:#0E9384;cursor:pointer">View all</span>
+              </div>
+              <div>
+                <sc-for list="{{ activity }}" as="a" hint-placeholder-count="5">
+                  <div style="display:flex;align-items:center;gap:13px;padding:13px 22px;border-bottom:1px solid #F7F5F0">
+                    <div style="width:32px;height:32px;flex:none;border-radius:50%;background:{{ a.avBg }};display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">{{ a.init }}</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:13px;color:#0F2A47;line-height:1.45"><strong style="font-weight:600">{{ a.who }}</strong> {{ a.what }}</div>
+                      <div style="font-size:11.5px;color:#98A2B3;margin-top:2px">{{ a.ts }}</div>
+                    </div>
+                    <span style="font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:{{ a.bg }};color:{{ a.fg }}">{{ a.tag }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:18px">
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47;margin-bottom:14px">Quick actions</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                  <sc-for list="{{ quickActions }}" as="q" hint-placeholder-count="6">
+                    <button onClick="{{ q.go }}" style="display:flex;align-items:center;gap:9px;padding:12px 13px;border:1px solid #ECEAE2;border-radius:10px;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;text-align:left" style-hover="background:#F7FBFA;border-color:#0E9384;color:#0B7A6E">
+                      <span style="width:26px;height:26px;flex:none;border-radius:8px;background:{{ q.bg }};display:grid;place-items:center;font-size:13px">{{ q.icon }}</span>
+                      {{ q.label }}
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Upcoming sessions</div>
+                  <span style="font-size:11.5px;font-weight:600;color:#B45309;background:#FEF3E2;padding:4px 9px;border-radius:999px">1 conflict</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:11px">
+                  <sc-for list="{{ upcoming }}" as="u" hint-placeholder-count="4">
+                    <div style="display:flex;align-items:center;gap:12px">
+                      <div style="width:46px;flex:none;text-align:center;padding:6px 0;border-radius:9px;background:#F7F6F1">
+                        <div style="font-size:15px;font-weight:700;color:#0F2A47;line-height:1">{{ u.d }}</div>
+                        <div style="font-size:10px;font-weight:600;color:#98A2B3;margin-top:2px">{{ u.mo }}</div>
+                      </div>
+                      <div style="flex:1;min-width:0">
+                        <div style="font-size:13px;font-weight:600;color:#0F2A47;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ u.title }}</div>
+                        <div style="font-size:11.5px;color:#6B7C93;margin-top:2px">{{ u.meta }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isApps }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <sc-if value="{{ isPartial }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:11px;padding:12px 16px;border:1px solid #F5DFC0;background:#FEF9F0;border-radius:11px;margin-bottom:16px">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2.2" stroke-linecap="round"><path d="M12 3l7.5 3v5.5c0 4.4-3.1 8.2-7.5 9.5-4.4-1.3-7.5-5.1-7.5-9.5V6z" /><path d="M12 9.5v3M12 15.5h.01" /></svg>
+              <div style="flex:1">
+                <div style="font-size:13px;font-weight:600;color:#7A4A0B">Partial access — scope limited to your assigned region</div>
+                <div style="font-size:12.5px;color:#96703C;margin-top:2px">You can view all applications but only act on <strong style="font-weight:700">Insurance · APAC</strong>. Finance columns are masked.</div>
+              </div>
+              <button style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E9D3AE;background:#fff;font-size:12.5px;font-weight:600;color:#7A4A0B;cursor:pointer">Request access</button>
+            </div>
+          </sc-if>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px">
+            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;overflow-x:auto">
+              <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="8">
+                <button onClick="{{ t.pick }}" style="height:32px;padding:0 14px;border:0;border-radius:8px;font-size:13px;white-space:nowrap;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }}">{{ t.label }}</button>
+              </sc-for>
+            </div>
+            <div style="display:flex;gap:10px;flex:none">
+              <button onClick="{{ goCreate }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Add Speaker
+              </button>
+              <button onClick="{{ openExport }}" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 17px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5" /><path d="M4.5 19h15" /></svg>Export
+              </button>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:visible">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid #F2F0EA">
+              <div style="flex:1;min-width:0">
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Speaker Applications</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Showing {{ rowCount }} of 1,284 applications</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:9px;width:300px;height:38px;padding:0 14px;border:1px solid #E5E3DC;border-radius:10px">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" /></svg>
+                <input value="{{ q }}" onChange="{{ setQ }}" placeholder="Search name, email, ID…" style="border:0;outline:0;flex:1;font-size:13px;color:#0F2A47;background:transparent" />
+              </div>
+              <div style="position:relative">
+                <button onClick="{{ toggleViews }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 13px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L3.4 9.8l6-.8z" /></svg>
+                  Saved views
+                </button>
+                <div style="display:{{ viewsDisplay }};position:absolute;top:44px;right:0;width:300px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 16px 40px rgba(11,31,62,.13);padding:6px;z-index:20">
+                  <sc-for list="{{ savedViews }}" as="v" hint-placeholder-count="4">
+                    <div onClick="{{ v.pick }}" style="padding:10px 11px;border-radius:9px;cursor:pointer" style-hover="background:#F7FBFA">
+                      <div style="display:flex;justify-content:space-between;align-items:center">
+                        <span style="font-size:13px;font-weight:600;color:#0F2A47">{{ v.name }}</span>
+                        <span style="font-size:11px;font-weight:600;color:#0B7A6E;background:#EEF6F5;padding:2px 7px;border-radius:999px">{{ v.count }}</span>
+                      </div>
+                      <div style="font-size:11.5px;color:#98A2B3;margin-top:3px;font-family:ui-monospace,monospace">{{ v.desc }}</div>
+                    </div>
+                  </sc-for>
+                  <div style="border-top:1px solid #F2F0EA;margin-top:4px;padding:9px 11px;font-size:12.5px;font-weight:600;color:#0E9384;cursor:pointer">+ Save current view</div>
+                </div>
+              </div>
+              <div style="position:relative">
+                <button onClick="{{ toggleCols }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 13px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16M15 4v16" /></svg>
+                  Columns
+                </button>
+                <div style="display:{{ colsDisplay }};position:absolute;top:44px;right:0;width:220px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 16px 40px rgba(11,31,62,.13);padding:6px;z-index:20">
+                  <sc-for list="{{ cols }}" as="c" hint-placeholder-count="7">
+                    <div onClick="{{ c.toggle }}" style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;cursor:pointer;font-size:13px;color:#344054" style-hover="background:#F7FBFA">
+                      <span style="width:9px;height:9px;border-radius:50%;background:{{ c.dot }}"></span>{{ c.label }}
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <button onClick="{{ toggleFilters }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 13px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>
+                More Filters
+              </button>
+            </div>
+
+            <div style="display:{{ filtersDisplay }};grid-template-columns:repeat(4,1fr);gap:14px;padding:18px 20px;background:#FCFBF7;border-bottom:1px solid #F2F0EA">
+              <div>
+                <label style="display:block;font-size:11.5px;font-weight:600;color:#475467;margin-bottom:6px">Expertise</label>
+                <select style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:13px;background:#fff;color:#0F2A47;outline:0"><option>Any expertise</option><option>Insurance &amp; Risk</option><option>Actuarial Science</option><option>Financial Planning</option></select>
+              </div>
+              <div>
+                <label style="display:block;font-size:11.5px;font-weight:600;color:#475467;margin-bottom:6px">Assigned reviewer</label>
+                <select style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:13px;background:#fff;color:#0F2A47;outline:0"><option>Anyone</option><option>Unassigned</option><option>R. Iyer</option><option>M. Kulkarni</option><option>A. Menon</option></select>
+              </div>
+              <div>
+                <label style="display:block;font-size:11.5px;font-weight:600;color:#475467;margin-bottom:6px">Priority</label>
+                <div style="display:flex;gap:6px">
+                  <span style="flex:1;text-align:center;height:36px;line-height:34px;border:1px solid #0E9384;background:#EEF6F5;color:#0B7A6E;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer">High</span>
+                  <span style="flex:1;text-align:center;height:36px;line-height:34px;border:1px solid #E5E3DC;background:#fff;color:#667085;border-radius:8px;font-size:12.5px;font-weight:500;cursor:pointer">Med</span>
+                  <span style="flex:1;text-align:center;height:36px;line-height:34px;border:1px solid #E5E3DC;background:#fff;color:#667085;border-radius:8px;font-size:12.5px;font-weight:500;cursor:pointer">Low</span>
+                </div>
+              </div>
+              <div>
+                <label style="display:block;font-size:11.5px;font-weight:600;color:#475467;margin-bottom:6px">Applied between</label>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <input type="date" defaultValue="2026-07-01" style="flex:1;height:36px;padding:0 8px;border:1px solid #E5E3DC;border-radius:8px;font-size:12px;background:#fff;color:#0F2A47;outline:0" />
+                  <input type="date" defaultValue="2026-07-31" style="flex:1;height:36px;padding:0 8px;border:1px solid #E5E3DC;border-radius:8px;font-size:12px;background:#fff;color:#0F2A47;outline:0" />
+                </div>
+              </div>
+              <div style="grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding-top:4px">
+                <span style="font-size:12.5px;color:#6B7C93">Multi-sort: <strong style="color:#0F2A47;font-weight:600">Priority ↓</strong> then <strong style="color:#0F2A47;font-weight:600">Applied ↓</strong></span>
+                <div style="display:flex;gap:9px">
+                  <button style="height:34px;padding:0 14px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Reset</button>
+                  <button onClick="{{ toggleFilters }}" style="height:34px;padding:0 16px;border-radius:8px;border:0;background:#0E9384;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Apply filters</button>
+                </div>
+              </div>
+            </div>
+
+            <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 20px;background:#0B1F3E;color:#fff">
+                <span style="font-size:13px;font-weight:600">{{ selCount }} selected</span>
+                <span style="width:1px;height:18px;background:#28456C"></span>
+                <button onClick="{{ bulkApprove }}" style="height:30px;padding:0 12px;border-radius:7px;border:0;background:#0E9384;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Approve</button>
+                <button onClick="{{ bulkReject }}" style="height:30px;padding:0 12px;border-radius:7px;border:1px solid #28456C;background:transparent;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Reject</button>
+                <button style="height:30px;padding:0 12px;border-radius:7px;border:1px solid #28456C;background:transparent;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Assign reviewer</button>
+                <button style="height:30px;padding:0 12px;border-radius:7px;border:1px solid #28456C;background:transparent;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Request documents</button>
+                <button onClick="{{ openExport }}" style="height:30px;padding:0 12px;border-radius:7px;border:1px solid #28456C;background:transparent;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Export</button>
+                <button onClick="{{ bulkArchive }}" style="height:30px;padding:0 12px;border-radius:7px;border:1px solid #28456C;background:transparent;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Archive</button>
+                <span style="flex:1"></span>
+                <button onClick="{{ clearSel }}" style="border:0;background:transparent;color:#9FB6D4;font-size:12.5px;font-weight:600;cursor:pointer">Clear</button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:8px 0">
+                <sc-for list="{{ skeletons }}" as="k" hint-placeholder-count="8">
+                  <div style="display:flex;align-items:center;gap:16px;padding:15px 20px;border-bottom:1px solid #F7F5F0">
+                    <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(90deg,#F2F0EA 25%,#F9F8F4 50%,#F2F0EA 75%);background-size:500px 100%;animation:shimmer 1.3s infinite"></div>
+                    <div style="flex:2;height:11px;border-radius:6px;background:linear-gradient(90deg,#F2F0EA 25%,#F9F8F4 50%,#F2F0EA 75%);background-size:500px 100%;animation:shimmer 1.3s infinite"></div>
+                    <div style="flex:1;height:11px;border-radius:6px;background:linear-gradient(90deg,#F2F0EA 25%,#F9F8F4 50%,#F2F0EA 75%);background-size:500px 100%;animation:shimmer 1.3s infinite"></div>
+                    <div style="flex:1;height:11px;border-radius:6px;background:linear-gradient(90deg,#F2F0EA 25%,#F9F8F4 50%,#F2F0EA 75%);background-size:500px 100%;animation:shimmer 1.3s infinite"></div>
+                    <div style="width:86px;height:22px;border-radius:999px;background:linear-gradient(90deg,#F2F0EA 25%,#F9F8F4 50%,#F2F0EA 75%);background-size:500px 100%;animation:shimmer 1.3s infinite"></div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isError }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:64px 20px;text-align:center">
+                <div style="width:54px;height:54px;margin:0 auto;border-radius:50%;background:#FDE8E8;display:grid;place-items:center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2" stroke-linecap="round"><path d="M2.5 8.5a15 15 0 0 1 19 0" /><path d="M5.5 12a11 11 0 0 1 13 0" /><path d="M8.5 15.5a7 7 0 0 1 7 0" /><path d="M12 19h.01" /><path d="M3 3l18 18" /></svg>
+                </div>
+                <div style="font-size:16px;font-weight:700;color:#0F2A47;margin-top:16px">Couldn't load applications</div>
+                <div style="font-size:13.5px;color:#6B7C93;margin-top:6px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.6">The request timed out after 30s. Your filters and selection have been preserved.</div>
+                <div style="display:flex;gap:10px;justify-content:center;margin-top:20px">
+                  <button onClick="{{ retry }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer">Retry</button>
+                  <button style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">View status page</button>
+                </div>
+                <div style="font-size:11.5px;color:#98A2B3;margin-top:16px;font-family:ui-monospace,monospace">trace_id: 7f2c-91ab-0e44</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isDenied }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:64px 20px;text-align:center">
+                <div style="width:54px;height:54px;margin:0 auto;border-radius:50%;background:#F1F3F5;display:grid;place-items:center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#667085" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2" /><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" /></svg>
+                </div>
+                <div style="font-size:16px;font-weight:700;color:#0F2A47;margin-top:16px">You don't have permission to view applications</div>
+                <div style="font-size:13.5px;color:#6B7C93;margin-top:6px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.6">This module requires <strong style="color:#344054;font-family:ui-monospace,monospace">SPEAKER:APPLICATION:VIEW</strong>. Your role (Coordinator) does not include it.</div>
+                <button style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer;margin-top:20px">Request access from Super Admin</button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showTable }}" hint-placeholder-val="{{ true }}">
+              <sc-if value="{{ hasRows }}" hint-placeholder-val="{{ true }}">
+                <div style="overflow-x:auto">
+                  <table style="width:100%;border-collapse:collapse">
+                    <thead>
+                      <tr style="background:#FCFBF7">
+                        <th style="width:46px;padding:12px 0 12px 20px;text-align:left;border-bottom:1px solid #F0EEE7"><input type="checkbox" checked="{{ allChecked }}" onChange="{{ toggleAll }}" style="width:15px;height:15px;accent-color:#0E9384;cursor:pointer" /></th>
+                        <sc-if value="{{ showApplication }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">APPLICATION</th></sc-if>
+                        <sc-if value="{{ showExpertise }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">EXPERTISE</th></sc-if>
+                        <sc-if value="{{ showExperience }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">EXP.</th></sc-if>
+                        <sc-if value="{{ showApplied }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">APPLIED</th></sc-if>
+                        <sc-if value="{{ showReviewer }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">REVIEWER</th></sc-if>
+                        <sc-if value="{{ showPriority }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">PRIORITY</th></sc-if>
+                        <sc-if value="{{ showStatus }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">STATUS</th></sc-if>
+                        <th style="width:56px;padding:12px 20px 12px 0;border-bottom:1px solid #F0EEE7"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <sc-for list="{{ rows }}" as="r" hint-placeholder-count="8">
+                        <tr style="background:{{ r.rowBg }};cursor:pointer" style-hover="background:#FCFBF7">
+                          <td style="padding:13px 0 13px 20px;border-bottom:1px solid #F5F3EE"><input type="checkbox" checked="{{ r.checked }}" onChange="{{ r.toggle }}" style="width:15px;height:15px;accent-color:#0E9384;cursor:pointer" /></td>
+                          <sc-if value="{{ showApplication }}" hint-placeholder-val="{{ true }}">
+                            <td onClick="{{ r.open }}" style="padding:13px 16px;border-bottom:1px solid #F5F3EE">
+                              <div style="display:flex;align-items:center;gap:11px">
+                                <div style="width:34px;height:34px;flex:none;border-radius:50%;background:{{ r.avBg }};display:grid;place-items:center;color:#fff;font-size:11.5px;font-weight:700">{{ r.init }}</div>
+                                <div style="min-width:0">
+                                  <div style="font-size:13.5px;font-weight:600;color:#0F2A47">{{ r.name }}</div>
+                                  <div style="font-size:11.5px;color:#98A2B3;margin-top:2px">{{ r.id }} · {{ r.email }}</div>
+                                </div>
+                              </div>
+                            </td>
+                          </sc-if>
+                          <sc-if value="{{ showExpertise }}" hint-placeholder-val="{{ true }}">
+                            <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE"><span style="display:inline-block;background:#F3F4F6;color:#4B5563;font-size:12.5px;font-weight:500;padding:5px 10px;border-radius:7px">{{ r.exp }}</span></td>
+                          </sc-if>
+                          <sc-if value="{{ showExperience }}" hint-placeholder-val="{{ true }}">
+                            <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE;font-size:13px;color:#475467">{{ r.yrs }}</td>
+                          </sc-if>
+                          <sc-if value="{{ showApplied }}" hint-placeholder-val="{{ true }}">
+                            <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE;font-size:13px;color:#475467">{{ r.applied }}</td>
+                          </sc-if>
+                          <sc-if value="{{ showReviewer }}" hint-placeholder-val="{{ true }}">
+                            <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE;font-size:13px;color:#475467">{{ r.reviewer }}</td>
+                          </sc-if>
+                          <sc-if value="{{ showPriority }}" hint-placeholder-val="{{ true }}">
+                            <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE"><span style="display:inline-block;font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:6px;background:{{ r.priBg }};color:{{ r.priFg }}">{{ r.pri }}</span></td>
+                          </sc-if>
+                          <sc-if value="{{ showStatus }}" hint-placeholder-val="{{ true }}">
+                            <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE"><span style="display:inline-block;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;background:{{ r.badgeBg }};color:{{ r.badgeFg }}">{{ r.status }}</span></td>
+                          </sc-if>
+                          <td style="padding:13px 20px 13px 0;border-bottom:1px solid #F5F3EE;position:relative;text-align:right">
+                            <button onClick="{{ r.menu }}" style="width:28px;height:28px;border-radius:7px;border:0;background:transparent;cursor:pointer;color:#98A2B3" style-hover="background:#F2F0EA;color:#475467">
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7" /><circle cx="12" cy="12" r="1.7" /><circle cx="12" cy="19" r="1.7" /></svg>
+                            </button>
+                            <div style="display:{{ r.menuDisplay }};position:absolute;top:40px;right:18px;width:210px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;box-shadow:0 16px 40px rgba(11,31,62,.14);padding:5px;z-index:30;text-align:left">
+                              <div onClick="{{ r.open }}" style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">View application</div>
+                              <div style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Assign reviewer</div>
+                              <div onClick="{{ openInterview }}" style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Schedule interview</div>
+                              <div onClick="{{ requestDocs }}" style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Request documents</div>
+                              <div style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Download documents</div>
+                              <div style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Print / Generate PDF</div>
+                              <div style="height:1px;background:#F2F0EA;margin:4px 0"></div>
+                              <div onClick="{{ archiveInstead }}" style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Archive</div>
+                              <div onClick="{{ openDelete }}" style="padding:9px 11px;border-radius:8px;font-size:13px;color:#B42318;cursor:pointer" style-hover="background:#FEF7F6">Delete permanently</div>
+                            </div>
+                          </td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#FCFBF7;border-top:1px solid #F0EEE7">
+                  <span style="font-size:12.5px;color:#6B7C93">Page 1 of 107 · {{ rowCount }} rows shown</span>
+                  <div style="display:flex;align-items:center;gap:6px">
+                    <button style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:500;color:#98A2B3;cursor:not-allowed">Prev</button>
+                    <sc-for list="{{ pages }}" as="p" hint-placeholder-count="3">
+                      <button onClick="{{ p.pick }}" style="width:30px;height:30px;border-radius:50%;border:0;font-size:12.5px;font-weight:600;cursor:pointer;background:{{ p.bg }};color:{{ p.fg }}">{{ p.n }}</button>
+                    </sc-for>
+                    <span style="color:#98A2B3;font-size:12.5px;padding:0 4px">…</span>
+                    <button style="width:34px;height:30px;border-radius:8px;border:0;background:transparent;font-size:12.5px;font-weight:600;color:#6B7C93;cursor:pointer">107</button>
+                    <button style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Next</button>
+                  </div>
+                </div>
+              </sc-if>
+            </sc-if>
+
+            <sc-if value="{{ showEmpty }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:64px 20px;text-align:center">
+                <div style="width:54px;height:54px;margin:0 auto;border-radius:14px;background:#F7F6F1;display:grid;place-items:center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" /></svg>
+                </div>
+                <div style="font-size:16px;font-weight:700;color:#0F2A47;margin-top:16px">No applications match these filters</div>
+                <div style="font-size:13.5px;color:#6B7C93;margin-top:6px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.6">Try widening the date range or clearing the priority filter. You can also add a speaker manually.</div>
+                <div style="display:flex;gap:10px;justify-content:center;margin-top:20px">
+                  <button onClick="{{ resetAll }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">Clear all filters</button>
+                  <button onClick="{{ goCreate }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer">Add Speaker</button>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAppDetail }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:22px 24px;margin-bottom:18px">
+            <div style="display:flex;align-items:flex-start;gap:18px">
+              <div style="width:60px;height:60px;flex:none;border-radius:50%;background:#0E9384;display:grid;place-items:center;color:#fff;font-size:20px;font-weight:700">AD</div>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <h2 style="margin:0;font-size:19px;font-weight:700;color:#0F2A47;letter-spacing:-.02em">Ananya Deshmukh</h2>
+                  <span style="font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:#E9F1FD;color:#1D4ED8">Under Review</span>
+                  <span style="font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:#FDE8E8;color:#B42318">High priority</span>
+                  <span style="font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:#FDF0E7;color:#C2410C">1 check failed</span>
+                </div>
+                <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:9px;font-size:12.5px;color:#6B7C93">
+                  <span>APP-2041</span><span>ananya.deshmukh@gmail.com</span><span>+91 98204 41207</span><span>Applied 28 Jul 2026</span><span>Reviewer: R. Iyer</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:9px;flex:none">
+                <button onClick="{{ requestDocs }}" style="height:38px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Request docs</button>
+                <button onClick="{{ openInterview }}" style="height:38px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Schedule interview</button>
+                <button onClick="{{ openReject }}" style="height:38px;padding:0 14px;border-radius:9px;border:1px solid #F0DCDA;background:#fff;font-size:13px;font-weight:600;color:#B42318;cursor:pointer" style-hover="background:#FEF7F6">Reject</button>
+                <button onClick="{{ approveApp }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;font-size:13px;font-weight:600;color:#fff;background:{{ approveBtnBg }};cursor:{{ approveBtnCursor }}">Approve</button>
+                <button onClick="{{ openDelete }}" style="width:38px;height:38px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7" /><circle cx="12" cy="12" r="1.7" /><circle cx="12" cy="19" r="1.7" /></svg>
+                </button>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;margin-top:18px;padding:10px 14px;border-radius:9px;background:#FCF8F1;border:1px solid #F5E6CC;font-size:12.5px;color:#7A4A0B">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2.3" stroke-linecap="round"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16h.01" /></svg>
+              {{ approveGateText }} — approval stays disabled until every required verification is approved.
+            </div>
+          </div>
+
+          <div style="display:flex;gap:28px;border-bottom:1px solid #ECEAE2;margin-bottom:20px">
+            <sc-for list="{{ detailTabs }}" as="t" hint-placeholder-count="5">
+              <button onClick="{{ t.pick }}" style="padding:0 0 12px;border:0;background:transparent;font-size:13.5px;cursor:pointer;border-bottom:2.5px solid {{ t.border }};color:{{ t.color }};font-weight:{{ t.weight }}">{{ t.label }}</button>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ dOverview }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:18px;align-items:start">
+              <div style="display:flex;flex-direction:column;gap:18px">
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+                    <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Applicant details</div>
+                    <button style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Edit inline</button>
+                  </div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 28px">
+                    <sc-for list="{{ appFields }}" as="f" hint-placeholder-count="8">
+                      <div>
+                        <div style="font-size:11.5px;font-weight:600;color:#98A2B3;letter-spacing:.03em">{{ f.k }}</div>
+                        <div style="font-size:13.5px;color:#0F2A47;margin-top:5px;font-weight:500">{{ f.v }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47;margin-bottom:13px">Expertise &amp; subjects</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px">
+                    <sc-for list="{{ tags }}" as="t" hint-placeholder-count="7">
+                      <span style="font-size:12.5px;font-weight:500;padding:6px 12px;border-radius:8px;background:#F3F4F6;color:#4B5563">{{ t }}</span>
+                    </sc-for>
+                  </div>
+                  <div style="font-size:12.5px;color:#6B7C93;margin-top:14px;line-height:1.6">Proposed teaching levels: <strong style="color:#344054;font-weight:600">Foundation, Intermediate</strong>. Languages: English, Hindi, Marathi.</div>
+                </div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47;margin-bottom:13px">Internal notes</div>
+                  <div style="display:flex;flex-direction:column;gap:12px">
+                    <div style="display:flex;gap:11px">
+                      <div style="width:30px;height:30px;flex:none;border-radius:50%;background:#2C5A8A;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">RI</div>
+                      <div style="flex:1;background:#FAF9F5;border-radius:10px;padding:11px 13px">
+                        <div style="font-size:12.5px;color:#0F2A47;line-height:1.55">Strong domain depth. Demo recording is genuinely good — recommend fast-tracking once the background check is resolved.</div>
+                        <div style="font-size:11px;color:#98A2B3;margin-top:6px">R. Iyer · 28 Jul, 09:10 · visible to admins only</div>
+                      </div>
+                    </div>
+                    <div style="display:flex;gap:9px">
+                      <input placeholder="Add an internal note…" style="flex:1;height:38px;padding:0 13px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;outline:0" />
+                      <button style="height:38px;padding:0 15px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer">Post</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:18px">
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47;margin-bottom:14px">Verification progress</div>
+                  <div style="display:flex;align-items:baseline;gap:8px">
+                    <span style="font-size:28px;font-weight:700;color:#0F2A47;letter-spacing:-.03em">{{ vDone }}</span>
+                    <span style="font-size:14px;color:#98A2B3">/ {{ vTotal }} approved</span>
+                  </div>
+                  <div style="height:8px;border-radius:5px;background:#F2F0EA;margin-top:12px;overflow:hidden">
+                    <div style="height:100%;width:{{ vPct }};background:#0E9384;border-radius:5px"></div>
+                  </div>
+                  <div style="font-size:12.5px;color:#B45309;font-weight:600;margin-top:10px">{{ vReqPending }} required checks outstanding</div>
+                  <button onClick="{{ goVerifyTab }}" style="width:100%;height:36px;margin-top:14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Open verification checklist</button>
+                </div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47;margin-bottom:14px">Workflow</div>
+                  <div style="display:flex;flex-direction:column;gap:0">
+                    <sc-for list="{{ workflow }}" as="w" hint-placeholder-count="7">
+                      <div style="display:flex;gap:12px">
+                        <div style="display:flex;flex-direction:column;align-items:center;flex:none">
+                          <span style="width:11px;height:11px;border-radius:50%;background:{{ w.dot }};border:2px solid {{ w.ring }};box-sizing:content-box"></span>
+                          <span style="width:2px;flex:1;background:{{ w.line }};display:{{ w.lineDisplay }}"></span>
+                        </div>
+                        <div style="padding-bottom:14px">
+                          <div style="font-size:13px;font-weight:{{ w.weight }};color:{{ w.color }}">{{ w.label }}</div>
+                          <div style="font-size:11.5px;color:#98A2B3;margin-top:2px">{{ w.meta }}</div>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47;margin-bottom:12px">Communication history</div>
+                  <div style="display:flex;flex-direction:column;gap:11px">
+                    <sc-for list="{{ comms }}" as="c" hint-placeholder-count="3">
+                      <div style="display:flex;align-items:flex-start;gap:10px">
+                        <span style="font-size:11px;font-weight:700;padding:3px 7px;border-radius:5px;background:{{ c.bg }};color:{{ c.fg }};flex:none;margin-top:1px">{{ c.ch }}</span>
+                        <div style="min-width:0">
+                          <div style="font-size:12.5px;color:#0F2A47;font-weight:500;line-height:1.45">{{ c.subject }}</div>
+                          <div style="font-size:11px;color:#98A2B3;margin-top:2px">{{ c.meta }}</div>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ dVerification }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #F2F0EA">
+                <div>
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Verification checklist</div>
+                  <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">{{ vDone }} of {{ vTotal }} approved · every action writes to the audit trail</div>
+                </div>
+                <div style="display:flex;gap:9px">
+                  <button style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Assign reviewer</button>
+                  <button style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Lock profile</button>
+                  <button onClick="{{ escalate }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #F0DCDA;background:#fff;font-size:12.5px;font-weight:600;color:#B42318;cursor:pointer">Escalate</button>
+                </div>
+              </div>
+              <sc-for list="{{ verifs }}" as="v" hint-placeholder-count="10">
+                <div style="display:flex;align-items:center;gap:16px;padding:15px 22px;border-bottom:1px solid #F7F5F0">
+                  <div style="flex:1;min-width:0">
+                    <div style="display:flex;align-items:center;gap:9px">
+                      <span style="font-size:13.5px;font-weight:600;color:#0F2A47">{{ v.label }}</span>
+                      <span style="font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:5px;background:{{ v.reqBg }};color:{{ v.reqFg }}">{{ v.reqLabel }}</span>
+                    </div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:4px">{{ v.by }} · {{ v.at }}</div>
+                  </div>
+                  <div style="width:190px;flex:none;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#475467">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" /><path d="M14 3v6h6" /></svg>
+                    <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ v.ev }}</span>
+                  </div>
+                  <span style="width:120px;flex:none;text-align:center;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;background:{{ v.bg }};color:{{ v.fg }}">{{ v.lab }}</span>
+                  <div style="width:170px;flex:none;display:{{ v.actDisplay }};gap:8px;justify-content:flex-end">
+                    <button onClick="{{ v.reject }}" style="height:32px;padding:0 12px;border-radius:8px;border:1px solid #F0DCDA;background:#fff;font-size:12.5px;font-weight:600;color:#B42318;cursor:pointer" style-hover="background:#FEF7F6">Reject</button>
+                    <button onClick="{{ v.approve }}" style="height:32px;padding:0 14px;border-radius:8px;border:0;background:#0E9384;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Approve</button>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;background:#FCFBF7">
+                <span style="font-size:12.5px;color:#6B7C93">{{ approveGateText }}</span>
+                <button onClick="{{ approveApp }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;font-size:13px;font-weight:600;color:#fff;background:{{ approveBtnBg }};cursor:{{ approveBtnCursor }}">Approve application</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ dDocuments }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+              <sc-for list="{{ docs }}" as="d" hint-placeholder-count="6">
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                  <div style="display:flex;align-items:flex-start;justify-content:space-between">
+                    <div style="width:38px;height:38px;border-radius:10px;background:{{ d.bg }};display:grid;place-items:center;font-size:11px;font-weight:700;color:{{ d.fg }}">{{ d.ext }}</div>
+                    <span style="font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:{{ d.sBg }};color:{{ d.sFg }}">{{ d.status }}</span>
+                  </div>
+                  <div style="font-size:13.5px;font-weight:600;color:#0F2A47;margin-top:13px">{{ d.name }}</div>
+                  <div style="font-size:11.5px;color:#98A2B3;margin-top:4px">{{ d.meta }}</div>
+                  <div style="display:flex;gap:8px;margin-top:14px">
+                    <button style="flex:1;height:32px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Preview</button>
+                    <button style="flex:1;height:32px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Download</button>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="border:1.5px dashed #DDD9CF;border-radius:14px;padding:26px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#FCFBF7">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7.5 8.5 12 4l4.5 4.5" /><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" /></svg>
+                <div style="font-size:13px;font-weight:600;color:#344054;margin-top:11px">Upload document</div>
+                <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;line-height:1.5">PDF, JPG or PNG · max 10 MB<br />Uploads are virus-scanned and audit-logged</div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ dTimeline }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:24px 26px">
+              <sc-for list="{{ timeline }}" as="e" hint-placeholder-count="7">
+                <div style="display:flex;gap:16px">
+                  <div style="display:flex;flex-direction:column;align-items:center;flex:none;width:34px">
+                    <span style="width:34px;height:34px;border-radius:50%;background:{{ e.dotBg }};display:grid;place-items:center">
+                      <span style="width:9px;height:9px;border-radius:50%;background:{{ e.dot }}"></span>
+                    </span>
+                    <span style="width:2px;flex:1;background:#F0EEE7"></span>
+                  </div>
+                  <div style="padding-bottom:22px;flex:1">
+                    <div style="display:flex;align-items:center;gap:10px">
+                      <span style="font-size:13.5px;font-weight:600;color:#0F2A47">{{ e.t }}</span>
+                      <span style="font-size:11.5px;color:#98A2B3">{{ e.ts }}</span>
+                    </div>
+                    <div style="font-size:12.5px;color:#6B7C93;margin-top:5px;line-height:1.6">{{ e.d }}</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:6px">by {{ e.w }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ dAudit }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #F2F0EA">
+                <div>
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Audit log</div>
+                  <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Immutable · sensitive fields masked · retained 7 years</div>
+                </div>
+                <button onClick="{{ openExport }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Export log</button>
+              </div>
+              <table style="width:100%;border-collapse:collapse">
+                <thead>
+                  <tr style="background:#FCFBF7">
+                    <th style="padding:11px 22px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">ACTION</th>
+                    <th style="padding:11px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">ACTOR</th>
+                    <th style="padding:11px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">FIELD</th>
+                    <th style="padding:11px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">OLD → NEW</th>
+                    <th style="padding:11px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">IP</th>
+                    <th style="padding:11px 22px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">TIMESTAMP</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <sc-for list="{{ audit }}" as="a" hint-placeholder-count="5">
+                    <tr>
+                      <td style="padding:13px 22px;border-bottom:1px solid #F5F3EE;font-size:12px;font-family:ui-monospace,monospace;color:#0B7A6E;font-weight:600">{{ a.act }}</td>
+                      <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#344054">{{ a.who }}</td>
+                      <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE;font-size:12px;font-family:ui-monospace,monospace;color:#475467">{{ a.f }}</td>
+                      <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE;font-size:12px;font-family:ui-monospace,monospace;color:#475467"><span style="color:#98A2B3">{{ a.o }}</span> → <span style="color:#0F2A47;font-weight:600">{{ a.n }}</span></td>
+                      <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE;font-size:12px;font-family:ui-monospace,monospace;color:#98A2B3">{{ a.ip }}</td>
+                      <td style="padding:13px 22px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#6B7C93;white-space:nowrap">{{ a.ts }}</td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isVerify }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:18px">
+            <sc-for list="{{ verifyKpis }}" as="k" hint-placeholder-count="4">
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                <div style="font-size:13px;font-weight:500;color:#6B7C93">{{ k.label }}</div>
+                <div style="font-size:27px;font-weight:700;letter-spacing:-.03em;color:#0F2A47;margin-top:7px">{{ k.n }}</div>
+                <div style="font-size:11.5px;font-weight:600;margin-top:6px;color:{{ k.fg }}">{{ k.note }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #F2F0EA">
+              <div>
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Verification queue</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Sorted by SLA breach risk, then priority</div>
+              </div>
+              <div style="display:flex;gap:9px">
+                <button style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Bulk assign</button>
+                <button onClick="{{ openExport }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Export</button>
+              </div>
+            </div>
+            <sc-for list="{{ queue }}" as="q" hint-placeholder-count="6">
+              <div onClick="{{ q.open }}" style="display:flex;align-items:center;gap:18px;padding:16px 22px;border-bottom:1px solid #F7F5F0;cursor:pointer" style-hover="background:#FCFBF7">
+                <div style="width:36px;height:36px;flex:none;border-radius:50%;background:{{ q.avBg }};display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700">{{ q.init }}</div>
+                <div style="width:210px;flex:none">
+                  <div style="font-size:13.5px;font-weight:600;color:#0F2A47">{{ q.name }}</div>
+                  <div style="font-size:11.5px;color:#98A2B3;margin-top:2px">{{ q.id }} · {{ q.exp }}</div>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:6px">
+                    <span style="color:#6B7C93">{{ q.doneLabel }}</span>
+                    <span style="font-weight:600;color:#0F2A47">{{ q.pct }}</span>
+                  </div>
+                  <div style="height:7px;border-radius:5px;background:#F2F0EA;overflow:hidden">
+                    <div style="height:100%;width:{{ q.pct }};border-radius:5px;background:{{ q.barBg }}"></div>
+                  </div>
+                </div>
+                <span style="width:120px;flex:none;text-align:center;font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:999px;background:{{ q.slaBg }};color:{{ q.slaFg }}">{{ q.sla }}</span>
+                <span style="width:100px;flex:none;font-size:12.5px;color:#475467">{{ q.reviewer }}</span>
+                <button style="height:32px;padding:0 14px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;flex:none" style-hover="background:#F6F5F0">Review</button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isOnboard }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:18px;align-items:start">
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid #F2F0EA">
+              <div>
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Onboarding checklist — Laila Haddad</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:3px">SPK-0119 · Compliance &amp; Regulation · started 28 Jul 2026</div>
+              </div>
+              <span style="font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;background:#E9F1FD;color:#1D4ED8">Onboarding</span>
+            </div>
+            <sc-for list="{{ onboard }}" as="o" hint-placeholder-count="12">
+              <div onClick="{{ o.toggle }}" style="display:flex;align-items:center;gap:14px;padding:13px 22px;border-bottom:1px solid #F7F5F0;cursor:pointer" style-hover="background:#FCFBF7">
+                <span style="width:20px;height:20px;flex:none;border-radius:50%;border:1.8px solid {{ o.dotBorder }};background:{{ o.dotBg }};display:grid;place-items:center">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" opacity="{{ o.tick }}"><path d="M20 6 9 17l-5-5" /></svg>
+                </span>
+                <span style="flex:1;font-size:13.5px;font-weight:500;color:{{ o.textColor }}">{{ o.label }}</span>
+                <span style="font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:5px;background:{{ o.reqBg }};color:{{ o.reqFg }}">{{ o.reqLabel }}</span>
+                <span style="width:200px;flex:none;text-align:right;font-size:11.5px;color:#98A2B3">{{ o.who }}</span>
+              </div>
+            </sc-for>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px;background:#FCFBF7">
+              <span style="font-size:12.5px;color:#6B7C93">{{ activateNote }}</span>
+              <button onClick="{{ activate }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;font-size:13px;font-weight:600;color:#fff;background:{{ activateBg }};cursor:{{ activateCursor }}">Activate speaker</button>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:18px">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+              <div style="font-size:14.5px;font-weight:700;color:#0F2A47;margin-bottom:12px">Progress</div>
+              <div style="display:flex;align-items:baseline;gap:8px">
+                <span style="font-size:30px;font-weight:700;color:#0F2A47;letter-spacing:-.03em">{{ obDone }}</span>
+                <span style="font-size:14px;color:#98A2B3">/ {{ obTotal }} complete</span>
+              </div>
+              <div style="height:8px;border-radius:5px;background:#F2F0EA;margin-top:12px;overflow:hidden">
+                <div style="height:100%;width:{{ obPct }};background:#0E9384;border-radius:5px"></div>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+              <div style="font-size:14.5px;font-weight:700;color:#0F2A47;margin-bottom:14px">Credentials</div>
+              <div style="display:flex;flex-direction:column;gap:11px;font-size:12.5px">
+                <div style="display:flex;justify-content:space-between"><span style="color:#6B7C93">Username</span><span style="color:#0F2A47;font-weight:600;font-family:ui-monospace,monospace">l.haddad@sc</span></div>
+                <div style="display:flex;justify-content:space-between"><span style="color:#6B7C93">Password</span><span style="color:#98A2B3">Not generated</span></div>
+                <div style="display:flex;justify-content:space-between"><span style="color:#6B7C93">MFA</span><span style="color:#B45309;font-weight:600">Required by policy</span></div>
+                <div style="display:flex;justify-content:space-between"><span style="color:#6B7C93">Force change on login</span><span style="color:#0F2A47;font-weight:600">Yes</span></div>
+              </div>
+              <button onClick="{{ genCreds }}" style="width:100%;height:36px;margin-top:16px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Generate credentials</button>
+              <div style="display:flex;gap:8px;margin-top:9px">
+                <button style="flex:1;height:34px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Reset</button>
+                <button style="flex:1;height:34px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Force logout</button>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+              <div style="font-size:14.5px;font-weight:700;color:#0F2A47;margin-bottom:12px">Contracts</div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                  <div><div style="font-size:13px;font-weight:600;color:#0F2A47">Speaker Agreement v3</div><div style="font-size:11.5px;color:#98A2B3;margin-top:2px">Signed 29 Jul · expires 29 Jul 2027</div></div>
+                  <span style="font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:#E7F7EE;color:#15803D">Signed</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                  <div><div style="font-size:13px;font-weight:600;color:#0F2A47">Mutual NDA</div><div style="font-size:11.5px;color:#98A2B3;margin-top:2px">Signed 29 Jul · perpetual</div></div>
+                  <span style="font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:#E7F7EE;color:#15803D">Signed</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                  <div><div style="font-size:13px;font-weight:600;color:#0F2A47">Tax declaration (Form W-8)</div><div style="font-size:11.5px;color:#98A2B3;margin-top:2px">Sent 30 Jul · awaiting signature</div></div>
+                  <span style="font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:#FEF3E2;color:#B45309">Pending</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!--SCREENS-->
+
+    </div>
+  </main>
+
+  <sc-if value="{{ overlay }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:fixed;inset:0;background:rgba(11,31,62,.42);z-index:60;animation:fadeIn .14s ease"></div>
+  </sc-if>
+
+  <sc-if value="{{ mReject }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:520px;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease;overflow:hidden">
+      <div style="padding:22px 24px 0;display:flex;gap:14px">
+        <div style="width:40px;height:40px;flex:none;border-radius:50%;background:#FDE8E8;display:grid;place-items:center">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9" /><path d="M15 9l-6 6M9 9l6 6" /></svg>
+        </div>
+        <div>
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">Reject application</h3>
+          <p style="margin:5px 0 0;font-size:13px;color:#6B7C93;line-height:1.55">{{ modalName }} will be notified by email. A reason is required and will be written to the audit log.</p>
+        </div>
+      </div>
+      <div style="padding:18px 24px 4px">
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Rejection reason <span style="color:#B42318">*</span></label>
+        <select value="{{ rejectReason }}" onChange="{{ setRejectReason }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;background:#fff;outline:0">
+          <option value="">Select a reason…</option>
+          <option value="Insufficient teaching experience">Insufficient teaching experience</option>
+          <option value="Documents could not be verified">Documents could not be verified</option>
+          <option value="Expertise not required this cycle">Expertise not required this cycle</option>
+          <option value="Failed background check">Failed background check</option>
+          <option value="Duplicate application">Duplicate application</option>
+        </select>
+        <sc-if value="{{ rejectError }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:#B42318;font-weight:500">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16h.01" /></svg>
+            Select a reason before rejecting.
+          </div>
+        </sc-if>
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin:16px 0 7px">Internal note (optional)</label>
+        <textarea placeholder="Visible to reviewers and admins only…" style="width:100%;height:78px;padding:10px 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;resize:none"></textarea>
+        <label style="display:flex;align-items:center;gap:9px;margin-top:14px;font-size:13px;color:#344054;cursor:pointer">
+          <input type="checkbox" style="width:15px;height:15px;accent-color:#0E9384" />
+          Allow re-application after 90 days
+        </label>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:20px 24px;margin-top:14px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Cancel</button>
+        <button onClick="{{ confirmReject }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#B42318;font-size:13px;font-weight:600;color:#fff;cursor:pointer" style-hover="background:#961C13">Reject application</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mDelete }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:540px;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease;overflow:hidden">
+      <div style="padding:22px 24px 0;display:flex;gap:14px">
+        <div style="width:40px;height:40px;flex:none;border-radius:50%;background:#FDE8E8;display:grid;place-items:center">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14" /></svg>
+        </div>
+        <div>
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">Permanently delete {{ modalName }}?</h3>
+          <p style="margin:5px 0 0;font-size:13px;color:#6B7C93;line-height:1.55">This is irreversible. Prefer <strong style="color:#344054">Archive</strong> — archived records can be restored for 180 days.</p>
+        </div>
+      </div>
+      <div style="padding:18px 24px 4px">
+        <div style="border:1px solid #F0DCDA;background:#FEF7F6;border-radius:11px;padding:14px 16px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#B42318;margin-bottom:10px">IMPACT ANALYSIS</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ impact }}" as="i" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;gap:9px;font-size:13px;color:#5A2A26">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.3" stroke-linecap="round"><path d="M12 4l9 16H3z" /><path d="M12 10v4M12 17h.01" /></svg>
+                {{ i }}
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:9px;margin-top:14px;padding:10px 12px;border-radius:9px;background:#F4F7FB;font-size:12.5px;color:#3D5878">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3D5878" stroke-width="2.2" stroke-linecap="round"><path d="M12 3l7.5 3v5.5c0 4.4-3.1 8.2-7.5 9.5-4.4-1.3-7.5-5.1-7.5-9.5V6z" /></svg>
+          Permission check passed — <strong style="font-weight:700">SPEAKER:PROFILE:DELETE</strong> (Super Admin only)
+        </div>
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin:16px 0 7px">Type <strong style="font-weight:700;color:#B42318">DELETE</strong> to confirm</label>
+        <input value="{{ deleteConfirm }}" onChange="{{ setDeleteConfirm }}" placeholder="DELETE" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;letter-spacing:.05em" />
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:20px 24px;margin-top:16px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ archiveInstead }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Archive instead</button>
+        <div style="display:flex;gap:10px">
+          <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Cancel</button>
+          <button onClick="{{ confirmDelete }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:{{ deleteBtnBg }};font-size:13px;font-weight:600;color:#fff;cursor:{{ deleteBtnCursor }};opacity:{{ deleteBtnOpacity }}">Delete permanently</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mExport }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:470px;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease;overflow:hidden">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7">
+        <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">Export applications</h3>
+        <p style="margin:5px 0 0;font-size:13px;color:#6B7C93">Exports are audit-logged with your user ID and IP.</p>
+      </div>
+      <div style="padding:20px 24px">
+        <div style="font-size:12px;font-weight:600;color:#344054;margin-bottom:9px">Format</div>
+        <div style="display:flex;gap:9px">
+          <sc-for list="{{ exportFormats }}" as="f" hint-placeholder-count="3">
+            <button onClick="{{ f.pick }}" style="flex:1;height:42px;border-radius:10px;border:1.5px solid {{ f.border }};background:{{ f.bg }};font-size:13px;font-weight:600;color:{{ f.fg }};cursor:pointer">{{ f.label }}</button>
+          </sc-for>
+        </div>
+        <div style="font-size:12px;font-weight:600;color:#344054;margin:18px 0 9px">Scope</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <label style="display:flex;align-items:center;gap:9px;font-size:13.5px;color:#344054;cursor:pointer"><input type="radio" name="scope" defaultChecked="{{ true }}" style="accent-color:#0E9384;width:15px;height:15px" />Current filtered view ({{ rowCount }} records)</label>
+          <label style="display:flex;align-items:center;gap:9px;font-size:13.5px;color:#344054;cursor:pointer"><input type="radio" name="scope" style="accent-color:#0E9384;width:15px;height:15px" />All applications (1,284 records)</label>
+          <label style="display:flex;align-items:center;gap:9px;font-size:13.5px;color:#344054;cursor:pointer"><input type="radio" name="scope" style="accent-color:#0E9384;width:15px;height:15px" />Selected rows only</label>
+        </div>
+        <label style="display:flex;align-items:center;gap:9px;margin-top:18px;padding-top:16px;border-top:1px solid #F0EEE7;font-size:13px;color:#344054;cursor:pointer">
+          <input type="checkbox" style="width:15px;height:15px;accent-color:#0E9384" />Mask sensitive fields (PAN, bank, ID)
+        </label>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:18px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Cancel</button>
+        <button onClick="{{ confirmExport }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Generate export</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mInterview }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease;overflow:hidden">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7">
+        <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">Schedule interview</h3>
+        <p style="margin:5px 0 0;font-size:13px;color:#6B7C93">{{ modalName }} · a calendar invite and reminder will be sent.</p>
+      </div>
+      <div style="padding:20px 24px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Date</label>
+          <input type="date" defaultValue="2026-08-06" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0" />
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Time</label>
+          <input type="time" defaultValue="15:30" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0" />
+        </div>
+        <div style="grid-column:1/-1">
+          <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Panel</label>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;padding:8px;border:1px solid #E5E3DC;border-radius:9px;min-height:40px">
+            <span style="display:inline-flex;align-items:center;gap:6px;background:#EEF6F5;color:#0B7A6E;font-size:12.5px;font-weight:600;padding:5px 9px;border-radius:7px">R. Iyer <span style="cursor:pointer;opacity:.6">×</span></span>
+            <span style="display:inline-flex;align-items:center;gap:6px;background:#EEF6F5;color:#0B7A6E;font-size:12.5px;font-weight:600;padding:5px 9px;border-radius:7px">M. Kulkarni <span style="cursor:pointer;opacity:.6">×</span></span>
+            <input placeholder="Add reviewer…" style="border:0;outline:0;flex:1;min-width:110px;font-size:13px" />
+          </div>
+        </div>
+        <div style="grid-column:1/-1">
+          <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Mode</label>
+          <select style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;background:#fff;outline:0">
+            <option>Google Meet (auto-generated link)</option>
+            <option>Zoom</option>
+            <option>In person — Pune campus</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:18px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Cancel</button>
+        <button onClick="{{ confirmInterview }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Schedule &amp; notify</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mUnsaved }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:440px;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease;padding:24px">
+      <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">You have unsaved changes</h3>
+      <p style="margin:7px 0 20px;font-size:13.5px;color:#6B7C93;line-height:1.55">Your draft was auto-saved 12 seconds ago. Leaving now discards edits made after that point.</p>
+      <div style="display:flex;justify-content:flex-end;gap:10px">
+        <button onClick="{{ discardLeave }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#B42318;cursor:pointer" style-hover="background:#FEF7F6">Discard &amp; leave</button>
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Keep editing</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ notifOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:0;right:0;bottom:0;width:390px;background:#fff;box-shadow:-18px 0 48px rgba(11,31,62,.14);display:flex;flex-direction:column;animation:popIn .18s ease">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid #F0EEE7">
+        <div>
+          <h3 style="margin:0;font-size:16px;font-weight:700;color:#0F2A47">Notifications</h3>
+          <p style="margin:3px 0 0;font-size:12.5px;color:#6B7C93">4 unread · Speaker module</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:8px 0">
+        <sc-for list="{{ notifs }}" as="n" hint-placeholder-count="5">
+          <div style="display:flex;gap:12px;padding:14px 22px;border-bottom:1px solid #F7F5F0;cursor:pointer" style-hover="background:#FCFBF7">
+            <div style="width:32px;height:32px;flex:none;border-radius:9px;background:{{ n.bg }};display:grid;place-items:center;font-size:13px">{{ n.icon }}</div>
+            <div style="min-width:0">
+              <div style="font-size:13px;font-weight:600;color:#0F2A47;line-height:1.45">{{ n.title }}</div>
+              <div style="font-size:12.5px;color:#6B7C93;line-height:1.5;margin-top:2px">{{ n.body }}</div>
+              <div style="font-size:11.5px;color:#98A2B3;margin-top:5px">{{ n.time }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:80;bottom:26px;right:26px;display:flex;align-items:center;gap:12px;min-width:330px;background:#0B1F3E;color:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 16px 40px rgba(11,31,62,.28);animation:toastIn .2s ease">
+      <div style="width:26px;height:26px;flex:none;border-radius:50%;background:{{ toastIconBg }};display:grid;place-items:center">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ toastPath }}" /></svg>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:13.5px;font-weight:600">{{ toastMsg }}</div>
+        <div style="font-size:12px;color:#9FB6D4;margin-top:2px">{{ toastSub }}</div>
+      </div>
+      <sc-if value="{{ toastUndo }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ undo }}" style="border:0;background:transparent;color:#5FD3C0;font-size:13px;font-weight:700;cursor:pointer;padding:4px 6px">Undo</button>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <div style="position:fixed;z-index:50;left:278px;bottom:18px;display:flex;align-items:center;gap:8px;background:#0B1F3E;border-radius:999px;padding:6px 8px 6px 14px;box-shadow:0 10px 28px rgba(11,31,62,.22)">
+    <span style="font-size:10.5px;font-weight:700;letter-spacing:.1em;color:#7E96B8">PROTOTYPE STATE</span>
+    <sc-for list="{{ stateChips }}" as="s" hint-placeholder-count="6">
+      <button onClick="{{ s.pick }}" style="height:26px;padding:0 11px;border-radius:999px;border:0;font-size:11.5px;font-weight:600;cursor:pointer;background:{{ s.bg }};color:{{ s.fg }}">{{ s.label }}</button>
+    </sc-for>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+const T = { teal:'#0E9384', tealD:'#0B7A6E', tealL:'#EEF6F5', navy:'#0F2A47', line:'#ECEAE2', sub:'#6B7C93' };
+
+const STATUS = {
+  'Pending':        ['#FEF3E2','#B45309'],
+  'Under Review':   ['#E9F1FD','#1D4ED8'],
+  'Docs Pending':   ['#FDF0E7','#C2410C'],
+  'Interview':      ['#F0EAFD','#6D28D9'],
+  'Approved':       ['#E7F7EE','#15803D'],
+  'Rejected':       ['#FDE8E8','#B42318'],
+  'Spam':           ['#F1F3F5','#667085'],
+  'Archived':       ['#F1F3F5','#667085'],
+  'Active':         ['#E7F7EE','#15803D'],
+  'Onboarding':     ['#E9F1FD','#1D4ED8'],
+  'Suspended':      ['#FEF3E2','#B45309'],
+  'Inactive':       ['#F1F3F5','#667085'],
+  'Blocked':        ['#FDE8E8','#B42318']
+};
+const PRI = { High:['#FDE8E8','#B42318'], Medium:['#FEF3E2','#B45309'], Low:['#F1F3F5','#667085'] };
+const AV = ['#0E9384','#2C5A8A','#7C5BC7','#C2410C','#B42318','#15803D','#0891B2','#9333EA'];
+
+const APPS = [
+  {id:'APP-2041',name:'Ananya Deshmukh',email:'ananya.deshmukh@gmail.com',phone:'+91 98204 41207',exp:'Insurance & Risk',yrs:'9 yrs',applied:'28 Jul 2026',reviewer:'R. Iyer',pri:'High',status:'Under Review'},
+  {id:'APP-2040',name:'Marcus Oyelaran',email:'m.oyelaran@outlook.com',phone:'+44 7700 900412',exp:'Actuarial Science',yrs:'12 yrs',applied:'28 Jul 2026',reviewer:'R. Iyer',pri:'High',status:'Interview'},
+  {id:'APP-2039',name:'Priya Raghunathan',email:'priya.r@studycrux.io',phone:'+91 90045 22118',exp:'Financial Planning',yrs:'6 yrs',applied:'27 Jul 2026',reviewer:'M. Kulkarni',pri:'Medium',status:'Docs Pending'},
+  {id:'APP-2038',name:'Daniel Okonkwo',email:'d.okonkwo@gmail.com',phone:'+234 803 441 2290',exp:'Reinsurance',yrs:'15 yrs',applied:'26 Jul 2026',reviewer:'—',pri:'High',status:'Pending'},
+  {id:'APP-2037',name:'Sofia Bergström',email:'sofia.b@nordicrisk.se',phone:'+46 70 412 8890',exp:'Claims & Underwriting',yrs:'8 yrs',applied:'26 Jul 2026',reviewer:'A. Menon',pri:'Medium',status:'Approved'},
+  {id:'APP-2036',name:'Rahul Bhattacharya',email:'rahul.bh@gmail.com',phone:'+91 98330 77412',exp:'Life Insurance',yrs:'4 yrs',applied:'25 Jul 2026',reviewer:'M. Kulkarni',pri:'Low',status:'Rejected'},
+  {id:'APP-2035',name:'Chen Wei Lin',email:'cw.lin@apacadvisory.com',phone:'+65 8123 4471',exp:'Compliance & Regulation',yrs:'11 yrs',applied:'24 Jul 2026',reviewer:'A. Menon',pri:'Medium',status:'Under Review'},
+  {id:'APP-2034',name:'Fatima Al-Rashid',email:'fatima.alrashid@gulfins.ae',phone:'+971 50 224 8871',exp:'Takaful & Islamic Finance',yrs:'7 yrs',applied:'24 Jul 2026',reviewer:'R. Iyer',pri:'Medium',status:'Docs Pending'},
+  {id:'APP-2033',name:'James Whitfield',email:'jwhitfield@brokerpro.co.uk',phone:'+44 7911 223344',exp:'Commercial Lines',yrs:'18 yrs',applied:'23 Jul 2026',reviewer:'—',pri:'Low',status:'Pending'},
+  {id:'APP-2032',name:'Meera Krishnan',email:'meera.k@wealthpath.in',phone:'+91 87654 21009',exp:'Retirement Planning',yrs:'10 yrs',applied:'22 Jul 2026',reviewer:'A. Menon',pri:'High',status:'Approved'},
+  {id:'APP-2031',name:'Tobias Neumann',email:'t.neumann@versicher.de',phone:'+49 151 2233 4455',exp:'Risk Modelling',yrs:'13 yrs',applied:'21 Jul 2026',reviewer:'M. Kulkarni',pri:'Medium',status:'Interview'},
+  {id:'APP-2030',name:'Grace Nakamura',email:'grace.n@tokyoadvisors.jp',phone:'+81 90 1234 5678',exp:'Health Insurance',yrs:'5 yrs',applied:'20 Jul 2026',reviewer:'R. Iyer',pri:'Low',status:'Archived'}
+];
+
+const SPEAKERS = [
+  {id:'SPK-0142',name:'Ananya Deshmukh',exp:'Insurance & Risk',sessions:84,rating:'4.9',revenue:'₹8,42,000',status:'Active',type:'External'},
+  {id:'SPK-0138',name:'Sofia Bergström',exp:'Claims & Underwriting',sessions:61,rating:'4.8',revenue:'₹6,15,400',status:'Active',type:'Corporate Trainer'},
+  {id:'SPK-0131',name:'Meera Krishnan',exp:'Retirement Planning',sessions:47,rating:'4.7',revenue:'₹4,88,200',status:'Active',type:'Internal'},
+  {id:'SPK-0127',name:'Arjun Nair',exp:'Financial Planning',sessions:112,rating:'4.9',revenue:'₹11,04,600',status:'Active',type:'Top Rated'},
+  {id:'SPK-0119',name:'Laila Haddad',exp:'Compliance & Regulation',sessions:29,rating:'4.4',revenue:'₹2,71,900',status:'Onboarding',type:'External'},
+  {id:'SPK-0112',name:'Victor Ramos',exp:'Reinsurance',sessions:38,rating:'4.2',revenue:'₹3,44,100',status:'Suspended',type:'Guest'},
+  {id:'SPK-0104',name:'Hana Suzuki',exp:'Health Insurance',sessions:53,rating:'4.6',revenue:'₹5,02,800',status:'Active',type:'External'},
+  {id:'SPK-0097',name:'Peter Osei',exp:'Actuarial Science',sessions:19,rating:'3.9',revenue:'₹1,68,300',status:'Inactive',type:'Guest'}
+];
+
+const VERIFS = [
+  {k:'identity',label:'Identity (Aadhaar / Passport)',state:'approved',by:'A. Menon',at:'27 Jul, 11:04',ev:'passport-anonymised.pdf',req:true},
+  {k:'email',label:'Email address',state:'approved',by:'System',at:'26 Jul, 09:12',ev:'OTP verified',req:true},
+  {k:'phone',label:'Phone number',state:'approved',by:'System',at:'26 Jul, 09:14',ev:'OTP verified',req:true},
+  {k:'address',label:'Address proof',state:'submitted',by:'—',at:'awaiting review',ev:'utility-bill-jul.pdf',req:false},
+  {k:'bank',label:'Bank account',state:'submitted',by:'—',at:'awaiting review',ev:'cancelled-cheque.jpg',req:true},
+  {k:'pan',label:'PAN',state:'pending',by:'—',at:'not submitted',ev:'—',req:true},
+  {k:'gst',label:'GST registration',state:'pending',by:'—',at:'not submitted',ev:'—',req:false},
+  {k:'certs',label:'Professional certificates',state:'approved',by:'R. Iyer',at:'27 Jul, 15:40',ev:'3 files',req:true},
+  {k:'demo',label:'Teaching demo',state:'submitted',by:'—',at:'awaiting review',ev:'demo-recording.mp4',req:true},
+  {k:'bg',label:'Background check',state:'rejected',by:'HR Team',at:'28 Jul, 10:22',ev:'report-v1.pdf',req:false}
+];
+
+const ONBOARD = [
+  {label:'Profile created',done:true,req:true,who:'System · 28 Jul'},
+  {label:'Documents verified',done:true,req:true,who:'A. Menon · 28 Jul'},
+  {label:'Contract signed',done:true,req:true,who:'e-Sign · 29 Jul'},
+  {label:'NDA accepted',done:true,req:true,who:'e-Sign · 29 Jul'},
+  {label:'Bank verified',done:false,req:true,who:'Pending — Finance Admin'},
+  {label:'Tax details verified',done:false,req:true,who:'Pending — Finance Admin'},
+  {label:'Subjects assigned',done:true,req:true,who:'R. Iyer · 30 Jul'},
+  {label:'Courses assigned',done:true,req:false,who:'R. Iyer · 30 Jul'},
+  {label:'Credentials generated',done:false,req:true,who:'Not started'},
+  {label:'Welcome email sent',done:false,req:false,who:'Not started'},
+  {label:'Training completed',done:false,req:false,who:'Not started'},
+  {label:'Activated',done:false,req:true,who:'Blocked — 3 required items pending'}
+];
+
+const TIMELINE = [
+  {t:'Background check rejected',d:'HR Team flagged an unresolved record. Reviewer escalated to Super Admin.',w:'HR Team',ts:'28 Jul 2026, 10:22',tone:'red'},
+  {t:'Interview scheduled',d:'6 Aug 2026, 3:30 PM · Panel: R. Iyer, M. Kulkarni · Google Meet',w:'R. Iyer',ts:'28 Jul 2026, 09:05',tone:'purple'},
+  {t:'Certificates approved',d:'3 professional certificates verified against issuing body records.',w:'R. Iyer',ts:'27 Jul 2026, 15:40',tone:'green'},
+  {t:'Additional documents requested',d:'Bank proof and PAN requested by email. Reminder scheduled for 30 Jul.',w:'A. Menon',ts:'27 Jul 2026, 11:30',tone:'amber'},
+  {t:'Identity verified',d:'Passport matched to application name. Evidence attached.',w:'A. Menon',ts:'27 Jul 2026, 11:04',tone:'green'},
+  {t:'Reviewer assigned',d:'Assigned to R. Iyer by round-robin rule "Insurance — APAC".',w:'System',ts:'26 Jul 2026, 09:20',tone:'blue'},
+  {t:'Application received',d:'Submitted via Become a Speaker form. Source: organic / website.',w:'Applicant',ts:'26 Jul 2026, 09:11',tone:'blue'}
+];
+
+const AUDIT = [
+  {act:'SPEAKER:VERIFICATION:REJECT',who:'HR Team (hr.ops@studycrux.io)',ip:'103.21.244.18',ts:'28 Jul 2026, 10:22:07',f:'background_check.status',o:'submitted',n:'rejected'},
+  {act:'SPEAKER:APPLICATION:INTERVIEW_SCHEDULE',who:'R. Iyer (r.iyer@studycrux.io)',ip:'49.36.180.92',ts:'28 Jul 2026, 09:05:44',f:'interview_at',o:'null',n:'2026-08-06T15:30'},
+  {act:'SPEAKER:VERIFICATION:APPROVE',who:'R. Iyer (r.iyer@studycrux.io)',ip:'49.36.180.92',ts:'27 Jul 2026, 15:40:11',f:'certificates.status',o:'submitted',n:'approved'},
+  {act:'SPEAKER:APPLICATION:REQUEST_DOCS',who:'A. Menon (a.menon@studycrux.io)',ip:'157.32.9.204',ts:'27 Jul 2026, 11:30:52',f:'requested_docs',o:'[]',n:'["bank","pan"]'},
+  {act:'SPEAKER:APPLICATION:ASSIGN_REVIEWER',who:'System (rule: insurance-apac)',ip:'—',ts:'26 Jul 2026, 09:20:03',f:'reviewer_id',o:'null',n:'usr_8841'}
+];
+
+class Component extends DCLogic {
+  state = {
+    route:'dash', tab:'All', detailTab:'overview', profTab:'overview',
+    studentOpen:false, speakerOpen:true,
+    q:'', sel:[], page:1,
+    filtersOpen:false, colsOpen:false, viewsOpen:false, rowMenu:null,
+    modal:null, modalName:'', notifOpen:false,
+    rejectReason:'', rejectError:false, deleteConfirm:'', exportFmt:'Excel',
+    toast:null, dataState:'default',
+    step:0, form:{name:'',email:'',phone:'',exp:'',yrs:''}, errors:{}, submitted:false,
+    verifs:VERIFS.map(v=>({...v})), onboard:ONBOARD.map(o=>({...o})),
+    hiddenCols:[]
+  };
+
+  nav = (r) => this.setState({route:r, sel:[], rowMenu:null, filtersOpen:false, colsOpen:false, viewsOpen:false, modal:null, notifOpen:false, submitted:false, step:0});
+  fire = (msg, sub, undo, tone) => {
+    clearTimeout(this._t);
+    this.setState({toast:{msg,sub,undo:!!undo,tone:tone||'ok'}});
+    this._t = setTimeout(()=>this.setState({toast:null}), 4200);
+  };
+
+  initials = (n) => n.split(' ').map(p=>p[0]).slice(0,2).join('');
+  avColor = (n) => AV[n.charCodeAt(0) % AV.length];
+
+  renderVals() {
+    const s = this.state;
+    const titles = {
+      dash:['Speaker Dashboard','Applications, onboarding, sessions and payouts at a glance.'],
+      apps:['Speaker Applications','Review, verify and process incoming speaker applications.'],
+      appDetail:['Application · '+s.modalName,'Full lifecycle record with verification, timeline and audit trail.'],
+      verify:['Verification Center','Checklist-driven verification queue across all pending speakers.'],
+      onboard:['Speaker Onboarding','Gated checklist — activation is blocked until required items complete.'],
+      speakers:['Speaker Directory','All approved speakers, their sessions, ratings and revenue.'],
+      speakerDetail:['Speaker · Ananya Deshmukh','SPK-0142 · Active · External · Insurance & Risk'],
+      create:['Add Speaker','Create a speaker record manually, bypassing the public application form.'],
+      reports:['Speaker Reports','Generate, schedule and download reports across the speaker domain.']
+    };
+    const [pageTitle, pageSub] = titles[s.route] || titles.dash;
+
+    const navItems = [
+      ['dash','Speaker Dashboard'],['apps','Applications'],['verify','Verification Center'],
+      ['speakers','Speaker Directory'],['onboard','Onboarding'],['create','Add Speaker'],['reports','Reports']
+    ];
+    const activeNav = s.route==='appDetail' ? 'apps' : s.route==='speakerDetail' ? 'speakers' : s.route;
+
+    const tabs = ['All','Pending','Under Review','Docs Pending','Interview','Approved','Rejected','Archived'];
+
+    let rows = APPS.filter(a => s.tab==='All' || a.status===s.tab);
+    if (s.q.trim()) {
+      const q = s.q.toLowerCase();
+      rows = rows.filter(a => (a.name+a.email+a.id+a.exp).toLowerCase().includes(q));
+    }
+    if (s.dataState==='empty' || s.dataState==='loading' || s.dataState==='error' || s.dataState==='denied') rows = [];
+
+    const decorate = (a) => {
+      const [bg,fg] = STATUS[a.status] || STATUS.Pending;
+      const [pb,pf] = PRI[a.pri] || PRI.Low;
+      const checked = s.sel.includes(a.id);
+      return {...a, badgeBg:bg, badgeFg:fg, priBg:pb, priFg:pf,
+        init:this.initials(a.name), avBg:this.avColor(a.name),
+        checked, rowBg: checked ? '#F7FBFA' : '#fff',
+        toggle:()=>this.setState(st=>({sel: st.sel.includes(a.id) ? st.sel.filter(x=>x!==a.id) : [...st.sel,a.id]})),
+        open:()=>this.setState({route:'appDetail', modalName:a.name, detailTab:'overview', rowMenu:null}),
+        menu:(e)=>{e.stopPropagation();this.setState(st=>({rowMenu: st.rowMenu===a.id?null:a.id}));},
+        menuOpen: s.rowMenu===a.id,
+        menuDisplay: s.rowMenu===a.id ? 'block' : 'none'
+      };
+    };
+
+    const spkRows = SPEAKERS.map(sp => {
+      const [bg,fg] = STATUS[sp.status] || STATUS.Active;
+      return {...sp, badgeBg:bg, badgeFg:fg, init:this.initials(sp.name), avBg:this.avColor(sp.name),
+        open:()=>this.setState({route:'speakerDetail', profTab:'overview'})};
+    });
+
+    const vStyle = {approved:['#E7F7EE','#15803D','Approved'],submitted:['#FEF3E2','#B45309','Awaiting review'],pending:['#F1F3F5','#667085','Not submitted'],rejected:['#FDE8E8','#B42318','Rejected']};
+    const verifs = s.verifs.map((v,i) => {
+      const [bg,fg,lab] = vStyle[v.state];
+      return {...v, bg, fg, lab, reqLabel: v.req?'Required':'Optional',
+        reqBg: v.req?'#FDF0E7':'#F1F3F5', reqFg: v.req?'#C2410C':'#98A2B3',
+        canAct: v.state==='submitted'||v.state==='pending'||v.state==='rejected',
+        actDisplay: (v.state==='submitted'||v.state==='rejected') ? 'flex' : 'none',
+        approve:()=>{ const n=[...this.state.verifs]; n[i]={...n[i],state:'approved',by:'S. Johnson',at:'just now'}; this.setState({verifs:n}); this.fire('Verification approved','"'+v.label+'" · logged to audit trail', true); },
+        reject:()=>{ const n=[...this.state.verifs]; n[i]={...n[i],state:'rejected',by:'S. Johnson',at:'just now'}; this.setState({verifs:n}); this.fire('Verification rejected','"'+v.label+'" · applicant notified', true, 'bad'); }};
+    });
+    const vDone = s.verifs.filter(v=>v.state==='approved').length;
+    const vReqPending = s.verifs.filter(v=>v.req && v.state!=='approved').length;
+
+    const onboard = s.onboard.map((o,i)=>({...o,
+      dotBg: o.done?'#0E9384':'#fff', dotBorder: o.done?'#0E9384':'#DDD9CF',
+      tick: o.done?'1':'0', textColor: o.done?'#0F2A47':'#6B7C93',
+      reqLabel: o.req?'Required':'Optional', reqFg: o.req?'#C2410C':'#98A2B3', reqBg: o.req?'#FDF0E7':'#F1F3F5',
+      toggle:()=>{ const n=[...this.state.onboard]; n[i]={...n[i],done:!n[i].done, who: !n[i].done ? 'S. Johnson · just now' : 'Not started'}; this.setState({onboard:n}); }
+    }));
+    const obDone = s.onboard.filter(o=>o.done).length;
+    const obReqLeft = s.onboard.filter(o=>o.req && !o.done && o.label!=='Activated').length;
+    const canActivate = obReqLeft===0;
+
+    const toneMap = {red:'#B42318',green:'#15803D',amber:'#B45309',blue:'#1D4ED8',purple:'#6D28D9'};
+    const toneBg = {red:'#FDE8E8',green:'#E7F7EE',amber:'#FEF3E2',blue:'#E9F1FD',purple:'#F0EAFD'};
+    const timeline = TIMELINE.map(e=>({...e, dot:toneMap[e.tone], dotBg:toneBg[e.tone]}));
+
+    const stateChips = ['default','loading','empty','error','denied','partial'].map(k=>({
+      label: k==='default'?'Default':k==='loading'?'Loading':k==='empty'?'Empty':k==='error'?'Network error':k==='denied'?'No permission':'Partial access',
+      bg: s.dataState===k ? '#0E9384' : 'transparent',
+      fg: s.dataState===k ? '#fff' : '#9FB6D4',
+      pick:()=>this.setState({dataState:k, route: (k!=='default'&&s.route!=='apps') ? 'apps' : s.route})
+    }));
+
+    const exportFormats = ['CSV','Excel','PDF'].map(f=>({
+      label:f, border: s.exportFmt===f?'#0E9384':'#E5E3DC', bg: s.exportFmt===f?'#EEF6F5':'#fff',
+      fg: s.exportFmt===f?'#0B7A6E':'#344054', pick:()=>this.setState({exportFmt:f})
+    }));
+
+    const allCols = ['Application','Expertise','Experience','Applied','Reviewer','Priority','Status'];
+    const cols = allCols.map(c=>({label:c, on: !s.hiddenCols.includes(c),
+      dot: s.hiddenCols.includes(c) ? '#DDD9CF' : '#0E9384',
+      toggle:()=>this.setState(st=>({hiddenCols: st.hiddenCols.includes(c)?st.hiddenCols.filter(x=>x!==c):[...st.hiddenCols,c]}))}));
+    const show = (c) => !s.hiddenCols.includes(c);
+
+    const savedViews = [
+      {name:'High priority · unassigned',count:'6',desc:'priority = High AND reviewer is empty'},
+      {name:'Docs pending > 5 days',count:'11',desc:'status = Docs Pending AND age > 5d'},
+      {name:'My review queue',count:'23',desc:'reviewer = me AND status in (Pending, Under Review)'},
+      {name:'Ready to approve',count:'4',desc:'all required verifications approved'}
+    ];
+
+    const f = s.form;
+    const steps = ['Basic details','Expertise & subjects','Documents','Review'];
+    const stepItems = steps.map((label,i)=>({
+      label, n:String(i+1),
+      bg: i<s.step ? '#0E9384' : i===s.step ? '#0E9384' : '#fff',
+      fg: i<=s.step ? '#fff' : '#98A2B3',
+      border: i<=s.step ? '#0E9384' : '#E5E3DC',
+      labelColor: i<=s.step ? '#0F2A47' : '#98A2B3',
+      labelWeight: i===s.step ? '700' : '500',
+      lineBg: i<s.step ? '#0E9384' : '#E5E3DC',
+      lineDisplay: i===steps.length-1 ? 'none' : 'block'
+    }));
+
+    return {
+      pageTitle, pageSub,
+      showBack: s.route==='appDetail' || s.route==='speakerDetail',
+      goBack: ()=>this.nav(s.route==='appDetail'?'apps':'speakers'),
+      studentOpen:s.studentOpen, speakerOpen:s.speakerOpen,
+      studentChevron: s.studentOpen?'rotate(180deg)':'rotate(0deg)',
+      speakerChevron: s.speakerOpen?'rotate(180deg)':'rotate(0deg)',
+      toggleStudent:()=>this.setState(st=>({studentOpen:!st.studentOpen})),
+      toggleSpeaker:()=>this.setState(st=>({speakerOpen:!st.speakerOpen})),
+      goDash:()=>this.nav('dash'),
+      speakerNav: navItems.map(([k,label])=>({
+        label, bg: activeNav===k?'#14335C':'transparent', fg: activeNav===k?'#fff':'#9FB2CC',
+        weight: activeNav===k?'600':'500', bar: activeNav===k?'#2ECFB0':'transparent',
+        go:()=>this.nav(k)
+      })),
+
+      goApps:()=>this.nav('apps'), goCreate:()=>this.nav('create'),
+      resetAll:()=>this.setState({q:'', tab:'All', dataState:'default', hiddenCols:[]}),
+      appChart: [['Aug',52],['Sep',68],['Oct',61],['Nov',79],['Dec',44],['Jan',88],['Feb',96],['Mar',73],['Apr',105],['May',118],['Jun',97],['Jul',134]].map(([m,v],i)=>({
+        m, h: Math.round(v/134*150)+'px', bg: i===11 ? '#0E9384' : '#CFE7E3'
+      })),
+      funnel: [['Applications received','1,284',100,'#0E9384'],['Verification passed','892',69,'#2FB3A0'],['Reviewer approved','641',50,'#5FC9B8'],['Onboarding started','508',40,'#8FDCCF'],['Active speakers','431',34,'#BEEDE5']]
+        .map(([label,n,w,bg])=>({label,n,w:w+'%',bg})),
+      activity: [
+        {who:'A. Menon',what:'approved identity verification for Ananya Deshmukh',ts:'12 minutes ago',tag:'Verification',bg:'#E7F7EE',fg:'#15803D'},
+        {who:'HR Team',what:'rejected background check for Ananya Deshmukh',ts:'34 minutes ago',tag:'Escalated',bg:'#FDE8E8',fg:'#B42318'},
+        {who:'R. Iyer',what:'scheduled an interview with Marcus Oyelaran',ts:'2 hours ago',tag:'Interview',bg:'#F0EAFD',fg:'#6D28D9'},
+        {who:'S. Johnson',what:'released ₹1,84,000 in payouts to 9 speakers',ts:'4 hours ago',tag:'Finance',bg:'#E9F1FD',fg:'#1D4ED8'},
+        {who:'M. Kulkarni',what:'archived 6 spam applications in bulk',ts:'Yesterday',tag:'Bulk action',bg:'#F1F3F5',fg:'#667085'}
+      ].map(a=>({...a, init:this.initials(a.who), avBg:this.avColor(a.who)})),
+      quickActions: [
+        {icon:'＋',bg:'#EEF6F5',label:'Add Speaker',go:()=>this.nav('create')},
+        {icon:'✓',bg:'#E7F7EE',label:'Review queue',go:()=>this.nav('apps')},
+        {icon:'⌗',bg:'#E9F1FD',label:'Verification',go:()=>this.nav('verify')},
+        {icon:'⚑',bg:'#F0EAFD',label:'Onboarding',go:()=>this.nav('onboard')},
+        {icon:'₹',bg:'#FEF3E2',label:'Release payouts',go:()=>this.fire('Payout batch opened','₹4,28,000 across 21 speakers')},
+        {icon:'▤',bg:'#F1F3F5',label:'Download report',go:()=>this.nav('reports')}
+      ],
+      upcoming: [
+        {d:'02',mo:'AUG',title:'Underwriting Fundamentals — Live',meta:'Ananya Deshmukh · Batch A · 10:00 AM'},
+        {d:'03',mo:'AUG',title:'Reinsurance Masterclass — Webinar',meta:'Victor Ramos · 412 registered · 4:00 PM'},
+        {d:'04',mo:'AUG',title:'Claims Handling Workshop',meta:'Sofia Bergström · Batch C · 11:30 AM'},
+        {d:'04',mo:'AUG',title:'Retirement Planning Panel',meta:'⚠ Conflict — Meera Krishnan double-booked'}
+      ],
+      isDash: s.route==='dash', isApps: s.route==='apps', isAppDetail: s.route==='appDetail',
+      isVerify: s.route==='verify', isOnboard: s.route==='onboard', isSpeakers: s.route==='speakers',
+      isSpeakerDetail: s.route==='speakerDetail', isCreate: s.route==='create', isReports: s.route==='reports',
+
+      tabs: tabs.map(t=>({label:t, bg: s.tab===t?'#0E9384':'transparent', fg: s.tab===t?'#fff':'#6B7C93',
+        weight: s.tab===t?'600':'500', pick:()=>this.setState({tab:t, page:1, sel:[]})})),
+      rows: rows.map(decorate), rowCount: rows.length, hasRows: rows.length>0,
+      spkRows,
+      q:s.q, setQ:(e)=>this.setState({q:e.target.value, page:1}),
+
+      isLoading: s.dataState==='loading', isEmpty: s.dataState==='empty' && true,
+      showEmpty: s.dataState==='empty' || (s.dataState==='default' && rows.length===0),
+      isError: s.dataState==='error', isDenied: s.dataState==='denied', isPartial: s.dataState==='partial',
+      showTable: s.dataState==='default' || s.dataState==='partial',
+      skeletons: [1,2,3,4,5,6,7,8],
+      retry:()=>{ this.setState({dataState:'loading'}); setTimeout(()=>this.setState({dataState:'default'}),1100); },
+      stateChips,
+
+      selCount: s.sel.length, hasSel: s.sel.length>0,
+      allChecked: rows.length>0 && s.sel.length===rows.length,
+      toggleAll:()=>this.setState(st=>({sel: st.sel.length===rows.length ? [] : rows.map(r=>r.id)})),
+      clearSel:()=>this.setState({sel:[]}),
+      bulkApprove:()=>{ this.fire(s.sel.length+' applications approved','Onboarding started · notifications queued', true); this.setState({sel:[]}); },
+      bulkReject:()=>this.setState({modal:'reject', modalName:s.sel.length+' applications'}),
+      bulkArchive:()=>{ this.fire(s.sel.length+' applications archived','Restorable for 180 days', true); this.setState({sel:[]}); },
+
+      filtersOpen:s.filtersOpen, filtersDisplay: s.filtersOpen?'grid':'none',
+      toggleFilters:()=>this.setState(st=>({filtersOpen:!st.filtersOpen, colsOpen:false, viewsOpen:false})),
+      colsDisplay: s.colsOpen?'block':'none',
+      toggleCols:()=>this.setState(st=>({colsOpen:!st.colsOpen, viewsOpen:false})),
+      viewsDisplay: s.viewsOpen?'block':'none',
+      toggleViews:()=>this.setState(st=>({viewsOpen:!st.viewsOpen, colsOpen:false})),
+      cols, savedViews: savedViews.map(v=>({...v, pick:()=>{this.setState({viewsOpen:false}); this.fire('View applied: '+v.name, v.desc);}})),
+      showApplication: show('Application'), showExpertise: show('Expertise'), showExperience: show('Experience'),
+      showApplied: show('Applied'), showReviewer: show('Reviewer'), showPriority: show('Priority'), showStatus: show('Status'),
+
+      openExport:()=>this.setState({modal:'export'}),
+      openReject:()=>this.setState({modal:'reject', modalName:s.modalName||'Ananya Deshmukh', rejectReason:'', rejectError:false}),
+      openDelete:()=>this.setState({modal:'delete', modalName:s.modalName||'Ananya Deshmukh', deleteConfirm:''}),
+      openInterview:()=>this.setState({modal:'interview', modalName:s.modalName||'Ananya Deshmukh'}),
+      openUnsaved:()=>this.setState({modal:'unsaved'}),
+      openNotifs:()=>this.setState({notifOpen:true}),
+      notifOpen:s.notifOpen,
+      overlay: !!s.modal || s.notifOpen,
+      mReject: s.modal==='reject', mDelete: s.modal==='delete', mExport: s.modal==='export',
+      mInterview: s.modal==='interview', mUnsaved: s.modal==='unsaved',
+      modalName: s.modalName,
+      closeModal:()=>this.setState({modal:null, notifOpen:false, rejectError:false}),
+      rejectReason:s.rejectReason, rejectError:s.rejectError,
+      setRejectReason:(e)=>this.setState({rejectReason:e.target.value, rejectError:false}),
+      confirmReject:()=>{ if(!s.rejectReason){ this.setState({rejectError:true}); return; }
+        this.setState({modal:null, sel:[]}); this.fire('Application rejected', s.rejectReason+' · applicant notified', true, 'bad'); },
+      deleteConfirm:s.deleteConfirm, setDeleteConfirm:(e)=>this.setState({deleteConfirm:e.target.value}),
+      deleteBtnBg: s.deleteConfirm==='DELETE' ? '#B42318' : '#E3B7B3',
+      deleteBtnCursor: s.deleteConfirm==='DELETE' ? 'pointer' : 'not-allowed',
+      deleteBtnOpacity: s.deleteConfirm==='DELETE' ? '1' : '.75',
+      confirmDelete:()=>{ if(s.deleteConfirm!=='DELETE') return; this.setState({modal:null, route:'apps'}); this.fire('Record permanently deleted','Audit entry SPEAKER:PROFILE:DELETE written', false, 'bad'); },
+      archiveInstead:()=>{ this.setState({modal:null}); this.fire('Application archived','Restorable for 180 days', true); },
+      impact:['12 scheduled sessions will be unassigned','₹1,24,800 in pending payouts will be voided','3 signed contracts will be detached','All ratings and reviews will be orphaned'],
+      exportFormats, confirmExport:()=>{ this.setState({modal:null}); this.fire('Export queued', s.exportFmt+' · you will be emailed when ready'); },
+      confirmInterview:()=>{ this.setState({modal:null}); this.fire('Interview scheduled','6 Aug 2026, 3:30 PM · invites sent', true); },
+      discardLeave:()=>{ this.setState({modal:null, route:'apps'}); this.fire('Changes discarded','Reverted to last auto-saved draft', false, 'bad'); },
+
+      toast: !!s.toast, toastMsg: s.toast&&s.toast.msg, toastSub: s.toast&&s.toast.sub,
+      toastUndo: s.toast&&s.toast.undo,
+      toastIconBg: s.toast&&s.toast.tone==='bad' ? '#E5484D' : '#0E9384',
+      toastPath: s.toast&&s.toast.tone==='bad' ? 'M18 6 6 18M6 6l12 12' : 'M20 6 9 17l-5-5',
+      undo:()=>{ clearTimeout(this._t); this.setState({toast:null}); this.fire('Action reversed','Previous state restored'); },
+
+      detailTab:s.detailTab,
+      detailTabs: ['overview','verification','documents','timeline','audit'].map(k=>({
+        label: k.charAt(0).toUpperCase()+k.slice(1),
+        color: s.detailTab===k?'#0F2A47':'#6B7C93', weight: s.detailTab===k?'700':'500',
+        border: s.detailTab===k?'#0E9384':'transparent',
+        pick:()=>this.setState({detailTab:k})})),
+      dOverview: s.detailTab==='overview', dVerification: s.detailTab==='verification',
+      dDocuments: s.detailTab==='documents', dTimeline: s.detailTab==='timeline', dAudit: s.detailTab==='audit',
+
+      profTab:s.profTab,
+      profTabs: ['overview','sessions','finance','timeline','audit'].map(k=>({
+        label: k.charAt(0).toUpperCase()+k.slice(1),
+        color: s.profTab===k?'#0F2A47':'#6B7C93', weight: s.profTab===k?'700':'500',
+        border: s.profTab===k?'#0E9384':'transparent',
+        pick:()=>this.setState({profTab:k})})),
+      pOverview: s.profTab==='overview', pSessions: s.profTab==='sessions',
+      pFinance: s.profTab==='finance', pTimeline: s.profTab==='timeline', pAudit: s.profTab==='audit',
+
+      verifs, vDone, vTotal:s.verifs.length, vReqPending,
+      vPct: Math.round(vDone/s.verifs.length*100)+'%',
+      canApproveApp: vReqPending===0,
+      approveGateText: vReqPending===0 ? 'All required verifications complete' : vReqPending+' required verification'+(vReqPending===1?'':'s')+' still outstanding',
+      approveBtnBg: vReqPending===0 ? '#0E9384' : '#B9DDD8',
+      approveBtnCursor: vReqPending===0 ? 'pointer' : 'not-allowed',
+      approveApp:()=>{ if(vReqPending>0){ this.fire('Cannot approve', vReqPending+' required verifications outstanding', false, 'bad'); return; }
+        this.fire('Application approved','Onboarding checklist created · credentials pending', true); this.setState({route:'onboard'}); },
+      requestDocs:()=>this.fire('Documents requested','Email sent · reminder in 48h', true),
+
+      onboard, obDone, obTotal:s.onboard.length, obReqLeft, canActivate,
+      obPct: Math.round(obDone/s.onboard.length*100)+'%',
+      activateBg: canActivate ? '#0E9384' : '#B9DDD8',
+      activateCursor: canActivate ? 'pointer' : 'not-allowed',
+      activateNote: canActivate ? 'All required items complete — ready to activate' : obReqLeft+' required item'+(obReqLeft===1?'':'s')+' must be completed before activation',
+      activate:()=>{ if(!canActivate){ this.fire('Activation blocked', obReqLeft+' required items pending', false, 'bad'); return; }
+        this.fire('Speaker activated','Credentials issued · welcome email sent', true); },
+      genCreds:()=>this.fire('Credentials generated','Temporary password emailed · force change on first login', true),
+
+      timeline, audit: AUDIT,
+      goVerifyTab:()=>this.setState({detailTab:'verification'}),
+      escalate:()=>this.fire('Escalated to Super Admin','Ananya Deshmukh · reason required on resolution', false, 'bad'),
+      appFields: [
+        {k:'FULL NAME',v:'Ananya Deshmukh'},{k:'EMAIL',v:'ananya.deshmukh@gmail.com'},
+        {k:'PHONE',v:'+91 98204 41207'},{k:'LOCATION',v:'Pune, Maharashtra, India'},
+        {k:'YEARS OF EXPERIENCE',v:'9 years'},{k:'CURRENT EMPLOYER',v:'Meridian Risk Advisors'},
+        {k:'LINKEDIN',v:'linkedin.com/in/ananyadeshmukh'},{k:'PAN',v:'•••••4218 (masked)'},
+        {k:'APPLICATION SOURCE',v:'Website — organic'},{k:'PREFERRED FEE',v:'₹12,000 / session'}
+      ],
+      tags: ['Insurance & Risk','Underwriting','Claims Management','Regulatory Compliance','IRDAI Framework','Reinsurance Basics','Risk Modelling'],
+      workflow: [
+        {label:'Application received',meta:'26 Jul, 09:11',state:'done'},
+        {label:'Reviewer assigned',meta:'26 Jul, 09:20',state:'done'},
+        {label:'Documents submitted',meta:'27 Jul, 10:44',state:'done'},
+        {label:'Verification',meta:'In progress — 5 of 10',state:'active'},
+        {label:'Reviewer approval',meta:'Not started',state:'todo'},
+        {label:'Admin approval',meta:'Not started',state:'todo'},
+        {label:'Onboarding',meta:'Not started',state:'todo'}
+      ].map((w,i,arr)=>({...w,
+        dot: w.state==='done'?'#0E9384':w.state==='active'?'#fff':'#DDD9CF',
+        ring: w.state==='active'?'#0E9384':'transparent',
+        line: w.state==='done'?'#0E9384':'#EFEDE6',
+        lineDisplay: i===arr.length-1?'none':'block',
+        color: w.state==='todo'?'#98A2B3':'#0F2A47',
+        weight: w.state==='active'?'700':'500'
+      })),
+      comms: [
+        {ch:'MAIL',bg:'#E9F1FD',fg:'#1D4ED8',subject:'Additional documents required',meta:'Sent 27 Jul, 11:31 · delivered · opened'},
+        {ch:'MAIL',bg:'#E9F1FD',fg:'#1D4ED8',subject:'Interview invitation — 6 Aug, 3:30 PM',meta:'Sent 28 Jul, 09:06 · delivered'},
+        {ch:'WA',bg:'#E7F7EE',fg:'#15803D',subject:'Reminder: upload bank proof',meta:'Sent 30 Jul, 08:00 · read'}
+      ],
+      docs: [
+        {ext:'PDF',bg:'#FDE8E8',fg:'#B42318',name:'passport-anonymised.pdf',meta:'2.1 MB · uploaded 27 Jul',status:'Verified',sBg:'#E7F7EE',sFg:'#15803D'},
+        {ext:'JPG',bg:'#E9F1FD',fg:'#1D4ED8',name:'cancelled-cheque.jpg',meta:'840 KB · uploaded 27 Jul',status:'Awaiting',sBg:'#FEF3E2',sFg:'#B45309'},
+        {ext:'PDF',bg:'#FDE8E8',fg:'#B42318',name:'utility-bill-jul.pdf',meta:'1.3 MB · uploaded 27 Jul',status:'Awaiting',sBg:'#FEF3E2',sFg:'#B45309'},
+        {ext:'MP4',bg:'#F0EAFD',fg:'#6D28D9',name:'demo-recording.mp4',meta:'184 MB · 22 min · uploaded 27 Jul',status:'Awaiting',sBg:'#FEF3E2',sFg:'#B45309'},
+        {ext:'PDF',bg:'#FDE8E8',fg:'#B42318',name:'certificates-bundle.pdf',meta:'3 files · uploaded 26 Jul',status:'Verified',sBg:'#E7F7EE',sFg:'#15803D'}
+      ],
+      verifyKpis: [
+        {label:'Awaiting review',n:'47',note:'12 breaching SLA',fg:'#B45309'},
+        {label:'Docs requested',n:'23',note:'Avg wait 3.4 days',fg:'#6B7C93'},
+        {label:'Approved this week',n:'31',note:'▲ 18% vs last week',fg:'#15803D'},
+        {label:'Escalated',n:'4',note:'Requires Super Admin',fg:'#B42318'}
+      ],
+      queue: [
+        {name:'Ananya Deshmukh',id:'APP-2041',exp:'Insurance & Risk',done:5,total:10,sla:'SLA breach',reviewer:'R. Iyer'},
+        {name:'Priya Raghunathan',id:'APP-2039',exp:'Financial Planning',done:7,total:10,sla:'2 days left',reviewer:'M. Kulkarni'},
+        {name:'Fatima Al-Rashid',id:'APP-2034',exp:'Takaful',done:4,total:10,sla:'4 days left',reviewer:'R. Iyer'},
+        {name:'Daniel Okonkwo',id:'APP-2038',exp:'Reinsurance',done:1,total:10,sla:'Unassigned',reviewer:'—'},
+        {name:'Chen Wei Lin',id:'APP-2035',exp:'Compliance',done:9,total:10,sla:'Ready',reviewer:'A. Menon'},
+        {name:'James Whitfield',id:'APP-2033',exp:'Commercial Lines',done:2,total:10,sla:'6 days left',reviewer:'—'}
+      ].map(q=>{
+        const pct = Math.round(q.done/q.total*100);
+        const slaMap = {'SLA breach':['#FDE8E8','#B42318'],'Unassigned':['#F1F3F5','#667085'],'Ready':['#E7F7EE','#15803D']};
+        const [sb,sf] = slaMap[q.sla] || ['#FEF3E2','#B45309'];
+        return {...q, pct: pct+'%', doneLabel: q.done+' of '+q.total+' verifications approved',
+          barBg: pct>=90?'#15803D':pct>=50?'#0E9384':'#E8B14A', slaBg:sb, slaFg:sf,
+          init:this.initials(q.name), avBg:this.avColor(q.name),
+          open:()=>this.setState({route:'appDetail', modalName:q.name, detailTab:'verification'})};
+      }),
+
+      step:s.step, stepItems, isLast: s.step===3, submitted:s.submitted,
+      form:f, errors:s.errors,
+      setName:(e)=>this.setState({form:{...f,name:e.target.value}, errors:{...s.errors,name:null}}),
+      setEmail:(e)=>this.setState({form:{...f,email:e.target.value}, errors:{...s.errors,email:null}}),
+      setPhone:(e)=>this.setState({form:{...f,phone:e.target.value}, errors:{...s.errors,phone:null}}),
+      setExp:(e)=>this.setState({form:{...f,exp:e.target.value}, errors:{...s.errors,exp:null}}),
+      setYrs:(e)=>this.setState({form:{...f,yrs:e.target.value}}),
+      errName:s.errors.name, errEmail:s.errors.email, errPhone:s.errors.phone, errExp:s.errors.exp,
+      nameBorder: s.errors.name?'#D92D20':'#E5E3DC', emailBorder: s.errors.email?'#D92D20':'#E5E3DC',
+      phoneBorder: s.errors.phone?'#D92D20':'#E5E3DC', expBorder: s.errors.exp?'#D92D20':'#E5E3DC',
+      hasErrors: Object.values(s.errors).some(Boolean),
+      s0: s.step===0, s1: s.step===1, s2: s.step===2, s3: s.step===3,
+      prevStep:()=>this.setState({step:Math.max(0,s.step-1)}),
+      nextStep:()=>{
+        if(s.step===0){
+          const e={};
+          if(!f.name.trim()) e.name='Full name is required.';
+          if(!f.email.trim()) e.email='Email is required.';
+          else if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)) e.email='Enter a valid email address.';
+          if(!f.phone.trim()) e.phone='Phone is required for OTP verification.';
+          if(Object.keys(e).length){ this.setState({errors:e}); return; }
+        }
+        if(s.step===1 && !f.exp.trim()){ this.setState({errors:{exp:'Select at least one area of expertise.'}}); return; }
+        this.setState({step:s.step+1, errors:{}});
+      },
+      submitForm:()=>{ this.setState({submitted:true}); this.fire('Speaker created','SPK-0149 · verification checklist generated', true); },
+      resetForm:()=>this.setState({submitted:false, step:0, form:{name:'',email:'',phone:'',exp:'',yrs:''}, errors:{}}),
+      saveDraft:()=>this.fire('Draft saved','Resume any time from Applications → Drafts'),
+
+      notifs:[
+        {icon:'⚑',bg:'#FDE8E8',title:'Background check rejected',body:'Ananya Deshmukh · escalated to Super Admin',time:'12 minutes ago'},
+        {icon:'✓',bg:'#E7F7EE',title:'Contract signed',body:'Laila Haddad completed e-signature on Speaker Agreement v3',time:'1 hour ago'},
+        {icon:'₹',bg:'#E9F1FD',title:'Payout approval required',body:'₹2,84,000 across 14 speakers awaiting Finance release',time:'3 hours ago'},
+        {icon:'⏱',bg:'#FEF3E2',title:'Contract expiring',body:'6 speaker agreements expire within 30 days',time:'Yesterday'},
+        {icon:'✎',bg:'#F0EAFD',title:'Interview reminder',body:'Marcus Oyelaran · 6 Aug, 3:30 PM',time:'Yesterday'}
+      ],
+      pages: [1,2,3].map(p=>({n:String(p), bg: s.page===p?'#0E9384':'transparent', fg: s.page===p?'#fff':'#6B7C93',
+        pick:()=>this.setState({page:p})}))
+    };
+  }
+}
+</script>
+</body>
+</html>
