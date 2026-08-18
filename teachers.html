@@ -3829,12 +3829,140 @@
 
           <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:4px;margin-bottom:16px;overflow-x:auto">
             <sc-for list="{{ profTabs }}" as="t" hint-placeholder-count="10">
-              <button onClick="{{ t.pick }}" style="height:34px;padding:0 15px;border:0;border-radius:8px;font-size:13px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;flex:none">{{ t.label }}</button>
+              <button onClick="{{ t.pick }}" style="height:36px;padding:0 17px;border:1.5px solid {{ t.bd }};border-radius:999px;font-size:13px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;flex:none">{{ t.label }}</button>
             </sc-for>
           </div>
 
           <div style="display:grid;grid-template-columns:{{ profGridCols }};gap:16px;align-items:start">
           <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+
+            <sc-if value="{{ profIsAch }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:16px;padding:22px 24px;margin-bottom:16px">
+                  <div style="font-size:21px;font-weight:800;color:#0F2A47;letter-spacing:-.02em">My Achievements</div>
+                  <div style="font-size:13px;color:#6B7C93;margin-top:6px">Your milestones, recognitions, and certifications</div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:16px">
+                  <sc-for list="{{ achKpis }}" as="k" hint-placeholder-count="4">
+                    <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:13px">
+                      <div style="width:38px;height:38px;flex:none;border-radius:11px;background:{{ k.ibg }};display:grid;place-items:center;color:{{ k.ifg }}">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ k.path }}" /></svg>
+                      </div>
+                      <div style="min-width:0">
+                        <div style="font-size:23px;font-weight:800;color:#0F2A47;letter-spacing:-.03em;line-height:1.1">{{ k.n }}</div>
+                        <div style="font-size:12px;color:#6B7C93;margin-top:4px">{{ k.label }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) 296px;gap:16px;align-items:start">
+                  <div style="min-width:0">
+                    <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;flex-wrap:wrap">
+                      <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:10px;padding:4px;flex:none">
+                        <sc-for list="{{ achSegs }}" as="sg" hint-placeholder-count="2">
+                          <button onClick="{{ sg.pick }}" style="display:flex;align-items:center;gap:7px;height:32px;padding:0 15px;border:0;border-radius:7px;font-size:12.5px;cursor:pointer;background:{{ sg.bg }};color:{{ sg.fg }};font-weight:{{ sg.weight }};white-space:nowrap">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ sg.path }}" /></svg>{{ sg.label }}
+                          </button>
+                        </sc-for>
+                      </div>
+                      <span style="flex:1"></span>
+                      <sc-for list="{{ achFilters }}" as="f" hint-placeholder-count="2">
+                        <select value="{{ f.value }}" onChange="{{ f.set }}" style="height:34px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:12.5px;font-weight:600;background:#fff;color:#344054;outline:0;cursor:pointer">
+                          <sc-for list="{{ f.opts }}" as="o" hint-placeholder-count="4">
+                            <option>{{ o.o }}</option>
+                          </sc-for>
+                        </select>
+                      </sc-for>
+                    </div>
+
+                    <div style="font-size:15px;font-weight:800;color:#0E9384;letter-spacing:-.01em;margin-bottom:13px">Unlocked Achievements</div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:24px">
+                      <sc-for list="{{ achUnlocked }}" as="a" hint-placeholder-count="5">
+                        <div onClick="{{ a.open }}" style="min-width:0;background:#fff;border:1.5px solid {{ a.bd }};border-radius:14px;padding:20px 16px;text-align:center;cursor:pointer" style-hover="border-color:#0E9384;box-shadow:0 10px 26px rgba(11,31,62,.08)">
+                          <div style="position:relative;width:62px;height:62px;margin:0 auto;border-radius:50%;background:{{ a.ring }};display:grid;place-items:center">
+                            <div style="width:50px;height:50px;border-radius:50%;background:{{ a.badgeBg }};display:grid;place-items:center;color:#fff">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{ a.path }}" /></svg>
+                            </div>
+                            <span style="position:absolute;right:-2px;bottom:-2px;width:21px;height:21px;border-radius:50%;background:#15803D;border:2.5px solid #fff;display:grid;place-items:center;color:#fff;font-size:10px;font-weight:800">✓</span>
+                          </div>
+                          <div style="font-size:13.5px;font-weight:800;color:#0F2A47;margin-top:13px;text-wrap:pretty">{{ a.title }}</div>
+                          <div style="font-size:11.5px;color:#6B7C93;margin-top:7px;line-height:1.5;text-wrap:pretty">{{ a.desc }}</div>
+                          <div style="font-size:11px;font-weight:700;color:#0E9384;margin-top:12px;padding-top:11px;border-top:1px solid #F2F0EA">Unlocked: {{ a.when }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+
+                    <div style="font-size:15px;font-weight:800;color:#0E9384;letter-spacing:-.01em;margin-bottom:13px">In Progress</div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px">
+                      <sc-for list="{{ achProgress }}" as="a" hint-placeholder-count="3">
+                        <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 16px;text-align:center">
+                          <div style="width:56px;height:56px;margin:0 auto;border-radius:50%;background:#F2F0EA;display:grid;place-items:center;color:#98A2B3">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3" /></svg>
+                          </div>
+                          <div style="font-size:13.5px;font-weight:800;color:#0F2A47;margin-top:13px;text-wrap:pretty">{{ a.title }}</div>
+                          <div style="font-size:11.5px;color:#6B7C93;margin-top:7px;line-height:1.5;text-wrap:pretty">{{ a.desc }}</div>
+                          <div style="display:flex;align-items:center;gap:9px;margin-top:14px">
+                            <span style="font-size:11px;font-weight:800;color:#0F2A47">{{ a.pct }}</span>
+                            <div style="flex:1;height:7px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ a.pct }};border-radius:5px;background:#0E9384"></div></div>
+                          </div>
+                        </div>
+                      </sc-for>
+                    </div>
+
+                    <div style="text-align:center;font-size:12.5px;font-weight:600;color:#6B7C93;margin-top:24px">Keep achieving! Every milestone counts 🎉</div>
+                  </div>
+
+                  <div style="min-width:0;display:flex;flex-direction:column;gap:14px">
+                    <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                      <div style="display:flex;align-items:flex-start;gap:10px;padding:14px 16px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
+                        <span style="width:26px;height:26px;flex:none;border-radius:50%;background:#FDF3D6;display:grid;place-items:center;color:#B45309">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z" /></svg>
+                        </span>
+                        <div style="min-width:0">
+                          <div style="font-size:12.5px;font-weight:800;color:#0F2A47">Next Achievements to Unlock</div>
+                          <div style="font-size:11px;color:#98A2B3;margin-top:3px">Keep going, you're almost there!</div>
+                        </div>
+                      </div>
+                      <sc-for list="{{ achNext }}" as="n" hint-placeholder-count="3">
+                        <div style="padding:13px 16px;border-bottom:1px solid #F7F5F0">
+                          <div style="display:flex;align-items:center;gap:8px">
+                            <span style="font-size:12.5px">{{ n.icon }}</span>
+                            <span style="font-size:12px;font-weight:700;color:#0F2A47;flex:1;min-width:0;text-wrap:pretty">{{ n.title }}</span>
+                            <span style="font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ n.tierBg }};color:{{ n.tierFg }};white-space:nowrap">{{ n.tier }}</span>
+                          </div>
+                          <div style="display:flex;align-items:center;gap:9px;margin-top:9px">
+                            <span style="font-size:10.5px;color:#7A8699;white-space:nowrap">{{ n.stat }}</span>
+                            <span style="flex:1"></span>
+                            <span style="font-size:10.5px;font-weight:800;color:#0F2A47">{{ n.pct }}</span>
+                          </div>
+                          <div style="height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden;margin-top:6px"><div style="height:100%;width:{{ n.pct }};border-radius:4px;background:{{ n.bar }}"></div></div>
+                          <div style="font-size:10.5px;color:#98A2B3;margin-top:8px;text-wrap:pretty">🔒 {{ n.togo }}</div>
+                        </div>
+                      </sc-for>
+                      <div style="margin:12px 14px 14px;padding:12px 13px;border-radius:11px;background:#FDF9EC;border:1px solid #F5E6C0">
+                        <div style="display:flex;align-items:center;gap:7px">
+                          <span style="font-size:12px">💡</span>
+                          <span style="font-size:11.5px;font-weight:800;color:#8A5A0B">Pro Tip</span>
+                        </div>
+                        <div style="font-size:11px;color:#8A6A2B;margin-top:6px;line-height:1.5;text-wrap:pretty">Complete 3 more classes this week to unlock a special streak bonus.</div>
+                      </div>
+                    </div>
+
+                    <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:14px 16px">
+                      <div style="font-size:12.5px;font-weight:800;color:#0F2A47;margin-bottom:11px">Achievement actions</div>
+                      <div style="display:flex;flex-direction:column;gap:8px">
+                        <sc-for list="{{ achActions }}" as="b" hint-placeholder-count="4">
+                          <button onClick="{{ b.pick }}" style="height:34px;border-radius:9px;border:1px solid #E5E3DC;background:#FCFBF7;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC">{{ b.label }}</button>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
             <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="3">
               <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
                 <div style="display:flex;align-items:center;gap:12px;padding:15px 20px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
@@ -4049,6 +4177,94 @@
                     </div>
                   </sc-if>
 
+                  <sc-if value="{{ sec.isCruxChat }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:flex;align-items:center;gap:13px;padding:14px 16px;border:1px solid #DCEDEA;border-radius:12px;background:#F7FBFA;margin-bottom:14px;flex-wrap:wrap">
+                        <div style="width:40px;height:40px;flex:none;border-radius:11px;background:#0E9384;display:grid;place-items:center;color:#fff">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+                        </div>
+                        <div style="min-width:0;flex:1">
+                          <div style="font-size:14px;font-weight:800;color:#0F2A47">Crux Chat — {{ sec.ccWho }}</div>
+                          <div style="font-size:12px;color:#6B7C93;margin-top:3px;text-wrap:pretty">Direct thread with this teacher · every teacher–admin message on the platform runs through Crux Chat</div>
+                        </div>
+                        <button onClick="{{ sec.ccSend }}" style="height:36px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Send Message</button>
+                        <button onClick="{{ sec.ccOpen }}" style="display:flex;align-items:center;gap:8px;height:36px;padding:0 16px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>Open Crux Chat
+                        </button>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                        <sc-for list="{{ sec.ccThread }}" as="m" hint-placeholder-count="5">
+                          <div style="display:flex;align-items:flex-start;gap:11px;padding:12px 15px;border-bottom:1px solid #F7F5F0;background:{{ m.bg }}">
+                            <span style="width:28px;height:28px;flex:none;border-radius:50%;background:{{ m.aBg }};color:{{ m.aFg }};display:grid;place-items:center;font-size:11px;font-weight:800">{{ m.tag }}</span>
+                            <div style="min-width:0;flex:1">
+                              <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+                                <span style="font-size:12.5px;font-weight:700;color:{{ m.fg }}">{{ m.name }}</span>
+                                <span style="font-size:11px;color:#98A2B3">{{ m.when }}</span>
+                              </div>
+                              <div style="font-size:12.5px;color:#475467;margin-top:5px;line-height:1.55;text-wrap:pretty">{{ m.text }}</div>
+                            </div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ sec.isComms }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:flex;align-items:center;gap:8px;margin-bottom:13px">
+                        <sc-for list="{{ sec.commFilters }}" as="f" hint-placeholder-count="5">
+                          <button onClick="{{ f.pick }}" style="height:31px;padding:0 13px;border-radius:999px;border:1px solid {{ f.bd }};background:{{ f.bg }};font-size:12.5px;font-weight:600;color:{{ f.fg }};cursor:pointer">{{ f.label }}</button>
+                        </sc-for>
+                        <span style="flex:1"></span>
+                        <span style="font-size:12px;color:#98A2B3">{{ sec.commCount }}</span>
+                      </div>
+                      <div style="display:flex;flex-direction:column;gap:10px">
+                        <sc-for list="{{ sec.commRows }}" as="m" hint-placeholder-count="4">
+                          <div style="border:1px solid #ECEAE2;border-left:3px solid {{ m.edge }};border-radius:12px;overflow:hidden;background:#fff">
+                            <div onClick="{{ m.toggle }}" style="display:flex;align-items:center;gap:11px;padding:13px 15px;cursor:pointer;background:#FCFBF7">
+                              <span style="width:26px;height:26px;flex:none;border-radius:8px;background:{{ m.chBg }};color:{{ m.chFg }};display:grid;place-items:center;font-size:13px;font-weight:800">{{ m.arrow }}</span>
+                              <div style="min-width:0">
+                                <div style="font-size:13.5px;font-weight:700;color:#0F2A47">{{ m.subject }}</div>
+                                <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ m.who }} · {{ m.when }}</div>
+                              </div>
+                              <span style="flex:1"></span>
+                              <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ m.dirBg }};color:{{ m.dirFg }}">{{ m.dir }}</span>
+                              <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ m.chBg }};color:{{ m.chFg }}">{{ m.ch }}</span>
+                              <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ m.sBg }};color:{{ m.sFg }}">{{ m.state }}</span>
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7A8699" stroke-width="2.3" stroke-linecap="round" style="transform:{{ m.rot }};transition:transform .18s;flex:none"><path d="M6 9l6 6 6-6" /></svg>
+                            </div>
+                            <div style="display:{{ m.bodyDisplay }};padding:16px 15px;border-top:1px solid #F2F0EA">
+                              <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:16px">
+                                <div>
+                                  <div style="font-size:11px;font-weight:700;letter-spacing:.05em;color:#7A8699;margin-bottom:8px">MESSAGE</div>
+                                  <div style="border:1px solid #F0EEE7;border-radius:10px;padding:13px 14px;background:#FCFBF7;font-size:12.5px;line-height:1.6;color:#344054;text-wrap:pretty">{{ m.body }}</div>
+                                  <div style="font-size:11.5px;color:#98A2B3;margin-top:9px">{{ m.tpl }}</div>
+                                  <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ m.rel }}</div>
+                                  <div style="display:flex;gap:8px;margin-top:13px">
+                                    <button onClick="{{ m.reply }}" style="display:inline-flex;align-items:center;justify-content:center;height:32px;padding:0 13px;border-radius:8px;border:0;background:#0E9384;font-size:12px;font-weight:600;line-height:1;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Reply</button>
+                                    <button onClick="{{ m.resend }}" style="display:inline-flex;align-items:center;justify-content:center;height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;line-height:1;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Resend</button>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div style="font-size:11px;font-weight:700;letter-spacing:.05em;color:#7A8699;margin-bottom:8px">DELIVERY TRACKING</div>
+                                  <div style="display:flex;flex-direction:column;gap:0">
+                                    <sc-for list="{{ m.trackRows }}" as="tr" hint-placeholder-count="4">
+                                      <div style="display:flex;align-items:center;gap:10px;padding:8px 0">
+                                        <span style="width:9px;height:9px;flex:none;border-radius:50%;background:{{ tr.dot }}"></span>
+                                        <span style="font-size:12.5px;font-weight:600;color:{{ tr.fg }};flex:1">{{ tr.k }}</span>
+                                        <span style="font-size:11.5px;color:#98A2B3">{{ tr.v }}</span>
+                                      </div>
+                                    </sc-for>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+
                   <sc-if value="{{ sec.isActions }}" hint-placeholder-val="{{ false }}">
                     <div style="display:flex;flex-wrap:wrap;gap:9px">
                       <sc-for list="{{ sec.btns }}" as="b" hint-placeholder-count="4">
@@ -4125,6 +4341,34 @@
               </div>
             </div>
           </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ achModal.open }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ achModal.close }}" style="position:fixed;inset:0;background:rgba(11,31,62,.48);z-index:88"></div>
+        <div style="position:fixed;z-index:89;top:50%;left:50%;transform:translate(-50%,-50%);width:390px;max-width:94vw;background:#fff;border-radius:18px;box-shadow:0 30px 80px rgba(11,31,62,.32);overflow:hidden">
+          <div style="position:relative;padding:28px 26px 24px;text-align:center">
+            <button onClick="{{ achModal.close }}" style="position:absolute;top:14px;right:14px;width:26px;height:26px;border-radius:50%;border:1px solid #E5E3DC;background:#fff;cursor:pointer;color:#98A2B3;display:grid;place-items:center;font-size:14px;line-height:1">×</button>
+            <div style="position:relative;width:76px;height:76px;margin:0 auto;border-radius:50%;background:{{ achModal.ring }};display:grid;place-items:center">
+              <div style="width:60px;height:60px;border-radius:50%;background:{{ achModal.badgeBg }};display:grid;place-items:center;color:#fff">
+                <svg width="29" height="29" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{ achModal.path }}" /></svg>
+              </div>
+              <span style="position:absolute;right:0;bottom:0;width:24px;height:24px;border-radius:50%;background:#15803D;border:3px solid #fff;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:800">✓</span>
+            </div>
+            <div style="font-size:18px;font-weight:800;color:#0F2A47;margin-top:15px;letter-spacing:-.01em">{{ achModal.title }}</div>
+            <div style="font-size:12.5px;color:#6B7C93;margin-top:8px;line-height:1.55;text-wrap:pretty">{{ achModal.desc }}</div>
+            <div style="margin-top:18px;padding:14px 16px;border-radius:12px;background:#FCFBF7;border:1px solid #F0EEE7">
+              <div style="font-size:11px;font-weight:600;color:#7A8699">Your Achievement</div>
+              <div style="font-size:16px;font-weight:800;color:#0E9384;margin-top:6px">{{ achModal.stat }}</div>
+            </div>
+            <button onClick="{{ achModal.download }}" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:42px;margin-top:16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 11l4 4 4-4M4 21h16" /></svg>Download Certificate
+            </button>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+              <button onClick="{{ achModal.linkedin }}" style="height:38px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">LinkedIn</button>
+              <button onClick="{{ achModal.twitter }}" style="height:38px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Twitter</button>
+            </div>
           </div>
         </div>
       </sc-if>
@@ -4761,26 +5005,51 @@ const SEC = {
     {t:'DEVICE ACTIONS',type:'actions',btns:[['Log Out Device'],['Log Out All Devices'],['Remove Device',1],['Reset Password'],['Force 2FA Re-enrolment']]}
   ],
   'Communication': [
-    {t:'COMMUNICATION SNAPSHOT',type:'cards',cards:[
-      card('CRUX CHAT','Open','24 messages',CL.t),card('TOTAL MESSAGES','142','lifetime',CL.d),
-      card('THIS MONTH','24','sent + received',CL.t),card('AVG RESPONSE','2.4 h','teacher replies',CL.t),
-      card('UNREAD','1','awaiting admin reply',CL.a),card('LAST CONTACT','Today · 09:12','Crux Chat',CL.t)]},
-    {t:'COMMUNICATION HISTORY',right:'Searchable · filter by type and date',type:'table',
-      cols:['Date & Time','Channel','Direction','Type','Subject','Sent By','Status'],
-      trs:[
-        ['2026-08-11 · 09:12','Crux Chat','Admin → Teacher','Schedule','Substitute needed for 14 Aug doubt session','R. Kumar',['Delivered','green']],
-        ['2026-08-10 · 17:40','Crux Chat','Teacher → Admin','Query','Requesting notes upload deadline extension','Dr. Vikram Verma',['Replied','green']],
-        ['2026-08-09 · 11:02','Email','Admin → Teacher','Payroll','August payout cycle opens 1 Sep','Finance Bot',['Delivered','green']],
-        ['2026-08-08 · 08:15','Crux Chat','Admin → Teacher','Performance','Batch B attendance dipped below 80%','Academic Head',['Read','blue']],
-        ['2026-08-05 · 14:30','WhatsApp','Admin → Teacher','Reminder','Class starting in 30 minutes','Automated',['Delivered','green']],
-        ['2026-08-02 · 10:00','Crux Chat','Teacher → Admin','Leave','Sick leave request for 5 Aug','Dr. Vikram Verma',['Resolved','green']],
-        ['2026-07-30 · 16:22','Email','Admin → Teacher','Documents','Police verification expiring 30 Sep','Automated',['Delivered','green']]]},
-    {t:'CRUX CHAT — RECENT CONVERSATION',right:'Direct thread with this teacher',type:'list',rows:[
-      {ic:'A',c:'blue',t:'R. Kumar (Coordinator) · Today 09:12',s:'Can you cover the 14 Aug doubt session, or should I assign a substitute?'},
-      {ic:'T',c:'green',t:'Dr. Vikram Verma · Today 09:31',s:'Please assign a substitute for 14 Aug — I have a prior commitment that morning.'},
-      {ic:'A',c:'blue',t:'R. Kumar (Coordinator) · Today 09:40',s:'Noted. R. Kumar assigned as substitute and the batch has been notified.'},
-      {ic:'T',c:'green',t:'Dr. Vikram Verma · Yesterday 17:40',s:'Requesting a two-day extension on the Policy Law notes upload.'},
-      {ic:'A',c:'blue',t:'Academic Head · Yesterday 18:05',s:'Approved — new deadline is 13 Aug. Please publish to Batch B1 once uploaded.'}]},
+    {t:'ENGAGEMENT',type:'cards',cards:[
+      card('SENT (90D)','24','18 outbound · 6 inbound',CL.t),card('OPEN RATE','92%','22 of 24 opened',CL.b),
+      card('REPLY RATE','58%','14 replies received',CL.p),card('PREFERRED','Crux Chat','fastest response',CL.t)]},
+    {t:'CRUX CHAT',right:'All teacher–admin messaging runs on Crux Chat',type:'cruxchat'},
+    {t:'COMMUNICATION LOG',right:'Every message in and out · expand for delivery detail',type:'comms',rows:[
+      {id:'MSG-9412', dir:'Outbound', ch:'Crux Chat', subject:'Substitute needed — 14 Aug doubt session',
+       who:'R. Kumar (Coordinator)', when:'11 Aug 2026, 9:12 AM', state:'Read',
+       body:'Hi Dr. Verma, can you cover the 14 Aug doubt session for Batch A, or should I assign a substitute? The batch has 64 students enrolled.',
+       tpl:'Template: substitute_request', rel:'Linked to: Batch A — Morning (BT-201)',
+       track:[['Sent','11 Aug, 9:12 AM'],['Delivered','11 Aug, 9:12 AM'],['Read','11 Aug, 9:28 AM'],['Replied','11 Aug, 9:31 AM']]},
+      {id:'MSG-9410', dir:'Inbound', ch:'Crux Chat', subject:'Teacher reply — please assign a substitute',
+       who:'Dr. Vikram Verma', when:'11 Aug 2026, 9:31 AM', state:'Received',
+       body:'Please assign a substitute for 14 Aug — I have a prior commitment that morning. Happy to record a catch-up session for the batch that evening.',
+       tpl:'Free-form reply', rel:'Substitute R. Kumar assigned from this message',
+       track:[['Received','11 Aug, 9:31 AM'],['Read by coordinator','11 Aug, 9:36 AM'],['Substitute assigned','11 Aug, 9:40 AM']]},
+      {id:'MSG-9388', dir:'Inbound', ch:'Crux Chat', subject:'Notes upload deadline extension request',
+       who:'Dr. Vikram Verma', when:'10 Aug 2026, 5:40 PM', state:'Received',
+       body:'Requesting a two-day extension on the Policy Law notes upload. The regulator updated two case references this week and I want the notes to reflect them.',
+       tpl:'Free-form message', rel:'Linked to: Life Insurance Elite (C-204)',
+       track:[['Received','10 Aug, 5:40 PM'],['Read by academic head','10 Aug, 5:58 PM'],['Approved','10 Aug, 6:05 PM']]},
+      {id:'MSG-9375', dir:'Outbound', ch:'Email', subject:'August payout cycle opens 1 September',
+       who:'Finance Bot · automation', when:'9 Aug 2026, 11:02 AM', state:'Opened',
+       body:'Your August payout statement will be generated on 1 September and credited on the 5th. Raise any adjustment requests before 28 August.',
+       tpl:'Automation: payout_cycle_open', rel:'Linked to: PAY-2026-000184',
+       track:[['Sent','9 Aug, 11:02 AM'],['Delivered','9 Aug, 11:02 AM'],['Opened','9 Aug, 1:14 PM']]},
+      {id:'MSG-9350', dir:'Outbound', ch:'Crux Chat', subject:'Batch B attendance dipped below 80%',
+       who:'Academic Head', when:'8 Aug 2026, 8:15 AM', state:'Read',
+       body:'Batch B evening attendance has fallen to 78% over the last two weeks. Could you review the session pacing and share a recovery plan?',
+       tpl:'Automation: attendance_alert', rel:'Linked to: Batch B — Evening (BT-205)',
+       track:[['Sent','8 Aug, 8:15 AM'],['Delivered','8 Aug, 8:15 AM'],['Read','8 Aug, 8:42 AM']]},
+      {id:'MSG-9322', dir:'Outbound', ch:'WhatsApp', subject:'Class starting in 30 minutes',
+       who:'System · automation', when:'5 Aug 2026, 6:30 AM', state:'Delivered',
+       body:'Reminder: IC-38 Full Prep, Batch A — Morning starts at 7:00 AM. Join from your faculty dashboard five minutes early.',
+       tpl:'Automation: class_reminder_t30', rel:'Linked to: Batch A — Morning (BT-201)',
+       track:[['Queued','5 Aug, 6:30 AM'],['Delivered','5 Aug, 6:30 AM'],['Read','5 Aug, 6:34 AM']]},
+      {id:'MSG-9280', dir:'Inbound', ch:'Crux Chat', subject:'Sick leave request for 5 August',
+       who:'Dr. Vikram Verma', when:'2 Aug 2026, 10:00 AM', state:'Received',
+       body:'Requesting sick leave for 5 August. Please arrange a substitute for the Policy Law session with Batch B1.',
+       tpl:'Free-form message', rel:'Created leave request LV-2188',
+       track:[['Received','2 Aug, 10:00 AM'],['Read by HR','2 Aug, 10:12 AM'],['Approved','2 Aug, 11:04 AM']]},
+      {id:'MSG-9241', dir:'Outbound', ch:'Email', subject:'Police verification expiring 30 September',
+       who:'System · automation', when:'30 Jul 2026, 4:22 PM', state:'Opened',
+       body:'Your police verification document expires on 30 September 2026. Please upload a renewed copy from your faculty profile before that date.',
+       tpl:'Automation: document_expiry_d60', rel:'Linked to: Police Verification (v2)',
+       track:[['Sent','30 Jul, 4:22 PM'],['Delivered','30 Jul, 4:22 PM'],['Opened','30 Jul, 6:40 PM']]}]},
     {t:'COMMUNICATION ACTIONS',type:'actions',btns:[['Open Crux Chat'],['Send Message'],['Search Conversation'],['Export History'],['Send Reminder']]}
   ],
   'Activity Log': [
@@ -5169,6 +5438,7 @@ class Component extends DCLogic {
       isCards:sec.type==='cards', isKv:sec.type==='kv', isList:sec.type==='list', isTable:sec.type==='table',
       isBars:sec.type==='bars', isChart:sec.type==='chart', isActions:sec.type==='actions',
       isReviews:sec.type==='reviews', isUpload:sec.type==='upload', isTimetable:sec.type==='timetable',
+      isComms:sec.type==='comms', isCruxChat:sec.type==='cruxchat',
       isJourney:sec.type==='journey', isAudit:sec.type==='audit', isChips:sec.type==='chips'};
     if (d.isChips) d.chipItems = sec.items.map(c=>({c}));
     if (d.isJourney) d.jRows = sec.rows.map((r,i)=>({...r,
@@ -5196,6 +5466,43 @@ class Component extends DCLogic {
       border: b[1]?'#F0D2CF':'#E5E3DC', fg: b[1]?'#B42318':'#344054', hbg: b[1]?'#FEF7F6':'#F6F5F0',
       pick: ()=>this.setState({fm:'act', fmStep:0, fmErr:null, fmCtx:{label:b[0], danger:b[1]||0}})}));
     if (d.isUpload) d.up = this.act('Upload dialog opened','PDF, JPG or PNG up to 10 MB · verified by admin after upload');
+    if (d.isCruxChat) {
+      const who = (TEACHERS.find(x=>x[1]===this.state.teacher) || TEACHERS[0])[0];
+      d.ccWho = who; d.ccInit = this.initials(who);
+      d.ccThread = [
+        ['A','R. Kumar (Coordinator)','Today · 09:12','Can you cover the 14 Aug doubt session, or should I assign a substitute?','#E9F1FD','#1D4ED8','#fff','#0F2A47'],
+        ['T',who,'Today · 09:31','Please assign a substitute for 14 Aug — I have a prior commitment that morning.','#E6F4F1','#0B7A6E','#EEF6F5','#0F2A47'],
+        ['A','R. Kumar (Coordinator)','Today · 09:40','Noted. R. Kumar assigned as substitute and the batch has been notified.','#E9F1FD','#1D4ED8','#fff','#0F2A47'],
+        ['T',who,'Yesterday · 17:40','Requesting a two-day extension on the Policy Law notes upload.','#E6F4F1','#0B7A6E','#EEF6F5','#0F2A47'],
+        ['A','Academic Head','Yesterday · 18:05','Approved — new deadline is 13 Aug. Please publish to Batch B1 once uploaded.','#F0EAFD','#6D28D9','#fff','#0F2A47']
+      ].map(([tag,name,when,text,aBg,aFg,bg,fg])=>({tag,name,when,text,aBg,aFg,bg,fg}));
+      d.ccOpen = this.act('Crux Chat opened — '+who, 'Direct thread · 24 messages · all teacher–admin messaging');
+      d.ccSend = ()=>this.setState({fm:'msg', fmStep:0, fmErr:null, fmCtx:{teacher:who, channel:'Crux Chat'}});
+    }
+    if (d.isComms) {
+      const CH = {'Crux Chat':['#E6F4F1','#0B7A6E'], WhatsApp:['#E7F7EE','#15803D'], Email:['#E9F1FD','#1D4ED8'],
+        SMS:['#F0EAFD','#6D28D9'], Push:['#FEF3E2','#B45309'], Call:['#F1F3F5','#667085']};
+      const ST = {Read:['#E7F7EE','#15803D'], Opened:['#E7F7EE','#15803D'], Delivered:['#EEF6F5','#0B7A6E'],
+        Received:['#E9F1FD','#1D4ED8'], Sent:['#F1F3F5','#667085'], Replied:['#E7F7EE','#15803D'], Resolved:['#E7F7EE','#15803D']};
+      const filt = this.state.commCh || 'All';
+      d.commFilters = ['All','Crux Chat','Email','SMS','WhatsApp','Push'].map(f=>{ const on = filt===f;
+        return {label:f, bd: on?'#0E9384':'#E5E3DC', bg: on?'#EEF6F5':'#fff', fg: on?'#0B7A6E':'#475467',
+          pick:()=>this.setState({commCh:f})}; });
+      d.commRows = sec.rows.filter(r=>filt==='All' || r.ch===filt).map(r=>{
+        const open = this.state.commOpen === r.id;
+        const inb = r.dir==='Inbound';
+        return {...r, chBg:(CH[r.ch]||CH.Call)[0], chFg:(CH[r.ch]||CH.Call)[1],
+          sBg:(ST[r.state]||ST.Sent)[0], sFg:(ST[r.state]||ST.Sent)[1],
+          dirBg: inb ? '#F0EAFD' : '#F1F3F5', dirFg: inb ? '#6D28D9' : '#667085',
+          arrow: inb ? '↓' : '↑', edge: inb ? '#6D28D9' : '#0E9384',
+          bodyDisplay: open ? 'block' : 'none', rot: open ? 'rotate(180deg)' : 'rotate(0deg)',
+          trackRows: r.track.map(([k,v])=>({k, v, dot: v==='—' ? '#DDD9CF' : '#0E9384', fg: v==='—' ? '#98A2B3' : '#344054'})),
+          toggle: ()=>this.setState(x=>({commOpen: x.commOpen===r.id ? '' : r.id})),
+          resend: this.act('Resent — '+r.id, r.ch+' · same content, new timestamp'),
+          reply: this.act('Reply composer opened', 'Channel: '+r.ch)};
+      });
+      d.commCount = d.commRows.length+' messages shown';
+    }
     if (d.isReviews) d.revRows = sec.rows.map(r=>{
       const S = {Published:['#E7F7EE','#15803D'], Pending:['#FEF3E2','#B45309'], Hidden:['#F1F3F5','#667085']}[r.state];
       return {...r, sBg:S[0], sFg:S[1], ratingLabel:r.rating.toFixed(1),
@@ -5677,14 +5984,71 @@ class Component extends DCLogic {
         prevFg: prev==='—' ? '#98A2B3' : '#475467',
         nextFg: next==='—' ? '#B42318' : '#0F2A47'})),
 
+      profIsAch: (s.tab2||'Overview')==='Achievements',
+      achKpis: [
+        {n:'09',label:'Total Achievements',ibg:'#EEF6F5',ifg:'#0B7A6E',path:'M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3'},
+        {n:'05',label:'Certifications',ibg:'#F0EAFD',ifg:'#6D28D9',path:'M12 3l7.5 3v5.5c0 4.4-3.1 8.2-7.5 9.5-4.4-1.3-7.5-5.1-7.5-9.5V6z'},
+        {n:'180',label:'Total Students',ibg:'#E9F1FD',ifg:'#1D4ED8',path:'M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9.5 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z'},
+        {n:'06',label:'Classes Assigned',ibg:'#FEF3E2',ifg:'#B45309',path:'M3 5h18v16H3zM8 3v4M16 3v4M3 10h18'}
+      ],
+      achSegs: [['Certifications','cert','M12 3l7.5 3v5.5c0 4.4-3.1 8.2-7.5 9.5-4.4-1.3-7.5-5.1-7.5-9.5V6z'],
+                ['Milestones','mile','M12 3a9 9 0 1 0 .01 0M12 7v5l3 2']].map(([label,k,path])=>{
+        const on = (s.achSeg||'cert')===k;
+        return {label, path, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'700':'500',
+          pick:()=>this.setState({achSeg:k})};
+      }),
+      achFilters: [
+        ['achFType',['All Achievements','Teaching','Student Outcome','Content','Recognition']],
+        ['achFSort',['Most Recent','Oldest First','Rarity']]
+      ].map(([key,opts])=>({value:s[key]||opts[0], opts:opts.map(o=>({o})),
+        set:(e)=>this.setState({[key]:e.target.value})})),
+      achUnlocked: [
+        ['Top Performer of the Month','Awarded for a 4.9 rating across the IC-38 Morning batch.','Dec 2025','#F5B843','#FDF3D6','M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3','4.9 / 5.0 Average Rating'],
+        ['The Iron Clad','365 consecutive days without a single missed session.','Dec 2025','#0E9384','#EEF6F5','M12 3l7.5 3v5.5c0 4.4-3.1 8.2-7.5 9.5-4.4-1.3-7.5-5.1-7.5-9.5V6zM9.5 12l1.8 1.8 3.5-3.6','365 days · 0 missed sessions'],
+        ['Top Engager','Highest student participation rate across all live batches.','Dec 2025','#6D28D9','#F0EAFD','M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z','92% average engagement'],
+        ['Assignment Ace','Graded 100% of student submissions within 24 hours.','Dec 2025','#F5B843','#FDF3D6','M9 4h6v3H9zM7 5H5v15h14V5h-2M9 12l2 2 4-4','98% graded within SLA'],
+        ['Long-Haul Legacy','Eight years of continuous teaching at StudyCrux.','Dec 2025','#0E9384','#EEF6F5','M12 3a9 9 0 1 0 .01 0M12 7v5l3 2','8 years · 1,000+ sessions']
+      ].map(([title,desc,when,badgeBg,ring,path,stat])=>({title,desc,when,badgeBg,ring,path,stat,
+        bd: s.achOpen===title ? '#0E9384' : '#ECEAE2',
+        open: ()=>this.setState({achOpen:title})})),
+      achProgress: [
+        ['Syllabus Sprinter','Finish the IC-38 syllabus two weeks ahead of plan.','85%'],
+        ['Mentor Milestone','Mentor 10 new faculty through onboarding.','60%'],
+        ['Content Creator','Publish 30 recorded lectures to the library.','80%']
+      ].map(([title,desc,pct])=>({title,desc,pct})),
+      achNext: [
+        ['🏆','Teaching Hours Master','247 / 300 hours','82%','Gold Badge','#FDF3D6','#8A5A0B','#F0A72A','Just 53 more hours to unlock!'],
+        ['🎯','Class Champion','85 / 100 classes','85%','Silver Badge','#F1F3F5','#667085','#0E9384','Just 15 more classes to unlock!'],
+        ['🔥','Student Engagement Pro','168 / 200 students','84%','Bronze Badge','#FDE8E8','#B42318','#E88B78','Just 32 more students to unlock!']
+      ].map(([icon,title,stat,pct,tier,tierBg,tierFg,bar,togo])=>({icon,title,stat,pct,tier,tierBg,tierFg,bar,togo})),
+      achActions: [['Add Achievement'],['Upload Certificate'],['Nominate for Award'],['Export Achievements']]
+        .map(([label])=>({label, pick:()=>this.setState({fm:'act', fmStep:0, fmErr:null, fmCtx:{label}})})),
+      achModal: (()=>{
+        const list = [
+          ['Top Performer of the Month','Awarded for a 4.9 rating across the IC-38 Morning batch.','#F5B843','#FDF3D6','M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3','4.9 / 5.0 Average Rating'],
+          ['The Iron Clad','365 consecutive days without a single missed session.','#0E9384','#EEF6F5','M12 3l7.5 3v5.5c0 4.4-3.1 8.2-7.5 9.5-4.4-1.3-7.5-5.1-7.5-9.5V6zM9.5 12l1.8 1.8 3.5-3.6','365 days · 0 missed sessions'],
+          ['Top Engager','Highest student participation rate across all live batches.','#6D28D9','#F0EAFD','M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z','92% average engagement'],
+          ['Assignment Ace','Graded 100% of student submissions within 24 hours.','#F5B843','#FDF3D6','M9 4h6v3H9zM7 5H5v15h14V5h-2M9 12l2 2 4-4','98% graded within SLA'],
+          ['Long-Haul Legacy','Eight years of continuous teaching at StudyCrux.','#0E9384','#EEF6F5','M12 3a9 9 0 1 0 .01 0M12 7v5l3 2','8 years · 1,000+ sessions']
+        ];
+        const hit = list.find(x=>x[0]===s.achOpen);
+        return {open: !!hit, title: hit?hit[0]:'', desc: hit?hit[1]:'',
+          badgeBg: hit?hit[2]:'#F5B843', ring: hit?hit[3]:'#FDF3D6', path: hit?hit[4]:'M12 3v18', stat: hit?hit[5]:'',
+          close: ()=>this.setState({achOpen:null}),
+          download: this.act('Certificate download started', (hit?hit[0]:'Achievement')+' · PDF'),
+          linkedin: this.act('Shared to LinkedIn', hit?hit[0]:''),
+          twitter: this.act('Shared to X', hit?hit[0]:'')};
+      })(),
       profGridCols: (s.tab2||'Overview')==='Overview' ? 'minmax(0,1fr) 300px' : 'minmax(0,1fr)',
       profRailDisplay: (s.tab2||'Overview')==='Overview' ? 'flex' : 'none',
       profTabs: TABS.map(t=>{
         const on = (s.tab2||'Overview')===t;
-        return {label:t, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'600':'500',
+        return {label:t, bg:on?'#EEF6F5':'transparent', fg:on?'#0B7A6E':'#6B7C93', weight:on?'700':'500',
+          bd:on?'#0E9384':'transparent',
           pick:()=>this.setState({tab2:t})};
       }),
       sections: (()=>{
+        if ((s.tab2||'Overview')==='Achievements') return [];
         const secs = (SEC[s.tab2||'Overview']||[]).map(sec=>this.decorate(sec));
         if ((s.tab2||'Overview')!=='Overview') return secs;
         const t = TEACHERS.find(x=>x[1]===s.teacher) || TEACHERS[0];
