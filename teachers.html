@@ -3833,7 +3833,7 @@
             </sc-for>
           </div>
 
-          <div style="display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start">
+          <div style="display:grid;grid-template-columns:{{ profGridCols }};gap:16px;align-items:start">
           <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
             <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="3">
               <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
@@ -4062,7 +4062,7 @@
             </sc-for>
           </div>
 
-          <div style="position:sticky;top:0;display:flex;flex-direction:column;gap:14px;min-width:0">
+          <div style="position:sticky;top:0;display:{{ profRailDisplay }};flex-direction:column;gap:14px;min-width:0">
             <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
               <div style="display:flex;align-items:center;gap:9px;padding:13px 16px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
                 <span style="width:8px;height:8px;border-radius:50%;background:#22C55E"></span>
@@ -5677,6 +5677,8 @@ class Component extends DCLogic {
         prevFg: prev==='—' ? '#98A2B3' : '#475467',
         nextFg: next==='—' ? '#B42318' : '#0F2A47'})),
 
+      profGridCols: (s.tab2||'Overview')==='Overview' ? 'minmax(0,1fr) 300px' : 'minmax(0,1fr)',
+      profRailDisplay: (s.tab2||'Overview')==='Overview' ? 'flex' : 'none',
       profTabs: TABS.map(t=>{
         const on = (s.tab2||'Overview')===t;
         return {label:t, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'600':'500',
