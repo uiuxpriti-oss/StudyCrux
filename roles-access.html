@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:#0B7A6E;text-decoration:none}
+  a:hover{color:#08594F}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:#DDD9CF;border-radius:6px;border:3px solid transparent;background-clip:content-box}
+  @keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes popIn{from{opacity:0;transform:translate(-50%,-50%) scale(.97)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+</style>
+</helmet>
+
+<div style="display:flex;height:100vh;overflow:hidden;background:#FAF9F5;color:#0F2A47">
+
+  <aside style="width:262px;flex:none;background:#0B1F3E;display:flex;flex-direction:column;overflow:hidden">
+    <div style="padding:22px 20px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #1B3358">
+      <div style="width:40px;height:40px;flex:none;border-radius:11px;background:#fff;display:grid;place-items:center">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#0B1F3E" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6v16H4z" /><path d="M14 4h6v7h-6z" /><path d="M14 15.5l2 2 4-4" /></svg>
+      </div>
+      <div>
+        <div style="font-size:20px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.1">StudyCrux</div>
+        <div style="font-size:10.5px;font-weight:600;color:#7E96B8;letter-spacing:.16em;margin-top:3px">SUPER ADMIN</div>
+      </div>
+    </div>
+
+    <nav style="flex:1;overflow-y:auto;padding:16px 14px 10px;display:flex;flex-direction:column;gap:3px">
+      <a href="dashboard.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></svg>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="students.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9.5" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /></svg>
+        <span style="flex:1">Student</span>
+        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">2.8k</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+      </a>
+
+      <a href="teachers.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5 12 4l10 4.5-10 4.5z" /><path d="M6 11v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5" /></svg>
+        <span style="flex:1">Teachers</span>
+        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">2.8k</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+      </a>
+
+      <a href="coordinators.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2" /><path d="M3 20v-1.5A4.5 4.5 0 0 1 7.5 14h3A4.5 4.5 0 0 1 15 18.5V20" /><path d="M17 11h5M19.5 8.5v5" /></svg>
+        <span style="flex:1">Coordinator</span>
+        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">2.8k</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+      </a>
+
+      <a href="speakers.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="11" rx="3" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0" /><path d="M12 17.5V21" /></svg>
+        <span style="flex:1">Become a Speaker</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+      </a>
+
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#fff;font-size:13.5px;font-weight:600">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.4-3.1 8.2-7.5 9.5-4.4-1.3-7.5-5.1-7.5-9.5V6z" /><path d="M9.5 12l1.8 1.8 3.5-3.6" /></svg>
+        <span style="flex:1">Role &amp; Access</span>
+        <span style="transform:rotate(180deg);display:inline-flex"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg></span>
+      </div>
+      <div style="margin:2px 0 6px 24px;padding-left:14px;border-left:1px solid #1B3358;display:flex;flex-direction:column;gap:1px">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+          <div onClick="{{ n.go }}" style="position:relative;display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:8px;font-size:13px;font-weight:{{ n.weight }};cursor:pointer;background:{{ n.bg }};color:{{ n.fg }}" style-hover="color:#fff">
+            <span style="position:absolute;left:-15px;top:7px;bottom:7px;width:2.5px;border-radius:2px;background:{{ n.bar }}"></span>
+            <span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ n.label }}</span>
+            <span style="display:{{ n.badgeShow }};font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;background:{{ n.badgeBg }};color:{{ n.badgeFg }};flex:none">{{ n.badge }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </nav>
+
+    <div style="padding:14px">
+      <div style="display:flex;align-items:center;gap:11px;background:#14335C;border-radius:13px;padding:11px 12px">
+        <div style="width:36px;height:36px;flex:none;border-radius:50%;background:#2C5A8A;display:grid;place-items:center;color:#fff;font-size:12.5px;font-weight:700">SJ</div>
+        <div style="min-width:0">
+          <div style="font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Dr. Sarah Johnson</div>
+          <div style="font-size:11px;color:#8FA6C4;margin-top:1px">Super Admin · Global scope</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden">
+
+    <header style="flex:none;display:flex;align-items:flex-start;gap:20px;padding:24px 32px 16px;flex-wrap:wrap;background:#FAF9F5">
+      <div style="flex:1 1 300px;min-width:0">
+        <h1 style="margin:0;font-size:23px;font-weight:700;letter-spacing:-.02em;color:#0F2A47">{{ pageTitle }}</h1>
+        <p style="margin:6px 0 0;font-size:13.5px;color:#6B7C93;text-wrap:pretty">{{ pageSub }}</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding-top:4px;flex:1 1 520px;min-width:0;flex-wrap:wrap;justify-content:flex-end">
+          <div style="display:flex;align-items:center;gap:9px;width:min(300px,100%);height:38px;padding:0 15px;border:1px solid #E5E3DC;background:#fff;border-radius:999px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.2" stroke-linecap="round" style="flex:none"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" /></svg>
+            <input value="{{ q }}" onChange="{{ setQ }}" placeholder="Search roles, users, permissions..." style="border:0;outline:0;flex:1;min-width:0;font-size:13px;color:#0F2A47;background:transparent;font-family:inherit" />
+          </div>
+          <button onClick="{{ openExport }}" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Export</button>
+          <button onClick="{{ primaryCta }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>{{ primaryLabel }}
+          </button>
+      </div>
+    </header>
+
+    <div style="flex:1;overflow-y:auto;padding:4px 32px 40px">
+
+      <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px">
+            <sc-for list="{{ dashKpis }}" as="k" hint-placeholder-count="8">
+              <div onClick="{{ k.go }}" style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.06)">
+                <div style="min-width:0">
+                  <div style="font-size:12px;font-weight:500;color:#6B7C93;line-height:1.3">{{ k.label }}</div>
+                  <div style="font-size:26px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:6px">{{ k.n }}</div>
+                  <div style="font-size:11.5px;font-weight:600;color:{{ k.fg }};margin-top:4px">{{ k.note }}</div>
+                </div>
+                <div style="width:40px;height:40px;flex:none;border-radius:11px;background:{{ k.ibg }};display:grid;place-items:center">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{ k.ifg }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ k.path }}" /></svg>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:16px;align-items:start;margin-bottom:16px">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+              <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px">
+                <span style="font-size:14.5px;font-weight:700;color:#0F2A47">Users by role</span>
+                <span style="flex:1"></span>
+                <button onClick="{{ goRoles }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Manage roles →</button>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:13px">
+                <sc-for list="{{ dashDist }}" as="d" hint-placeholder-count="8">
+                  <div>
+                    <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:6px">
+                      <span style="font-size:13px;font-weight:600;color:#0F2A47;flex:1;min-width:0">{{ d.role }}</span>
+                      <span style="font-size:11.5px;color:#98A2B3">{{ d.scope }}</span>
+                      <span style="font-size:13px;font-weight:800;color:#0F2A47">{{ d.n }}</span>
+                    </div>
+                    <div style="height:8px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ d.pct }};border-radius:5px;background:{{ d.color }}"></div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+                <span style="font-size:14.5px;font-weight:700;color:#0F2A47">Access risks</span>
+                <span style="flex:1"></span>
+                <span style="font-size:12px;font-weight:700;color:#B42318">{{ dashRiskCount }} open</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:0">
+                <sc-for list="{{ dashRisks }}" as="r" hint-placeholder-count="5">
+                  <div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-top:1px solid #F5F3EE">
+                    <span style="width:7px;height:7px;flex:none;border-radius:50%;background:{{ r.dot }};margin-top:6px"></span>
+                    <div style="min-width:0;flex:1">
+                      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                        <span style="font-size:12.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ r.title }}</span>
+                        <span style="font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.sev }}</span>
+                      </div>
+                      <div style="font-size:11.5px;color:#98A2B3;margin-top:3px;text-wrap:pretty">{{ r.desc }}</div>
+                    </div>
+                    <button onClick="{{ r.fix }}" style="border:0;background:transparent;font-size:12px;font-weight:600;color:#0B7A6E;cursor:pointer;white-space:nowrap;flex:none;font-family:inherit;padding:0">Review →</button>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA">
+              <div style="flex:1;min-width:0">
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Recent permission changes</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Every grant, revoke and role change is written to the audit trail</div>
+              </div>
+              <button onClick="{{ goAudit }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Full audit log →</button>
+            </div>
+            <sc-for list="{{ dashRecent }}" as="a" hint-placeholder-count="5">
+              <div style="padding:13px 20px;border-bottom:1px solid #F7F5F0;background:{{ a.rowBg }}">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <span style="font-size:13px;font-weight:700;color:#0F2A47">{{ a.action }}</span>
+                  <span style="font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:#F1F3F5;color:#667085;white-space:nowrap">{{ a.actor }}</span>
+                  <span style="flex:1"></span>
+                  <span style="font-size:11.5px;color:#98A2B3;white-space:nowrap">{{ a.when }}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:8px;flex-wrap:wrap">
+                  <sc-if value="{{ a.hasFrom }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;background:#FDE8E8;color:#B42318;text-decoration:line-through;white-space:nowrap">{{ a.from }}</span>
+                  </sc-if>
+                  <span style="font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;background:#E7F7EE;color:#15803D;white-space:nowrap">{{ a.to }}</span>
+                  <span style="font-size:12.5px;color:#7A8699;text-wrap:pretty">· {{ a.reason }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isRoles }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;flex-wrap:wrap">
+            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px">
+              <sc-for list="{{ roleScopeTabs }}" as="t" hint-placeholder-count="4">
+                <button onClick="{{ t.pick }}" style="height:32px;padding:0 15px;border:0;border-radius:8px;font-size:13px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};font-family:inherit;white-space:nowrap">{{ t.label }}</button>
+              </sc-for>
+            </div>
+            <span style="flex:1"></span>
+            <span style="font-size:12.5px;color:#98A2B3">{{ roleCount }} roles shown</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+            <sc-for list="{{ roleCards }}" as="r" hint-placeholder-count="8">
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.05)">
+                <div style="display:flex;align-items:flex-start;gap:11px">
+                  <div style="width:40px;height:40px;flex:none;border-radius:11px;background:{{ r.ibg }};color:{{ r.ifg }};display:grid;place-items:center;font-size:13px;font-weight:800">{{ r.init }}</div>
+                  <span style="flex:1"></span>
+                  <span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.tierBg }};color:{{ r.tierFg }};white-space:nowrap">{{ r.tier }}</span>
+                </div>
+                <div style="font-size:15.5px;font-weight:800;color:#0F2A47;margin-top:15px">{{ r.name }}</div>
+                <div style="font-size:13px;color:#7A8699;line-height:1.55;margin-top:7px;flex:1;text-wrap:pretty">{{ r.desc }}</div>
+                <div style="display:flex;align-items:center;gap:14px;margin-top:14px;padding-top:13px;border-top:1px solid #F5F3EE">
+                  <div>
+                    <div style="font-size:10px;font-weight:700;letter-spacing:.06em;color:#98A2B3">USERS</div>
+                    <div style="font-size:16px;font-weight:800;color:#0F2A47;margin-top:3px">{{ r.users }}</div>
+                  </div>
+                  <div>
+                    <div style="font-size:10px;font-weight:700;letter-spacing:.06em;color:#98A2B3">PERMISSIONS</div>
+                    <div style="font-size:16px;font-weight:800;color:#0F2A47;margin-top:3px">{{ r.perms }}</div>
+                  </div>
+                  <span style="flex:1"></span>
+                  <button onClick="{{ r.open }}" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12.5px;font-weight:700;color:#0B7A6E;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#E2F1EE">Open</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isRoleDetail }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <button onClick="{{ backToRoles }}" style="display:flex;align-items:center;gap:7px;height:34px;padding:0 13px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;margin-bottom:16px" style-hover="background:#F6F5F0">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6" /></svg>All roles
+          </button>
+
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:22px 24px;margin-bottom:16px">
+            <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">
+              <div style="width:52px;height:52px;flex:none;border-radius:14px;background:{{ rdIbg }};color:{{ rdIfg }};display:grid;place-items:center;font-size:17px;font-weight:800">{{ rdInit }}</div>
+              <div style="min-width:0;flex:1 1 280px">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <span style="font-size:20px;font-weight:800;letter-spacing:-.02em;color:#0F2A47">{{ rdName }}</span>
+                  <span style="font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ rdTierBg }};color:{{ rdTierFg }}">{{ rdTier }}</span>
+                </div>
+                <div style="font-size:13px;color:#6B7C93;margin-top:6px;text-wrap:pretty">{{ rdDesc }}</div>
+              </div>
+              <div style="display:flex;gap:9px;flex:none">
+                <button onClick="{{ rdClone }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Duplicate</button>
+                <button onClick="{{ rdAssign }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Assign Users</button>
+                <button onClick="{{ rdToggleEdit }}" style="height:38px;padding:0 17px;border-radius:9px;border:0;background:{{ rdEditBg }};font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">{{ rdEditLabel }}</button>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-top:20px">
+              <sc-for list="{{ rdStats }}" as="st" hint-placeholder-count="4">
+                <div style="background:#FCFBF7;border:1px solid #F0EEE7;border-radius:11px;padding:13px 15px">
+                  <div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#7A8699">{{ st.label }}</div>
+                  <div style="font-size:20px;font-weight:800;color:{{ st.fg }};margin-top:6px">{{ st.v }}</div>
+                  <div style="font-size:11px;color:#98A2B3;margin-top:3px">{{ st.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden;margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA;flex-wrap:wrap">
+              <div style="flex:1;min-width:0">
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Permission matrix</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">{{ rdMatrixHint }}</div>
+              </div>
+              <sc-if value="{{ rdEditing }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ rdGrantAll }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12px;font-weight:700;color:#0B7A6E;cursor:pointer;font-family:inherit;white-space:nowrap">Grant all</button>
+                <button onClick="{{ rdRevokeAll }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #F0D2CF;background:#fff;font-size:12px;font-weight:600;color:#B42318;cursor:pointer;font-family:inherit;white-space:nowrap">Revoke all</button>
+              </sc-if>
+            </div>
+            <div style="overflow-x:auto">
+              <table style="width:100%;min-width:860px;border-collapse:collapse">
+                <thead>
+                  <tr style="background:#FCFBF7">
+                    <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">MODULE</th>
+                    <sc-for list="{{ rdActions }}" as="ac" hint-placeholder-count="6">
+                      <th style="padding:11px 10px;text-align:center;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">{{ ac.label }}</th>
+                    </sc-for>
+                    <th style="padding:11px 20px 11px 10px;text-align:right;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SCOPE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <sc-for list="{{ rdMatrix }}" as="row" hint-placeholder-count="8">
+                    <tr style="background:{{ row.bg }}">
+                      <td style="padding:12px 20px;border-bottom:1px solid #F5F3EE">
+                        <div style="font-size:13px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ row.module }}</div>
+                        <div style="font-size:10.5px;color:#98A2B3;margin-top:2px">{{ row.note }}</div>
+                      </td>
+                      <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="6">
+                        <td style="padding:12px 10px;border-bottom:1px solid #F5F3EE;text-align:center">
+                          <button onClick="{{ c.toggle }}" style="width:26px;height:26px;border-radius:7px;border:1.5px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};cursor:{{ c.cursor }};display:inline-grid;place-items:center;font-family:inherit;padding:0">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="opacity:{{ c.iconOpacity }}"><path d="{{ c.icon }}" /></svg>
+                          </button>
+                        </td>
+                      </sc-for>
+                      <td style="padding:12px 20px 12px 10px;border-bottom:1px solid #F5F3EE;text-align:right">
+                        <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ row.scopeBg }};color:{{ row.scopeFg }};white-space:nowrap">{{ row.scope }}</span>
+                      </td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+              <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Users with this role</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">{{ rdUserCount }} assigned</div>
+              </div>
+              <sc-for list="{{ rdUsers }}" as="u" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid #F7F5F0">
+                  <div style="width:34px;height:34px;flex:none;border-radius:50%;background:{{ u.avBg }};display:grid;place-items:center;color:#fff;font-size:11.5px;font-weight:700">{{ u.init }}</div>
+                  <div style="min-width:0;flex:1">
+                    <div style="font-size:13px;font-weight:600;color:#0F2A47">{{ u.name }}</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:2px">{{ u.meta }}</div>
+                  </div>
+                  <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ u.sBg }};color:{{ u.sFg }};white-space:nowrap;flex:none">{{ u.status }}</span>
+                  <button onClick="{{ u.revoke }}" style="height:30px;padding:0 11px;border-radius:8px;border:1px solid #F0D2CF;background:#fff;font-size:11.5px;font-weight:600;color:#B42318;cursor:pointer;font-family:inherit;flex:none;white-space:nowrap" style-hover="background:#FEF7F6">Remove</button>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+              <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Role change history</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Permission edits on this role</div>
+              </div>
+              <sc-for list="{{ rdHistory }}" as="h" hint-placeholder-count="5">
+                <div style="padding:12px 20px;border-bottom:1px solid #F7F5F0;background:{{ h.bg }}">
+                  <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+                    <span style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ h.change }}</span>
+                    <span style="flex:1"></span>
+                    <span style="font-size:11px;color:#98A2B3;white-space:nowrap">{{ h.when }}</span>
+                  </div>
+                  <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ h.by }} · {{ h.reason }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isUsers }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px">
+            <sc-for list="{{ userKpis }}" as="k" hint-placeholder-count="4">
+              <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:15px 17px">
+                <div style="font-size:12px;font-weight:500;color:#6B7C93">{{ k.label }}</div>
+                <div style="font-size:24px;font-weight:800;letter-spacing:-.03em;color:{{ k.fg }};margin-top:6px">{{ k.n }}</div>
+                <div style="font-size:11.5px;color:#98A2B3;margin-top:4px">{{ k.note }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+              <sc-for list="{{ userFilters }}" as="p" hint-placeholder-count="4">
+                <div style="min-width:0">
+                  <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ p.label }}</label>
+                  <select value="{{ p.value }}" onChange="{{ p.set }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+                    <sc-for list="{{ p.opts }}" as="o" hint-placeholder-count="5">
+                      <option>{{ o.o }}</option>
+                    </sc-for>
+                  </select>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+            <div style="overflow-x:auto">
+              <table style="width:100%;min-width:1080px;border-collapse:collapse">
+                <thead>
+                  <tr style="background:#FCFBF7">
+                    <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">USER</th>
+                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ROLE</th>
+                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">DEPARTMENT</th>
+                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SCOPE</th>
+                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">2FA</th>
+                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LAST LOGIN</th>
+                    <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th>
+                    <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <sc-for list="{{ userRows }}" as="u" hint-placeholder-count="8">
+                    <tr style-hover="background:#FCFBF7">
+                      <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE">
+                        <div style="display:flex;align-items:center;gap:11px">
+                          <div style="width:34px;height:34px;flex:none;border-radius:50%;background:{{ u.avBg }};display:grid;place-items:center;color:#fff;font-size:11.5px;font-weight:700">{{ u.init }}</div>
+                          <div style="min-width:0">
+                            <div style="font-size:13px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ u.name }}</div>
+                            <div style="font-size:10.5px;color:#98A2B3;margin-top:2px">{{ u.email }}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ u.rBg }};color:{{ u.rFg }};white-space:nowrap">{{ u.role }}</span></td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ u.dept }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ u.scope }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ u.tfaBg }};color:{{ u.tfaFg }};white-space:nowrap">{{ u.tfa }}</span></td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:{{ u.loginFg }};white-space:nowrap">{{ u.lastLogin }}</td>
+                      <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ u.sBg }};color:{{ u.sFg }};white-space:nowrap">{{ u.status }}</span></td>
+                      <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right;white-space:nowrap;position:relative">
+                        <button onClick="{{ u.menu }}" style="width:28px;height:28px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:inline-grid;place-items:center;cursor:pointer;color:#98A2B3;vertical-align:middle;font-family:inherit;padding:0" style-hover="background:#F6F5F0">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg>
+                        </button>
+                        <div style="display:{{ u.menuDisplay }};position:absolute;top:38px;right:20px;width:210px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;z-index:40;text-align:left">
+                          <sc-for list="{{ u.menuItems }}" as="mi" hint-placeholder-count="5">
+                            <div onClick="{{ mi.pick }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:{{ mi.fg }};cursor:pointer;border-top:{{ mi.bt }};margin-top:{{ mi.mt }};padding-top:{{ mi.pt }}" style-hover="background:{{ mi.hbg }}">{{ mi.label }}</div>
+                          </sc-for>
+                        </div>
+                      </td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+            <div style="display:{{ userEmpty }};padding:36px 20px;text-align:center">
+              <div style="font-size:13.5px;font-weight:700;color:#475467">No users match these filters</div>
+              <div style="font-size:12px;color:#98A2B3;margin-top:5px">Reset the filters or search a different name.</div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isRequests }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;flex-wrap:wrap">
+            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px">
+              <sc-for list="{{ reqTabs }}" as="t" hint-placeholder-count="4">
+                <button onClick="{{ t.pick }}" style="height:32px;padding:0 15px;border:0;border-radius:8px;font-size:13px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};font-family:inherit;white-space:nowrap">{{ t.label }}</button>
+              </sc-for>
+            </div>
+            <span style="flex:1"></span>
+            <span style="font-size:12.5px;color:#98A2B3">{{ reqCount }} requests</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:13px">
+            <sc-for list="{{ reqRows }}" as="r" hint-placeholder-count="5">
+              <div style="background:#fff;border:1px solid #ECEAE2;border-left:4px solid {{ r.accent }};border-radius:14px;padding:18px 20px">
+                <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap">
+                  <div style="width:38px;height:38px;flex:none;border-radius:50%;background:{{ r.avBg }};display:grid;place-items:center;color:#fff;font-size:12.5px;font-weight:700">{{ r.init }}</div>
+                  <div style="min-width:0;flex:1 1 300px">
+                    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                      <span style="font-size:14.5px;font-weight:800;color:#0F2A47">{{ r.who }}</span>
+                      <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.status }}</span>
+                      <span style="font-size:11px;color:#98A2B3;font-family:ui-monospace,monospace">{{ r.id }}</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:9px;margin-top:9px;flex-wrap:wrap">
+                      <span style="font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:999px;background:#F1F3F5;color:#667085;white-space:nowrap">{{ r.fromRole }}</span>
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                      <span style="font-size:12.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:#EEF6F5;color:#0B7A6E;white-space:nowrap">{{ r.toRole }}</span>
+                    </div>
+                    <div style="font-size:12.5px;color:#7A8699;margin-top:10px;line-height:1.55;text-wrap:pretty">{{ r.reason }}</div>
+                    <div style="font-size:11.5px;color:#98A2B3;margin-top:7px">Requested by {{ r.by }} · {{ r.when }}{{ r.durationNote }}</div>
+                  </div>
+                  <sc-if value="{{ r.actionable }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;gap:9px;flex:none">
+                      <button onClick="{{ r.reject }}" style="height:36px;padding:0 15px;border-radius:9px;border:1px solid #F0D2CF;background:#fff;font-size:12.5px;font-weight:600;color:#B42318;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#FEF7F6">Reject</button>
+                      <button onClick="{{ r.approve }}" style="height:36px;padding:0 16px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">Approve</button>
+                    </div>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:{{ reqEmpty }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:40px;text-align:center">
+            <div style="font-size:13.5px;font-weight:700;color:#475467">Nothing in this queue</div>
+            <div style="font-size:12px;color:#98A2B3;margin-top:5px">Switch tabs to see approved, rejected or expired requests.</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isPolicy }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <sc-for list="{{ policyGroups }}" as="g" hint-placeholder-count="4">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+              <div style="font-size:15.5px;font-weight:800;color:#0F2A47">{{ g.title }}</div>
+              <div style="font-size:12.5px;color:#6B7C93;margin-top:4px;margin-bottom:18px;text-wrap:pretty">{{ g.sub }}</div>
+
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <sc-for list="{{ g.toggles }}" as="t" hint-placeholder-count="4">
+                  <div onClick="{{ t.toggle }}" style="display:flex;align-items:center;gap:13px;padding:14px 16px;border:1px solid #F0EEE7;border-radius:11px;background:#FCFBF7;cursor:pointer" style-hover="border-color:#BFE3DC">
+                    <span style="width:38px;height:21px;flex:none;border-radius:999px;background:{{ t.trackBg }};display:inline-flex;align-items:center;padding:2px;transition:background .14s">
+                      <span style="width:17px;height:17px;border-radius:50%;background:#fff;transform:{{ t.knob }};transition:transform .14s"></span>
+                    </span>
+                    <div style="min-width:0;flex:1">
+                      <div style="font-size:13.5px;font-weight:700;color:#0F2A47">{{ t.label }}</div>
+                      <div style="font-size:12px;color:#98A2B3;margin-top:3px;text-wrap:pretty">{{ t.desc }}</div>
+                    </div>
+                    <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ t.sBg }};color:{{ t.sFg }};white-space:nowrap;flex:none">{{ t.state }}</span>
+                  </div>
+                </sc-for>
+              </div>
+
+              <sc-if value="{{ g.hasFields }}" hint-placeholder-val="{{ false }}">
+                <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px">
+                  <sc-for list="{{ g.fields }}" as="fd" hint-placeholder-count="3">
+                    <div style="min-width:0">
+                      <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">{{ fd.label }}</label>
+                      <sc-if value="{{ fd.isSelect }}" hint-placeholder-val="{{ true }}">
+                        <select value="{{ fd.value }}" onChange="{{ fd.set }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+                          <sc-for list="{{ fd.opts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+                        </select>
+                      </sc-if>
+                      <sc-if value="{{ fd.isText }}" hint-placeholder-val="{{ false }}">
+                        <input value="{{ fd.value }}" onChange="{{ fd.set }}" placeholder="{{ fd.placeholder }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit" />
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+
+              <div style="display:flex;gap:9px;margin-top:18px;padding-top:16px;border-top:1px solid #F0EEE7">
+                <span style="flex:1"></span>
+                <button onClick="{{ g.save }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit" style-hover="background:#0B7A6E">Save {{ g.title }}</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAudit }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+              <sc-for list="{{ auditFilters }}" as="p" hint-placeholder-count="4">
+                <div style="min-width:0">
+                  <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ p.label }}</label>
+                  <select value="{{ p.value }}" onChange="{{ p.set }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+                    <sc-for list="{{ p.opts }}" as="o" hint-placeholder-count="5"><option>{{ o.o }}</option></sc-for>
+                  </select>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+            <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+              <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Audit trail</div>
+              <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Immutable · {{ auditCount }} entries in this view</div>
+            </div>
+            <sc-for list="{{ auditRows }}" as="a" hint-placeholder-count="10">
+              <div style="padding:14px 20px;border-bottom:1px solid #F5F3EE;background:{{ a.rowBg }}">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <span style="width:8px;height:8px;flex:none;border-radius:50%;background:{{ a.dot }}"></span>
+                  <span style="font-size:13.5px;font-weight:700;color:#0F2A47">{{ a.action }}</span>
+                  <span style="font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:{{ a.catBg }};color:{{ a.catFg }};white-space:nowrap">{{ a.category }}</span>
+                  <span style="flex:1"></span>
+                  <span style="font-size:11.5px;color:#98A2B3;white-space:nowrap">{{ a.when }}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:9px;flex-wrap:wrap;padding-left:18px">
+                  <sc-if value="{{ a.hasFrom }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;background:#FDE8E8;color:#B42318;text-decoration:line-through;white-space:nowrap">{{ a.from }}</span>
+                  </sc-if>
+                  <span style="font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;background:#E7F7EE;color:#15803D;white-space:nowrap">{{ a.to }}</span>
+                  <span style="font-size:12.5px;color:#7A8699;text-wrap:pretty">· {{ a.reason }}</span>
+                </div>
+                <div style="font-size:11.5px;color:#98A2B3;margin-top:7px;padding-left:18px">{{ a.actor }} · {{ a.entity }} · {{ a.ip }}</div>
+              </div>
+            </sc-for>
+            <div style="display:{{ auditEmpty }};padding:36px 20px;text-align:center">
+              <div style="font-size:13.5px;font-weight:700;color:#475467">No audit entries match these filters</div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </main>
+
+  <sc-if value="{{ overlay }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:fixed;inset:0;background:rgba(11,31,62,.42);z-index:60"></div>
+  </sc-if>
+
+  <sc-if value="{{ mCreateRole }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:620px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">Create role</h3>
+          <p style="margin:5px 0 0;font-size:13px;color:#6B7C93">Start from a template or build permissions from scratch.</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Role name <span style="color:#B42318">*</span></label>
+        <input value="{{ crName }}" onChange="{{ setCrName }}" placeholder="e.g. Regional Academic Head" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit;margin-bottom:14px" />
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Description</label>
+        <input value="{{ crDesc }}" onChange="{{ setCrDesc }}" placeholder="What this role is responsible for" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit;margin-bottom:16px" />
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Copy permissions from</label>
+            <select value="{{ crTemplate }}" onChange="{{ setCrTemplate }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+              <sc-for list="{{ crTemplateOpts }}" as="o" hint-placeholder-count="5"><option>{{ o.o }}</option></sc-for>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Access tier</label>
+            <select value="{{ crTier }}" onChange="{{ setCrTier }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+              <sc-for list="{{ crTierOpts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+            </select>
+          </div>
+        </div>
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:8px">Modules this role can reach</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ crModuleChips }}" as="c" hint-placeholder-count="7">
+            <button onClick="{{ c.pick }}" style="height:34px;padding:0 14px;border-radius:999px;border:1.5px solid {{ c.border }};background:{{ c.bg }};font-size:12.5px;font-weight:{{ c.weight }};color:{{ c.fg }};cursor:pointer;font-family:inherit;white-space:nowrap">{{ c.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ crSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">Create Role</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mInvite }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">Invite user</h3>
+          <p style="margin:5px 0 0;font-size:13px;color:#6B7C93">They receive an email invitation and set their own password.</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Full name <span style="color:#B42318">*</span></label>
+            <input value="{{ ivName }}" onChange="{{ setIvName }}" placeholder="e.g. Rohan Bhatia" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit" />
+          </div>
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Work email <span style="color:#B42318">*</span></label>
+            <input value="{{ ivEmail }}" onChange="{{ setIvEmail }}" placeholder="name@studycrux.io" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit" />
+          </div>
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Role</label>
+            <select value="{{ ivRole }}" onChange="{{ setIvRole }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+              <sc-for list="{{ ivRoleOpts }}" as="o" hint-placeholder-count="8"><option>{{ o.o }}</option></sc-for>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Data scope</label>
+            <select value="{{ ivScope }}" onChange="{{ setIvScope }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+              <sc-for list="{{ ivScopeOpts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+            </select>
+          </div>
+        </div>
+        <div onClick="{{ toggleIvTfa }}" style="display:flex;align-items:center;gap:12px;padding:13px 15px;border:1px solid #F0EEE7;border-radius:10px;background:#FCFBF7;cursor:pointer;margin-bottom:14px">
+          <span style="width:36px;height:20px;flex:none;border-radius:999px;background:{{ ivTfaBg }};display:inline-flex;align-items:center;padding:2px">
+            <span style="width:16px;height:16px;border-radius:50%;background:#fff;transform:{{ ivTfaKnob }};transition:transform .14s"></span>
+          </span>
+          <div style="min-width:0;flex:1">
+            <div style="font-size:13px;font-weight:600;color:#0F2A47">Require two-factor authentication</div>
+            <div style="font-size:11.5px;color:#98A2B3;margin-top:2px">Enforced at first login. Mandatory for admin tiers.</div>
+          </div>
+        </div>
+        <div style="padding:12px 14px;border-radius:10px;background:#EEF6F5;font-size:12.5px;font-weight:600;color:#0B7A6E;text-wrap:pretty">{{ ivPreview }}</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ ivSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">Send Invitation</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mUserFlow }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:640px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:13px">
+        <div style="width:40px;height:40px;flex:none;border-radius:11px;background:{{ ufIbg }};color:{{ ufIfg }};display:grid;place-items:center;font-size:13px;font-weight:800">{{ ufInit }}</div>
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">{{ ufTitle }}</h3>
+          <p style="margin:5px 0 0;font-size:13px;color:#6B7C93;text-wrap:pretty">{{ ufSub }}</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+
+      <div style="padding:20px 24px">
+        <div style="display:{{ ufInfoShow }};padding:13px 15px;border-radius:10px;background:{{ ufInfoBg }};font-size:12.5px;color:{{ ufInfoFg }};line-height:1.55;text-wrap:pretty;margin-bottom:18px">{{ ufInfo }}</div>
+
+        <div style="display:{{ ufFieldsShow }};grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:18px">
+          <sc-for list="{{ ufFields }}" as="fd" hint-placeholder-count="4">
+            <div style="min-width:0;grid-column:{{ fd.span }}">
+              <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">{{ fd.label }}</label>
+              <sc-if value="{{ fd.isSelect }}" hint-placeholder-val="{{ true }}">
+                <select value="{{ fd.value }}" onChange="{{ fd.set }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+                  <sc-for list="{{ fd.opts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+                </select>
+              </sc-if>
+              <sc-if value="{{ fd.isDate }}" hint-placeholder-val="{{ false }}">
+                <input type="date" value="{{ fd.value }}" onChange="{{ fd.set }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit" />
+              </sc-if>
+              <sc-if value="{{ fd.isText }}" hint-placeholder-val="{{ false }}">
+                <input value="{{ fd.value }}" onChange="{{ fd.set }}" placeholder="{{ fd.placeholder }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit" />
+              </sc-if>
+              <div style="display:{{ fd.hintShow }};font-size:11.5px;color:#98A2B3;margin-top:6px;text-wrap:pretty">{{ fd.hint }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:{{ ufSessionsShow }};margin-bottom:18px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <label style="font-size:12px;font-weight:600;color:#344054">Active sessions</label>
+            <span style="flex:1"></span>
+            <button onClick="{{ ufSelectAllSessions }}" style="border:0;background:transparent;font-size:12px;font-weight:600;color:#0B7A6E;cursor:pointer;font-family:inherit;padding:0">{{ ufSelectAllLabel }}</button>
+          </div>
+          <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+            <sc-for list="{{ ufSessions }}" as="sx" hint-placeholder-count="3">
+              <div onClick="{{ sx.toggle }}" style="display:flex;align-items:center;gap:12px;padding:12px 15px;border-bottom:1px solid #F7F5F0;cursor:pointer;background:{{ sx.rowBg }}" style-hover="background:#FCFBF7">
+                <span style="width:20px;height:20px;flex:none;border-radius:6px;border:1.5px solid {{ sx.boxBorder }};background:{{ sx.boxBg }};display:grid;place-items:center;color:#fff">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="opacity:{{ sx.tickOpacity }}"><path d="M20 6 9 17l-5-5" /></svg>
+                </span>
+                <div style="min-width:0;flex:1">
+                  <div style="font-size:13px;font-weight:600;color:#0F2A47">{{ sx.device }}</div>
+                  <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ sx.meta }}</div>
+                </div>
+                <span style="display:{{ sx.currentShow }};font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:#E7F7EE;color:#15803D;white-space:nowrap;flex:none">Current</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:{{ ufTogglesShow }};flex-direction:column;gap:10px;margin-bottom:18px">
+          <sc-for list="{{ ufToggles }}" as="t" hint-placeholder-count="2">
+            <div onClick="{{ t.toggle }}" style="display:flex;align-items:center;gap:12px;padding:13px 15px;border:1px solid #F0EEE7;border-radius:10px;background:#FCFBF7;cursor:pointer" style-hover="border-color:#BFE3DC">
+              <span style="width:36px;height:20px;flex:none;border-radius:999px;background:{{ t.trackBg }};display:inline-flex;align-items:center;padding:2px">
+                <span style="width:16px;height:16px;border-radius:50%;background:#fff;transform:{{ t.knob }};transition:transform .14s"></span>
+              </span>
+              <div style="min-width:0;flex:1">
+                <div style="font-size:13px;font-weight:600;color:#0F2A47">{{ t.label }}</div>
+                <div style="font-size:11.5px;color:#98A2B3;margin-top:2px;text-wrap:pretty">{{ t.desc }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:{{ ufChannelsShow }};margin-bottom:18px">
+          <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:8px">Notify via</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <sc-for list="{{ ufChannels }}" as="c" hint-placeholder-count="3">
+              <button onClick="{{ c.pick }}" style="height:34px;padding:0 14px;border-radius:999px;border:1.5px solid {{ c.border }};background:{{ c.bg }};font-size:12.5px;font-weight:{{ c.weight }};color:{{ c.fg }};cursor:pointer;font-family:inherit;white-space:nowrap">{{ c.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Reason <span style="color:#B42318">*</span></label>
+        <input value="{{ ufReason }}" onChange="{{ setUfReason }}" placeholder="Recorded in the audit trail" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit;margin-bottom:16px" />
+
+        <div style="padding:12px 14px;border-radius:10px;background:#EEF6F5;font-size:12.5px;font-weight:600;color:#0B7A6E;text-wrap:pretty">{{ ufSummary }}</div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ ufSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:{{ ufBtnBg }};font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">{{ ufBtnLabel }}</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mConfirm }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:520px;max-width:94vw;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7">
+        <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">{{ cfTitle }}</h3>
+        <p style="margin:5px 0 0;font-size:13px;color:#6B7C93;text-wrap:pretty">{{ cfSub }}</p>
+      </div>
+      <div style="padding:20px 24px">
+        <div style="padding:13px 15px;border-radius:10px;background:{{ cfInfoBg }};font-size:12.5px;color:{{ cfInfoFg }};line-height:1.55;text-wrap:pretty;margin-bottom:16px">{{ cfInfo }}</div>
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Reason <span style="color:#B42318">*</span></label>
+        <input value="{{ cfReason }}" onChange="{{ setCfReason }}" placeholder="Recorded in the audit trail" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit" />
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ cfSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:{{ cfBtnBg }};font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">{{ cfBtnLabel }}</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:80;display:flex;align-items:center;gap:12px;padding:14px 20px;border-radius:12px;background:#0B1F3E;box-shadow:0 18px 44px rgba(11,31,62,.3);animation:toastIn .18s ease;max-width:min(520px,92vw)">
+      <span style="width:22px;height:22px;flex:none;border-radius:50%;background:{{ toastIconBg }};display:grid;place-items:center;color:#fff;font-size:12px;font-weight:800">{{ toastIcon }}</span>
+      <div style="min-width:0">
+        <div style="color:#fff;font-size:13.5px;font-weight:600;text-wrap:pretty">{{ toastMsg }}</div>
+        <div style="font-size:11.5px;color:#9FB2CC;margin-top:2px;text-wrap:pretty">{{ toastSub }}</div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+const BDG = {
+  green:['#E7F7EE','#15803D'], amber:['#FEF3E2','#B45309'], red:['#FDE8E8','#B42318'],
+  grey:['#F1F3F5','#667085'], blue:['#E9F1FD','#1D4ED8'], violet:['#F0EAFD','#6D28D9'],
+  teal:['#E6F4F1','#0B7A6E'], orange:['#FDF0E7','#C2410C']
+};
+const AV = ['#0E9384','#1D4ED8','#6D28D9','#C2410C','#B45309','#15803D','#B42318','#0B7A6E'];
+
+const MODULES = [
+  ['Student Management','Records, enrolment, wallet','all'],
+  ['Teacher Management','Faculty, onboarding, payouts','all'],
+  ['Coordinator Management','Allocation, attendance','all'],
+  ['Speaker Management','Webinars, workshops, payouts','all'],
+  ['Course & Batch Allocation','Courses, batches, capacity','all'],
+  ['Finance & Payouts','Fees, payouts, TDS, invoices','finance'],
+  ['Reports & Analytics','Exports, scheduled reports','all'],
+  ['Roles & Access','Roles, users, policies','admin']
+];
+const ACTIONS = ['View','Create','Edit','Delete','Approve','Export'];
+
+// name, tier, tierColor, desc, users, scope, iconColor
+const ROLES = [
+  ['Super Admin','Unrestricted','red','Full control across every module, including roles, policies and irreversible actions.',3,'All data',0],
+  ['Academic Head','Elevated','violet','Owns academic delivery — approves allocation, performance plans and escalations.',6,'All academic data',1],
+  ['Content Admin','Elevated','violet','Manages recordings, resources, quizzes and the content library across modules.',8,'Content only',2],
+  ['Coordinator','Standard','blue','Day-to-day batch operations, attendance, student support and scheduling.',42,'Assigned batches',3],
+  ['Reviewer','Limited','grey','Reviews applications, documents and feedback. Read-only outside review queues.',11,'Review queues',4],
+  ['Finance','Elevated','violet','Payout cycles, TDS, invoices and settlement — no academic write access.',5,'Financial data',5],
+  ['Support','Standard','blue','Handles tickets, doubts and student/speaker communication.',18,'Support queues',6],
+  ['Speaker','External','orange','External speaker portal access — own events, materials and payouts only.',128,'Own records',7]
+];
+
+// Permission profile per role: module -> allowed action indexes
+const PROFILE = {
+  'Super Admin': {all:[0,1,2,3,4,5]},
+  'Academic Head': {
+    'Student Management':[0,1,2,4,5],'Teacher Management':[0,1,2,4,5],'Coordinator Management':[0,1,2,4,5],
+    'Speaker Management':[0,1,2,4,5],'Course & Batch Allocation':[0,1,2,4,5],'Finance & Payouts':[0,5],
+    'Reports & Analytics':[0,1,5],'Roles & Access':[0]},
+  'Content Admin': {
+    'Student Management':[0],'Teacher Management':[0],'Coordinator Management':[0],
+    'Speaker Management':[0,1,2,5],'Course & Batch Allocation':[0,1,2],'Finance & Payouts':[],
+    'Reports & Analytics':[0,5],'Roles & Access':[]},
+  'Coordinator': {
+    'Student Management':[0,1,2,5],'Teacher Management':[0],'Coordinator Management':[0,2],
+    'Speaker Management':[0],'Course & Batch Allocation':[0,2],'Finance & Payouts':[],
+    'Reports & Analytics':[0,5],'Roles & Access':[]},
+  'Reviewer': {
+    'Student Management':[0],'Teacher Management':[0,4],'Coordinator Management':[0,4],
+    'Speaker Management':[0,4],'Course & Batch Allocation':[0],'Finance & Payouts':[],
+    'Reports & Analytics':[0],'Roles & Access':[]},
+  'Finance': {
+    'Student Management':[0],'Teacher Management':[0],'Coordinator Management':[0],
+    'Speaker Management':[0],'Course & Batch Allocation':[0],'Finance & Payouts':[0,1,2,4,5],
+    'Reports & Analytics':[0,1,5],'Roles & Access':[]},
+  'Support': {
+    'Student Management':[0,2],'Teacher Management':[0],'Coordinator Management':[0],
+    'Speaker Management':[0,2],'Course & Batch Allocation':[0],'Finance & Payouts':[],
+    'Reports & Analytics':[0],'Roles & Access':[]},
+  'Speaker': {
+    'Student Management':[],'Teacher Management':[],'Coordinator Management':[],
+    'Speaker Management':[0,2],'Course & Batch Allocation':[],'Finance & Payouts':[0],
+    'Reports & Analytics':[],'Roles & Access':[]}
+};
+
+// name, email, role, dept, scope, tfa, lastLogin, status, statusColor
+const USERS = [
+  ['Admin User','admin@studycrux.io','Super Admin','Platform','All data','Enabled','2 min ago','Active','green'],
+  ['Vikram Sethi','vikram.sethi@studycrux.io','Academic Head','Academic Operations','All academic data','Enabled','Today, 09:12','Active','green'],
+  ['Priya Bose','priya.bose@studycrux.io','Reviewer','Human Resources','Review queues','Enabled','Today, 08:40','Active','green'],
+  ['Rahul Kumar','rahul.kumar@studycrux.io','Coordinator','Academic Operations','Assigned batches','Enabled','Yesterday, 19:02','Active','green'],
+  ['Shalini Nair','shalini.nair@studycrux.io','Coordinator','Academic Operations','Assigned batches','Disabled','Yesterday, 11:20','Active','green'],
+  ['Anita Rao','anita.rao@studycrux.io','Finance','Finance','Financial data','Enabled','Yesterday, 16:44','Active','green'],
+  ['Meera Krishnan','meera.k@studycrux.io','Content Admin','Content','Content only','Enabled','2 days ago','Active','green'],
+  ['Karan Bhatt','karan.bhatt@studycrux.io','Support','Student Support','Support queues','Disabled','9 days ago','Inactive','grey'],
+  ['Ritika Sen','ritika.sen@studycrux.io','Coordinator','Academic Operations','Assigned batches','Enabled','41 days ago','Suspended','red'],
+  ['Ananya Deshmukh','ananya.d@partner.io','Speaker','External','Own records','Enabled','Today, 09:40','Active','green'],
+  ['Arvind Menon','arvind.menon@partner.io','Speaker','External','Own records','Disabled','5 days ago','Active','green'],
+  ['Deepak Iyer','deepak.iyer@studycrux.io','Academic Head','Academic Operations','All academic data','Enabled','3 days ago','Active','green']
+];
+
+// id, who, fromRole, toRole, reason, by, when, duration, status, statusColor
+const REQUESTS = [
+  ['REQ-4021','Rahul Kumar','Coordinator','Academic Head','Covering for Vikram Sethi during his two-week leave — needs allocation approval rights.','Vikram Sethi','Today, 10:04',' · temporary, 14 days','Pending','amber'],
+  ['REQ-4018','Karan Bhatt','Support','Content Admin','Taking over recorded-course resource uploads for the IC-11 track.','Meera Krishnan','Today, 08:22','','Pending','amber'],
+  ['REQ-4015','Anita Rao','Finance','Finance + Export','Needs bulk export on Speaker Payouts for the quarterly audit.','Anita Rao','Yesterday, 17:30',' · temporary, 7 days','Pending','amber'],
+  ['REQ-4009','Shalini Nair','Coordinator','Reviewer','Wants to review coordinator applications alongside her batches.','Priya Bose','2 days ago','','Rejected','red'],
+  ['REQ-4004','Meera Krishnan','Content Admin','Academic Head','Interim academic ownership while the role was vacant.','Admin User','8 days ago',' · expired','Expired','grey'],
+  ['REQ-3998','Deepak Iyer','Coordinator','Academic Head','Promoted to Academic Head after the July review cycle.','Admin User','12 days ago','','Approved','green']
+];
+
+// action, category, categoryColor, from, to, reason, actor, entity, ip, when
+const AUDIT = [
+  ['Permission granted','Role','violet','','Finance → Export on Speaker Payouts','Quarterly audit requirement','Admin User','Role: Finance','49.36.184.22','Today, 11:42'],
+  ['Role changed','User','blue','Coordinator','Academic Head','Promoted after July review cycle','Admin User','User: Deepak Iyer','49.36.184.22','Today, 10:18'],
+  ['User suspended','User','red','Active','Suspended','No login for 41 days — dormant account policy','System','User: Ritika Sen','system','Today, 06:00'],
+  ['2FA enforced','Policy','amber','Optional','Mandatory for admin tiers','Security review recommendation','Admin User','Policy: Authentication','49.36.184.22','Yesterday, 18:05'],
+  ['Permission revoked','Role','violet','Support → Edit on Student Management','Support → View only','Scope reduction after incident review','Vikram Sethi','Role: Support','49.36.190.7','Yesterday, 15:22'],
+  ['Access request approved','Request','green','Pending','Approved','Interim cover during leave','Vikram Sethi','REQ-3998','49.36.190.7','Yesterday, 12:40'],
+  ['User invited','User','blue','','Meera Krishnan · Content Admin','Content team expansion','Priya Bose','User: Meera Krishnan','49.36.177.3','2 days ago'],
+  ['Session timeout changed','Policy','amber','60 minutes','30 minutes','Tightened after security audit','Admin User','Policy: Sessions','49.36.184.22','3 days ago'],
+  ['Role created','Role','violet','','Reviewer','Separating review duties from coordination','Admin User','Role: Reviewer','49.36.184.22','6 days ago'],
+  ['Device limit changed','Policy','amber','5 devices','3 devices','Reduce credential sharing','Admin User','Policy: Devices','49.36.184.22','9 days ago'],
+  ['Access request rejected','Request','red','Pending','Rejected','Conflicts with separation of duties','Priya Bose','REQ-4009','49.36.177.3','2 days ago'],
+  ['IP allowlist updated','Policy','amber','3 ranges','4 ranges','Added the Bengaluru office range','Admin User','Policy: Network','49.36.184.22','11 days ago']
+];
+
+const initials = (n) => n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+const avColor = (n) => AV[Math.abs(n.split('').reduce((a,c)=>a+c.charCodeAt(0),0)) % AV.length];
+
+class Component extends DCLogic {
+  state = { route:'dash', q:'', roleScope:'All', reqTab:'Pending', perms:{}, policy:{} };
+
+  fire = (msg, sub, ok) => {
+    clearTimeout(this._t);
+    this.setState({toast:true, toastMsg:msg, toastSub:sub||'',
+      toastIcon: ok===false ? '!' : '✓', toastIconBg: ok===false ? '#E5484D' : '#0E9384'});
+    this._t = setTimeout(()=>this.setState({toast:false}), 3200);
+  };
+  act = (msg, sub, ok) => () => this.fire(msg, sub, ok);
+  nav = (r) => this.setState({route:r, roleOpen:null, userMenu:null});
+
+  permKey = (role, mod, ai) => role+'|'+mod+'|'+ai;
+  hasPerm = (role, mod, ai) => {
+    const k = this.permKey(role, mod, ai);
+    const ov = this.state.perms[k];
+    if (ov !== undefined) return ov;
+    const p = PROFILE[role];
+    if (!p) return false;
+    const list = p.all || p[mod] || [];
+    return list.includes(ai);
+  };
+
+  askConfirm = (cfg) => this.setState({modal:'confirm', cf:cfg, cfReason:''});
+
+  openFlow = (kind, u) => {
+    const base = {modal:'userFlow', ufKind:kind, ufUser:u, ufReason:'', ufChannelSel:['Email']};
+    const seed = {
+      role: {ufRole:u.role, ufScope:u.scope, ufEffective:'Immediately', ufReassign:true, ufNotify:true},
+      scope: {ufScopeType:u.scope, ufScopeDetail:'', ufOverride:false, ufNotify:true},
+      password: {ufMethod:'Email a reset link', ufExpiry:'60 minutes', ufForceChange:true, ufEndSessions:true},
+      tfa: u.tfa==='Enabled'
+        ? {ufTfaAction:'Reset enrolment', ufGrace:'Next sign-in', ufEndSessions:true, ufNotify:true}
+        : {ufTfaAction:'Enforce enrolment', ufGrace:'Next sign-in', ufEndSessions:false, ufNotify:true},
+      sessions: {ufSessionSel:['s1','s2','s3'], ufBlockDevice:false, ufNotify:true},
+      suspend: u.status==='Suspended'
+        ? {ufDuration:'Restore immediately', ufRestoreRole:true, ufNotify:true}
+        : {ufDuration:'Until manually reactivated', ufReassign:true, ufNotify:true, ufRevokeDevices:true}
+    }[kind] || {};
+    this.setState({...base, ...seed});
+  };
+
+  renderVals() {
+    const s = this.state;
+    const q = (s.q||'').trim().toLowerCase();
+    const route = s.route;
+
+    const titles = {
+      dash:['Access Control','Roles, users, permissions and policy across every StudyCrux module.'],
+      roles:['Roles','Every role, what it can reach and how many people hold it.'],
+      roleDetail:[(s.roleOpen||'Role')+' — permissions',"Toggle a cell to grant or revoke that action. Changes are audited."],
+      users:['Users','Everyone with platform access, their role, scope and login state.'],
+      requests:['Access Requests','Elevation and scope requests awaiting a decision.'],
+      policy:['Login & Security Policy','Authentication, session, device and network rules applied platform-wide.'],
+      audit:['Audit Log','Immutable record of every permission, role and policy change.']
+    };
+    const [pageTitle, pageSub] = titles[route] || titles.dash;
+
+    const primary = {
+      dash:['Invite User', ()=>this.setState({modal:'invite', ivName:'', ivEmail:'', ivRole:'Coordinator', ivScope:'Assigned batches', ivTfa:true})],
+      roles:['Create Role', ()=>this.setState({modal:'createRole', crName:'', crDesc:'', crTemplate:'Nothing — start empty', crTier:'Standard', crModules:[]})],
+      roleDetail:['Create Role', ()=>this.setState({modal:'createRole', crName:'', crDesc:'', crTemplate:s.roleOpen, crTier:'Standard', crModules:[]})],
+      users:['Invite User', ()=>this.setState({modal:'invite', ivName:'', ivEmail:'', ivRole:'Coordinator', ivScope:'Assigned batches', ivTfa:true})],
+      requests:['Invite User', ()=>this.setState({modal:'invite', ivName:'', ivEmail:'', ivRole:'Coordinator', ivScope:'Assigned batches', ivTfa:true})],
+      policy:['Invite User', ()=>this.setState({modal:'invite', ivName:'', ivEmail:'', ivRole:'Coordinator', ivScope:'Assigned batches', ivTfa:true})],
+      audit:['Invite User', ()=>this.setState({modal:'invite', ivName:'', ivEmail:'', ivRole:'Coordinator', ivScope:'Assigned batches', ivTfa:true})]
+    }[route] || ['Invite User', ()=>this.setState({modal:'invite'})];
+
+    const pendingCount = REQUESTS.filter(r=>r[8]==='Pending').length;
+    const navSpec = [
+      ['dash','Overview','M3 12h6v9H3zM9 3h6v18H9zM15 8h6v13h-6z',''],
+      ['roles','Roles','M12 2 3 6v6c0 5 3.8 9.3 9 10 5.2-.7 9-5 9-10V6z',String(ROLES.length)],
+      ['users','Users','M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.9',String(USERS.length)],
+      ['requests','Access Requests','M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11', pendingCount ? String(pendingCount) : ''],
+      ['policy','Login & Security','M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5zM9.5 12l1.8 1.8 3.6-3.8',''],
+      ['audit','Audit Log','M9 4h6v3H9zM7 5H5v15h14V5h-2M9 12h6M9 16h4','']
+    ];
+    const activeNav = route==='roleDetail' ? 'roles' : route;
+
+    // ---- Role detail ----
+    const rd = ROLES.find(r=>r[0]===s.roleOpen) || ROLES[0];
+    const rdEditing = !!s.rdEdit;
+    const rdGrantedCount = MODULES.reduce((n,[mod])=>n + ACTIONS.filter((_,ai)=>this.hasPerm(rd[0], mod, ai)).length, 0);
+    const rdModuleCount = MODULES.filter(([mod])=>ACTIONS.some((_,ai)=>this.hasPerm(rd[0], mod, ai))).length;
+    const rdUsersList = USERS.filter(u=>u[2]===rd[0]);
+
+    const roleUsers = (name) => USERS.filter(u=>u[2]===name).length;
+
+    // ---- Users filtering ----
+    const uRole = s.uRole||'All roles', uDept = s.uDept||'All departments';
+    const uStatus = s.uStatus||'All', uTfa = s.uTfa||'All';
+    const userList = USERS.filter(([name,email,role,dept,,tfa,,status]) =>
+      (uRole==='All roles' || role===uRole) &&
+      (uDept==='All departments' || dept===uDept) &&
+      (uStatus==='All' || status===uStatus) &&
+      (uTfa==='All' || tfa===uTfa) &&
+      (!q || (name+' '+email+' '+role).toLowerCase().includes(q)));
+
+    // ---- Requests ----
+    const reqList = REQUESTS.filter(r=>r[8]===(s.reqTab||'Pending'));
+
+    // ---- Audit ----
+    const aCat = s.aCat||'All categories', aActor = s.aActor||'Anyone', aWhen = s.aWhen||'All time';
+    const auditList = AUDIT.filter(([action,cat,,,,,actor]) =>
+      (aCat==='All categories' || cat===aCat) &&
+      (aActor==='Anyone' || actor===aActor) &&
+      (!q || (action+' '+cat+' '+actor).toLowerCase().includes(q)));
+
+    // ---- Policy ----
+    const pol = (k, def) => s.policy[k] !== undefined ? s.policy[k] : def;
+    const togglePol = (k, def) => ()=>this.setState(x=>({policy:{...x.policy, [k]: !(x.policy[k] !== undefined ? x.policy[k] : def)}}));
+    const mkToggle = (k, label, desc, def) => {
+      const on = pol(k, def);
+      return {label, desc, toggle: togglePol(k, def),
+        trackBg: on ? '#0E9384' : '#DDD9CF', knob: on ? 'translateX(17px)' : 'translateX(0)',
+        state: on ? 'On' : 'Off', sBg: on ? BDG.green[0] : BDG.grey[0], sFg: on ? BDG.green[1] : BDG.grey[1]};
+    };
+    const polField = (k, label, def, opts, placeholder) => ({
+      label, isSelect: !!opts, isText: !opts, placeholder: placeholder||'',
+      value: s.policy[k] !== undefined ? s.policy[k] : def,
+      opts: (opts||[]).map(o=>({o})),
+      set: (e)=>{ const v=e.target.value; this.setState(x=>({policy:{...x.policy,[k]:v}})); }});
+
+    const cf = s.cf || {};
+
+    return {
+      pageTitle, pageSub,
+      primaryLabel: primary[0], primaryCta: primary[1],
+      q: s.q, setQ: (e)=>this.setState({q:e.target.value}),
+      openExport: this.act('Preparing export', route==='audit' ? 'Audit trail · CSV' : 'Access matrix · XLSX', true),
+
+      extNav: this.act('Opening module', 'That module lives in its own workspace — this build covers Role & Access', true),
+      nav: navSpec.map(([k,label,path,badge])=>{
+        const on = activeNav===k;
+        return {label, path, badge,
+          badgeShow: badge ? 'inline-flex' : 'none',
+          badgeBg: k==='requests' && badge ? '#B42318' : '#16345C',
+          badgeFg: k==='requests' && badge ? '#fff' : '#9FB6D4',
+          bg: on ? '#14335C' : 'transparent', fg: on ? '#fff' : '#9FB2CC', weight: on ? '600' : '500',
+          bar: on ? '#0E9384' : 'transparent',
+          go: ()=>this.nav(k)};
+      }),
+
+      isDash: route==='dash', isRoles: route==='roles', isRoleDetail: route==='roleDetail',
+      isUsers: route==='users', isRequests: route==='requests', isPolicy: route==='policy', isAudit: route==='audit',
+      goRoles: ()=>this.nav('roles'), goAudit: ()=>this.nav('audit'),
+
+      // ---------- Dashboard ----------
+      dashKpis: [
+        {label:'Total Roles',n:String(ROLES.length),note:'2 unrestricted tiers',fg:'#6B7C93',ibg:BDG.teal[0],ifg:BDG.teal[1],
+         path:'M12 2 3 6v6c0 5 3.8 9.3 9 10 5.2-.7 9-5 9-10V6z',go:()=>this.nav('roles')},
+        {label:'Active Users',n:String(USERS.filter(u=>u[7]==='Active').length),note:'of '+USERS.length+' provisioned',fg:'#15803D',ibg:BDG.blue[0],ifg:BDG.blue[1],
+         path:'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8',go:()=>this.nav('users')},
+        {label:'Pending Requests',n:String(pendingCount),note:'awaiting a decision',fg:'#B45309',ibg:BDG.amber[0],ifg:BDG.amber[1],
+         path:'M12 8v4l3 3M12 3a9 9 0 1 0 .01 0',go:()=>this.nav('requests')},
+        {label:'Without 2FA',n:String(USERS.filter(u=>u[5]==='Disabled').length),note:'security risk',fg:'#B42318',ibg:BDG.red[0],ifg:BDG.red[1],
+         path:'M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5zM12 9v4M12 16h.01',go:()=>this.setState({route:'users', uTfa:'Disabled'})},
+        {label:'Suspended',n:String(USERS.filter(u=>u[7]==='Suspended').length),note:'dormant policy',fg:'#B42318',ibg:BDG.red[0],ifg:BDG.red[1],
+         path:'M12 3a9 9 0 1 0 .01 0M15 9l-6 6M9 9l6 6',go:()=>this.setState({route:'users', uStatus:'Suspended'})},
+        {label:'External Users',n:String(USERS.filter(u=>u[3]==='External').length),note:'speaker portal only',fg:'#6B7C93',ibg:BDG.orange[0],ifg:BDG.orange[1],
+         path:'M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3',go:()=>this.setState({route:'users', uDept:'External'})},
+        {label:'Changes (30d)',n:String(AUDIT.length),note:'permission + policy',fg:'#6B7C93',ibg:BDG.violet[0],ifg:BDG.violet[1],
+         path:'M9 4h6v3H9zM7 5H5v15h14V5h-2M9 12h6M9 16h4',go:()=>this.nav('audit')},
+        {label:'Policy Gaps',n:'3',note:'review recommended',fg:'#B45309',ibg:BDG.amber[0],ifg:BDG.amber[1],
+         path:'M12 3 2.5 20h19zM12 9v5M12 17h.01',go:()=>this.nav('policy')}
+      ],
+      dashDist: ROLES.map(([name,,c])=>{
+        const n = roleUsers(name);
+        const max = Math.max(...ROLES.map(r=>roleUsers(r[0])));
+        return {role:name, n:String(n), scope: ROLES.find(r=>r[0]===name)[5],
+          pct: Math.round(n/max*100)+'%', color: BDG[c][1]};
+      }),
+      dashRiskCount: '5',
+      dashRisks: [
+        {title:'3 users have 2FA disabled',desc:'Shalini Nair · Karan Bhatt · Arvind Menon',sev:'Critical',c:'red',route:'users',patch:{uTfa:'Disabled'}},
+        {title:'1 dormant account still active',desc:'Ritika Sen — no login for 41 days',sev:'High',c:'amber',route:'users',patch:{uStatus:'Suspended'}},
+        {title:'2 users hold unrestricted access',desc:'Super Admin should be limited to one break-glass account',sev:'High',c:'amber',route:'roles',patch:{}},
+        {title:'3 access requests older than 24h',desc:'REQ-4021 · REQ-4018 · REQ-4015',sev:'Medium',c:'grey',route:'requests',patch:{reqTab:'Pending'}},
+        {title:'IP allowlist not enforced',desc:'Admin sign-in is reachable from any network',sev:'Medium',c:'grey',route:'policy',patch:{}}
+      ].map(r=>({...r, dot:BDG[r.c][1], sBg:BDG[r.c][0], sFg:BDG[r.c][1],
+        fix: ()=>{ this.setState({route:r.route, ...r.patch}); this.fire('Opened — '+r.title, r.desc, true); }})),
+      dashRecent: AUDIT.slice(0,5).map(([action,,,from,to,reason,actor,,,when],i)=>({
+        action, actor, when, from, to, reason, hasFrom: !!from, rowBg: i%2 ? '#FCFBF7' : '#fff'})),
+
+      // ---------- Roles ----------
+      roleScopeTabs: ['All','Unrestricted','Elevated','Standard','Limited','External'].map(t=>{
+        const on = (s.roleScope||'All')===t;
+        return {label:t, bg: on?'#0E9384':'transparent', fg: on?'#fff':'#6B7C93', weight: on?'700':'500',
+          pick: ()=>this.setState({roleScope:t})};
+      }),
+      roleCount: String(ROLES.filter(([name,tier])=>((s.roleScope||'All')==='All'||tier===s.roleScope) && (!q||name.toLowerCase().includes(q))).length),
+      roleCards: ROLES.filter(([name,tier])=>((s.roleScope||'All')==='All'||tier===s.roleScope) && (!q||name.toLowerCase().includes(q)))
+        .map(([name,tier,c,desc,,scope,ci])=>{
+          const perms = MODULES.reduce((n,[mod])=>n + ACTIONS.filter((_,ai)=>this.hasPerm(name, mod, ai)).length, 0);
+          return {name, tier, desc, init: initials(name), users: String(roleUsers(name)),
+            perms: perms+' / '+(MODULES.length*ACTIONS.length),
+            ibg: BDG[c][0], ifg: BDG[c][1], tierBg: BDG[c][0], tierFg: BDG[c][1],
+            open: ()=>this.setState({route:'roleDetail', roleOpen:name, rdEdit:false})};
+        }),
+
+      // ---------- Role detail ----------
+      backToRoles: ()=>this.nav('roles'),
+      rdName: rd[0], rdTier: rd[1], rdDesc: rd[3], rdInit: initials(rd[0]),
+      rdIbg: BDG[rd[2]][0], rdIfg: BDG[rd[2]][1], rdTierBg: BDG[rd[2]][0], rdTierFg: BDG[rd[2]][1],
+      rdEditing,
+      rdEditLabel: rdEditing ? 'Save Changes' : 'Edit Permissions',
+      rdEditBg: rdEditing ? '#0E9384' : '#0E9384',
+      rdMatrixHint: rdEditing
+        ? 'Editing — click any cell to grant or revoke. Nothing is saved until you press Save Changes.'
+        : 'Read-only. Press Edit Permissions to change what this role can do.',
+      rdToggleEdit: ()=>{
+        if (rdEditing) { this.setState({rdEdit:false}); this.fire(rd[0]+' permissions saved', rdGrantedCount+' permissions active · written to the audit trail', true); }
+        else this.setState({rdEdit:true});
+      },
+      rdClone: ()=>this.setState({modal:'createRole', crName:rd[0]+' (copy)', crDesc:rd[3], crTemplate:rd[0], crTier:rd[1], crModules:[]}),
+      rdAssign: this.act('Assign users to '+rd[0], 'Pick users to move onto this role — each change is audited', true),
+      rdGrantAll: ()=>{
+        const next = {...s.perms};
+        MODULES.forEach(([mod])=>ACTIONS.forEach((_,ai)=>{ next[this.permKey(rd[0],mod,ai)] = true; }));
+        this.setState({perms:next}); this.fire('All permissions granted', rd[0]+' now has full access — review before saving', false);
+      },
+      rdRevokeAll: ()=>{
+        const next = {...s.perms};
+        MODULES.forEach(([mod])=>ACTIONS.forEach((_,ai)=>{ next[this.permKey(rd[0],mod,ai)] = false; }));
+        this.setState({perms:next}); this.fire('All permissions revoked', rd[0]+' now has no access — review before saving', false);
+      },
+      rdStats: [
+        {label:'USERS', v:String(rdUsersList.length), note:'hold this role', fg:'#0F2A47'},
+        {label:'PERMISSIONS', v:String(rdGrantedCount), note:'of '+(MODULES.length*ACTIONS.length)+' possible', fg:'#0B7A6E'},
+        {label:'MODULES', v:String(rdModuleCount), note:'of '+MODULES.length+' reachable', fg:'#0F2A47'},
+        {label:'DATA SCOPE', v:rd[5], note:'record visibility', fg:'#6D28D9'}
+      ],
+      rdActions: ACTIONS.map(label=>({label: label.toUpperCase()})),
+      rdMatrix: MODULES.map(([module,note,gate],i)=>{
+        const restricted = gate==='admin' && rd[0]!=='Super Admin';
+        const scopeMap = {all: rd[5], finance:'Financial data', admin:'Platform-wide'};
+        const sc = restricted ? 'No access' : scopeMap[gate];
+        const scC = restricted ? 'grey' : gate==='admin' ? 'red' : gate==='finance' ? 'orange' : 'teal';
+        return {module, note, bg: i%2 ? '#FCFBF7' : '#fff',
+          scope: sc, scopeBg: BDG[scC][0], scopeFg: BDG[scC][1],
+          cells: ACTIONS.map((_,ai)=>{
+            const on = this.hasPerm(rd[0], module, ai);
+            const locked = !rdEditing;
+            return {
+              border: on ? '#0E9384' : '#E5E3DC',
+              bg: on ? '#0E9384' : '#fff',
+              fg: on ? '#fff' : '#C4C9D0',
+              icon: on ? 'M20 6 9 17l-5-5' : 'M18 6 6 18M6 6l12 12',
+              iconOpacity: on ? '1' : '.55',
+              cursor: locked ? 'default' : 'pointer',
+              toggle: locked
+                ? ()=>this.fire('Read-only', 'Press Edit Permissions to change this role', false)
+                : ()=>this.setState(x=>({perms:{...x.perms, [this.permKey(rd[0],module,ai)]: !on}}))};
+          })};
+      }),
+      rdUserCount: String(rdUsersList.length),
+      rdUsers: rdUsersList.map(([name,email,,dept,,,lastLogin,status,c])=>({
+        name, init: initials(name), avBg: avColor(name),
+        meta: dept+' · last login '+lastLogin,
+        status, sBg: BDG[c][0], sFg: BDG[c][1],
+        revoke: ()=>this.askConfirm({title:'Remove '+name+' from '+rd[0],
+          sub:'They lose every permission this role grants.',
+          info:'The user keeps their account but will have no role until one is assigned. Active sessions are ended immediately.',
+          danger:true, btn:'Remove Role',
+          done:(reason)=>this.fire(name+' removed from '+rd[0], reason, true)})
+      })),
+      rdHistory: [
+        ['Export granted on Reports & Analytics','Admin User','Quarterly audit requirement','Today, 11:42'],
+        ['Delete revoked on Student Management','Vikram Sethi','Reduce blast radius of accidental deletes','Yesterday, 15:22'],
+        ['Approve granted on Course & Batch Allocation','Admin User','Role now owns allocation sign-off','6 days ago'],
+        ['Scope narrowed to assigned batches','Admin User','Least-privilege review','14 days ago'],
+        ['Role created','Admin User','Separating duties from Coordinator','32 days ago']
+      ].map(([change,by,reason,when],i)=>({change,by,reason,when,bg: i%2 ? '#FCFBF7' : '#fff'})),
+
+      // ---------- Users ----------
+      userKpis: [
+        {label:'Total Users',n:String(USERS.length),note:'across all roles',fg:'#0F2A47'},
+        {label:'Active',n:String(USERS.filter(u=>u[7]==='Active').length),note:'able to sign in',fg:'#15803D'},
+        {label:'2FA Enabled',n:String(USERS.filter(u=>u[5]==='Enabled').length)+' / '+USERS.length,note:'target is 100%',fg:'#B45309'},
+        {label:'Dormant (30d+)',n:'2',note:'auto-suspend at 45 days',fg:'#B42318'}
+      ],
+      userFilters: [
+        ['Role','uRole',['All roles'].concat(ROLES.map(r=>r[0]))],
+        ['Department','uDept',['All departments','Platform','Academic Operations','Human Resources','Finance','Content','Student Support','External']],
+        ['Status','uStatus',['All','Active','Inactive','Suspended']],
+        ['Two-factor','uTfa',['All','Enabled','Disabled']]
+      ].map(([label,key,opts])=>({label, value: s[key]||opts[0], opts: opts.map(o=>({o})),
+        set: (e)=>this.setState({[key]:e.target.value})})),
+      userEmpty: userList.length ? 'none' : 'block',
+      userRows: userList.map(([name,email,role,dept,scope,tfa,lastLogin,status,c])=>{
+        const roleC = (ROLES.find(r=>r[0]===role)||[,,'grey'])[2];
+        const stale = /days ago/.test(lastLogin) && parseInt(lastLogin) > 7;
+        const open = s.userMenu===email;
+        return {name, email, role, dept, scope, tfa, lastLogin, status,
+          init: initials(name), avBg: avColor(name),
+          rBg: BDG[roleC][0], rFg: BDG[roleC][1],
+          tfaBg: tfa==='Enabled' ? BDG.green[0] : BDG.red[0],
+          tfaFg: tfa==='Enabled' ? BDG.green[1] : BDG.red[1],
+          loginFg: stale ? '#B42318' : '#475467',
+          sBg: BDG[c][0], sFg: BDG[c][1],
+          menuDisplay: open ? 'block' : 'none',
+          menu: ()=>this.setState({userMenu: open ? null : email}),
+          menuItems: [
+            ['Change Role', ()=>this.openFlow('role', {name,email,role,dept,scope,tfa,status})],
+            ['Edit Data Scope', ()=>this.openFlow('scope', {name,email,role,dept,scope,tfa,status})],
+            ['Reset Password', ()=>this.openFlow('password', {name,email,role,dept,scope,tfa,status})],
+            [tfa==='Enabled' ? 'Reset 2FA Device' : 'Enforce 2FA', ()=>this.openFlow('tfa', {name,email,role,dept,scope,tfa,status})],
+            ['End All Sessions', ()=>this.openFlow('sessions', {name,email,role,dept,scope,tfa,status})],
+            [status==='Suspended' ? 'Reactivate User' : 'Suspend User', ()=>this.openFlow('suspend', {name,email,role,dept,scope,tfa,status}), 1]
+          ].map(([label,pick,danger])=>({label,
+            pick: ()=>{ this.setState({userMenu:null}); pick(); },
+            fg: danger ? '#B42318' : '#344054', hbg: danger ? '#FEF7F6' : '#F6F5F0',
+            bt: danger ? '1px solid #F5F3EE' : '0', mt: danger ? '4px' : '0', pt: danger ? '8px' : '0'}))};
+      }),
+
+      // ---------- Requests ----------
+      reqTabs: ['Pending','Approved','Rejected','Expired'].map(t=>{
+        const on = (s.reqTab||'Pending')===t;
+        const n = REQUESTS.filter(r=>r[8]===t).length;
+        return {label: t+' ('+n+')', bg: on?'#0E9384':'transparent', fg: on?'#fff':'#6B7C93', weight: on?'700':'500',
+          pick: ()=>this.setState({reqTab:t})};
+      }),
+      reqCount: String(reqList.length),
+      reqEmpty: reqList.length ? 'none' : 'block',
+      reqRows: reqList.map(([id,who,fromRole,toRole,reason,by,when,durationNote,status,c])=>({
+        id, who, fromRole, toRole, reason, by, when, durationNote, status,
+        init: initials(who), avBg: avColor(who),
+        accent: BDG[c][1], sBg: BDG[c][0], sFg: BDG[c][1],
+        actionable: status==='Pending',
+        approve: ()=>this.askConfirm({title:'Approve '+id,
+          sub: who+' · '+fromRole+' → '+toRole,
+          info:'Permissions apply immediately.'+(durationNote ? ' This is a temporary grant and reverts automatically when it expires.' : ' This is a permanent change until revoked.'),
+          btn:'Approve Request', done:(r)=>this.fire('Approved '+id, who+' is now '+toRole+' · '+r, true)}),
+        reject: ()=>this.askConfirm({title:'Reject '+id,
+          sub: who+' · requested '+toRole,
+          info:'The requester and their manager are notified with your reason. They can raise a new request afterwards.',
+          danger:true, btn:'Reject Request', done:(r)=>this.fire('Rejected '+id, r, true)})
+      })),
+
+      // ---------- Policy ----------
+      policyGroups: [
+        {title:'Authentication', sub:'How users prove who they are before reaching any module.',
+         toggles:[
+           mkToggle('tfaAll','Require two-factor for everyone','Applies to internal and external accounts alike.',false),
+           mkToggle('tfaAdmin','Require two-factor for admin tiers','Super Admin, Academic Head, Content Admin and Finance.',true),
+           mkToggle('ssoOnly','Enforce SSO for internal staff','Password sign-in disabled for @studycrux.io addresses.',false)],
+         hasFields:true,
+         fields:[
+           polField('pwMin','Minimum password length','12 characters',['8 characters','12 characters','16 characters']),
+           polField('pwRotate','Password rotation','Every 90 days',['Never','Every 90 days','Every 180 days']),
+           polField('failLock','Lock account after','5 failed attempts',['3 failed attempts','5 failed attempts','10 failed attempts'])],
+         save: this.act('Authentication policy saved','Applied platform-wide · written to the audit trail', true)},
+        {title:'Sessions', sub:'How long a signed-in session stays valid and when it is force-ended.',
+         toggles:[
+           mkToggle('idleOut','End idle sessions automatically','Signs out inactive tabs to protect shared machines.',true),
+           mkToggle('oneSession','One active session per user','A new sign-in ends the previous session.',false),
+           mkToggle('reauth','Re-authenticate for sensitive actions','Payout release, role changes and deletes.',true)],
+         hasFields:true,
+         fields:[
+           polField('idleMins','Idle timeout','30 minutes',['15 minutes','30 minutes','60 minutes','4 hours']),
+           polField('maxSession','Maximum session length','8 hours',['4 hours','8 hours','12 hours','24 hours']),
+           polField('rememberMe','Remember this device for','7 days',['Disabled','7 days','30 days'])],
+         save: this.act('Session policy saved','Existing sessions are re-evaluated on next request', true)},
+        {title:'Devices', sub:'How many devices a single account may use, and what they may do.',
+         toggles:[
+           mkToggle('deviceLimit','Enforce a device limit','Blocks sign-in beyond the allowed device count.',true),
+           mkToggle('blockRecording','Block screen recording','Applies to recorded content and live sessions.',true),
+           mkToggle('notifyNewDevice','Notify on new device sign-in','Emails the user and their manager.',true)],
+         hasFields:true,
+         fields:[
+           polField('devMax','Devices per user','3 devices',['1 device','2 devices','3 devices','5 devices']),
+           polField('devReset','Device reset requires','Admin approval',['Self-service','Admin approval']),
+           polField('mobilePolicy','Mobile access','Allowed',['Allowed','Read-only','Blocked'])],
+         save: this.act('Device policy saved','Users over the new limit are prompted to remove a device', true)},
+        {title:'Network', sub:'Where the platform can be reached from.',
+         toggles:[
+           mkToggle('ipAllow','Enforce IP allowlist for admin tiers','Admin sign-in only from approved ranges.',false),
+           mkToggle('geoBlock','Block sign-in outside India','External speakers are exempt.',false),
+           mkToggle('auditIp','Record IP on every audited action','Already required for compliance reporting.',true)],
+         hasFields:true,
+         fields:[
+           polField('ranges','Allowed ranges',null,null,'49.36.184.0/24, 103.21.58.0/24'),
+           polField('vpn','VPN requirement','Not required',['Not required','Required for admin tiers','Required for everyone']),
+           polField('exempt','Exempt roles','Speaker',['None','Speaker','Speaker + Support'])],
+         save: this.act('Network policy saved','Allowlist changes take effect on the next sign-in', true)}
+      ],
+
+      // ---------- Audit ----------
+      auditFilters: [
+        ['Category','aCat',['All categories','Role','User','Policy','Request']],
+        ['Performed by','aActor',['Anyone','Admin User','Vikram Sethi','Priya Bose','System']],
+        ['Time range','aWhen',['All time','Today','Last 7 days','Last 30 days']],
+        ['Entity type','aEntity',['All entities','Roles','Users','Policies','Requests']]
+      ].map(([label,key,opts])=>({label, value: s[key]||opts[0], opts: opts.map(o=>({o})),
+        set: (e)=>this.setState({[key]:e.target.value})})),
+      auditCount: String(auditList.length),
+      auditEmpty: auditList.length ? 'none' : 'block',
+      auditRows: auditList.map(([action,category,c,from,to,reason,actor,entity,ip,when],i)=>({
+        action, category, from, to, reason, actor, entity, when,
+        ip: ip==='system' ? 'automated' : ip,
+        hasFrom: !!from, dot: BDG[c][1], catBg: BDG[c][0], catFg: BDG[c][1],
+        rowBg: i%2 ? '#FCFBF7' : '#fff'})),
+
+      // ---------- Modals ----------
+      overlay: !!s.modal,
+      closeModal: ()=>this.setState({modal:null}),
+      mCreateRole: s.modal==='createRole', mInvite: s.modal==='invite', mConfirm: s.modal==='confirm',
+
+      crName: s.crName||'', setCrName:(e)=>this.setState({crName:e.target.value}),
+      crDesc: s.crDesc||'', setCrDesc:(e)=>this.setState({crDesc:e.target.value}),
+      crTemplate: s.crTemplate||'Nothing — start empty', setCrTemplate:(e)=>this.setState({crTemplate:e.target.value}),
+      crTemplateOpts: ['Nothing — start empty'].concat(ROLES.map(r=>r[0])).map(o=>({o})),
+      crTier: s.crTier||'Standard', setCrTier:(e)=>this.setState({crTier:e.target.value}),
+      crTierOpts: ['Unrestricted','Elevated','Standard','Limited','External'].map(o=>({o})),
+      crModuleChips: MODULES.map(([mod])=>{
+        const on = (s.crModules||[]).includes(mod);
+        return {label: mod, border: on?'#0E9384':'#E5E3DC', bg: on?'#EEF6F5':'#fff',
+          fg: on?'#0B7A6E':'#667085', weight: on?'700':'500',
+          pick: ()=>this.setState(x=>{ const cur = x.crModules||[];
+            return {crModules: cur.includes(mod) ? cur.filter(v=>v!==mod) : cur.concat([mod])}; })};
+      }),
+      crSubmit: ()=>{
+        if (!(s.crName||'').trim()) return this.fire('Role name required','Give the role a name before creating it', false);
+        if (ROLES.some(r=>r[0].toLowerCase()===(s.crName||'').trim().toLowerCase()))
+          return this.fire('That role already exists','Pick a different name', false);
+        if (!(s.crModules||[]).length) return this.fire('Pick at least one module','A role with no modules cannot sign in anywhere', false);
+        this.setState({modal:null});
+        this.fire('Role created — '+s.crName.trim(),
+          (s.crTier||'Standard')+' tier · '+(s.crModules||[]).length+' modules · copied from '+(s.crTemplate||'nothing'), true);
+      },
+
+      ivName: s.ivName||'', setIvName:(e)=>this.setState({ivName:e.target.value}),
+      ivEmail: s.ivEmail||'', setIvEmail:(e)=>this.setState({ivEmail:e.target.value}),
+      ivRole: s.ivRole||'Coordinator', setIvRole:(e)=>this.setState({ivRole:e.target.value}),
+      ivRoleOpts: ROLES.map(r=>({o:r[0]})),
+      ivScope: s.ivScope||'Assigned batches', setIvScope:(e)=>this.setState({ivScope:e.target.value}),
+      ivScopeOpts: ['All data','All academic data','Assigned batches','Content only','Financial data','Review queues','Support queues','Own records'].map(o=>({o})),
+      ivTfaBg: s.ivTfa!==false ? '#0E9384' : '#DDD9CF',
+      ivTfaKnob: s.ivTfa!==false ? 'translateX(16px)' : 'translateX(0)',
+      toggleIvTfa: ()=>this.setState({ivTfa: !(s.ivTfa!==false)}),
+      ivPreview: (()=>{
+        const r = s.ivRole||'Coordinator';
+        const perms = MODULES.reduce((n,[mod])=>n + ACTIONS.filter((_,ai)=>this.hasPerm(r, mod, ai)).length, 0);
+        return r+' grants '+perms+' permissions across '+MODULES.filter(([mod])=>ACTIONS.some((_,ai)=>this.hasPerm(r,mod,ai))).length+' modules · scope: '+(s.ivScope||'Assigned batches');
+      })(),
+      ivSubmit: ()=>{
+        const name = (s.ivName||'').trim(), email = (s.ivEmail||'').trim();
+        if (!name) return this.fire('Name required','Enter the person\u2019s full name', false);
+        if (!email) return this.fire('Email required','Enter a work email address', false);
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) return this.fire('Invalid email','Check the address and try again', false);
+        if (USERS.some(u=>u[1].toLowerCase()===email.toLowerCase()))
+          return this.fire('That email already has access','Find them in the Users list instead', false);
+        this.setState({modal:null});
+        this.fire('Invitation sent to '+email, name+' · '+(s.ivRole||'')+' · expires in 7 days', true);
+      },
+
+      mUserFlow: s.modal==='userFlow',
+      ...(()=>{
+        const u = s.ufUser || {name:'User',email:'',role:'',dept:'',scope:'',tfa:'Enabled',status:'Active'};
+        const kind = s.ufKind || 'role';
+        const set = (k)=>(e)=>this.setState({[k]: e.target.value});
+        const F = (label, key, def, opts, extra) => ({label,
+          isSelect: !!opts, isDate: (extra||{}).date, isText: !opts && !(extra||{}).date,
+          value: s[key] !== undefined ? s[key] : def,
+          opts: (opts||[]).map(o=>({o})),
+          placeholder: (extra||{}).placeholder || '',
+          span: (extra||{}).span || 'span 1',
+          hint: (extra||{}).hint || '', hintShow: (extra||{}).hint ? 'block' : 'none',
+          set: set(key)});
+        const T = (label, desc, key, def) => {
+          const on = s[key] !== undefined ? s[key] : def;
+          return {label, desc, trackBg: on ? '#0E9384' : '#DDD9CF',
+            knob: on ? 'translateX(16px)' : 'translateX(0)',
+            toggle: ()=>this.setState({[key]: !on})};
+        };
+
+        const SESSIONS = [
+          ['s1','MacBook Pro · Chrome 128','macOS 15 · Bengaluru, IN · active 2 min ago', true],
+          ['s2','iPhone 14 · StudyCrux App','iOS 18 · Bengaluru, IN · active 3 h ago', false],
+          ['s3','Dell Latitude · Edge 126','Windows 11 · Mumbai, IN · active 2 days ago', false]
+        ];
+        const sel = s.ufSessionSel || [];
+
+        const CFG = {
+          role: {
+            title:'Change role — '+u.name, sub:'Currently '+u.role+' · '+u.scope,
+            info:'Permissions switch the moment you confirm. Approvals they currently own are reassigned so nothing stalls.',
+            btn:'Change Role', fields:[
+              F('New role','ufRole',u.role, ROLES.map(r=>r[0])),
+              F('Data scope','ufScope',u.scope, ['All data','All academic data','Assigned batches','Content only','Financial data','Review queues','Support queues','Own records']),
+              F('Effective from','ufEffective','Immediately',['Immediately','Start of next day','Specific date'],{span:'span 2'})
+            ],
+            toggles:[
+              T('Reassign in-flight approvals','Anything awaiting their sign-off moves to their manager.','ufReassign',true),
+              T('Notify the user','Emails them the new role and what changed.','ufNotify',true)
+            ],
+            channels:true,
+            summary:()=>{
+              const nr = s.ufRole||u.role;
+              const perms = MODULES.reduce((n,[mod])=>n + ACTIONS.filter((_,ai)=>this.hasPerm(nr, mod, ai)).length, 0);
+              return u.role+' → '+nr+' · '+perms+' permissions · scope '+(s.ufScope||u.scope)+' · '+(s.ufEffective||'Immediately').toLowerCase();
+            },
+            validate:()=>{
+              if ((s.ufRole||u.role)===u.role && (s.ufScope||u.scope)===u.scope)
+                return 'Nothing changed — pick a different role or scope.';
+              return null;
+            },
+            done:(r)=>this.fire('Role changed — '+u.name, u.role+' → '+(s.ufRole||u.role)+' · '+r, true)
+          },
+          scope: {
+            title:'Edit data scope — '+u.name, sub:u.role+' · currently '+u.scope,
+            info:'Narrowing scope hides records immediately. Widening it counts as a privilege escalation and is flagged in the audit log.',
+            btn:'Update Scope', fields:[
+              F('Scope','ufScopeType',u.scope,['All data','All academic data','Assigned batches','Content only','Financial data','Review queues','Support queues','Own records']),
+              F('Restrict to','ufScopeDetail','',null,{placeholder:'e.g. IC-38 batches only'}),
+              F('Review this scope on','ufReview','',null,{date:true, span:'span 2', hint:'Leave blank for no scheduled review.'})
+            ],
+            toggles:[
+              T('Allow override with approval','They can request one-off access to records outside this scope.','ufOverride',false),
+              T('Notify the user','Explains what they can and cannot see now.','ufNotify',true)
+            ],
+            channels:false,
+            summary:()=>u.scope+' → '+(s.ufScopeType||u.scope)+((s.ufScopeDetail||'').trim() ? ' · limited to '+s.ufScopeDetail.trim() : ''),
+            validate:()=>((s.ufScopeType||u.scope)===u.scope && !(s.ufScopeDetail||'').trim())
+              ? 'Nothing changed — pick a different scope or add a restriction.' : null,
+            done:(r)=>this.fire('Scope updated — '+u.name, (s.ufScopeType||u.scope)+' · '+r, true)
+          },
+          password: {
+            title:'Reset password — '+u.name, sub:u.email,
+            info:'A reset link is safer than a temporary password — nothing is ever shown to an admin in plain text.',
+            btn:'Send Reset', fields:[
+              F('Method','ufMethod','Email a reset link',['Email a reset link','Generate a temporary password','Force reset at next sign-in']),
+              F('Link valid for','ufExpiry','60 minutes',['15 minutes','60 minutes','24 hours','7 days'])
+            ],
+            toggles:[
+              T('Force a new password at next sign-in','They cannot reuse the temporary credential.','ufForceChange',true),
+              T('End all active sessions','Signs them out everywhere so the old password is dead.','ufEndSessions',true)
+            ],
+            channels:true,
+            summary:()=>(s.ufMethod||'Email a reset link')+' · valid '+(s.ufExpiry||'60 minutes')+((s.ufEndSessions!==false) ? ' · sessions ended' : ''),
+            validate:()=>null,
+            done:(r)=>this.fire('Password reset sent — '+u.email, (s.ufMethod||'')+' · '+r, true)
+          },
+          tfa: {
+            title: (u.tfa==='Enabled' ? 'Reset 2FA device — ' : 'Enforce 2FA — ')+u.name,
+            sub: u.role+' · two-factor currently '+u.tfa.toLowerCase(),
+            info: u.tfa==='Enabled'
+              ? 'Resetting removes their registered authenticator. They must enrol a new device before they can reach any module.'
+              : 'They will be blocked from every module until they enrol an authenticator app.',
+            btn: u.tfa==='Enabled' ? 'Reset 2FA' : 'Enforce 2FA',
+            fields:[
+              F('Action','ufTfaAction', u.tfa==='Enabled' ? 'Reset enrolment' : 'Enforce enrolment',
+                ['Reset enrolment','Enforce enrolment','Issue backup codes','Temporarily exempt']),
+              F('Must enrol by','ufGrace','Next sign-in',['Next sign-in','Within 24 hours','Within 7 days'])
+            ],
+            toggles:[
+              T('End all active sessions','Forces re-authentication with the new factor.','ufEndSessions', u.tfa==='Enabled'),
+              T('Notify the user','Sends enrolment instructions.','ufNotify',true)
+            ],
+            channels:true,
+            summary:()=>(s.ufTfaAction||'')+' · enrol by '+(s.ufGrace||'next sign-in').toLowerCase(),
+            validate:()=>(s.ufTfaAction==='Temporarily exempt' && ['Super Admin','Academic Head','Content Admin','Finance'].includes(u.role))
+              ? 'Admin tiers cannot be exempted while the 2FA policy is active.' : null,
+            done:(r)=>this.fire((s.ufTfaAction||'2FA updated')+' — '+u.name, r, true)
+          },
+          sessions: {
+            title:'End sessions — '+u.name, sub:u.role+' · '+SESSIONS.length+' active sessions',
+            info:'Ending a session signs that device out immediately. Unsaved work in the admin panel is lost.',
+            btn:'End Selected', fields:[],
+            sessions:true,
+            toggles:[
+              T('Block these devices from signing in again','They must be re-approved before use.','ufBlockDevice',false),
+              T('Notify the user','Explains why they were signed out.','ufNotify',true)
+            ],
+            channels:false,
+            summary:()=>sel.length+' of '+SESSIONS.length+' sessions will end'+(s.ufBlockDevice ? ' · devices blocked' : ''),
+            validate:()=>sel.length ? null : 'Select at least one session to end.',
+            done:(r)=>this.fire(sel.length+' sessions ended — '+u.name, r, true)
+          },
+          suspend: u.status==='Suspended' ? {
+            title:'Reactivate — '+u.name, sub:u.role+' · '+u.dept,
+            info:'Access is restored with their previous role and scope. They will be asked to re-authenticate and re-enrol 2FA if the policy changed.',
+            btn:'Reactivate', fields:[
+              F('Restore','ufDuration','Restore immediately',['Restore immediately','Restore on a specific date']),
+              F('Role on return','ufRole',u.role, ROLES.map(r=>r[0]))
+            ],
+            toggles:[
+              T('Restore previous data scope','Otherwise they start with the narrowest scope for their role.','ufRestoreRole',true),
+              T('Notify the user','Tells them access is back.','ufNotify',true)
+            ],
+            channels:true,
+            summary:()=>'Reactivating as '+(s.ufRole||u.role)+' · '+(s.ufDuration||'immediately').toLowerCase(),
+            validate:()=>null,
+            done:(r)=>this.fire('Reactivated — '+u.name, (s.ufRole||u.role)+' · '+r, true)
+          } : {
+            title:'Suspend — '+u.name, sub:u.role+' · '+u.dept,
+            danger:true,
+            info:'They are signed out everywhere and cannot sign in until reactivated. Records, history and audit entries are all kept.',
+            btn:'Suspend User', fields:[
+              F('Duration','ufDuration','Until manually reactivated',['Until manually reactivated','7 days','30 days','Until a specific date']),
+              F('Reassign their work to','ufReassignTo','Their manager',['Their manager','Academic Head','Unassigned queue'])
+            ],
+            toggles:[
+              T('Reassign owned approvals and tickets','Stops queues from stalling while they are out.','ufReassign',true),
+              T('Revoke registered devices','They re-register on return.','ufRevokeDevices',true),
+              T('Notify the user','Sends the suspension reason.','ufNotify',true)
+            ],
+            channels:true,
+            summary:()=>'Suspending '+(s.ufDuration||'').toLowerCase()+' · work goes to '+(s.ufReassignTo||'their manager').toLowerCase(),
+            validate:()=>u.role==='Super Admin' ? 'The last Super Admin cannot be suspended — assign another first.' : null,
+            done:(r)=>this.fire('Suspended — '+u.name, (s.ufDuration||'')+' · '+r, true)
+          }
+        }[kind];
+
+        const chSel = s.ufChannelSel || ['Email'];
+        return {
+          ufTitle: CFG.title, ufSub: CFG.sub,
+          ufInit: initials(u.name), ufIbg: BDG[CFG.danger ? 'red' : 'teal'][0], ufIfg: BDG[CFG.danger ? 'red' : 'teal'][1],
+          ufInfo: CFG.info, ufInfoShow: CFG.info ? 'block' : 'none',
+          ufInfoBg: CFG.danger ? '#FEF7F6' : '#EEF6F5', ufInfoFg: CFG.danger ? '#B42318' : '#0B7A6E',
+          ufFields: CFG.fields, ufFieldsShow: CFG.fields.length ? 'grid' : 'none',
+          ufToggles: CFG.toggles, ufTogglesShow: CFG.toggles.length ? 'flex' : 'none',
+          ufSessionsShow: CFG.sessions ? 'block' : 'none',
+          ufSelectAllLabel: sel.length===SESSIONS.length ? 'Clear all' : 'Select all',
+          ufSelectAllSessions: ()=>this.setState({ufSessionSel: sel.length===SESSIONS.length ? [] : SESSIONS.map(x=>x[0])}),
+          ufSessions: SESSIONS.map(([id,device,meta,current])=>{
+            const on = sel.includes(id);
+            return {device, meta,
+              currentShow: current ? 'inline-flex' : 'none',
+              rowBg: on ? '#F7FBFA' : '#fff',
+              boxBorder: on ? '#0E9384' : '#DDD9CF', boxBg: on ? '#0E9384' : '#fff',
+              tickOpacity: on ? '1' : '0',
+              toggle: ()=>this.setState(x=>{ const cur = x.ufSessionSel||[];
+                return {ufSessionSel: cur.includes(id) ? cur.filter(v=>v!==id) : cur.concat([id])}; })};
+          }),
+          ufChannelsShow: CFG.channels ? 'block' : 'none',
+          ufChannels: ['Email','SMS','In-app'].map(c=>{
+            const on = chSel.includes(c);
+            return {label:c, border: on?'#0E9384':'#E5E3DC', bg: on?'#EEF6F5':'#fff',
+              fg: on?'#0B7A6E':'#667085', weight: on?'700':'500',
+              pick: ()=>this.setState(x=>{ const cur = x.ufChannelSel||[];
+                return {ufChannelSel: cur.includes(c) ? cur.filter(v=>v!==c) : cur.concat([c])}; })};
+          }),
+          ufReason: s.ufReason||'', setUfReason: (e)=>this.setState({ufReason:e.target.value}),
+          ufSummary: CFG.summary(),
+          ufBtnLabel: CFG.btn, ufBtnBg: CFG.danger ? '#B42318' : '#0E9384',
+          ufSubmit: ()=>{
+            const blocker = CFG.validate && CFG.validate();
+            if (blocker) return this.fire('Cannot continue', blocker, false);
+            if (!(s.ufReason||'').trim()) return this.fire('Reason required','It is written to the audit trail', false);
+            this.setState({modal:null});
+            CFG.done((s.ufReason||'').trim());
+          }
+        };
+      })(),
+
+      cfTitle: cf.title||'Confirm', cfSub: cf.sub||'',
+      cfInfo: cf.info||'', cfInfoBg: cf.danger ? '#FEF7F6' : '#EEF6F5', cfInfoFg: cf.danger ? '#B42318' : '#0B7A6E',
+      cfBtnLabel: cf.btn||'Confirm', cfBtnBg: cf.danger ? '#B42318' : '#0E9384',
+      cfReason: s.cfReason||'', setCfReason:(e)=>this.setState({cfReason:e.target.value}),
+      cfSubmit: ()=>{
+        const reason = (s.cfReason||'').trim();
+        if (!reason) return this.fire('Reason required','It is written to the audit trail', false);
+        this.setState({modal:null});
+        if (cf.done) cf.done(reason);
+      },
+
+      toast: s.toast, toastMsg: s.toastMsg, toastSub: s.toastSub,
+      toastIcon: s.toastIcon, toastIconBg: s.toastIconBg
+    };
+  }
+}
+</script>
+</body>
+</html>
