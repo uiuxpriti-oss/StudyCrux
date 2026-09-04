@@ -2988,8 +2988,7 @@
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:{{ profGridCols }};gap:16px;align-items:start">
-            <div style="min-width:0">
+          <div>
               <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
                 <div style="display:flex;flex-wrap:nowrap;gap:3px;padding:12px 16px;border-bottom:1px solid #F0EEE7;overflow-x:auto">
                   <sc-for list="{{ profTabs }}" as="t" hint-placeholder-count="12">
@@ -2997,6 +2996,8 @@
                   </sc-for>
                 </div>
                 <div style="padding:22px 24px 26px">
+                <div style="display:grid;grid-template-columns:{{ profGridCols }};gap:16px;align-items:start">
+                <div style="min-width:0">
               <sc-for list="{{ profSecs }}" as="sec" hint-placeholder-count="4">
                 <div style="margin-bottom:26px">
                   <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
@@ -3322,8 +3323,6 @@
                 </div>
               </sc-for>
                 </div>
-              </div>
-            </div>
 
             <sc-if value="{{ isProfOverview }}" hint-placeholder-val="{{ true }}">
             <div style="min-width:0;display:flex;flex-direction:column;gap:16px;position:sticky;top:0">
@@ -3342,6 +3341,9 @@
               </sc-for>
             </div>
             </sc-if>
+          </div>
+          </div>
+          </div>
           </div>
         </div>
       </sc-if>
@@ -5918,7 +5920,80 @@ const C360 = {
       ['Onboarding Completed','20 Mar 2025, 10:00','HR & Administration','Payroll, system access, compliance done']]},
     {t:'PROFILE ACTIONS', kind:'actions', btns:[['Edit Personal Info'],['Edit Professional Info'],['Edit Employment'],['Edit Compensation'],['View Documents'],['Download Profile PDF']]}
   ],
-  'Courses & Batches': [
+  'Personal & Professional': [
+    {t:'PERSONAL', kind:'kv', rows:[
+      ['Full name','Priya Sharma'],['Date of birth','12 Mar 1994'],['Gender','Female'],
+      ['Mobile','+91 98400 21188'],['Alternate mobile','+91 80 4123 8890'],
+      ['Personal email','priya.sharma@gmail.com'],['Work email','priya.sharma@studycrux.io'],
+      ['Current address','412, Prestige Elm Park, Whitefield, Bengaluru'],
+      ['Permanent address','18 Kamala Nivas, Mylapore, Chennai'],
+      ['Emergency contact','Rohit S. (Spouse) · +91 98450 11220']]},
+    {t:'PROFESSIONAL', kind:'kv', rows:[
+      ['Highest qualification','MBA — Operations & Service Management'],['Institution','Christ University, Bengaluru'],
+      ['Total experience','6 years 4 months'],['Academic coordination experience','4 years'],
+      ['LMS experience','Moodle + StudyCrux LMS'],['Student management experience','4 years · 900+ students'],
+      ['Teacher coordination experience','3 years · 18 faculty'],
+      ['Skills','LMS management, scheduling, attendance, reporting, conflict resolution'],
+      ['Certifications','PMP Foundation · Google Workspace Admin']]},
+    {t:'ACTIONS', kind:'actions', btns:[['Edit Personal Info'],['Edit Professional Info'],['Download Profile PDF']]}
+  ],
+  'Students': [
+    {t:'STUDENT SUMMARY', kind:'cards', rows:[
+      ['Total students','486','across 12 batches','#0F2A47'],['Active','462','currently enrolled','#15803D'],
+      ['At risk','18','attendance below 60%','#B42318'],['Avg attendance','87%','all batches','#15803D']]},
+    {t:'STUDENTS UNDER COORDINATION', right:'Grouped by course', kind:'table', rowAct:'View Student',
+      cols:['Student','Student ID','Course','Batch','Attendance','Progress','Status'], rows:[
+      ['Aarav Sharma','SC-10001','IC-01','Batch A','94%','84%',['Active','green']],
+      ['Ananya Gupta','SC-10006','IC-01','Batch A','100%','91%',['Active','green']],
+      ['Kabir Mehta','SC-10017','IC-02','Batch B','90%','72%',['Active','green']],
+      ['Meera Nair','SC-10021','IC-02','Batch B','77%','61%',['At risk','amber']],
+      ['Divya Krishnan','SC-10014','IC-11','Batch D','58%','44%',['At risk','red']]]},
+    {t:'STUDENT ACTIONS', kind:'actions', btns:[['Message Batch'],['Flag At-Risk Students'],['Export Student List']]}
+  ],
+  'Ratings & Reviews': [
+    {t:'RATING SUMMARY', kind:'cards', rows:[
+      ['Overall rating','4.6','from 214 responses','#B45309'],['Student satisfaction','94%','coordination support','#15803D'],
+      ['Teacher satisfaction','4.4','18 faculty','#B45309'],['Response rate','78%','of surveyed students','#0F2A47']]},
+    {t:'RATING BREAKDOWN', right:'By dimension · last 90 days', kind:'bars', rows:[
+      ['Responsiveness','96%','#0E9384','214 responses'],
+      ['Issue resolution','88%','#0E9384','196 responses'],
+      ['Communication clarity','92%','#0E9384','214 responses'],
+      ['Schedule reliability','90%','#0E9384','214 responses']]},
+    {t:'RECENT REVIEWS', right:'Newest first', kind:'table',
+      cols:['From','Course / Batch','Rating','Comment','Date'], rows:[
+      ['Aarav Sharma','IC-01 · Batch A','5','Doubts always cleared the same day.','28 Aug 2026'],
+      ['Amit Sharma (Teacher)','IC-01','4.5','Schedules shared well in advance.','24 Aug 2026'],
+      ['Meera Nair','IC-02 · Batch B','3','Batch timing changes were communicated late.','18 Aug 2026']]},
+    {t:'REVIEW ACTIONS', kind:'actions', btns:[['Request Feedback Round'],['Export Reviews']]}
+  ],
+  'Finance & Payroll': [
+    {t:'PAYROLL SNAPSHOT', kind:'cards', rows:[
+      ['Monthly salary','₹42,000','fixed · 1–31 cycle','#0F2A47'],['Annual CTC','₹8.40L','revised Jul 2026','#6D28D9'],
+      ['Paid YTD','₹3,78,000','9 cycles settled','#15803D'],['Next payout','01 Sep 2026','₹42,000','#B45309']]},
+    {t:'COMPENSATION', kind:'kv', rows:[
+      ['Compensation mode','Fixed Salary'],['Monthly salary','₹42,000'],['Annual CTC','₹8,40,000'],
+      ['Payment cycle','Monthly · 1–31'],['Payment method','Bank Transfer'],
+      ['Bank account','HDFC ••••4482 · verified'],['PAN','ABCPS••••4K · verified'],
+      ['Last revision','01 Jul 2026 · +₹3,000'],['Next review','01 Jan 2027']]},
+    {t:'PAYOUT HISTORY', right:'Last 6 cycles', kind:'table',
+      cols:['Cycle','Gross','Deductions','Net','Paid on','Status'], rows:[
+      ['Aug 2026','₹42,000','₹4,200','₹37,800','—',['Pending','amber']],
+      ['Jul 2026','₹42,000','₹4,200','₹37,800','01 Aug 2026',['Paid','green']],
+      ['Jun 2026','₹39,000','₹3,900','₹35,100','01 Jul 2026',['Paid','green']],
+      ['May 2026','₹39,000','₹3,900','₹35,100','01 Jun 2026',['Paid','green']],
+      ['Apr 2026','₹39,000','₹3,900','₹35,100','01 May 2026',['Paid','green']],
+      ['Mar 2026','₹39,000','₹3,900','₹35,100','01 Apr 2026',['Paid','green']]]},
+    {t:'PAYROLL ACTIONS', kind:'actions', btns:[['Approve Pending Payout'],['Download Payslip'],['Edit Compensation'],['Hold Payout',1]]}
+  ],
+  'Internal Notes': [
+    {t:'INTERNAL NOTES', right:'Visible to administrators only', kind:'list', rows:[
+      {ic:'★',c:'green',t:'Strongest coordinator on issue turnaround',s:'Added by Vikram Sethi · 26 Aug 2026',right:'Positive',rc:'green'},
+      {ic:'!',c:'amber',t:'Workload at 80% — avoid new batch assignments',s:'Added by Academic Ops · 20 Aug 2026',right:'Action',rc:'amber'},
+      {ic:'✎',c:'blue',t:'Interested in the Senior Coordinator track',s:'Added by Priya Bose (HR) · 12 Aug 2026',right:'Noted',rc:'blue'},
+      {ic:'✓',c:'green',t:'Completed the LMS advanced certification',s:'Added by L&D · 04 Aug 2026',right:'Closed',rc:'grey'}]},
+    {t:'NOTE ACTIONS', kind:'actions', btns:[['Add Internal Note'],['Export Notes'],['Restrict Visibility',1]]}
+  ],
+  'Course & Batch': [
     {t:'COURSE SUMMARY', kind:'cards', rows:[
       ['Total courses','3','assigned to this coordinator','#0F2A47'],['Total batches','12','6 active · 1 upcoming','#0F2A47'],
       ['Total students','486','across all batches','#0F2A47'],['Total teachers','18','across 12 batches','#0F2A47'],
@@ -5973,7 +6048,7 @@ const C360 = {
       ['2026-08-12','IC-01','BT-103','Ritu Bansal','34 / 38','Pending','Yes',['Recording pending','amber']]]},
     {t:'SCHEDULE ACTIONS', kind:'actions', btns:[['Open Calendar View'],['Schedule Class'],['Reschedule'],['Assign Substitute'],['Change Teacher'],['Send Notification'],['View Recording'],['Cancel Class',1],['Mark Issue',1]]}
   ],
-  'Attendance & Activity': [
+  'Attendance & Leave': [
     {t:'MY ATTENDANCE KPIS', right:'This coordinator · current month', kind:'cards', rows:[
       ['Attendance rate','96%','24 of 25 working days','#15803D'],['Present days','24','this month','#15803D'],
       ['Late arrivals','2','avg 6 min late','#B45309'],['Early exits','1','15 min early','#B45309'],
@@ -6013,7 +6088,7 @@ const C360 = {
       ['Overtime approaching monthly cap','5h 12m of a 6h soft cap','Informational','blue']]},
     {t:'ATTENDANCE ACTIONS', kind:'actions', btns:[['Request Regularization'],['Apply for Leave'],['Export Attendance Report'],['Configure Activity Metrics'],['Raise Discrepancy',1]]}
   ],
-  'Performance': [
+  'Performance & Reports': [
     {t:'COORDINATOR PERFORMANCE SCORE', kind:'score'},
     {t:'CORE KPIS', right:'This quarter vs previous quarter', kind:'cards', rows:[
       ['Performance score','91','\u25b2 3 pts \u00b7 Excellent band','#15803D'],['Students managed','486','across 12 batches','#0F2A47'],
@@ -9376,7 +9451,13 @@ class Component extends DCLogic {
         {label:'Student Satisfaction',n:'4.6',fg:'#B45309',go:()=>this.setState({profTab:'Performance'})},
         {label:'Coordinator Performance',n:'91%',fg:'#15803D',go:()=>this.setState({profTab:'Performance'})}
       ],
-      profTabs: Object.keys(C360).map(t=>{
+      profTabs: (()=>{
+        const ORDER = ['Overview','Employment & Recruitment','Personal & Professional','Course & Batch',
+          'Performance & Reports','Ratings & Reviews','Attendance & Leave','Schedule','Finance & Payroll',
+          'Internal Notes','Students'];
+        const keys = Object.keys(C360);
+        return ORDER.filter(t=>keys.includes(t)).concat(keys.filter(t=>!ORDER.includes(t)));
+      })().map(t=>{
         const on = (s.profTab||'Overview')===t;
         return {label:t, border:on?'#0E9384':'transparent', bg:on?'#EEF6F5':'transparent', fg:on?'#0B7A6E':'#6B7C93', weight:on?'700':'500',
           pick:()=>this.setState({profTab:t})};

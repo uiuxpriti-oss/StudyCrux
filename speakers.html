@@ -72,21 +72,21 @@
       <a href="teachers.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5 12 4l10 4.5-10 4.5z" /><path d="M6 11v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5" /></svg>
         <span style="flex:1">Teachers</span>
-        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">2.8k</span>
+        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">128</span>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
       </a>
 
       <a href="coordinators.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2" /><path d="M3 20v-1.5A4.5 4.5 0 0 1 7.5 14h3A4.5 4.5 0 0 1 15 18.5V20" /><path d="M17 11h5M19.5 8.5v5" /></svg>
         <span style="flex:1">Coordinator</span>
-        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">2.8k</span>
+        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">48</span>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
       </a>
 
       <a href="roles-access.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;color:#C7D3E3;font-size:13.5px;font-weight:500" style-hover="background:#122C50;color:#fff">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.4-3.1 8.2-7.5 9.5-4.4-1.3-7.5-5.1-7.5-9.5V6z" /><path d="M9.5 12l1.8 1.8 3.5-3.6" /></svg>
         <span style="flex:1">Role &amp; Access</span>
-        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">2.8k</span>
+        <span style="background:#16345C;color:#9FB6D4;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px">8</span>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
       </a>
 
@@ -1215,7 +1215,7 @@
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:{{ spkGridCols }};gap:16px;align-items:start">
+          <div>
             <div style="min-width:0">
               <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
                 <div style="display:flex;flex-wrap:nowrap;gap:14px;padding:12px 16px;border-bottom:1px solid #F0EEE7;overflow-x:auto">
@@ -1734,6 +1734,185 @@
                             <span style="font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:999px;background:{{ i.bg }};color:{{ i.fg }};flex:none;white-space:nowrap">{{ i.status }}</span>
                           </div>
                         </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ spkTabIs.schedule }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">UPCOMING SESSIONS</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                        <button onClick="{{ goSchedule }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Full calendar →</button>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                        <sc-for list="{{ spkEvents }}" as="e" hint-placeholder-count="5">
+                          <div style="display:flex;align-items:center;gap:13px;padding:13px 16px;border-bottom:1px solid #F7F5F0">
+                            <div style="width:96px;flex:none">
+                              <div style="font-size:12px;font-weight:700;color:#0F2A47">{{ e.date }}</div>
+                              <div style="font-size:10.5px;color:#98A2B3;margin-top:2px">{{ e.time }}</div>
+                            </div>
+                            <div style="min-width:0;flex:1">
+                              <div style="font-size:13px;font-weight:600;color:#0F2A47">{{ e.title }}</div>
+                              <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ e.type }} · {{ e.regs }} registered</div>
+                            </div>
+                            <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ e.sBg }};color:{{ e.sFg }};white-space:nowrap;flex:none">{{ e.status }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ spkTabIs.recruitment }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">RECRUITMENT &amp; ENGAGEMENT</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                        <sc-for list="{{ spkRecruit }}" as="r" hint-placeholder-count="12">
+                          <div style="display:grid;grid-template-columns:240px 1fr;gap:14px;padding:11px 16px;background:{{ r.bg }};border-bottom:1px solid #F7F5F0">
+                            <span style="font-size:12.5px;color:#7A8699">{{ r.k }}</span>
+                            <span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ r.v }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ spkTabIs.ratings }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:13px;margin-bottom:24px">
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:15px 17px;background:#FCFBF7">
+                          <div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#7A8699">OVERALL RATING</div>
+                          <div style="font-size:26px;font-weight:800;color:#B45309;margin-top:6px">{{ spkRatings.overall }}</div>
+                          <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ spkRatings.responses }} responses</div>
+                        </div>
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:15px 17px;background:#FCFBF7">
+                          <div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#7A8699">WOULD RECOMMEND</div>
+                          <div style="font-size:26px;font-weight:800;color:#15803D;margin-top:6px">{{ spkRatings.recommend }}</div>
+                          <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">of respondents</div>
+                        </div>
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:15px 17px;background:#FCFBF7">
+                          <div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#7A8699">SATISFACTION</div>
+                          <div style="font-size:26px;font-weight:800;color:#15803D;margin-top:6px">{{ spkRatings.satisfaction }}</div>
+                          <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">post-event survey</div>
+                        </div>
+                      </div>
+
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">RATING BREAKDOWN</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                      </div>
+                      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:24px">
+                        <sc-for list="{{ spkRatings.dims }}" as="d" hint-placeholder-count="5">
+                          <div>
+                            <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:6px">
+                              <span style="font-size:12.5px;color:#344054;flex:1;min-width:0">{{ d.label }}</span>
+                              <span style="font-size:11px;color:#98A2B3;white-space:nowrap">{{ d.sub }}</span>
+                              <span style="font-size:13px;font-weight:800;color:#0F2A47">{{ d.pct }}</span>
+                            </div>
+                            <div style="height:8px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ d.pct }};border-radius:5px;background:{{ d.color }}"></div></div>
+                          </div>
+                        </sc-for>
+                      </div>
+
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">RECENT REVIEWS</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                      </div>
+                      <div style="display:flex;flex-direction:column;gap:11px">
+                        <sc-for list="{{ spkRatings.recent }}" as="rv" hint-placeholder-count="3">
+                          <div style="border:1px solid #F0EEE7;border-radius:11px;padding:14px 16px;background:#FCFBF7">
+                            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                              <span style="font-size:13px;font-weight:700;color:#B45309">★ {{ rv.rating }}</span>
+                              <span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ rv.who }}</span>
+                              <span style="font-size:11.5px;color:#98A2B3">{{ rv.event }}</span>
+                              <span style="flex:1"></span>
+                              <span style="font-size:11.5px;color:#98A2B3;white-space:nowrap">{{ rv.date }}</span>
+                            </div>
+                            <div style="font-size:12.5px;color:#475467;margin-top:8px;line-height:1.55;text-wrap:pretty">{{ rv.comment }}</div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ spkTabIs.attendance }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:13px;margin-bottom:24px">
+                        <sc-for list="{{ spkAttendance.kpis }}" as="k" hint-placeholder-count="6">
+                          <div style="border:1px solid #F0EEE7;border-radius:12px;padding:14px 16px;background:#FCFBF7">
+                            <div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#7A8699">{{ k.label }}</div>
+                            <div style="font-size:22px;font-weight:800;letter-spacing:-.02em;color:{{ k.fg }};margin-top:6px">{{ k.v }}</div>
+                            <div style="font-size:11px;color:#98A2B3;margin-top:3px">{{ k.note }}</div>
+                          </div>
+                        </sc-for>
+                      </div>
+
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">SESSION ATTENDANCE LOG</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                        <div style="overflow-x:auto">
+                          <table style="width:100%;min-width:760px;border-collapse:collapse">
+                            <thead>
+                              <tr style="background:#FCFBF7">
+                                <th style="padding:10px 16px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">DATE</th>
+                                <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">EVENT</th>
+                                <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SCHEDULED</th>
+                                <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ACTUAL START</th>
+                                <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">DURATION</th>
+                                <th style="padding:10px 16px 10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">STATUS</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <sc-for list="{{ spkAttendance.log }}" as="a" hint-placeholder-count="5">
+                                <tr style-hover="background:#FCFBF7">
+                                  <td style="padding:11px 16px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ a.date }}</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47">{{ a.event }}</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467">{{ a.scheduled }}</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467">{{ a.actual }}</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467">{{ a.duration }}</td>
+                                  <td style="padding:11px 16px 11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ a.sBg }};color:{{ a.sFg }};white-space:nowrap">{{ a.status }}</span></td>
+                                </tr>
+                              </sc-for>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ spkTabIs.notes }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">INTERNAL NOTES</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                        <span style="font-size:11.5px;color:#98A2B3">Visible to administrators only</span>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden;margin-bottom:24px">
+                        <sc-for list="{{ spkNotes }}" as="n" hint-placeholder-count="4">
+                          <div style="display:flex;align-items:center;gap:13px;padding:13px 16px;border-bottom:1px solid #F7F5F0">
+                            <span style="width:28px;height:28px;flex:none;border-radius:8px;background:{{ n.iBg }};color:{{ n.iFg }};font-size:12px;font-weight:700;display:grid;place-items:center">{{ n.ic }}</span>
+                            <div style="flex:1;min-width:0">
+                              <div style="font-size:13px;font-weight:600;color:#0F2A47;text-wrap:pretty">{{ n.t }}</div>
+                              <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ n.s }}</div>
+                            </div>
+                            <span style="font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:999px;background:{{ n.rBg }};color:{{ n.rFg }};flex:none;white-space:nowrap">{{ n.right }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex;gap:9px;flex-wrap:wrap">
+                        <button onClick="{{ spkUploadDoc }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Add Internal Note</button>
+                        <button onClick="{{ spkDownloadDocs }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Export Notes</button>
                       </div>
                     </div>
                   </sc-if>
@@ -7814,14 +7993,20 @@ class Component extends DCLogic {
 
       onboard, onboardFiltered, onboardPipeline, curSpeaker, obDone, obTotal:s.onboard.length, obReqLeft, canActivate, stages, curStage,
       stageStatus, obPct: stagePct+'%',
-      spkTabs: ['overview','profile','events','coordinator','audience','performance','content','payments','documents','tasks','activity'].map(k=>({
-        key:k, label:k==='tasks'?'Tasks & Issues':k.charAt(0).toUpperCase()+k.slice(1),
+      spkTabs: ['overview','recruitment','profile','events','performance','ratings','attendance','schedule','payments','notes','audience','coordinator','content','documents','tasks','activity'].map(k=>({
+        key:k, label:({overview:'Overview',recruitment:'Employment & Recruitment',profile:'Personal & Professional',
+          events:'Course & Batch',performance:'Performance & Reports',ratings:'Ratings & Reviews',
+          attendance:'Attendance & Leave',schedule:'Schedule',payments:'Finance & Payroll',
+          notes:'Internal Notes',audience:'Students',coordinator:'Coordinator',content:'Content',
+          documents:'Documents',tasks:'Tasks & Issues',activity:'Activity Log'})[k],
         color: (s.profTab||'overview')===k?'#0F2A47':'#6B7C93', weight:(s.profTab||'overview')===k?'700':'500',
         border: (s.profTab||'overview')===k?'#0E9384':'transparent',
         go:()=>this.setState({profTab:k})})),
       spkTabIs: (()=>{ const t=s.profTab||'overview'; return {overview:t==='overview',profile:t==='profile',events:t==='events',
         coordinator:t==='coordinator',audience:t==='audience',performance:t==='performance',content:t==='content',
-        payments:t==='payments',documents:t==='documents',tasks:t==='tasks',activity:t==='activity'}; })(),
+        payments:t==='payments',documents:t==='documents',tasks:t==='tasks',activity:t==='activity',
+        recruitment:t==='recruitment',ratings:t==='ratings',attendance:t==='attendance',
+        schedule:t==='schedule',notes:t==='notes'}; })(),
       spkEvents: SPK_EVENTS.map(e=>({...e, bg:BDG2[e.c][0], fg:BDG2[e.c][1]})),
 
       ...(()=>{
@@ -7978,6 +8163,52 @@ class Component extends DCLogic {
       spkTasksPending: SPK_TASKS.filter(t=>t.status==='Pending'),
       spkTasksDone: SPK_TASKS.filter(t=>t.status==='Completed'),
       spkIssues: SPK_ISSUES.map(i=>({...i, bg: i.status==='Resolved'?'#E7F7EE':'#FEF3E2', fg: i.status==='Resolved'?'#15803D':'#B45309'})),
+      spkRecruit: [
+        ['Application ID','APP-2048'],['Source','Referral — Vikram Sethi'],['Applied on','24 July 2026'],
+        ['Screening','Cleared · 8.6 / 10'],['Interview','Cleared · 9.0 / 10 · Panel: Academic + Ops'],
+        ['Recommendation','Strong hire — Masterclass tier'],['Offer released','30 July 2026'],
+        ['Offer accepted','02 August 2026'],['Onboarded','02 August 2026'],['Speaker type','External Speaker'],
+        ['Engagement model','Per Webinar / Workshop'],['Agreement','Signed · valid to 01 Aug 2027']
+      ].map(([k,v],i)=>({k,v,bg: i%2 ? '#FCFBF7' : '#fff'})),
+      spkRatings: {
+        overall:'4.8', responses:'412', recommend:'96%', satisfaction:'94%',
+        dims: [
+          {label:'Subject knowledge', sub:'412 responses', pct:'98%', color:'#0E9384'},
+          {label:'Delivery & clarity', sub:'412 responses', pct:'96%', color:'#0E9384'},
+          {label:'Audience engagement', sub:'389 responses', pct:'92%', color:'#0E9384'},
+          {label:'Punctuality', sub:'412 responses', pct:'97%', color:'#0E9384'},
+          {label:'Material quality', sub:'356 responses', pct:'86%', color:'#5AC0B0'}
+        ],
+        recent: [
+          ['Aarav Sharma','IC-11 Industry Masterclass','5','Best session on claims I have attended.','26 Aug 2026'],
+          ['Priya Das','Insurance Career Masterclass','5','Real settlement files made it click.','17 Aug 2026'],
+          ['Kabir Mehta','Claims Handling Workshop','4','Great depth, would like more numericals.','04 Aug 2026']
+        ].map(([who,event,rating,comment,date])=>({who,event,rating,comment,date}))
+      },
+      spkAttendance: {
+        kpis: [
+          {label:'SESSIONS DELIVERED', v:'38', note:'lifetime', fg:'#0F2A47'},
+          {label:'ON-TIME STARTS', v:'97%', note:'37 of 38', fg:'#15803D'},
+          {label:'NO-SHOWS', v:'0', note:'none recorded', fg:'#15803D'},
+          {label:'RESCHEDULED', v:'2', note:'both with notice', fg:'#B45309'},
+          {label:'CANCELLED BY SPEAKER', v:'1', note:'medical · 12 Jun', fg:'#B45309'},
+          {label:'LEAVE / UNAVAILABLE', v:'6 days', note:'blocked in calendar', fg:'#0F2A47'}
+        ],
+        log: [
+          ['26 Aug 2026','IC-11 Industry Masterclass','18:00','17:56','1h 42m',['Delivered','green']],
+          ['17 Aug 2026','Insurance Career Masterclass','18:00','18:02','1h 38m',['Delivered','green']],
+          ['04 Aug 2026','Claims Handling Workshop','15:00','15:00','2h 05m',['Delivered','green']],
+          ['20 Jul 2026','Underwriting Fundamentals','18:00','18:14','1h 30m',['Late start','amber']],
+          ['12 Jun 2026','Risk Assessment Deep-Dive','18:00','—','—',['Cancelled','red']]
+        ].map(([date,event,scheduled,actual,duration,st])=>({date,event,scheduled,actual,duration,
+          status:st[0], sBg:BDG2[st[1]][0], sFg:BDG2[st[1]][1]}))
+      },
+      spkNotes: [
+        {ic:'★',c:'green',t:'Highest-rated external speaker this quarter',s:'Added by Vikram Sethi · 27 Aug 2026',right:'Positive',rc:'green'},
+        {ic:'!',c:'amber',t:'Material quality is the weakest dimension at 86%',s:'Added by Academic Ops · 22 Aug 2026',right:'Action',rc:'amber'},
+        {ic:'✎',c:'blue',t:'Open to a retainer arrangement from January',s:'Added by Priya Singh · 14 Aug 2026',right:'Noted',rc:'blue'},
+        {ic:'✓',c:'green',t:'Form W-8 received and filed',s:'Added by Finance · 06 Aug 2026',right:'Closed',rc:'grey'}
+      ].map(n=>({...n, iBg:BDG2[n.c][0], iFg:BDG2[n.c][1], rBg:BDG2[n.rc][0], rFg:BDG2[n.rc][1]})),
       spkDocsCount: SPK_DOCS.length,
       spkDownloadDocs: ()=>this.fire('Preparing download','Zipping '+SPK_DOCS.length+' documents', true),
       spkDocs: SPK_DOCS.map(d=>{

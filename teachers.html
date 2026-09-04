@@ -4617,7 +4617,7 @@ const CL = {t:'#0B7A6E',d:'#0F2A47',a:'#B45309',r:'#B42318',p:'#6D28D9',b:'#1D4E
 const card = (k,v,sub,vc) => ({k,v,sub,vc:vc||CL.d});
 const BDG = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],grey:['#F1F3F5','#667085'],blue:['#E9F1FD','#1D4ED8'],violet:['#F0EAFD','#6D28D9']};
 
-const TABS = ['Overview','Employment & Recruitment','Personal','Professional','Course & Batch','Students','Performance & Reports','Reviews & Ratings','Attendance & Leave','Schedule','Finance & Payroll','Documents','Logins','Devices','Achievements','Communication','Activity Log'];
+const TABS = ['Overview','Employment & Recruitment','Personal & Professional','Course & Batch','Performance & Reports','Ratings & Reviews','Attendance & Leave','Schedule','Finance & Payroll','Internal Notes','Students','Documents','Logins','Devices','Achievements','Communication','Activity Log'];
 
 const SEC = {
   'Overview': [
@@ -5855,7 +5855,19 @@ class Component extends DCLogic {
           const cur = s.perfSubTab || 'Overview';
           return SEC['Performance & Reports'].filter(sec=>sec.type==='perfsubtabs' || !sec.sub || sec.sub===cur).map(sec=>this.decorate(sec));
         }
-        const secs = (SEC[s.tab2||'Overview']||[]).map(sec=>this.decorate(sec));
+        const MERGED = {
+          'Personal & Professional': (SEC['Personal']||[]).concat(SEC['Professional']||[]),
+          'Ratings & Reviews': SEC['Reviews & Ratings']||[],
+          'Internal Notes': [
+            {t:'INTERNAL NOTES',right:'Visible to administrators only',type:'list',rows:[
+              {ic:'★',c:'green',t:'Consistently strong student feedback',s:'Added by Vikram Sethi · 28 Aug 2026',right:'Positive',rc:'green'},
+              {ic:'!',c:'amber',t:'Study material for Policy Law needs refreshing',s:'Added by Academic Ops · 22 Aug 2026',right:'Action',rc:'amber'},
+              {ic:'✎',c:'blue',t:'Requested a shift to morning batches from October',s:'Added by Priya Bose (HR) · 14 Aug 2026',right:'Noted',rc:'blue'},
+              {ic:'✓',c:'green',t:'Cleared the annual compliance training',s:'Added by Compliance · 02 Aug 2026',right:'Closed',rc:'grey'}]},
+            {t:'NOTE ACTIONS',type:'actions',btns:[['Add Internal Note'],['Export Notes'],['Restrict Visibility',1]]}
+          ]
+        };
+        const secs = (MERGED[s.tab2] || SEC[s.tab2||'Overview'] || []).map(sec=>this.decorate(sec));
         if ((s.tab2||'Overview')!=='Overview') return secs;
         const t = TEACHERS.find(x=>x[1]===s.teacher) || TEACHERS[0];
         const coord = ['R. Kumar (COORD-014)','S. Patel (COORD-021)','A. Nair (COORD-008)'][t[1].charCodeAt(6) % 3];
