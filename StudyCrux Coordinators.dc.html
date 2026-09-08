@@ -2342,6 +2342,21 @@
         <div>
           <div style="background:#EEF6F5;border:1px solid #BFE3DC;border-radius:12px;padding:13px 18px;margin-bottom:16px;font-size:12.5px;color:#0B7A6E;text-wrap:pretty">{{ rcPurpose }}</div>
 
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:15px;flex-wrap:wrap">
+            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;flex:none">
+              <sc-for list="{{ rcTabs }}" as="t" hint-placeholder-count="4">
+                <button onClick="{{ t.pick }}" style="height:32px;padding:0 14px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap">{{ t.label }}</button>
+              </sc-for>
+            </div>
+            <div style="position:relative;flex:1 1 220px;min-width:0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:13px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
+              <input value="{{ rcQ }}" onChange="{{ setRcQ }}" placeholder="Search course or coordinator…" style="width:100%;height:38px;padding:0 13px 0 35px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
+            </div>
+            <button onClick="{{ rcReset }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            <button onClick="{{ rcBulk }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Bulk actions</button>
+            <button onClick="{{ rcExport }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export</button>
+          </div>
+
           <sc-if value="{{ rcIsDash }}" hint-placeholder-val="{{ true }}">
             <div>
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px;margin-bottom:16px">
@@ -2375,20 +2390,6 @@
             </div>
           </sc-if>
 
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:15px;flex-wrap:wrap">
-            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;flex:none">
-              <sc-for list="{{ rcTabs }}" as="t" hint-placeholder-count="4">
-                <button onClick="{{ t.pick }}" style="height:32px;padding:0 14px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap">{{ t.label }}</button>
-              </sc-for>
-            </div>
-            <div style="position:relative;flex:1 1 220px;min-width:0">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:13px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
-              <input value="{{ rcQ }}" onChange="{{ setRcQ }}" placeholder="Search course or coordinator…" style="width:100%;height:38px;padding:0 13px 0 35px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
-            </div>
-            <button onClick="{{ rcReset }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
-            <button onClick="{{ rcBulk }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Bulk actions</button>
-            <button onClick="{{ rcExport }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export</button>
-          </div>
 
           <sc-if value="{{ rcIsCourses }}" hint-placeholder-val="{{ true }}">
             <div>
@@ -9729,7 +9730,12 @@ class Component extends DCLogic {
         return {label, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'700':'500',
           pick:()=>this.setState({rcTab:k})};
       }),
-      rcIsDash: (s.rcTab||'dash')==='dash', rcIsCourses: s.rcTab==='courses', rcIsDoubts: s.rcTab==='doubts',
+      rcIsDash: (s.rcTab||'dash')==='dash',
+      rcIsCourses: s.rcTab==='courses',
+      rcIsContent: s.rcTab==='content',
+      rcIsDoubts: s.rcTab==='doubts',
+      rcIsInterventions: s.rcTab==='interventions',
+      rcIsAudit: s.rcTab==='audit', rcIsCourses: s.rcTab==='courses', rcIsDoubts: s.rcTab==='doubts',
       rcIsActivity: s.rcTab==='activity', rcIsInterventions: s.rcTab==='interventions',
       rcIsStudents: s.rcTab==='students', rcIsContent: s.rcTab==='content',
       rcIsAssignHist: s.rcTab==='assignhist', rcIsAudit: s.rcTab==='audit',

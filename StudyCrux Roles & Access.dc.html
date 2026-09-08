@@ -1055,6 +1055,170 @@
     </div>
   </sc-if>
 
+  <sc-if value="{{ mGenAct }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:560px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ gaTitle }}</h3>
+          <p style="margin:5px 0 0;font-size:13px;color:#6B7C93;text-wrap:pretty">{{ gaSub }}</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <div style="margin-bottom:14px">
+          <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">{{ gaPickLabel }}</label>
+          <select value="{{ gaSel }}" onChange="{{ setGaSel }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+            <sc-for list="{{ gaOpts }}" as="o" hint-placeholder-count="6"><option>{{ o.o }}</option></sc-for>
+          </select>
+        </div>
+        <div style="display:{{ gaShowScope }};margin-bottom:14px">
+          <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Scope</label>
+          <select value="{{ gaScope }}" onChange="{{ setGaScope }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+            <sc-for list="{{ gaScopeOpts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+          </select>
+        </div>
+        <div style="display:{{ gaShowFmt }};margin-bottom:14px">
+          <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Format</label>
+          <select value="{{ gaFormat }}" onChange="{{ setGaFormat }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+            <sc-for list="{{ gaFormatOpts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+          </select>
+        </div>
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">{{ gaReasonLabel }}</label>
+        <textarea value="{{ gaReason }}" onChange="{{ setGaReason }}" placeholder="Recorded in the audit trail" style="width:100%;min-height:84px;padding:11px 13px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit;resize:vertical;box-sizing:border-box"></textarea>
+        <div style="padding:12px 14px;border-radius:10px;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;margin-top:14px;text-wrap:pretty">{{ gaInfo }}</div>
+        <div style="display:{{ gaErrShow }};padding:11px 14px;border-radius:9px;background:#FDE8E8;color:#B42318;font-size:12.5px;font-weight:600;margin-top:12px">{{ gaErr }}</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ gaSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">{{ gaBtn }}</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mRoleActivity }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">{{ raxName }} — activity</h3>
+          <p style="margin:5px 0 0;font-size:13px;color:#6B7C93">Every change to this role definition.</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:6px 0 20px">
+        <sc-for list="{{ roleActivity }}" as="a" hint-placeholder-count="5">
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:13px 24px;border-bottom:1px solid #F5F3EE;background:{{ a.rowBg }}">
+            <span style="width:8px;height:8px;flex:none;border-radius:50%;background:{{ a.dot }};margin-top:6px"></span>
+            <div style="min-width:0;flex:1">
+              <div style="font-size:13px;font-weight:700;color:#0F2A47">{{ a.action }}</div>
+              <div style="font-size:11.5px;color:#7A8699;margin-top:3px;text-wrap:pretty">{{ a.detail }}</div>
+            </div>
+            <span style="font-size:11.5px;color:#98A2B3;white-space:nowrap;flex:none">{{ a.by }} · {{ a.when }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mReqDetails }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:660px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">{{ rdTitle }}</h3>
+          <p style="margin:5px 0 0;font-size:13px;color:#6B7C93;text-wrap:pretty">{{ rdSub }}</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px 24px">
+        <sc-for list="{{ rdSections }}" as="sec" hint-placeholder-count="5">
+          <div style="margin-bottom:18px">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#98A2B3;margin-bottom:9px">{{ sec.title }}</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 18px">
+              <sc-for list="{{ sec.rows }}" as="row" hint-placeholder-count="4">
+                <div style="min-width:0">
+                  <div style="font-size:10.5px;color:#98A2B3">{{ row.k }}</div>
+                  <div style="font-size:12.5px;font-weight:600;color:#0F2A47;margin-top:2px;text-wrap:pretty">{{ row.v }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mReqAction }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:560px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">{{ raTitle }}</h3>
+          <p style="margin:5px 0 0;font-size:13px;color:#6B7C93;text-wrap:pretty">{{ raActSub }}</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <sc-if value="{{ raIsDelegate }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-bottom:14px">
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Delegate to</label>
+            <select value="{{ raDelegate }}" onChange="{{ setRaDelegate }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+              <sc-for list="{{ raDelegateOpts }}" as="o" hint-placeholder-count="5"><option>{{ o.o }}</option></sc-for>
+            </select>
+          </div>
+        </sc-if>
+        <sc-if value="{{ raIsEsc }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-bottom:14px">
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Escalate to</label>
+            <select value="{{ raEscTo }}" onChange="{{ setRaEscTo }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+              <sc-for list="{{ raEscOpts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+            </select>
+          </div>
+        </sc-if>
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">{{ raMsgLabel }}</label>
+        <textarea value="{{ raMsg }}" onChange="{{ setRaMsg }}" placeholder="{{ raMsgPlaceholder }}" style="width:100%;min-height:96px;padding:11px 13px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit;resize:vertical;box-sizing:border-box"></textarea>
+        <div style="padding:12px 14px;border-radius:10px;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;margin-top:14px;text-wrap:pretty">{{ raInfo }}</div>
+        <div style="display:{{ raErrShow }};padding:11px 14px;border-radius:9px;background:#FDE8E8;color:#B42318;font-size:12.5px;font-weight:600;margin-top:12px">{{ raErr }}</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ raSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">{{ raBtn }}</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mReqHistory }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">{{ rhTitle }}</h3>
+          <p style="margin:5px 0 0;font-size:13px;color:#6B7C93;text-wrap:pretty">{{ rhSub }}</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px 24px">
+        <sc-for list="{{ rhSteps }}" as="st" hint-placeholder-count="6">
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #F5F3EE">
+            <span style="width:8px;height:8px;flex:none;border-radius:50%;background:{{ st.dot }};margin-top:6px"></span>
+            <div style="min-width:0;flex:1">
+              <div style="font-size:13px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ st.step }}</div>
+              <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ st.by }} · {{ st.when }}</div>
+            </div>
+            <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ st.sBg }};color:{{ st.sFg }};white-space:nowrap;flex:none">{{ st.state }}</span>
+          </div>
+        </sc-for>
+        <div style="padding:12px 14px;border-radius:10px;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;margin-top:16px;text-wrap:pretty">Approval history is immutable — every step is recorded in the audit trail.</div>
+      </div>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ mAuditEvent }}" hint-placeholder-val="{{ false }}">
     <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:760px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
       <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
@@ -2469,7 +2633,9 @@ class Component extends DCLogic {
                   if (label==='Archive (locked)') return this.fire('System role — cannot archive','Locked to prevent accidental deletion', false);
                   if (label==='Edit') return this.setState({route:'roleDetail', roleSel:name, rdEdit:true});
                   if (label==='Clone') return this.fire('Role duplicated — '+name+' (copy)','Permissions and scope carried over, users not copied', true);
-                  this.fire(label+' — '+name, 'Written to the role audit trail', true); }}))
+                  if (label==='View activity') return this.setState({modal:'roleActivity', gaCtx:{name}});
+                  return this.setState({modal:'genAct', gaKind:label, gaCtx:{name, kind:'role'}, gaErr:null,
+                    gaSel:'', gaScope:'Keep current scope', gaReason:'', gaFormat:'XLSX workbook', gaNotify:true}); }}))
             };
           })
         };
@@ -2659,11 +2825,14 @@ class Component extends DCLogic {
               menu: ()=>this.setState({userMenu: open ? null : email}),
               menuItems: [
                 ['Assign Role', ()=>this.openFlow('role', ctx)],
-                ['Remove Role', ()=>this.openFlow('role', ctx)],
+                ['Remove Role', ()=>this.setState({modal:'genAct', gaKind:'Remove Role', gaCtx:{name, kind:'user', role}, gaErr:null,
+                  gaSel:'', gaScope:'Keep current scope', gaReason:'', gaFormat:'XLSX workbook', gaNotify:true})],
                 ['Add Permission', ()=>this.setState({modal:'assignAccess', aaUser:name, aaErr:null})],
-                ['Revoke Permission', ()=>this.fire('Permission revoked — '+name,'Effective access recalculated', true)],
+                ['Revoke Permission', ()=>this.setState({modal:'genAct', gaKind:'Revoke Permission', gaCtx:{name, kind:'user'}, gaErr:null,
+                  gaSel:'', gaScope:'Keep current scope', gaReason:'', gaFormat:'XLSX workbook', gaNotify:true})],
                 ['Temporary Access', ()=>this.setState({modal:'tempAccess', taUser:name, taErr:null})],
-                ['Start Access Review', ()=>this.fire('Access review started — '+name, effPerms+' effective permissions queued for review', true)],
+                ['Start Access Review', ()=>this.setState({modal:'genAct', gaKind:'Start Access Review', gaCtx:{name, kind:'user', perms:effPerms}, gaErr:null,
+                  gaSel:'', gaScope:'Keep current scope', gaReason:'', gaFormat:'XLSX workbook', gaNotify:true})],
                 ['Reset MFA', ()=>this.openFlow('tfa', ctx)],
                 ['Revoke Sessions', ()=>this.openFlow('sessions', ctx)],
                 ['View Audit', ()=>this.nav('audit')],
@@ -2742,12 +2911,12 @@ class Component extends DCLogic {
               menuDisplay: open ? 'block' : 'none',
               menu: ()=>this.setState({reqMenu: open ? null : id}),
               menuItems: [
-                ['View details', ()=>this.fire(id+' — '+who, toRole+' · '+resource+' · '+scope+' · '+duration+' · '+workflow, true)],
-                ['Request information', ()=>this.fire('Information requested — '+id, 'Requester notified · SLA paused', true)],
-                ['Delegate', ()=>this.fire('Delegated — '+id, 'Reassigned to the backup approver', true)],
-                ['Escalate', ()=>this.fire('Escalated — '+id, 'Raised to the escalation approver', true)],
-                ['View approval history', ()=>this.nav('audit')],
-                ['Revoke access', ()=>this.fire('Access revoked — '+id, who+' · '+toRole+' removed and audited', true), 1]
+                ['View details', ()=>this.setState({modal:'reqDetails', rdCtx:{id,who,fromRole,toRole,resource,scope,reason,risk,duration,approver,workflow,sla,status,when}})],
+                ['Request information', ()=>this.setState({modal:'reqAction', raAct:'Request information', raCtx:{id,who,toRole}, raMsg:'', raDelegate:'Meera Krishnan', raEscTo:'Super Admin', raErr:null})],
+                ['Delegate', ()=>this.setState({modal:'reqAction', raAct:'Delegate', raCtx:{id,who,toRole}, raMsg:'', raDelegate:'Meera Krishnan', raEscTo:'Super Admin', raErr:null})],
+                ['Escalate', ()=>this.setState({modal:'reqAction', raAct:'Escalate', raCtx:{id,who,toRole}, raMsg:'', raDelegate:'Meera Krishnan', raEscTo:'Super Admin', raErr:null})],
+                ['View approval history', ()=>this.setState({modal:'reqHistory', rdCtx:{id,who,toRole,approver,workflow,when}})],
+                ['Revoke access', ()=>this.setState({modal:'reqAction', raAct:'Revoke access', raCtx:{id,who,toRole}, raMsg:'', raDelegate:'Meera Krishnan', raEscTo:'Super Admin', raErr:null}), 1]
               ].map(([label,pick,danger])=>({label,
                 pick: ()=>{ this.setState({reqMenu:null}); pick(); },
                 fg: danger?'#B42318':'#344054', hbg: danger?'#FEF7F6':'#F6F5F0'}))};
@@ -2904,6 +3073,129 @@ class Component extends DCLogic {
       mBulkAccess: s.modal==='bulkAccess', mEffAccess: s.modal==='effAccess',
       mCreateReq: s.modal==='createReq', mApproveReq: s.modal==='approveReq',
       mJit: s.modal==='jitAccess', mAccessReview: s.modal==='accessReview', mSod: s.modal==='sodRules',
+      mReqDetails: s.modal==='reqDetails', mReqAction: s.modal==='reqAction', mReqHistory: s.modal==='reqHistory',
+      mGenAct: s.modal==='genAct', mRoleActivity: s.modal==='roleActivity',
+      ...(()=>{
+        const k = s.gaKind || 'Assign users';
+        const c = s.gaCtx || {};
+        const who = c.name || '';
+        const userOpts = USERS.slice(0,8).map(u=>u[0]);
+        const SPEC = {
+          'Assign users': {sub:'Add people to this role', pickLabel:'Users to assign', opts:userOpts,
+            info:'Assigned users inherit every permission and scope on this role. Effective access recalculates immediately.',
+            btn:'Assign Users', needReason:false, scope:true, fmt:false},
+          'Remove users': {sub:'Take this role away from people', pickLabel:'Users to remove', opts:userOpts, danger:true,
+            info:'Removing the role revokes the permissions it granted, unless the user holds them through another role.',
+            btn:'Remove Users', needReason:true, scope:false, fmt:false},
+          'Review': {sub:'Open a review campaign for this role', pickLabel:'Reviewer', opts:['Vikram Sethi','Arvind Menon','Meera Krishnan','Super Admin'],
+            info:'The reviewer confirms whether each holder still needs this role. Unreviewed items escalate at the deadline.',
+            btn:'Start Review', needReason:false, scope:false, fmt:false},
+          'Export': {sub:'Download this role definition', pickLabel:'Include', opts:['Permissions only','Permissions + users','Full definition + history'],
+            info:'The export itself is recorded as an audit event attributed to you.',
+            btn:'Generate Export', needReason:false, scope:false, fmt:true},
+          'Remove Role': {sub:(c.role||'')+' — remove from this user', pickLabel:'Role to remove', opts:[c.role||'Coordinator'], danger:true,
+            info:'The user keeps any permission still granted by another role they hold.',
+            btn:'Remove Role', needReason:true, scope:false, fmt:false},
+          'Revoke Permission': {sub:'Remove a directly granted permission', pickLabel:'Permission', opts:['Course.Edit','Course.Publish','Payout.Approve','Payout.Release','Student.Export','Report.View'], danger:true,
+            info:'Only direct grants can be revoked here. Permissions inherited from a role must be changed on the role itself.',
+            btn:'Revoke Permission', needReason:true, scope:false, fmt:false},
+          'Start Access Review': {sub:(c.perms||'')+' effective permissions', pickLabel:'Reviewer', opts:['Their manager','Vikram Sethi','Arvind Menon','Super Admin'],
+            info:'Every effective permission is queued for keep / remove / modify decisions.',
+            btn:'Start Review', needReason:false, scope:false, fmt:false}
+        };
+        const sp = SPEC[k] || SPEC['Assign users'];
+        return {
+          gaTitle: k+' — '+who, gaSub: sp.sub,
+          gaPickLabel: sp.pickLabel,
+          gaOpts: sp.opts.map(o=>({o})),
+          gaSel: s.gaSel || sp.opts[0], setGaSel:(e)=>this.setState({gaSel:e.target.value}),
+          gaShowScope: sp.scope ? 'block' : 'none',
+          gaScope: s.gaScope||'Keep current scope', setGaScope:(e)=>this.setState({gaScope:e.target.value}),
+          gaScopeOpts: ['Keep current scope','All resources','Assigned only','Department only'].map(o=>({o})),
+          gaShowFmt: sp.fmt ? 'block' : 'none',
+          gaFormat: s.gaFormat||'XLSX workbook', setGaFormat:(e)=>this.setState({gaFormat:e.target.value}),
+          gaFormatOpts: ['XLSX workbook','CSV','PDF','JSON'].map(o=>({o})),
+          gaReasonLabel: sp.needReason ? 'Reason (required)' : 'Note (optional)',
+          gaReason: s.gaReason||'', setGaReason:(e)=>this.setState({gaReason:e.target.value}),
+          gaInfo: sp.info, gaBtn: sp.btn,
+          gaErr: s.gaErr||'', gaErrShow: s.gaErr ? 'block' : 'none',
+          gaSubmit: ()=>{
+            const reason = (s.gaReason||'').trim();
+            if (sp.needReason && !reason) return this.setState({gaErr:'A reason is required — it is written to the audit trail.'});
+            this.setState({modal:null});
+            const pick = s.gaSel || sp.opts[0];
+            this.fire(sp.btn+' — '+who,
+              pick + (sp.scope ? ' · '+(s.gaScope||'') : '') + (sp.fmt ? ' · '+(s.gaFormat||'') : '') + ' · audit entry recorded', true);
+          },
+          raxName: who,
+          roleActivity: [
+            ['Permission added','Course.Publish granted','Admin User','2 d ago','green'],
+            ['Scope narrowed','All data → Assigned only','Arvind Menon','5 d ago','amber'],
+            ['Users assigned','3 users added','Vikram Sethi','1 w ago','green'],
+            ['Review completed','All holders confirmed','Meera Krishnan','2 w ago','green'],
+            ['Role created','Initial definition published','Admin User','1 mo ago','grey']
+          ].map(([action,detail,by,when,c2],i)=>({action, detail, by, when,
+            dot:BDG[c2][1], rowBg: i%2 ? '#FCFBF7' : '#fff'}))
+        };
+      })(),
+      ...(()=>{
+        const d = s.rdCtx || {};
+        const a = s.raAct || 'Request information';
+        const ac = s.raCtx || {};
+        const isDelegate = a==='Delegate', isEsc = a==='Escalate', isRevoke = a==='Revoke access';
+        return {
+          rdTitle: d.id ? d.id+' — '+d.who : 'Request',
+          rdSub: (d.toRole||'')+' · '+(d.resource||''),
+          rdSections: [
+            ['REQUESTER', [['User', d.who||''],['Current role', d.fromRole||'—'],['Submitted', d.when||'']]],
+            ['REQUESTED ACCESS', [['Role', d.toRole||''],['Resource', d.resource||''],['Scope', d.scope||''],['Duration', d.duration||'']]],
+            ['JUSTIFICATION', [['Business reason', d.reason||'—']]],
+            ['APPROVAL', [['Approver', d.approver||''],['Workflow', d.workflow||''],['SLA', d.sla||''],['Status', d.status||'']]],
+            ['RISK', [['Risk level', d.risk||''],['Additional approval', (d.risk==='Critical'||d.risk==='High') ? 'Required' : 'Not required']]]
+          ].map(([title,rows])=>({title, rows: rows.map(([k,v])=>({k,v}))})),
+
+          raTitle: a, raActSub: (ac.id||'')+' · '+(ac.who||''),
+          raIsDelegate: isDelegate, raIsEsc: isEsc,
+          raMsgLabel: isRevoke ? 'Revocation reason' : isEsc ? 'Escalation reason' : isDelegate ? 'Note to the delegate' : 'What information do you need?',
+          raMsgPlaceholder: isRevoke ? 'Required — written to the audit trail'
+            : isEsc ? 'Why this needs a higher approver'
+            : isDelegate ? 'Optional context for the new approver'
+            : 'Ask the requester for the missing detail',
+          raMsg: s.raMsg||'', setRaMsg: (e)=>this.setState({raMsg:e.target.value}),
+          raDelegate: s.raDelegate||'Meera Krishnan', setRaDelegate:(e)=>this.setState({raDelegate:e.target.value}),
+          raDelegateOpts: ['Meera Krishnan','Arvind Menon','Rahul Kumar','Vikram Sethi','Super Admin'].map(o=>({o})),
+          raEscTo: s.raEscTo||'Super Admin', setRaEscTo:(e)=>this.setState({raEscTo:e.target.value}),
+          raEscOpts: ['Super Admin','Security Admin','Academic Head','Finance Head'].map(o=>({o})),
+          raInfo: isRevoke ? 'Revoking removes the granted access immediately and cannot be undone from here.'
+            : isEsc ? 'Escalation reassigns approval and restarts the SLA clock at the higher tier.'
+            : isDelegate ? 'The delegate becomes the acting approver. The original approver keeps visibility.'
+            : 'The SLA clock pauses until the requester replies.',
+          raBtn: isRevoke ? 'Revoke Access' : a,
+          raDanger: isRevoke,
+          raErr: s.raErr||'', raErrShow: s.raErr ? 'block' : 'none',
+          raSubmit: ()=>{
+            const msg = (s.raMsg||'').trim();
+            if ((isRevoke || isEsc) && !msg) return this.setState({raErr:'A reason is required — it is written to the audit trail.'});
+            this.setState({modal:null});
+            const sub = isDelegate ? 'Reassigned to '+(s.raDelegate||'')
+              : isEsc ? 'Raised to '+(s.raEscTo||'')+' · '+msg
+              : isRevoke ? (ac.who||'')+' · '+(ac.toRole||'')+' removed · '+msg
+              : 'Requester notified · SLA paused';
+            this.fire(a+' — '+(ac.id||''), sub, true);
+          },
+
+          rhTitle: (d.id||'')+' — approval history',
+          rhSub: (d.who||'')+' · '+(d.workflow||''),
+          rhSteps: [
+            ['Request submitted', d.who||'', d.when||'', 'Done','green'],
+            ['Auto-validation passed', 'System', d.when||'', 'Done','green'],
+            ['SoD check cleared', 'System', d.when||'', 'Done','green'],
+            ['Manager approval', 'Vikram Sethi', 'Today, 10:22', 'Approved','green'],
+            ['Security approval', d.approver||'', 'Awaiting', 'Pending','amber'],
+            ['Provisioning', 'System', '—', 'Not started','grey']
+          ].map(([step,by,when,state,c])=>({step,by,when,state, sBg:BDG[c][0], sFg:BDG[c][1], dot:BDG[c][1]}))
+        };
+      })(),
       mAuditEvent: s.modal==='auditEvent', mAuditExport: s.modal==='auditExport',
       mExportHistory: s.modal==='exportHistory', mRetention: s.modal==='retention',
 
