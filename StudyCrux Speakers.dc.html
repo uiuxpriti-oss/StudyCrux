@@ -439,283 +439,6 @@
         </div>
       </sc-if>
 
-      <sc-if value="{{ isApps }}" hint-placeholder-val="{{ false }}">
-        <div>
-          <sc-if value="{{ isPartial }}" hint-placeholder-val="{{ false }}">
-            <div style="display:flex;align-items:center;gap:11px;padding:12px 16px;border:1px solid #F5DFC0;background:#FEF9F0;border-radius:11px;margin-bottom:16px">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2.2" stroke-linecap="round"><path d="M12 3l7.5 3v5.5c0 4.4-3.1 8.2-7.5 9.5-4.4-1.3-7.5-5.1-7.5-9.5V6z" /><path d="M12 9.5v3M12 15.5h.01" /></svg>
-              <div style="flex:1">
-                <div style="font-size:13px;font-weight:600;color:#7A4A0B">Partial access — scope limited to your assigned region</div>
-                <div style="font-size:12.5px;color:#96703C;margin-top:2px">You can view all applications but only act on <strong style="font-weight:700">Insurance · APAC</strong>. Finance columns are masked.</div>
-              </div>
-              <button style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E9D3AE;background:#fff;font-size:12.5px;font-weight:600;color:#7A4A0B;cursor:pointer">Request access</button>
-            </div>
-          </sc-if>
-
-          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px">
-            <sc-for list="{{ appsKpis }}" as="k" hint-placeholder-count="5">
-              <div onClick="{{ k.go }}" style="background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:15px 16px;cursor:pointer" style-hover="border-color:#BFE3DC">
-                <div style="font-size:11.5px;font-weight:500;color:#6B7C93">{{ k.label }}</div>
-                <div style="font-size:23px;font-weight:800;letter-spacing:-.02em;color:#0F2A47;margin-top:6px">{{ k.n }}</div>
-                <div style="font-size:11px;color:{{ k.fg }};margin-top:4px">{{ k.note }}</div>
-              </div>
-            </sc-for>
-          </div>
-
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px">
-            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;overflow-x:auto">
-              <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="8">
-                <button onClick="{{ t.pick }}" style="height:32px;padding:0 14px;border:0;border-radius:8px;font-size:13px;white-space:nowrap;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }}">{{ t.label }}</button>
-              </sc-for>
-            </div>
-            <div style="display:flex;gap:10px;flex:none">
-              <button onClick="{{ goCreate }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Add Speaker
-              </button>
-              <button onClick="{{ openExport }}" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 17px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5" /><path d="M4.5 19h15" /></svg>Export
-              </button>
-            </div>
-          </div>
-
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:visible">
-            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid #F2F0EA">
-              <div style="flex:1;min-width:0">
-                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Speaker Applications</div>
-                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Showing {{ rowCount }} of 1,284 applications</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:9px;width:300px;height:38px;padding:0 14px;border:1px solid #E5E3DC;border-radius:10px">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" /></svg>
-                <input value="{{ q }}" onChange="{{ setQ }}" placeholder="Search name, email, ID…" style="border:0;outline:0;flex:1;font-size:13px;color:#0F2A47;background:transparent" />
-              </div>
-              <div style="position:relative">
-                <button onClick="{{ toggleViews }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 13px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L3.4 9.8l6-.8z" /></svg>
-                  Saved views
-                </button>
-                <div style="display:{{ viewsDisplay }};position:absolute;top:44px;right:0;width:300px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 16px 40px rgba(11,31,62,.13);padding:6px;z-index:20">
-                  <sc-for list="{{ savedViews }}" as="v" hint-placeholder-count="4">
-                    <div onClick="{{ v.pick }}" style="padding:10px 11px;border-radius:9px;cursor:pointer" style-hover="background:#F7FBFA">
-                      <div style="display:flex;justify-content:space-between;align-items:center">
-                        <span style="font-size:13px;font-weight:600;color:#0F2A47">{{ v.name }}</span>
-                        <span style="font-size:11px;font-weight:600;color:#0B7A6E;background:#EEF6F5;padding:2px 7px;border-radius:999px">{{ v.count }}</span>
-                      </div>
-                      <div style="font-size:11.5px;color:#98A2B3;margin-top:3px;font-family:ui-monospace,monospace">{{ v.desc }}</div>
-                    </div>
-                  </sc-for>
-                  <div style="border-top:1px solid #F2F0EA;margin-top:4px;padding:9px 11px;font-size:12.5px;font-weight:600;color:#0E9384;cursor:pointer">+ Save current view</div>
-                </div>
-              </div>
-              <div style="position:relative">
-                <button onClick="{{ toggleCols }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 13px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16M15 4v16" /></svg>
-                  Columns
-                </button>
-                <div style="display:{{ colsDisplay }};position:absolute;top:44px;right:0;width:220px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 16px 40px rgba(11,31,62,.13);padding:6px;z-index:20">
-                  <sc-for list="{{ cols }}" as="c" hint-placeholder-count="7">
-                    <div onClick="{{ c.toggle }}" style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;cursor:pointer;font-size:13px;color:#344054" style-hover="background:#F7FBFA">
-                      <span style="width:9px;height:9px;border-radius:50%;background:{{ c.dot }}"></span>{{ c.label }}
-                    </div>
-                  </sc-for>
-                </div>
-              </div>
-              <button onClick="{{ toggleFilters }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 13px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>
-                More Filters
-              </button>
-            </div>
-
-            <div style="display:{{ filtersDisplay }};grid-template-columns:repeat(4,1fr);gap:14px;padding:18px 20px;background:#FCFBF7;border-bottom:1px solid #F2F0EA">
-              <div>
-                <label style="display:block;font-size:11.5px;font-weight:600;color:#475467;margin-bottom:6px">Expertise</label>
-                <select value="{{ apExpertise }}" onChange="{{ setApExpertise }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:13px;background:#fff;color:#0F2A47;outline:0"><option>Any expertise</option><option>Insurance &amp; Risk</option><option>Actuarial Science</option><option>Financial Planning</option></select>
-              </div>
-              <div>
-                <label style="display:block;font-size:11.5px;font-weight:600;color:#475467;margin-bottom:6px">Assigned reviewer</label>
-                <select value="{{ apReviewer }}" onChange="{{ setApReviewer }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:13px;background:#fff;color:#0F2A47;outline:0"><option>Anyone</option><option>Unassigned</option><option>R. Iyer</option><option>M. Kulkarni</option><option>A. Menon</option></select>
-              </div>
-              <div>
-                <label style="display:block;font-size:11.5px;font-weight:600;color:#475467;margin-bottom:6px">Priority</label>
-                <div style="display:flex;gap:6px">
-                  <sc-for list="{{ apPriorities }}" as="pr" hint-placeholder-count="3">
-                    <span onClick="{{ pr.pick }}" style="flex:1;text-align:center;height:36px;line-height:34px;border:1px solid {{ pr.border }};background:{{ pr.bg }};color:{{ pr.fg }};border-radius:8px;font-size:12.5px;font-weight:{{ pr.weight }};cursor:pointer">{{ pr.label }}</span>
-                  </sc-for>
-                </div>
-              </div>
-              <div>
-                <label style="display:block;font-size:11.5px;font-weight:600;color:#475467;margin-bottom:6px">Applied between</label>
-                <div style="display:flex;align-items:center;gap:6px">
-                  <input type="date" value="{{ apFrom }}" onChange="{{ setApFrom }}" style="flex:1;height:36px;padding:0 8px;border:1px solid #E5E3DC;border-radius:8px;font-size:12px;background:#fff;color:#0F2A47;outline:0" />
-                  <input type="date" value="{{ apTo }}" onChange="{{ setApTo }}" style="flex:1;height:36px;padding:0 8px;border:1px solid #E5E3DC;border-radius:8px;font-size:12px;background:#fff;color:#0F2A47;outline:0" />
-                </div>
-              </div>
-              <div style="grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding-top:4px">
-                <span style="font-size:12.5px;color:#6B7C93">Multi-sort: <strong style="color:#0F2A47;font-weight:600">Priority ↓</strong> then <strong style="color:#0F2A47;font-weight:600">Applied ↓</strong></span>
-                <div style="display:flex;gap:9px">
-                  <button onClick="{{ apResetFilters }}" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Reset</button>
-                  <button onClick="{{ toggleFilters }}" style="height:34px;padding:0 16px;border-radius:8px;border:0;background:#0E9384;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Apply filters</button>
-                </div>
-              </div>
-            </div>
-
-            <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex;align-items:center;gap:12px;padding:12px 20px;background:#0B1F3E;color:#fff">
-                <span style="font-size:13px;font-weight:600">{{ selCount }} selected</span>
-                <span style="width:1px;height:18px;background:#28456C"></span>
-                <button onClick="{{ bulkApprove }}" style="height:30px;padding:0 12px;border-radius:7px;border:0;background:#0E9384;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Approve</button>
-                <button onClick="{{ bulkReject }}" style="height:30px;padding:0 12px;border-radius:7px;border:1px solid #28456C;background:transparent;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Reject</button>
-                <button style="height:30px;padding:0 12px;border-radius:7px;border:1px solid #28456C;background:transparent;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Assign reviewer</button>
-                <button style="height:30px;padding:0 12px;border-radius:7px;border:1px solid #28456C;background:transparent;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Request documents</button>
-                <button onClick="{{ openExport }}" style="height:30px;padding:0 12px;border-radius:7px;border:1px solid #28456C;background:transparent;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Export</button>
-                <button onClick="{{ bulkArchive }}" style="height:30px;padding:0 12px;border-radius:7px;border:1px solid #28456C;background:transparent;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer">Archive</button>
-                <span style="flex:1"></span>
-                <button onClick="{{ clearSel }}" style="border:0;background:transparent;color:#9FB6D4;font-size:12.5px;font-weight:600;cursor:pointer">Clear</button>
-              </div>
-            </sc-if>
-
-            <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}">
-              <div style="padding:8px 0">
-                <sc-for list="{{ skeletons }}" as="k" hint-placeholder-count="8">
-                  <div style="display:flex;align-items:center;gap:16px;padding:15px 20px;border-bottom:1px solid #F7F5F0">
-                    <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(90deg,#F2F0EA 25%,#F9F8F4 50%,#F2F0EA 75%);background-size:500px 100%;animation:shimmer 1.3s infinite"></div>
-                    <div style="flex:2;height:11px;border-radius:6px;background:linear-gradient(90deg,#F2F0EA 25%,#F9F8F4 50%,#F2F0EA 75%);background-size:500px 100%;animation:shimmer 1.3s infinite"></div>
-                    <div style="flex:1;height:11px;border-radius:6px;background:linear-gradient(90deg,#F2F0EA 25%,#F9F8F4 50%,#F2F0EA 75%);background-size:500px 100%;animation:shimmer 1.3s infinite"></div>
-                    <div style="flex:1;height:11px;border-radius:6px;background:linear-gradient(90deg,#F2F0EA 25%,#F9F8F4 50%,#F2F0EA 75%);background-size:500px 100%;animation:shimmer 1.3s infinite"></div>
-                    <div style="width:86px;height:22px;border-radius:999px;background:linear-gradient(90deg,#F2F0EA 25%,#F9F8F4 50%,#F2F0EA 75%);background-size:500px 100%;animation:shimmer 1.3s infinite"></div>
-                  </div>
-                </sc-for>
-              </div>
-            </sc-if>
-
-            <sc-if value="{{ isError }}" hint-placeholder-val="{{ false }}">
-              <div style="padding:64px 20px;text-align:center">
-                <div style="width:54px;height:54px;margin:0 auto;border-radius:50%;background:#FDE8E8;display:grid;place-items:center">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2" stroke-linecap="round"><path d="M2.5 8.5a15 15 0 0 1 19 0" /><path d="M5.5 12a11 11 0 0 1 13 0" /><path d="M8.5 15.5a7 7 0 0 1 7 0" /><path d="M12 19h.01" /><path d="M3 3l18 18" /></svg>
-                </div>
-                <div style="font-size:16px;font-weight:700;color:#0F2A47;margin-top:16px">Couldn't load applications</div>
-                <div style="font-size:13.5px;color:#6B7C93;margin-top:6px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.6">The request timed out after 30s. Your filters and selection have been preserved.</div>
-                <div style="display:flex;gap:10px;justify-content:center;margin-top:20px">
-                  <button onClick="{{ retry }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer">Retry</button>
-                  <button style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">View status page</button>
-                </div>
-                <div style="font-size:11.5px;color:#98A2B3;margin-top:16px;font-family:ui-monospace,monospace">trace_id: 7f2c-91ab-0e44</div>
-              </div>
-            </sc-if>
-
-            <sc-if value="{{ isDenied }}" hint-placeholder-val="{{ false }}">
-              <div style="padding:64px 20px;text-align:center">
-                <div style="width:54px;height:54px;margin:0 auto;border-radius:50%;background:#F1F3F5;display:grid;place-items:center">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#667085" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2" /><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" /></svg>
-                </div>
-                <div style="font-size:16px;font-weight:700;color:#0F2A47;margin-top:16px">You don't have permission to view applications</div>
-                <div style="font-size:13.5px;color:#6B7C93;margin-top:6px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.6">This module requires <strong style="color:#344054;font-family:ui-monospace,monospace">SPEAKER:APPLICATION:VIEW</strong>. Your role (Coordinator) does not include it.</div>
-                <button style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer;margin-top:20px">Request access from Super Admin</button>
-              </div>
-            </sc-if>
-
-            <sc-if value="{{ showTable }}" hint-placeholder-val="{{ true }}">
-              <sc-if value="{{ hasRows }}" hint-placeholder-val="{{ true }}">
-                <div style="overflow-x:auto">
-                  <table style="width:100%;border-collapse:collapse">
-                    <thead>
-                      <tr style="background:#FCFBF7">
-                        <th style="width:46px;padding:12px 0 12px 20px;text-align:left;border-bottom:1px solid #F0EEE7"><input type="checkbox" checked="{{ allChecked }}" onChange="{{ toggleAll }}" style="width:15px;height:15px;accent-color:#0E9384;cursor:pointer" /></th>
-                        <sc-if value="{{ showApplication }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">APPLICATION</th></sc-if>
-                        <sc-if value="{{ showExpertise }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">EXPERTISE</th></sc-if>
-                        <sc-if value="{{ showExperience }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">EXP.</th></sc-if>
-                        <sc-if value="{{ showApplied }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">APPLIED</th></sc-if>
-                        <sc-if value="{{ showReviewer }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">REVIEWER</th></sc-if>
-                        <sc-if value="{{ showPriority }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">PRIORITY</th></sc-if>
-                        <sc-if value="{{ showStatus }}" hint-placeholder-val="{{ true }}"><th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;border-bottom:1px solid #F0EEE7">STATUS</th></sc-if>
-                        <th style="width:56px;padding:12px 20px 12px 0;border-bottom:1px solid #F0EEE7"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <sc-for list="{{ rows }}" as="r" hint-placeholder-count="8">
-                        <tr style="background:{{ r.rowBg }};cursor:pointer" style-hover="background:#FCFBF7">
-                          <td style="padding:13px 0 13px 20px;border-bottom:1px solid #F5F3EE"><input type="checkbox" checked="{{ r.checked }}" onChange="{{ r.toggle }}" style="width:15px;height:15px;accent-color:#0E9384;cursor:pointer" /></td>
-                          <sc-if value="{{ showApplication }}" hint-placeholder-val="{{ true }}">
-                            <td onClick="{{ r.open }}" style="padding:13px 16px;border-bottom:1px solid #F5F3EE">
-                              <div style="display:flex;align-items:center;gap:11px">
-                                <div style="width:34px;height:34px;flex:none;border-radius:50%;background:{{ r.avBg }};display:grid;place-items:center;color:#fff;font-size:11.5px;font-weight:700">{{ r.init }}</div>
-                                <div style="min-width:0">
-                                  <div style="font-size:13.5px;font-weight:600;color:#0F2A47">{{ r.name }}</div>
-                                  <div style="font-size:11.5px;color:#98A2B3;margin-top:2px">{{ r.id }} · {{ r.email }}</div>
-                                </div>
-                              </div>
-                            </td>
-                          </sc-if>
-                          <sc-if value="{{ showExpertise }}" hint-placeholder-val="{{ true }}">
-                            <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE"><span style="display:inline-block;background:#F3F4F6;color:#4B5563;font-size:12.5px;font-weight:500;padding:5px 10px;border-radius:7px">{{ r.exp }}</span></td>
-                          </sc-if>
-                          <sc-if value="{{ showExperience }}" hint-placeholder-val="{{ true }}">
-                            <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE;font-size:13px;color:#475467">{{ r.yrs }}</td>
-                          </sc-if>
-                          <sc-if value="{{ showApplied }}" hint-placeholder-val="{{ true }}">
-                            <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE;font-size:13px;color:#475467">{{ r.applied }}</td>
-                          </sc-if>
-                          <sc-if value="{{ showReviewer }}" hint-placeholder-val="{{ true }}">
-                            <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE;font-size:13px;color:#475467">{{ r.reviewer }}</td>
-                          </sc-if>
-                          <sc-if value="{{ showPriority }}" hint-placeholder-val="{{ true }}">
-                            <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE"><span style="display:inline-block;font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:6px;background:{{ r.priBg }};color:{{ r.priFg }}">{{ r.pri }}</span></td>
-                          </sc-if>
-                          <sc-if value="{{ showStatus }}" hint-placeholder-val="{{ true }}">
-                            <td style="padding:13px 16px;border-bottom:1px solid #F5F3EE"><span style="display:inline-block;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;background:{{ r.badgeBg }};color:{{ r.badgeFg }}">{{ r.status }}</span></td>
-                          </sc-if>
-                          <td style="padding:13px 20px 13px 0;border-bottom:1px solid #F5F3EE;position:relative;text-align:right">
-                            <button onClick="{{ r.menu }}" style="width:28px;height:28px;border-radius:7px;border:0;background:transparent;cursor:pointer;color:#98A2B3" style-hover="background:#F2F0EA;color:#475467">
-                              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7" /><circle cx="12" cy="12" r="1.7" /><circle cx="12" cy="19" r="1.7" /></svg>
-                            </button>
-                            <div style="display:{{ r.menuDisplay }};position:absolute;top:40px;right:18px;width:210px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;box-shadow:0 16px 40px rgba(11,31,62,.14);padding:5px;z-index:30;text-align:left">
-                              <div onClick="{{ r.open }}" style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">View application</div>
-                              <div style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Assign reviewer</div>
-                              <div onClick="{{ openInterview }}" style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Schedule interview</div>
-                              <div onClick="{{ requestDocs }}" style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Request documents</div>
-                              <div style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Download documents</div>
-                              <div style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Print / Generate PDF</div>
-                              <div style="height:1px;background:#F2F0EA;margin:4px 0"></div>
-                              <div onClick="{{ archiveInstead }}" style="padding:9px 11px;border-radius:8px;font-size:13px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Archive</div>
-                              <div onClick="{{ openDelete }}" style="padding:9px 11px;border-radius:8px;font-size:13px;color:#B42318;cursor:pointer" style-hover="background:#FEF7F6">Delete permanently</div>
-                            </div>
-                          </td>
-                        </tr>
-                      </sc-for>
-                    </tbody>
-                  </table>
-                </div>
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#FCFBF7;border-top:1px solid #F0EEE7">
-                  <span style="font-size:12.5px;color:#6B7C93">Page {{ apPage }} of 107 · {{ rowCount }} rows shown</span>
-                  <div style="display:flex;align-items:center;gap:6px">
-                    <button onClick="{{ apPrevPage }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:{{ apPrevWeight }};color:{{ apPrevFg }};cursor:{{ apPrevCursor }}">Prev</button>
-                    <sc-for list="{{ pages }}" as="p" hint-placeholder-count="3">
-                      <button onClick="{{ p.pick }}" style="width:30px;height:30px;border-radius:50%;border:0;font-size:12.5px;font-weight:600;cursor:pointer;background:{{ p.bg }};color:{{ p.fg }}">{{ p.n }}</button>
-                    </sc-for>
-                    <span style="color:#98A2B3;font-size:12.5px;padding:0 4px">…</span>
-                    <button onClick="{{ apLastPage }}" style="width:34px;height:30px;border-radius:8px;border:0;background:{{ apLastBg }};font-size:12.5px;font-weight:600;color:{{ apLastFg }};cursor:pointer">107</button>
-                    <button onClick="{{ apNextPage }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Next</button>
-                  </div>
-                </div>
-              </sc-if>
-            </sc-if>
-
-            <sc-if value="{{ showEmpty }}" hint-placeholder-val="{{ false }}">
-              <div style="padding:64px 20px;text-align:center">
-                <div style="width:54px;height:54px;margin:0 auto;border-radius:14px;background:#F7F6F1;display:grid;place-items:center">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" /></svg>
-                </div>
-                <div style="font-size:16px;font-weight:700;color:#0F2A47;margin-top:16px">No applications match these filters</div>
-                <div style="font-size:13.5px;color:#6B7C93;margin-top:6px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.6">Try widening the date range or clearing the priority filter. You can also add a speaker manually.</div>
-                <div style="display:flex;gap:10px;justify-content:center;margin-top:20px">
-                  <button onClick="{{ resetAll }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">Clear all filters</button>
-                  <button onClick="{{ goCreate }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer">Add Speaker</button>
-                </div>
-              </div>
-            </sc-if>
-          </div>
-        </div>
-      </sc-if>
-
       <sc-if value="{{ isAppDetail }}" hint-placeholder-val="{{ false }}">
         <div>
           <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:22px 24px;margin-bottom:18px">
@@ -1219,6 +942,39 @@
                   </div>
                 </sc-for>
               </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:19px 22px;margin-bottom:18px">
+          <div style="font-size:11.5px;font-weight:700;letter-spacing:.07em;color:#475467;margin-bottom:14px">COMPLETION CRITERIA — {{ obCriteriaTitle }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:11px">
+            <sc-for list="{{ obCriteria }}" as="c" hint-placeholder-count="5">
+              <div onClick="{{ c.toggle }}" style="display:flex;align-items:center;gap:11px;min-width:0;background:{{ c.bg }};border:1px solid {{ c.border }};border-radius:10px;padding:12px 14px;cursor:pointer" style-hover="border-color:#BFE3DC">
+                <span style="width:21px;height:21px;flex:none;border-radius:6px;border:1.5px solid {{ c.boxBorder }};background:{{ c.boxBg }};color:#fff;display:grid;place-items:center;font-size:12px;font-weight:800">{{ c.mark }}</span>
+                <span style="font-size:13px;font-weight:{{ c.weight }};color:{{ c.fg }};min-width:0;text-wrap:pretty">{{ c.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;align-items:center;gap:11px;margin-top:18px;flex-wrap:wrap">
+            <span style="font-size:12.5px;color:#98A2B3;flex:1;min-width:200px;text-wrap:pretty">{{ obCriteriaNote }}</span>
+            <button onClick="{{ obPartBack }}" style="display:{{ obBackShow }};align-items:center;height:40px;padding:0 20px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Back</button>
+            <button onClick="{{ obPartNext }}" style="height:40px;padding:0 22px;border-radius:9px;border:0;background:#0E9384;font-size:13.5px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">{{ obNextLabel }}</button>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden;margin-bottom:18px">
+          <div style="padding:18px 22px;border-bottom:1px solid #F2F0EA">
+            <span style="font-size:11.5px;font-weight:700;letter-spacing:.07em;color:#475467">APPROVAL WORKFLOW</span>
+          </div>
+          <sc-for list="{{ obApprovals }}" as="ap" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:14px;padding:15px 22px;border-bottom:1px solid #F5F3EE;flex-wrap:wrap">
+              <div style="min-width:0;flex:1 1 260px">
+                <div style="font-size:14px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ ap.stage }}</div>
+                <div style="font-size:12.5px;color:#98A2B3;margin-top:3px;text-wrap:pretty">{{ ap.by }}</div>
+              </div>
+              <span style="font-size:12.5px;color:#98A2B3;white-space:nowrap;flex:none">{{ ap.date }}</span>
+              <span style="font-size:12px;font-weight:700;padding:5px 13px;border-radius:999px;background:{{ ap.sBg }};color:{{ ap.sFg }};white-space:nowrap;flex:none">{{ ap.status }}</span>
             </div>
           </sc-for>
         </div>
@@ -2362,17 +2118,201 @@
               <div style="padding:22px 24px 26px">
 
                 <sc-if value="{{ wwTabIs.overview }}" hint-placeholder-val="{{ true }}">
-                  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
-                    <div style="border:1px solid #F0EEE7;border-radius:10px;padding:13px 15px"><div style="font-size:10.5px;color:#98A2B3">Registrations</div><div style="font-size:19px;font-weight:800;color:#0F2A47;margin-top:4px">{{ wwCur.regs }}</div></div>
-                    <div style="border:1px solid #F0EEE7;border-radius:10px;padding:13px 15px"><div style="font-size:10.5px;color:#98A2B3">Expected Attendance</div><div style="font-size:19px;font-weight:800;color:#0F2A47;margin-top:4px">{{ wwCur.expected }}</div></div>
-                    <div style="border:1px solid #F0EEE7;border-radius:10px;padding:13px 15px"><div style="font-size:10.5px;color:#98A2B3">Content Health</div><div style="font-size:19px;font-weight:800;margin-top:4px;color:{{ wwCur.hContent }}">●</div></div>
-                    <div style="border:1px solid #F0EEE7;border-radius:10px;padding:13px 15px"><div style="font-size:10.5px;color:#98A2B3">Technical Health</div><div style="font-size:19px;font-weight:800;margin-top:4px;color:{{ wwCur.hTech }}">●</div></div>
-                  </div>
-                  <div style="display:flex;gap:8px;margin-top:16px">
-                    <button style="height:34px;padding:0 14px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer">Join Event</button>
-                    <button onClick="{{ spkCopyNextLink }}" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Copy Link</button>
-                    <button onClick="{{ spkShareNext }}" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Share</button>
-                    <button onClick="{{ spkContactCoord }}" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Contact Coordinator</button>
+                  <div>
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                      <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                      <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">{{ wwPhaseLabel }}</span>
+                      <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                      <span style="font-size:11.5px;color:#98A2B3">{{ wwPhaseNote }}</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:13px;margin-bottom:24px">
+                      <sc-for list="{{ wwKpiCards }}" as="k" hint-placeholder-count="8">
+                        <div style="min-width:0;border:1px solid #F0EEE7;border-radius:12px;padding:14px 16px;background:#fff">
+                          <div style="display:flex;align-items:flex-start;gap:9px">
+                            <div style="min-width:0;flex:1">
+                              <div style="font-size:11px;font-weight:500;color:#6B7C93;line-height:1.3">{{ k.label }}</div>
+                              <div style="font-size:22px;font-weight:800;letter-spacing:-.03em;color:{{ k.vFg }};margin-top:5px">{{ k.v }}</div>
+                            </div>
+                            <div style="width:30px;height:30px;flex:none;border-radius:9px;background:{{ k.ibg }};display:grid;place-items:center">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{{ k.ifg }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ k.path }}" /></svg>
+                            </div>
+                          </div>
+                          <div style="font-size:11px;font-weight:600;color:{{ k.fg }};margin-top:5px;text-wrap:pretty">{{ k.note }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;align-items:start;margin-bottom:24px">
+                      <div>
+                      <div style="background:#0B1F3E;border-radius:14px;padding:20px 22px">
+                        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;color:#7E96B8">EVENT HEALTH SCORE</div>
+                        <div style="display:flex;align-items:baseline;gap:9px;margin-top:9px">
+                          <span style="font-size:38px;font-weight:800;color:#fff;letter-spacing:-.03em">{{ wwHealthScore }}</span>
+                          <span style="font-size:14px;color:#7E96B8">/ 100</span>
+                          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ wwHealthBandBg }};color:{{ wwHealthBandFg }};white-space:nowrap">{{ wwHealthBand }}</span>
+                        </div>
+                        <div style="font-size:12px;color:#9FB2CC;margin-top:7px;text-wrap:pretty">{{ wwHealthNote }}</div>
+                        <div style="display:flex;flex-direction:column;gap:11px;margin-top:18px">
+                          <sc-for list="{{ wwHealthParts }}" as="h" hint-placeholder-count="6">
+                            <div>
+                              <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:5px">
+                                <span style="font-size:12px;color:#C7D3E3;flex:1;min-width:0">{{ h.label }}</span>
+                                <span style="font-size:10.5px;color:#5F7CA0">{{ h.weight }}</span>
+                                <span style="font-size:12.5px;font-weight:800;color:{{ h.fg }}">{{ h.score }}</span>
+                              </div>
+                              <div style="height:6px;border-radius:4px;background:#16345C;overflow:hidden"><div style="height:100%;width:{{ h.pct }};border-radius:4px;background:{{ h.bar }}"></div></div>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </div>
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:16px 18px;margin-top:16px">
+                          <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:13px">Financial outlook</div>
+                          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px">
+                            <sc-for list="{{ wwFinOutlook }}" as="f" hint-placeholder-count="6">
+                              <div style="min-width:0;background:#FCFBF7;border:1px solid #F0EEE7;border-radius:9px;padding:10px 12px">
+                                <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:#98A2B3;text-wrap:pretty">{{ f.label }}</div>
+                                <div style="font-size:16px;font-weight:800;color:{{ f.fg }};margin-top:3px">{{ f.v }}</div>
+                                <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;text-wrap:pretty">{{ f.note }}</div>
+                              </div>
+                            </sc-for>
+                          </div>
+                          <div style="margin-top:14px;padding-top:13px;border-top:1px solid #F5F3EE">
+                            <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">
+                              <span style="font-size:12px;color:#475467;flex:1">Break-even at {{ wwBreakEven }} seats</span>
+                              <span style="font-size:12.5px;font-weight:800;color:#0B7A6E">{{ wwBreakEvenPct }}</span>
+                            </div>
+                            <div style="height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ wwBreakEvenPct }};max-width:100%;border-radius:4px;background:#0E9384"></div></div>
+                          </div>
+                        </div>
+
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:16px 18px;margin-top:16px">
+                          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+                            <span style="font-size:13.5px;font-weight:700;color:#0F2A47">Benchmark</span>
+                            <span style="flex:1"></span>
+                            <span style="font-size:11.5px;color:#98A2B3">vs last 5 similar events</span>
+                          </div>
+                          <div style="display:flex;flex-direction:column;gap:0;margin-top:10px">
+                            <sc-for list="{{ wwBenchmark }}" as="b" hint-placeholder-count="5">
+                              <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:12px;align-items:center;padding:9px 0;border-top:1px solid #F5F3EE">
+                                <span style="font-size:12.5px;color:#344054;min-width:0">{{ b.label }}</span>
+                                <span style="font-size:12.5px;font-weight:800;color:#0F2A47;white-space:nowrap">{{ b.mine }}</span>
+                                <span style="font-size:11.5px;color:#98A2B3;white-space:nowrap">avg {{ b.avg }}</span>
+                                <span style="font-size:11.5px;font-weight:700;color:{{ b.fg }};white-space:nowrap;min-width:52px;text-align:right">{{ b.delta }}</span>
+                              </div>
+                            </sc-for>
+                          </div>
+                        </div>
+
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:16px 18px;margin-top:16px">
+                          <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:12px">Acquisition</div>
+                          <div style="display:flex;flex-direction:column;gap:11px">
+                            <sc-for list="{{ wwAcquisition }}" as="a" hint-placeholder-count="5">
+                              <div>
+                                <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:5px">
+                                  <span style="font-size:12.5px;color:#344054;flex:1;min-width:0">{{ a.label }}</span>
+                                  <span style="font-size:11px;color:#98A2B3">{{ a.cpr }}</span>
+                                  <span style="font-size:13px;font-weight:800;color:#0F2A47">{{ a.n }}</span>
+                                </div>
+                                <div style="height:7px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ a.pct }};border-radius:5px;background:{{ a.color }}"></div></div>
+                              </div>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:18px 20px;margin-bottom:16px">
+                          <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:4px">Registration funnel</div>
+                          <div style="font-size:11.5px;color:#98A2B3;margin-bottom:15px">Page view through to certificate eligibility</div>
+                          <div style="display:flex;flex-direction:column;gap:9px">
+                            <sc-for list="{{ wwFunnel }}" as="f" hint-placeholder-count="7">
+                              <div>
+                                <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:5px">
+                                  <span style="font-size:12.5px;color:#344054;flex:1;min-width:0">{{ f.label }}</span>
+                                  <span style="font-size:11px;color:#98A2B3">{{ f.drop }}</span>
+                                  <span style="font-size:13px;font-weight:800;color:#0F2A47">{{ f.n }}</span>
+                                </div>
+                                <div style="height:8px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ f.pct }};border-radius:5px;background:{{ f.color }}"></div></div>
+                              </div>
+                            </sc-for>
+                          </div>
+                        </div>
+
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:18px 20px">
+                          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+                            <span style="font-size:13.5px;font-weight:700;color:#0F2A47">Capacity</span>
+                            <span style="flex:1"></span>
+                            <span style="font-size:12.5px;font-weight:800;color:{{ wwCapFg }}">{{ wwCapPct }} filled</span>
+                          </div>
+                          <div style="height:9px;border-radius:6px;background:#F2F0EA;overflow:hidden;margin-bottom:14px"><div style="height:100%;width:{{ wwCapPct }};border-radius:6px;background:{{ wwCapColor }}"></div></div>
+                          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px">
+                            <sc-for list="{{ wwCapacity }}" as="c" hint-placeholder-count="6">
+                              <div style="background:#FCFBF7;border:1px solid #F0EEE7;border-radius:9px;padding:10px 12px;min-width:0">
+                                <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:#98A2B3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.label }}</div>
+                                <div style="font-size:16px;font-weight:800;color:{{ c.fg }};margin-top:3px">{{ c.v }}</div>
+                              </div>
+                            </sc-for>
+                          </div>
+                          <div style="display:flex;gap:7px;flex-wrap:wrap">
+                            <sc-for list="{{ wwCapActions }}" as="ca" hint-placeholder-count="4">
+                              <button onClick="{{ ca.go }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">{{ ca.label }}</button>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;margin-bottom:24px">
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                        <div style="display:flex;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid #F2F0EA">
+                          <span style="width:8px;height:8px;border-radius:50%;background:#E5484D;animation:pulseDot 1.6s infinite"></span>
+                          <span style="font-size:13.5px;font-weight:700;color:#0F2A47">Event alerts</span>
+                          <span style="flex:1"></span>
+                          <span style="font-size:12px;font-weight:700;color:#B42318">{{ wwAlertCount }} open</span>
+                        </div>
+                        <sc-for list="{{ wwAlerts }}" as="al" hint-placeholder-count="5">
+                          <div style="display:flex;align-items:flex-start;gap:11px;padding:12px 18px;border-bottom:1px solid #F7F5F0">
+                            <span style="width:7px;height:7px;flex:none;border-radius:50%;background:{{ al.dot }};margin-top:6px"></span>
+                            <div style="min-width:0;flex:1">
+                              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                                <span style="font-size:12.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ al.title }}</span>
+                                <span style="font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:999px;background:{{ al.sBg }};color:{{ al.sFg }};white-space:nowrap">{{ al.sev }}</span>
+                              </div>
+                              <div style="font-size:11.5px;color:#98A2B3;margin-top:3px;text-wrap:pretty">{{ al.detail }}</div>
+                            </div>
+                            <button onClick="{{ al.go }}" style="border:0;background:transparent;font-size:12px;font-weight:600;color:#0B7A6E;cursor:pointer;white-space:nowrap;flex:none;font-family:inherit;padding:0">Resolve →</button>
+                          </div>
+                        </sc-for>
+                      </div>
+
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                        <div style="display:flex;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid #F2F0EA">
+                          <span style="font-size:13.5px;font-weight:700;color:#0F2A47">{{ wwChecklistTitle }}</span>
+                          <span style="flex:1"></span>
+                          <span style="font-size:12px;font-weight:700;color:#0B7A6E">{{ wwChecklistDone }}</span>
+                        </div>
+                        <div style="max-height:286px;overflow-y:auto">
+                          <sc-for list="{{ wwChecklist }}" as="ck" hint-placeholder-count="10">
+                            <div style="display:flex;align-items:center;gap:11px;padding:10px 18px;border-bottom:1px solid #F7F5F0">
+                              <span style="width:18px;height:18px;flex:none;border-radius:5px;background:{{ ck.boxBg }};border:1.5px solid {{ ck.boxBorder }};display:grid;place-items:center;color:#fff;font-size:11px;font-weight:800">{{ ck.mark }}</span>
+                              <span style="font-size:12.5px;font-weight:{{ ck.weight }};color:{{ ck.fg }};flex:1;min-width:0;text-wrap:pretty">{{ ck.label }}</span>
+                              <span style="font-size:11px;color:#98A2B3;white-space:nowrap;flex:none">{{ ck.meta }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                      <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                      <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">QUICK ACTIONS</span>
+                      <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                    </div>
+                    <div style="display:flex;gap:9px;flex-wrap:wrap">
+                      <sc-for list="{{ wwQuickActions }}" as="qa" hint-placeholder-count="6">
+                        <button onClick="{{ qa.go }}" style="height:38px;padding:0 16px;border-radius:9px;border:{{ qa.border }};background:{{ qa.bg }};font-size:13px;font-weight:{{ qa.weight }};color:{{ qa.fg }};cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:{{ qa.hbg }}">{{ qa.label }}</button>
+                      </sc-for>
+                    </div>
                   </div>
                 </sc-if>
 
@@ -2819,6 +2759,65 @@
                   </div>
                 </sc-if>
 
+                <sc-if value="{{ wwTabIs.anReg }}" hint-placeholder-val="{{ false }}">
+                  <div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:13px;margin-bottom:22px">
+                      <sc-for list="{{ wwRegKpis }}" as="k" hint-placeholder-count="5">
+                        <div style="min-width:0;border:1px solid #F0EEE7;border-radius:11px;padding:13px 15px">
+                          <div style="font-size:11px;color:#6B7C93">{{ k.label }}</div>
+                          <div style="font-size:20px;font-weight:800;color:{{ k.fg }};margin-top:5px">{{ k.v }}</div>
+                          <div style="font-size:11px;color:#98A2B3;margin-top:3px">{{ k.note }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <div style="border:1px solid #F0EEE7;border-radius:12px;padding:18px 20px;margin-bottom:22px">
+                      <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:3px">Registrations per day</div>
+                      <div style="font-size:11.5px;color:#98A2B3;margin-bottom:16px">Since registration opened</div>
+                      <div style="display:flex;align-items:flex-end;gap:12px;height:150px;padding:0 4px">
+                        <sc-for list="{{ wwRegTrend }}" as="b" hint-placeholder-count="8">
+                          <div style="flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end;min-width:0">
+                            <span style="font-size:11px;font-weight:700;color:#475467;margin-bottom:5px">{{ b.n }}</span>
+                            <div style="width:100%;max-width:52px;border-radius:6px 6px 0 0;background:{{ b.bg }};height:{{ b.h }}"></div>
+                            <span style="font-size:10.5px;color:#98A2B3;margin-top:7px;white-space:nowrap">{{ b.label }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;padding:18px 20px">
+                        <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:15px">Registration source</div>
+                        <div style="display:flex;flex-direction:column;gap:12px">
+                          <sc-for list="{{ wwRegSource }}" as="r" hint-placeholder-count="6">
+                            <div>
+                              <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:5px">
+                                <span style="font-size:12.5px;color:#344054;flex:1;min-width:0">{{ r.label }}</span>
+                                <span style="font-size:11px;color:#98A2B3">{{ r.conv }} conv</span>
+                                <span style="font-size:13px;font-weight:800;color:#0F2A47">{{ r.n }}</span>
+                              </div>
+                              <div style="height:7px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ r.pct }};border-radius:5px;background:{{ r.color }}"></div></div>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                        <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                          <div style="font-size:13.5px;font-weight:700;color:#0F2A47">Ticket type &amp; timing</div>
+                        </div>
+                        <sc-for list="{{ wwRegTicket }}" as="t" hint-placeholder-count="5">
+                          <div style="display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:12px 20px;border-bottom:1px solid #F7F5F0;background:{{ t.bg }}">
+                            <div style="min-width:0">
+                              <div style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ t.label }}</div>
+                              <div style="font-size:11px;color:#98A2B3;margin-top:2px">{{ t.note }}</div>
+                            </div>
+                            <span style="font-size:13.5px;font-weight:800;color:#0F2A47;white-space:nowrap">{{ t.n }}</span>
+                            <span style="font-size:12px;font-weight:700;color:#0B7A6E;white-space:nowrap">{{ t.share }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </div>
+                </sc-if>
+
                 <sc-if value="{{ wwTabIs.anAtt }}" hint-placeholder-val="{{ false }}">
                   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:13px">
                     <sc-for list="{{ wwAttKpis }}" as="k" hint-placeholder-count="8">
@@ -2889,9 +2888,9 @@
                             <span style="font-size:13px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ a.title }}</span>
                             <span style="font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ a.sBg }};color:{{ a.sFg }}">{{ a.sev }}</span>
                           </div>
-                          <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ a.desc }}</div>
+                          <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ a.detail }}</div>
                         </div>
-                        <button onClick="{{ a.resolve }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap;flex:none" style-hover="background:#F6F5F0">Action</button>
+                        <button onClick="{{ a.go }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap;flex:none" style-hover="background:#F6F5F0">Resolve</button>
                       </div>
                     </sc-for>
                   </div>
@@ -2958,20 +2957,34 @@
                 </sc-if>
 
                 <sc-if value="{{ wwTabIs.participants }}" hint-placeholder-val="{{ false }}">
-                  <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
-                    <table style="width:100%;border-collapse:collapse">
-                      <thead><tr style="background:#FCFBF7"><th style="padding:10px 16px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">PARTICIPANT</th><th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">REG DATE</th><th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:10px 16px 10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ATTENDANCE</th></tr></thead>
-                      <tbody>
-                        <sc-for list="{{ wwParticipants }}" as="p" hint-placeholder-count="5">
-                          <tr style-hover="background:#FCFBF7">
-                            <td style="padding:10px 16px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47">{{ p.name }}</td>
-                            <td style="padding:10px 12px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ p.regDate }}</td>
-                            <td style="padding:10px 12px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ p.status }}</td>
-                            <td style="padding:10px 16px 10px 12px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ p.attendance }}</td>
-                          </tr>
-                        </sc-for>
-                      </tbody>
-                    </table>
+                  <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                    <div style="overflow-x:auto">
+                      <table style="width:100%;min-width:1180px;border-collapse:collapse">
+                        <thead><tr style="background:#FCFBF7">
+                          <th style="padding:10px 18px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PARTICIPANT</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">REGISTRATION ID</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">CITY</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">REGISTERED</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PAYMENT</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">REGISTRATION</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ATTENDANCE</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ASSESSMENT</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">CERTIFICATE</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">FEEDBACK</th><th style="padding:10px 18px 10px 13px;border-bottom:1px solid #F0EEE7"></th>
+                        </tr></thead>
+                        <tbody>
+                          <sc-for list="{{ wwParticipants }}" as="p" hint-placeholder-count="8">
+                            <tr onClick="{{ p.open }}" style="cursor:pointer" style-hover="background:#FCFBF7">
+                              <td style="padding:11px 18px;border-bottom:1px solid #F5F3EE">
+                                <div style="font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ p.name }}</div>
+                                <div style="font-size:10.5px;color:#98A2B3;margin-top:2px">{{ p.email }}</div>
+                              </td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:10.5px;color:#98A2B3;font-family:ui-monospace,monospace;white-space:nowrap">{{ p.rid }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ p.city }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ p.date }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ p.payBg }};color:{{ p.payFg }};white-space:nowrap">{{ p.pay }}</span></td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ p.regBg }};color:{{ p.regFg }};white-space:nowrap">{{ p.reg }}</span></td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:{{ p.attFg }}">{{ p.att }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ p.assess }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ p.certBg }};color:{{ p.certFg }};white-space:nowrap">{{ p.cert }}</span></td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467">{{ p.fb }}</td>
+                              <td style="padding:11px 18px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right"><span style="font-size:11.5px;font-weight:700;color:#0B7A6E;white-space:nowrap">Open →</span></td>
+                            </tr>
+                          </sc-for>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </sc-if>
 
@@ -2988,20 +3001,99 @@
                 </sc-if>
 
                 <sc-if value="{{ wwTabIs.qa }}" hint-placeholder-val="{{ false }}">
-                  <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
-                    <sc-for list="{{ wwQA }}" as="q" hint-placeholder-count="3">
-                      <div style="display:flex;align-items:center;gap:13px;padding:12px 16px;border-bottom:1px solid #F7F5F0">
-                        <div style="min-width:0;flex:1"><div style="font-size:13px;font-weight:600;color:#0F2A47">{{ q.q }}</div><div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ q.who }} · assigned to {{ q.to }}</div></div>
-                        <span style="font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:999px;background:{{ q.bg }};color:{{ q.fg }}">{{ q.status }}</span>
-                      </div>
-                    </sc-for>
+                  <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                    <div style="overflow-x:auto">
+                      <table style="width:100%;min-width:1120px;border-collapse:collapse">
+                        <thead><tr style="background:#FCFBF7">
+                          <th style="padding:10px 18px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">QUESTION</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PARTICIPANT</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SESSION</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TIME</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ASSIGNED TO</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RESOLUTION</th><th style="padding:10px 18px 10px 13px;border-bottom:1px solid #F0EEE7"></th>
+                        </tr></thead>
+                        <tbody>
+                          <sc-for list="{{ wwQA }}" as="q" hint-placeholder-count="7">
+                            <tr style-hover="background:#FCFBF7">
+                              <td style="padding:11px 18px;border-bottom:1px solid #F5F3EE;max-width:330px">
+                                <div style="font-size:12.5px;font-weight:600;color:#0F2A47;text-wrap:pretty">{{ q.q }}</div>
+                                <div style="font-size:11px;color:#98A2B3;margin-top:3px;text-wrap:pretty">{{ q.answer }}</div>
+                              </td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ q.who }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ q.session }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#98A2B3;white-space:nowrap">{{ q.time }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ q.assigned }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ q.sBg }};color:{{ q.sFg }};white-space:nowrap">{{ q.status }}</span></td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ q.res }}</td>
+                              <td style="padding:11px 18px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
+                                <button onClick="{{ q.go }}" style="height:29px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Manage</button>
+                              </td>
+                            </tr>
+                          </sc-for>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </sc-if>
 
                 <sc-if value="{{ wwTabIs.recording }}" hint-placeholder-val="{{ false }}">
-                  <div style="border:1px solid #F0EEE7;border-radius:12px;padding:24px;text-align:center">
-                    <div style="font-size:13.5px;font-weight:700;color:#475467">Recording — Processing</div>
-                    <div style="font-size:12px;color:#98A2B3;margin-top:6px">Will be available for preview once encoding completes, then publish to make it visible to registrants.</div>
+                  <div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;align-items:start;margin-bottom:22px">
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                        <div style="background:#0B1F3E;aspect-ratio:16/9;display:grid;place-items:center;position:relative">
+                          <div style="text-align:center">
+                            <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;margin:0 auto 12px">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z" /></svg>
+                            </div>
+                            <div style="font-size:13px;font-weight:700;color:#fff">{{ wwRec.title }}</div>
+                            <div style="font-size:11.5px;color:#9FB2CC;margin-top:4px">{{ wwRec.duration }} · {{ wwRec.resolution }}</div>
+                          </div>
+                          <span style="position:absolute;top:12px;right:12px;font-size:10.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:{{ wwRec.sBg }};color:{{ wwRec.sFg }}">{{ wwRec.status }}</span>
+                        </div>
+                        <div style="display:flex;gap:8px;padding:14px 16px;flex-wrap:wrap">
+                          <sc-for list="{{ wwRecActions }}" as="a" hint-placeholder-count="5">
+                            <button onClick="{{ a.go }}" style="height:34px;padding:0 14px;border-radius:9px;border:{{ a.border }};background:{{ a.bg }};font-size:12.5px;font-weight:{{ a.weight }};color:{{ a.fg }};cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:{{ a.hbg }}">{{ a.label }}</button>
+                          </sc-for>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:16px 18px;margin-bottom:16px">
+                          <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:13px">Recording details</div>
+                          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px 16px">
+                            <sc-for list="{{ wwRecMeta }}" as="m" hint-placeholder-count="8">
+                              <div style="min-width:0">
+                                <div style="font-size:10.5px;color:#98A2B3">{{ m.k }}</div>
+                                <div style="font-size:12.5px;font-weight:600;color:#0F2A47;margin-top:2px;text-wrap:pretty">{{ m.v }}</div>
+                              </div>
+                            </sc-for>
+                          </div>
+                        </div>
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:16px 18px">
+                          <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:13px">Viewing analytics</div>
+                          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px">
+                            <sc-for list="{{ wwRecAnalytics }}" as="a" hint-placeholder-count="6">
+                              <div style="min-width:0;background:#FCFBF7;border:1px solid #F0EEE7;border-radius:9px;padding:10px 12px">
+                                <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:#98A2B3;text-wrap:pretty">{{ a.label }}</div>
+                                <div style="font-size:16px;font-weight:800;color:{{ a.fg }};margin-top:3px">{{ a.v }}</div>
+                              </div>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                      <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                      <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">CHAPTERS</span>
+                      <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                      <button onClick="{{ wwAddChapter }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Add chapter</button>
+                    </div>
+                    <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                      <sc-for list="{{ wwRecChapters }}" as="c" hint-placeholder-count="6">
+                        <div style="display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:1px solid #F7F5F0;background:{{ c.bg }}">
+                          <span style="font-size:12px;font-weight:700;color:#0B7A6E;font-family:ui-monospace,monospace;width:62px;flex:none">{{ c.ts }}</span>
+                          <span style="font-size:13px;font-weight:600;color:#0F2A47;flex:1;min-width:0;text-wrap:pretty">{{ c.label }}</span>
+                          <span style="font-size:11.5px;color:#98A2B3;white-space:nowrap;flex:none">{{ c.views }} views</span>
+                          <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ c.tagBg }};color:{{ c.tagFg }};white-space:nowrap;flex:none">{{ c.tag }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
                   </div>
                 </sc-if>
 
@@ -3015,13 +3107,29 @@
                 </sc-if>
 
                 <sc-if value="{{ wwTabIs.certificates }}" hint-placeholder-val="{{ false }}">
-                  <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
-                    <sc-for list="{{ wwCerts }}" as="c" hint-placeholder-count="3">
-                      <div style="display:flex;align-items:center;gap:13px;padding:12px 16px;border-bottom:1px solid #F7F5F0">
-                        <div style="min-width:0;flex:1"><div style="font-size:13px;font-weight:600;color:#0F2A47">{{ c.name }}</div><div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ c.attendance }} attendance · {{ c.eligibility }}</div></div>
-                        <span style="font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:999px;background:{{ c.bg }};color:{{ c.fg }}">{{ c.status }}</span>
-                      </div>
-                    </sc-for>
+                  <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                    <div style="overflow-x:auto">
+                      <table style="width:100%;min-width:960px;border-collapse:collapse">
+                        <thead><tr style="background:#FCFBF7">
+                          <th style="padding:10px 18px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PARTICIPANT</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">REGISTRATION ID</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ELIGIBILITY BASIS</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">CERTIFICATE ID</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ISSUED ON</th><th style="padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:10px 18px 10px 13px;border-bottom:1px solid #F0EEE7"></th>
+                        </tr></thead>
+                        <tbody>
+                          <sc-for list="{{ wwCerts }}" as="c" hint-placeholder-count="6">
+                            <tr style-hover="background:#FCFBF7">
+                              <td style="padding:11px 18px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ c.name }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:10.5px;color:#98A2B3;font-family:ui-monospace,monospace;white-space:nowrap">{{ c.rid }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;text-wrap:pretty">{{ c.basis }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:10.5px;color:#98A2B3;font-family:ui-monospace,monospace;white-space:nowrap">{{ c.cid }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ c.issued }}</td>
+                              <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ c.sBg }};color:{{ c.sFg }};white-space:nowrap">{{ c.status }}</span></td>
+                              <td style="padding:11px 18px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
+                                <button onClick="{{ c.go }}" style="height:29px;padding:0 12px;border-radius:8px;border:{{ c.actBd }};background:{{ c.actBg }};font-size:11.5px;font-weight:700;color:{{ c.actFg }};cursor:pointer;font-family:inherit;white-space:nowrap">{{ c.actLabel }}</button>
+                              </td>
+                            </tr>
+                          </sc-for>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </sc-if>
 
@@ -3048,11 +3156,24 @@
                 </sc-if>
 
                 <sc-if value="{{ wwTabIs.activity }}" hint-placeholder-val="{{ false }}">
-                  <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
-                    <sc-for list="{{ wwActivity }}" as="a" hint-placeholder-count="4">
-                      <div style="display:flex;align-items:flex-start;gap:13px;padding:12px 16px;border-bottom:1px solid #F7F5F0">
-                        <span style="width:28px;height:28px;flex:none;border-radius:50%;background:#E9F1FD;color:#1D4ED8;font-size:11px;font-weight:700;display:grid;place-items:center">{{ a.init }}</span>
-                        <div style="min-width:0;flex:1"><div style="font-size:13px;color:#344054;line-height:1.5"><strong style="font-weight:600;color:#0F2A47">{{ a.who }}</strong> {{ a.what }}</div><div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ a.ts }}</div></div>
+                  <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                    <sc-for list="{{ wwActivity }}" as="a" hint-placeholder-count="10">
+                      <div style="padding:13px 18px;border-bottom:1px solid #F5F3EE;background:{{ a.rowBg }}">
+                        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                          <span style="font-size:13px;font-weight:700;color:#0F2A47">{{ a.action }}</span>
+                          <span style="font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:#F1F3F5;color:#667085;white-space:nowrap">{{ a.role }}</span>
+                          <span style="font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:#E9F1FD;color:#1D4ED8;white-space:nowrap">{{ a.module }}</span>
+                          <span style="flex:1"></span>
+                          <span style="font-size:11.5px;color:#98A2B3;white-space:nowrap">{{ a.when }}</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:9px;margin-top:8px;flex-wrap:wrap">
+                          <sc-if value="{{ a.hasPrev }}" hint-placeholder-val="{{ false }}">
+                            <span style="font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;background:#FDE8E8;color:#B42318;text-decoration:line-through;white-space:nowrap">{{ a.prev }}</span>
+                          </sc-if>
+                          <span style="font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;background:#E7F7EE;color:#15803D;white-space:nowrap">{{ a.next }}</span>
+                          <span style="font-size:12.5px;color:#7A8699;text-wrap:pretty">· {{ a.remark }}</span>
+                        </div>
+                        <div style="font-size:11.5px;color:#98A2B3;margin-top:6px">{{ a.who }}</div>
                       </div>
                     </sc-for>
                   </div>
@@ -3114,7 +3235,7 @@
           <sc-if value="{{ wwIsCard }}" hint-placeholder-val="{{ true }}">
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
               <sc-for list="{{ wwEvents }}" as="e" hint-placeholder-count="6">
-                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:16px;padding:18px;display:flex;flex-direction:column" style-hover="border-color:#BFE3DC;box-shadow:0 10px 28px rgba(11,31,62,.07)">
+                <div onClick="{{ e.manage }}" style="background:#fff;border:1px solid #ECEAE2;border-radius:16px;padding:18px;display:flex;flex-direction:column;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 10px 28px rgba(11,31,62,.07)">
                   <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap">
                     <span style="font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px;background:#EEF6F5;color:#0B7A6E">{{ e.type }}</span>
                     <span style="display:{{ e.featuredShow }};font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px;background:#FBF3D6;color:#8A6D0B">Featured</span>
@@ -3156,13 +3277,6 @@
                     </div>
                   </div>
 
-                  <div style="display:flex;gap:10px;margin-top:16px">
-                    <button onClick="{{ e.manage }}" style="flex:1;height:44px;border-radius:10px;border:1.5px solid #0E9384;background:#fff;font-size:13.5px;font-weight:600;color:#0B7A6E;cursor:pointer;font-family:inherit" style-hover="background:#EEF6F5">View Details</button>
-                    <button onClick="{{ e.primary }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:10px;border:0;background:#0E9384;font-size:13.5px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit" style-hover="background:#0B7A6E">
-                      {{ e.primaryLabel }}
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-                    </button>
-                  </div>
                 </div>
               </sc-for>
             </div>
@@ -5694,7 +5808,7 @@
               <div style="font-size:13px;color:#6B7C93;margin-top:7px;line-height:1.6">SPK-0149 has been created and a verification checklist was generated automatically.<br />The speaker will receive onboarding instructions by email.</div>
               <div style="display:flex;gap:10px;justify-content:center;margin-top:20px">
                 <button onClick="{{ resetForm }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">Add Another Speaker</button>
-                <button onClick="{{ goApps }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer">Go to Applications</button>
+                <button onClick="{{ goApps }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer">Go to Speaker Directory</button>
               </div>
             </div>
           </sc-if>
@@ -6017,6 +6131,283 @@
       <div style="display:flex;justify-content:flex-end;gap:10px">
         <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Cancel</button>
         <button onClick="{{ confirmWwCreate }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Save Draft</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mAddPart }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:560px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">Add participant</h3>
+          <p style="margin:5px 0 0;font-size:12.5px;color:#6B7C93;text-wrap:pretty">Seat is allocated immediately and the confirmation email goes out.</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Full name <span style="color:#B42318">*</span></label>
+        <input value="{{ apName }}" onChange="{{ setApName }}" placeholder="e.g. Aarav Sharma" style="width:100%;height:40px;padding:0 13px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;font-family:inherit;box-sizing:border-box;margin-bottom:14px" />
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Email <span style="color:#B42318">*</span></label>
+        <input value="{{ apEmail }}" onChange="{{ setApEmail }}" placeholder="name@example.com" style="width:100%;height:40px;padding:0 13px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;font-family:inherit;box-sizing:border-box;margin-bottom:14px" />
+        <sc-for list="{{ apFields }}" as="f" hint-placeholder-count="4">
+          <div style="margin-bottom:14px">
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">{{ f.label }}</label>
+            <select value="{{ f.value }}" onChange="{{ f.set }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+              <sc-for list="{{ f.opts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+            </select>
+          </div>
+        </sc-for>
+        <div style="padding:12px 14px;border-radius:10px;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;margin-top:14px;text-wrap:pretty">{{ apNote }}</div>
+        <div style="display:{{ apErrShow }};padding:11px 14px;border-radius:9px;background:#FDE8E8;color:#B42318;font-size:12.5px;font-weight:600;margin-top:12px">{{ apErr }}</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ apSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">Add Participant</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mSendRem }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:580px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">Send reminder</h3>
+          <p style="margin:5px 0 0;font-size:12.5px;color:#6B7C93;text-wrap:pretty">{{ srCount }} will receive this reminder.</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <sc-for list="{{ srFields }}" as="f" hint-placeholder-count="4">
+          <div style="margin-bottom:14px">
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">{{ f.label }}</label>
+            <select value="{{ f.value }}" onChange="{{ f.set }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+              <sc-for list="{{ f.opts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+            </select>
+          </div>
+        </sc-for>
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:8px">Channels</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+          <sc-for list="{{ srChannelChips }}" as="c" hint-placeholder-count="4">
+            <button onClick="{{ c.pick }}" style="height:34px;padding:0 14px;border-radius:999px;border:1.5px solid {{ c.border }};background:{{ c.bg }};font-size:12.5px;font-weight:{{ c.weight }};color:{{ c.fg }};cursor:pointer;font-family:inherit;white-space:nowrap">{{ c.label }}</button>
+          </sc-for>
+        </div>
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Additional message</label>
+        <textarea value="{{ srMsg }}" onChange="{{ setSrMsg }}" placeholder="Optional — appended to the template" style="width:100%;min-height:90px;padding:11px 13px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;font-family:inherit;resize:vertical;box-sizing:border-box"></textarea>
+        <div style="display:{{ srErrShow }};padding:11px 14px;border-radius:9px;background:#FDE8E8;color:#B42318;font-size:12.5px;font-weight:600;margin-top:12px">{{ srErr }}</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ srSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">Send Reminder</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mCloseReg }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:540px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">Close registration</h3>
+          <p style="margin:5px 0 0;font-size:12.5px;color:#6B7C93;text-wrap:pretty">New sign-ups stop as soon as you confirm.</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <sc-for list="{{ crFields }}" as="f" hint-placeholder-count="4">
+          <div style="margin-bottom:14px">
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">{{ f.label }}</label>
+            <select value="{{ f.value }}" onChange="{{ f.set }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+              <sc-for list="{{ f.opts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+            </select>
+          </div>
+        </sc-for>
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:8px">Notify</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+          <sc-for list="{{ crNotifyChips }}" as="c" hint-placeholder-count="4">
+            <button onClick="{{ c.pick }}" style="height:34px;padding:0 14px;border-radius:999px;border:1.5px solid {{ c.border }};background:{{ c.bg }};font-size:12.5px;font-weight:{{ c.weight }};color:{{ c.fg }};cursor:pointer;font-family:inherit;white-space:nowrap">{{ c.label }}</button>
+          </sc-for>
+        </div>
+        <div style="padding:12px 14px;border-radius:10px;background:#FEF3E2;font-size:12px;font-weight:600;color:#B45309;margin-top:14px;text-wrap:pretty">{{ crWarn }}</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ crSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#B42318;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">Close Registration</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mEditEvent }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:560px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">Edit event</h3>
+          <p style="margin:5px 0 0;font-size:12.5px;color:#6B7C93;text-wrap:pretty">Changes are written to the event activity log.</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <sc-for list="{{ eeFields }}" as="f" hint-placeholder-count="4">
+          <div style="margin-bottom:14px">
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">{{ f.label }}</label>
+            <select value="{{ f.value }}" onChange="{{ f.set }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+              <sc-for list="{{ f.opts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+            </select>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ eeSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">Save Changes</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mPollRes }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:580px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ prTitle }}</h3>
+          <p style="margin:5px 0 0;font-size:12.5px;color:#6B7C93;text-wrap:pretty">{{ prSub }}</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <div style="display:{{ prCorrectShow }};align-items:center;gap:9px;padding:11px 14px;border-radius:10px;background:#E7F7EE;margin-bottom:16px">
+          <span style="font-size:12px;font-weight:600;color:#15803D">Correct answers</span>
+          <span style="flex:1"></span>
+          <span style="font-size:15px;font-weight:800;color:#15803D">{{ prCorrect }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:13px">
+          <sc-for list="{{ prOptions }}" as="o" hint-placeholder-count="4">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:5px">
+                <span style="font-size:12.5px;color:#344054;flex:1;min-width:0;text-wrap:pretty">{{ o.label }}</span>
+                <span style="font-size:11.5px;color:#98A2B3">{{ o.n }}</span>
+                <span style="font-size:13px;font-weight:800;color:#0F2A47">{{ o.pct }}</span>
+              </div>
+              <div style="height:8px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ o.pct }};border-radius:5px;background:{{ o.color }}"></div></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Close</button>
+        <button onClick="{{ prExport }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">Export Results</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mAlertRes }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:540px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ arTitle }}</h3>
+          <p style="margin:5px 0 0;font-size:12.5px;color:#6B7C93;text-wrap:pretty">{{ arDetail }}</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <span style="display:inline-flex;font-size:10.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:{{ arSevBg }};color:{{ arSevFg }};margin-bottom:16px">{{ arSev }}</span>
+        <div style="margin-bottom:14px">
+          <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">{{ arActionField.label }}</label>
+          <select value="{{ arActionField.value }}" onChange="{{ arActionField.set }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+            <sc-for list="{{ arActionField.opts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+          </select>
+        </div>
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Note</label>
+        <textarea value="{{ arNote }}" onChange="{{ setArNote }}" placeholder="Required when dismissing — recorded in the activity log" style="width:100%;min-height:90px;padding:11px 13px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;font-family:inherit;resize:vertical;box-sizing:border-box"></textarea>
+        <div style="display:{{ arErrShow }};padding:11px 14px;border-radius:9px;background:#FDE8E8;color:#B42318;font-size:12.5px;font-weight:600;margin-top:12px">{{ arErr }}</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ arSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">Apply</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mP360 }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:720px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">{{ pName }}</h3>
+          <p style="margin:5px 0 0;font-size:12.5px;color:#6B7C93;text-wrap:pretty">{{ pSub }}</p>
+        </div>
+        <span style="font-size:10.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:{{ pStatusBg }};color:{{ pStatusFg }};white-space:nowrap;flex:none">{{ pStatus }}</span>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <sc-for list="{{ pSections }}" as="sec" hint-placeholder-count="7">
+          <div style="margin-bottom:18px">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#98A2B3;margin-bottom:9px">{{ sec.title }}</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 18px">
+              <sc-for list="{{ sec.rows }}" as="r" hint-placeholder-count="5">
+                <div style="min-width:0">
+                  <div style="font-size:10.5px;color:#98A2B3">{{ r.k }}</div>
+                  <div style="font-size:12.5px;font-weight:600;color:#0F2A47;margin-top:2px;text-wrap:pretty">{{ r.v }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <sc-for list="{{ pActions }}" as="a" hint-placeholder-count="5">
+          <button onClick="{{ a.go }}" style="height:36px;padding:0 14px;border-radius:9px;border:1px solid {{ a.border }};background:#fff;font-size:12.5px;font-weight:600;color:{{ a.fg }};cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:{{ a.hbg }}">{{ a.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mQaManage }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:620px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:15.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ qTitle }}</h3>
+          <p style="margin:5px 0 0;font-size:12.5px;color:#6B7C93;text-wrap:pretty">{{ qSub }}</p>
+        </div>
+        <span style="font-size:10.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:{{ qStatusBg }};color:{{ qStatusFg }};white-space:nowrap;flex:none">{{ qStatus }}</span>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin-bottom:18px">
+          <sc-for list="{{ qMeta }}" as="m" hint-placeholder-count="4">
+            <div style="min-width:0">
+              <div style="font-size:10.5px;color:#98A2B3">{{ m.k }}</div>
+              <div style="font-size:12.5px;font-weight:600;color:#0F2A47;margin-top:2px">{{ m.v }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Assign to</label>
+        <select value="{{ qmAssign }}" onChange="{{ setQmAssign }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit;margin-bottom:14px">
+          <sc-for list="{{ qmAssignOpts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+        </select>
+        <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Answer <span style="color:#B42318">*</span></label>
+        <textarea value="{{ qmAnswer }}" onChange="{{ setQmAnswer }}" placeholder="Write the answer the participant will see" style="width:100%;min-height:110px;padding:11px 13px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit;resize:vertical;box-sizing:border-box"></textarea>
+        <div style="display:{{ qmErrShow }};padding:11px 14px;border-radius:9px;background:#FDE8E8;color:#B42318;font-size:12.5px;font-weight:600;margin-top:12px">{{ qmErr }}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+          <sc-for list="{{ qmSecondary }}" as="sa" hint-placeholder-count="4">
+            <button onClick="{{ sa.go }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">{{ sa.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ qmSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">Publish Answer</button>
       </div>
     </div>
   </sc-if>
@@ -6858,13 +7249,6 @@
       </sc-if>
     </div>
   </sc-if>
-
-  <div style="position:fixed;z-index:50;left:278px;bottom:18px;display:flex;align-items:center;gap:8px;background:#0B1F3E;border-radius:999px;padding:6px 8px 6px 14px;box-shadow:0 10px 28px rgba(11,31,62,.22)">
-    <span style="font-size:10.5px;font-weight:700;letter-spacing:.1em;color:#7E96B8">PROTOTYPE STATE</span>
-    <sc-for list="{{ stateChips }}" as="s" hint-placeholder-count="6">
-      <button onClick="{{ s.pick }}" style="height:26px;padding:0 11px;border-radius:999px;border:0;font-size:11.5px;font-weight:600;cursor:pointer;background:{{ s.bg }};color:{{ s.fg }}">{{ s.label }}</button>
-    </sc-for>
-  </div>
 
 </div>
 
@@ -8905,14 +9289,14 @@ class Component extends DCLogic {
     const [pageTitle, pageSub] = titles[s.route] || titles.dash;
 
     const navItems = [
-      ['dash','Dashboard'],['apps','Applications'],
+      ['dash','Dashboard'],
       ['speakers','All Speakers'],['schedule','Speaker Schedule'],
       ['allocation','Webinars & Workshops'],['onboard','Onboarding'],
       ['performance','Performance'],['payouts','Speaker Payouts'],
       ['content','Content Library'],
       ['ralerts','Reminders & Alerts'],['reports','Reports']
     ];
-    const activeNav = s.route==='appDetail' ? 'apps' : s.route==='speakerDetail' ? 'speakers'
+    const activeNav = s.route==='appDetail' ? 'speakers' : s.route==='speakerDetail' ? 'speakers'
       : s.route==='contentDetail' ? 'content' : s.route;
 
     const tabs = ['All','Pending','Under Review','Docs Pending','Interview','Approved','Rejected','Archived'];
@@ -9014,7 +9398,7 @@ class Component extends DCLogic {
       label: k==='default'?'Default':k==='loading'?'Loading':k==='empty'?'Empty':k==='error'?'Network error':k==='denied'?'No permission':'Partial access',
       bg: s.dataState===k ? '#0E9384' : 'transparent',
       fg: s.dataState===k ? '#fff' : '#9FB6D4',
-      pick:()=>this.setState({dataState:k, route: (k!=='default'&&s.route!=='apps') ? 'apps' : s.route})
+      pick:()=>this.setState({dataState:k, route: (k!=='default'&&s.route!=='speakers') ? 'speakers' : s.route})
     }));
 
     const exportFormats = ['CSV','Excel','PDF'].map(f=>({
@@ -9094,7 +9478,7 @@ class Component extends DCLogic {
         ['Total Sessions', String(SPEAKERS.reduce((a,x)=>a+x.sessions,0)), 'all time', '#6B7C93', ()=>this.nav('allocation')]
       ].map(([label,n,note,fg,go])=>({label,n,note,fg,go})),
       showBack: s.route==='appDetail' || s.route==='speakerDetail' || s.route==='perf360' || s.route==='payout360' || s.route==='spkFinance' || s.route==='contentDetail',
-      goBack: ()=>this.nav(s.route==='appDetail'?'apps':s.route==='perf360'?'performance':(s.route==='payout360'||s.route==='spkFinance')?'payouts':s.route==='contentDetail'?'content':'speakers'),
+      goBack: ()=>this.nav(s.route==='appDetail'?'speakers':s.route==='perf360'?'performance':(s.route==='payout360'||s.route==='spkFinance')?'payouts':s.route==='contentDetail'?'content':'speakers'),
       studentOpen:s.studentOpen, speakerOpen:s.speakerOpen,
       studentChevron: s.studentOpen?'rotate(180deg)':'rotate(0deg)',
       speakerChevron: s.speakerOpen?'rotate(180deg)':'rotate(0deg)',
@@ -9107,7 +9491,7 @@ class Component extends DCLogic {
         go:()=>this.nav(k)
       })),
 
-      goApps:()=>this.nav('apps'),
+      goApps:()=>this.nav('speakers'),
       goCreate:()=>this.setState({modal:'create', step:0, submitted:false, form:{name:'',email:'',phone:'',exp:'',yrs:''}, errors:{}}),
       mCreateSpk: s.modal==='create',
       mCalEvent: s.modal==='calEvent',
@@ -9239,7 +9623,7 @@ class Component extends DCLogic {
       ].map(a=>({...a, init:this.initials(a.who), avBg:this.avColor(a.who)})),
       quickActions: [
         {icon:'＋',bg:'#EEF6F5',label:'Add Speaker',go:()=>this.nav('create')},
-        {icon:'✓',bg:'#E7F7EE',label:'Review queue',go:()=>this.nav('apps')},
+        {icon:'✓',bg:'#E7F7EE',label:'Review queue',go:()=>this.nav('speakers')},
         {icon:'⌗',bg:'#E9F1FD',label:'Verification',go:()=>this.nav('verify')},
         {icon:'⚑',bg:'#F0EAFD',label:'Onboarding',go:()=>this.nav('onboard')},
         {icon:'₹',bg:'#FEF3E2',label:'Release payouts',go:()=>this.fire('Payout batch opened','₹4,28,000 across 21 speakers')},
@@ -9251,7 +9635,7 @@ class Component extends DCLogic {
         {d:'04',mo:'AUG',title:'Claims Handling Workshop',meta:'Sofia Bergström · Batch C · 11:30 AM'},
         {d:'04',mo:'AUG',title:'Retirement Planning Panel',meta:'⚠ Conflict — Meera Krishnan double-booked'}
       ],
-      isDash: s.route==='dash', isApps: s.route==='apps', isAppDetail: s.route==='appDetail',
+      isDash: s.route==='dash', isApps: false, isAppDetail: s.route==='appDetail',
       isVerify: s.route==='verify', isOnboard: s.route==='onboard', isSpeakers: s.route==='speakers',
       isSpeakerDetail: s.route==='speakerDetail', isCreate: s.route==='create', isReports: s.route==='reports',
       isInterviews: s.route==='interviews', isTalent: s.route==='talent', isAllocation: s.route==='allocation',
@@ -9457,12 +9841,12 @@ class Component extends DCLogic {
       deleteBtnBg: s.deleteConfirm==='DELETE' ? '#B42318' : '#E3B7B3',
       deleteBtnCursor: s.deleteConfirm==='DELETE' ? 'pointer' : 'not-allowed',
       deleteBtnOpacity: s.deleteConfirm==='DELETE' ? '1' : '.75',
-      confirmDelete:()=>{ if(s.deleteConfirm!=='DELETE') return; this.setState({modal:null, route:'apps'}); this.fire('Record permanently deleted','Audit entry SPEAKER:PROFILE:DELETE written', false, 'bad'); },
+      confirmDelete:()=>{ if(s.deleteConfirm!=='DELETE') return; this.setState({modal:null, route:'speakers'}); this.fire('Record permanently deleted','Audit entry SPEAKER:PROFILE:DELETE written', false, 'bad'); },
       archiveInstead:()=>{ this.setState({modal:null}); this.fire('Application archived','Restorable for 180 days', true); },
       impact:['12 scheduled sessions will be unassigned','₹1,24,800 in pending payouts will be voided','3 signed contracts will be detached','All ratings and reviews will be orphaned'],
       exportFormats, confirmExport:()=>{ this.setState({modal:null}); this.fire('Export queued', s.exportFmt+' · you will be emailed when ready'); },
       confirmInterview:()=>{ this.setState({modal:null}); this.fire('Interview scheduled','6 Aug 2026, 3:30 PM · invites sent', true); },
-      discardLeave:()=>{ this.setState({modal:null, route:'apps'}); this.fire('Changes discarded','Reverted to last auto-saved draft', false, 'bad'); },
+      discardLeave:()=>{ this.setState({modal:null, route:'speakers'}); this.fire('Changes discarded','Reverted to last auto-saved draft', false, 'bad'); },
 
       toast: !!s.toast, toastMsg: s.toast&&s.toast.msg, toastSub: s.toast&&s.toast.sub,
       toastUndo: s.toast&&s.toast.undo,
@@ -9637,54 +10021,188 @@ class Component extends DCLogic {
           }),
           ...(()=>{
             const PARTS = {
-              1: [['Part 1 — Personal & Professional Information','Part 2 — Sourcing & Evaluation','Part 3 — Selection Decision'], [
-                ['Personal Information', [
-                  ['Profile Photo','Uploaded'],['Full Name', curSpeaker.name],['Date of Birth','1986-03-14'],
-                  ['Gender','Female'],['Mobile Number','+91 98400 21188'],
-                  ['Alternate Mobile','+91 22 6123 8890'],['Email Address','ananya.deshmukh@gmail.com'],
-                  ['Emergency Contact','Rohit D. (Spouse) · +91 98450 11220']
-                ]],
-                ['Professional Information', [
-                  ['Current Designation','Claims Head'],['Current Organization','HDFC Ergo General Insurance'],
-                  ['Total Work Experience','14 years'],['Speaking Experience','6 years · 38 sessions'],
-                  ['Areas of Expertise','Insurance & Risk, Underwriting'],['Preferred Event Type','Webinar, Masterclass'],
-                  ['Audience Level Taught','Intermediate, Advanced'],['Languages','English, Hindi, Marathi'],
-                  ['LinkedIn / Portfolio','linkedin.com/in/ananyadeshmukh']
-                ]]
-              ]],
-              2: [['Part 1 — Verification & Compliance','Part 2 — Contract & Commercials','Part 3 — Tax & Banking'], [
-                ['Verification', [
-                  ['Identity Verified','Yes · Passport'],['Employment Verified','Yes · HDFC Ergo HR'],
-                  ['Credential Check','FIAI certification confirmed'],['Background Verification','Cleared · VerifyPro'],
-                  ['Reference 1','Positive · Ex-manager, HDFC Ergo'],['Reference 2','Positive · III Mumbai']
-                ]],
-                ['Contract & Commercials', [
-                  ['Engagement Model','Per Webinar / Workshop'],['Agreed Fee Range','₹18,000 – ₹25,000 per event'],
-                  ['Payment Terms','Net-15 post-event'],['Speaker Agreement','Signed 02 Aug 2026'],
-                  ['NDA','Signed 02 Aug 2026'],['Content Usage Consent','Granted · perpetual'],
-                  ['Contract Validity','02 Aug 2026 → 01 Aug 2027'],['Exclusivity','Non-exclusive']
-                ]]
-              ]],
-              3: [['Part 1 — Access & Enablement','Part 2 — Operational Readiness','Part 3 — Activation'], [
-                ['Access & Enablement', [
-                  ['Speaker ID', curSpeaker.id],['Portal Username','ananya.deshmukh@studycrux.io'],
-                  ['Access Level','Speaker — session scope'],['MFA','Required by policy'],
-                  ['Assigned Coordinator','Priya Singh'],['Time Zone','IST (GMT +5:30)']
-                ]],
-                ['Operational Readiness', [
-                  ['Platform Training','Completed 04 Aug 2026'],['Tech Check','Passed · audio + video'],
-                  ['First Event Assigned','IC-11 Industry Masterclass'],['Content Template Shared','Yes'],
-                  ['Availability Calendar','Synced'],['Readiness Status','Ready for production']
-                ]]
-              ]]
+              1: [['Part 1 — Personal & Professional Profile','Part 2 — Session Proposal','Part 3 — Evaluation & Commercials'], {
+                1: [
+                  ['Personal Data', [
+                    ['Profile Photo','Uploaded · 1440p'],['Full Legal Name', curSpeaker.name],
+                    ['Preferred Display Name','Ananya Deshmukh, FIAI'],['Date of Birth','1986-03-14'],
+                    ['Gender','Female'],['Nationality','Indian'],
+                    ['Spoken Languages','English, Hindi, Marathi'],
+                    ['Short Bio (100 words)','Claims and risk specialist with 14 years across general insurance.'],
+                    ['Detailed Bio (500 words)','Uploaded · 412 words']
+                  ]],
+                  ['Contact Data', [
+                    ['Primary Phone','+91 98400 21188'],['WhatsApp Number','+91 98400 21188'],
+                    ['Professional Email','ananya.deshmukh@gmail.com'],
+                    ['Current Address','C-18, Prabhadevi Heights, Worli, Mumbai 400025'],
+                    ['Emergency Contact Name','Rohit Deshmukh (Spouse)'],['Emergency Contact Number','+91 98450 11220']
+                  ]],
+                  ['Professional Credentials', [
+                    ['Current Designation','Claims Head'],['Current Organization','HDFC Ergo General Insurance'],
+                    ['Primary Industry','General Insurance'],['Total Industry Experience','14 years'],
+                    ['Awards & Achievements','FIAI Fellow 2021 · Claims Excellence Award 2023'],
+                    ['Previous Speaking Engagements','38 sessions · 6 years'],
+                    ['Website / Portfolio','ananyadeshmukh.in'],['LinkedIn URL','linkedin.com/in/ananyadeshmukh'],
+                    ['Social Handles','X @ananya_claims · YouTube @RiskUnpacked']
+                  ]]
+                ],
+                2: [
+                  ['Session Details', [
+                    ['Session Format','Hands-On Workshop'],
+                    ['Session Title','Fire Insurance Risk Assessment in Practice'],
+                    ['Target Audience Level','Intermediate'],['Subject Track','Insurance & Risk'],
+                    ['Detailed Abstract','A working session on surveying, valuation and settlement of commercial fire claims.'],
+                    ['Key Learning Outcomes','Assess exposure · Apply indemnity · Draft a defensible survey report']
+                  ]],
+                  ['Delivery & Logistics', [
+                    ['Preferred Duration','Half-Day (4 hours)'],['Preferred Mode','Live Broadcast'],
+                    ['Presentation Language','English'],['Preferred Window','Jul – Sep 2026'],
+                    ['Max Participant Capacity','200']
+                  ]],
+                  ['Supporting Media', [
+                    ['Pitch Deck','fire-risk-pitch.pdf · 4.2 MB'],
+                    ['Showreel / Video Clips','youtu.be/riskunpacked-demo'],
+                    ['Sample Presentation Deck','sample-deck.pptx · 8.1 MB'],
+                    ['Transparent PNG Headshot','headshot-transparent.png · 1.8 MB']
+                  ]]
+                ],
+                3: [
+                  ['Metadata & Routing', [
+                    ['Sourcing Channel','Executive Outreach'],['Assigned Curator','Priya Singh'],
+                    ['Target Event Date Range','15 Jul – 30 Sep 2026'],['Application ID','APP-2048'],
+                    ['Submitted On','18 Jan 2026']
+                  ]],
+                  ['Review Matrix', [
+                    ['Content Relevance Score','5 / 5'],['Delivery Style Score','5 / 5'],
+                    ['Audience Appeal Score','4 / 5'],['Domain Expertise Score','5 / 5'],
+                    ['Weighted Score','4.75 / 5'],
+                    ['Curator Feedback','Strongest practitioner in the pipeline — approve for a half-day workshop.']
+                  ]],
+                  ['Commercial Agreement', [
+                    ['Engagement Model','Fixed Honorarium'],['Fee Amount & Currency','₹25,000 INR per event'],
+                    ['Proposed Event Window','Jul – Sep 2026'],['Approval Status','Approved'],
+                    ['Approved By','Super Admin'],['Approved On','04 Feb 2026']
+                  ]]
+                ]
+              }],
+              2: [['Part 1 — Booking & Verification','Part 2 — Legal & E-Signature','Part 3 — Payout, Access & Orientation'], {
+                1: [
+                  ['Engagement Booking Setup', [
+                    ['Speaker ID', curSpeaker.id],['Event Booking Code','BKG-2026-0417'],
+                    ['Event Category','Workshop — Insurance & Risk'],['Internal Coordinator','Priya Singh'],
+                    ['Confirmed Date / Time Zone','15 Jul 2026 · 09:00 IST (GMT +5:30)'],
+                    ['Session Length','4 hours'],['Max Participant Capacity','200']
+                  ]],
+                  ['Identity Verification', [
+                    ['Government ID Proof','Passport · uploaded 27 Jul 2026'],
+                    ['Business Registration','Not applicable — invoicing as individual'],
+                    ['Tax ID Type','PAN'],['Tax ID Details','ABCPV••••2K · verified'],
+                    ['Identity Verified','Yes · Passport'],['Employment Verified','Yes · HDFC Ergo HR'],
+                    ['Credential Check','FIAI certification confirmed'],['Background Verification','Cleared · VerifyPro'],
+                    ['Reference 1','Positive · Ex-manager, HDFC Ergo'],['Reference 2','Positive · III Mumbai']
+                  ]]
+                ],
+                2: [
+                  ['E-Signature Agreements', [
+                    ['Master Speaker Agreement','Signed 02 Aug 2026'],
+                    ['Content & Copyright License Release','Signed 02 Aug 2026 · broadcast, distribution, archival'],
+                    ['Speaker Consent Form','Signed 02 Aug 2026 · marketing, portrait, image use'],
+                    ['Non-Disclosure Agreement','Signed 02 Aug 2026 · perpetual'],
+                    ['Cancellation & Rescheduling Policy','Accepted 02 Aug 2026']
+                  ]],
+                  ['Contract & Commercials', [
+                    ['Engagement Model','Per Webinar / Workshop'],['Agreed Fee Range','₹18,000 – ₹25,000 per event'],
+                    ['Payment Terms','Net-15 post-event'],['Content Usage Consent','Granted · perpetual'],
+                    ['Contract Validity','02 Aug 2026 → 01 Aug 2027'],['Exclusivity','Non-exclusive'],
+                    ['Vault Reference','VLT-2026-0417 · AES-256 encrypted']
+                  ]]
+                ],
+                3: [
+                  ['Banking Details', [
+                    ['Account Holder Name','Ananya Deshmukh'],['Bank Name','HDFC Bank'],
+                    ['Account Number','••••4482 · verified'],['IFSC / SWIFT / IBAN','HDFC0000123 / HDFCINBB'],
+                    ['UPI / PayPal ID','ananya@hdfcbank'],['Cancelled Cheque','Uploaded 02 Aug 2026']
+                  ]],
+                  ['Payout Terms', [
+                    ['Tax Withholding Declaration','10% TDS u/s 194J'],
+                    ['Billing Address','C-18, Prabhadevi Heights, Worli, Mumbai 400025'],
+                    ['Invoice Submission Protocol','Speaker-raised · within 5 days post-event'],
+                    ['Payment Schedule','Post-Event Net-15'],['GST Registered','No']
+                  ]],
+                  ['System Access & Orientation', [
+                    ['Guest Presenter Studio','Zoom Webinar · provisioned 04 Aug'],
+                    ['Speaker Dashboard Login','ananya.deshmukh@studycrux.io'],
+                    ['Shared Cloud Directory','drive/speakers/ananya-deshmukh'],
+                    ['Communication Channel','WhatsApp group · Speakers–IC11'],
+                    ['Platform Navigation Guide','Completed 04 Aug 2026'],
+                    ['Q&A Handling Protocols','Completed 04 Aug 2026'],
+                    ['Interactive Tools Protocol','Completed 04 Aug 2026'],
+                    ['Brand & Attire Guidelines','Acknowledged'],['Code of Conduct','Accepted 04 Aug 2026']
+                  ]]
+                ]
+              }],
+              3: [['Part 1 — Landing Page & Marketing','Part 2 — Technical Dry-Run','Part 3 — Assets, Broadcast & Wrap-Up'], {
+                1: [
+                  ['Event Landing Page', [
+                    ['Final Event Title','Hands-On Fire Insurance Risk Assessment Workshop'],
+                    ['Subtitle','Surveying, valuation and settlement in practice'],
+                    ['Agenda Confirmed','6 sessions · 4 hours'],
+                    ['Date & Time Slot','15 Jul 2026 · 09:00 – 13:00'],['Time Zone','IST (GMT +5:30)'],
+                    ['Landing Page URL','studycrux.io/e/fire-risk-workshop'],
+                    ['Registration Link','studycrux.io/r/BKG-2026-0417']
+                  ]],
+                  ['Marketing Configuration', [
+                    ['Social Banner','Approved 06 Jul 2026'],['Email Header','Approved 06 Jul 2026'],
+                    ['Speaker Headshot in Creative','Approved · transparent PNG'],
+                    ['Campaign Channels','Website, WhatsApp, Email, LinkedIn'],
+                    ['Promotion Start','01 Jul 2026']
+                  ]]
+                ],
+                2: [
+                  ['AV & Environment Audit', [
+                    ['Dry-Run Scheduled','12 Jul 2026 · 16:00 (72 h prior)'],
+                    ['Camera Resolution & Framing','Passed · 1080p, key lighting checked'],
+                    ['Audio Quality','Passed · Rode NT-USB, noise suppression on'],
+                    ['Internet Speed Benchmark','Passed · 42 Mbps upload'],
+                    ['Dual Screen & Screen Share','Configured and permission granted'],
+                    ['Virtual Background / Backdrop','StudyCrux studio backdrop applied'],
+                    ['Backup Power','UPS · 90 min runtime verified'],
+                    ['Backup Internet','5G hotspot verified'],
+                    ['Producer Sign-Off','Signed · R. Menon, Technical Producer']
+                  ]]
+                ],
+                3: [
+                  ['Presentation Assets', [
+                    ['Final Slide Deck','fire-risk-final.pptx · uploaded 13 Jul'],
+                    ['Visual Layout Approval','Approved · brand template applied'],
+                    ['Audience Polls','3 polls created'],
+                    ['Session Handouts','Workbook + checklist uploaded'],
+                    ['Auto-Certificate Trigger','Configured · 80% attendance rule'],
+                    ['Q&A Moderator','Priya Singh'],['Technical Co-Host','R. Menon']
+                  ]],
+                  ['Live Broadcast', [
+                    ['Pre-Event Reminder','Email + SMS · T−24h and T−1h scheduled'],
+                    ['Live Telemetry','Attendance, engagement and drop-off tracked'],
+                    ['Streaming Platform','Zoom Webinar → StreamYard relay'],
+                    ['Recording','Cloud recording enabled']
+                  ]],
+                  ['Post-Event Wrap-Up', [
+                    ['Session Recording','Processed and archived'],
+                    ['Attendee Feedback / NPS','Compiled · 4.7 average, NPS +62'],
+                    ['Honorarium Invoice','Triggered · ₹25,000 · Net-15'],
+                    ['Speaker Status','Alumni Speaker — available for re-engagement'],
+                    ['Lifecycle State','Completed']
+                  ]]
+                ]
+              }]
             };
             const stage = s.obStagePick || activeStage;
             const [labels, groups] = PARTS[stage] || PARTS[1];
             const part = s.obPart || 1;
             const CHECK_TITLE = {1:'Sourcing & evaluation checklist',2:'Verification & compliance checklist',3:'Enablement & readiness checklist'};
             return {
-              obPartIsChecklist: part===2,
-              obPartIsActivation: part===3,
+              obPartIsChecklist: false,
+              obPartIsActivation: false,
               obChecklistTitle: CHECK_TITLE[stage] || CHECK_TITLE[1],
               obChecklistNote: 'Tick an item to mark it complete',
               obContracts: [
@@ -9697,14 +10215,70 @@ class Component extends DCLogic {
                 return {label, bg: on?'#0E9384':'transparent', fg: on?'#fff':'#475467',
                   weight: on?'700':'500', pick:()=>this.setState({obPart:i+1})};
               }),
-              obPartGroups: (part===1 ? groups : []).map(([title, rows])=>{
+              ...(()=>{
+                const CRIT = {
+                  1: {
+                    1: ['Profile photo validated (min 1080p)','Personal details completed','Contact information completed','Professional credentials recorded','Bio approved'],
+                    2: ['Session format and title set','Abstract approved by curator','Learning outcomes defined','Supporting media uploaded'],
+                    3: ['Sourcing channel logged','Review matrix scored','Commercial terms agreed','Approval status set']
+                  },
+                  2: {
+                    1: ['Speaker ID generated','Booking code issued','Government ID verified','Tax ID captured','Background check cleared'],
+                    2: ['Master Speaker Agreement signed','Copyright release signed','Consent form signed','NDA executed','Cancellation policy accepted'],
+                    3: ['Banking details verified','Tax withholding declared','Studio access provisioned','Orientation checklist complete']
+                  },
+                  3: {
+                    1: ['Event title and agenda confirmed','Landing page published','Registration link live','Marketing creatives approved'],
+                    2: ['Camera and lighting audited','Audio quality verified','Upload speed benchmarked','Backup power and internet verified','Producer sign-off recorded'],
+                    3: ['Final deck uploaded','Interactive assets configured','Moderator and co-host assigned','Post-event automation armed']
+                  }
+                };
+                const items = (CRIT[stage] || CRIT[1])[part] || [];
+                const OWNER = {1:'Events & Curation', 2:'Legal & Finance Admin', 3:'Platform Operations'};
+                const EXIT = {1:'Candidate Selected', 2:'Contract Signed', 3:'Speaker Activated'};
+                const lastPart = part >= 3;
+                const lastStage = stage >= 3;
+                return {
+                  obCriteriaTitle: (labels[part-1] || '').replace(/^Part \d+ — /, ''),
+                  obCriteriaNote: 'Owner: '+(OWNER[stage]||'')+' · exit condition: '+(EXIT[stage]||'')+' · every field autosaves',
+                  obCriteria: items.map((label,i)=>{
+                    const key = stage+'|'+part+'|'+label;
+                    const done = (s.obCritVals && s.obCritVals[key] !== undefined) ? s.obCritVals[key] : (i < items.length-1);
+                    return {label,
+                      mark: done ? '✓' : '',
+                      boxBg: done ? '#0E9384' : '#fff', boxBorder: done ? '#0E9384' : '#DDD9CF',
+                      bg: done ? '#fff' : '#FCFBF7', border: done ? '#E4E9E8' : '#F0EEE7',
+                      fg: done ? '#0F2A47' : '#98A2B3', weight: done ? '600' : '500',
+                      toggle: ()=>this.setState(x=>({obCritVals:{...x.obCritVals, [key]: !done}}))};
+                  }),
+                  obBackShow: (part>1 || stage>1) ? 'inline-flex' : 'none',
+                  obNextLabel: lastPart ? (lastStage ? 'Activate Speaker' : 'Complete Stage '+stage) : 'Save & Continue',
+                  obPartBack: ()=>{
+                    if (part>1) return this.setState({obPart: part-1});
+                    this.setState({obStagePick: stage-1, obPart: 3});
+                  },
+                  obPartNext: ()=>{
+                    if (!lastPart) { this.setState({obPart: part+1}); return this.fire('Saved','Moving to '+(labels[part]||'the next part'), true); }
+                    if (!lastStage) { this.setState({obStagePick: stage+1, obPart: 1}); return this.fire('Stage '+stage+' complete', EXIT[stage], true); }
+                    this.fire('Speaker activated', curSpeaker.name+' is now live and available for engagements', true);
+                  }
+                };
+              })(),
+              obApprovals: [
+                ['Stage 1 — Profile, Evaluation & Sourcing','Curator Approval · Priya Singh — Events & Curation','04 Feb 2026','Approved','green'],
+                ['Stage 2 — Verification, Contract & Compliance','Legal & Finance Approval · P. Bose — Legal','02 Aug 2026','Approved','green'],
+                ['Stage 3 — Access, Enablement & Readiness','Production Review · R. Menon — Technical Producer','—','In review','amber'],
+                ['Final Approval','Activate speaker · Super Admin','—','Pending','grey']
+              ].map(([stage,by,date,status,c])=>({stage, by, date, status, sBg:BDG2[c][0], sFg:BDG2[c][1]})),
+              obPartGroups: (groups[part] || []).map(([title, rows])=>{
                 const editing = s.obEditGroup===title;
                 return {title, editLabel: editing ? 'Done' : 'Edit',
                   edit: ()=>{ if (editing) this.fire(title+' updated','Changes saved to the onboarding record', true);
                     this.setState({obEditGroup: editing ? null : title}); },
                   fields: rows.map(([label, value])=>{
                     const key = title+'|'+label;
-                    return {label, span:'span 1', editing, notEditing: !editing,
+                    const len = String(value).length;
+                    return {label, span: len>78 ? 'span 3' : len>38 ? 'span 2' : 'span 1', editing, notEditing: !editing,
                       value: (s.obFieldVals && s.obFieldVals[key]) ?? value,
                       set: (e)=>{ const v=e.target.value; this.setState(x=>({obFieldVals:{...x.obFieldVals,[key]:v}})); }};
                   })};
@@ -10103,13 +10677,339 @@ class Component extends DCLogic {
       })(),
       wwCur: (()=>{ const i = s.wwEvent||0; return {...WW_EVENTS[i], idx:i}; })(),
 
-      ...(()=>{
+      ...(s.wwEvent==null ? {} : (()=>{
         const e = WW_EVENTS[s.wwEvent||0] || WW_EVENTS[0];
         const KV = (rows)=>rows.map(([k,v],i)=>({k, v, bg: i%2 ? '#FCFBF7' : '#fff'}));
         const BAR = (rows)=>rows.map(([label,sub,pct,color])=>({label, sub, pct, color}));
         const CARD = (rows)=>rows.map(([label,v,sub,fg])=>({label, v, sub, fg: fg||'#0F2A47'}));
 
         return {
+          // ---- Overview (BRD §7, §8, §9, §11, §49, §50, §60) ----
+          ...(()=>{
+            const B = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],
+              grey:['#F1F3F5','#667085'],blue:['#E9F1FD','#1D4ED8'],violet:['#F0EAFD','#6D28D9'],teal:['#E6F4F1','#0B7A6E']};
+            const st = e.status;
+            const phase = st==='Completed' ? 'after' : st==='Live' ? 'during' : 'before';
+            const cap = e.regs + e.seats;
+            const capPct = Math.round(e.regs / cap * 100);
+            const confirmed = Math.round(e.regs * 0.92);
+            const attended = e.attended || (phase==='after' ? Math.round(confirmed*0.83) : 0);
+            const attRate = confirmed ? Math.round(attended/confirmed*100) : 0;
+
+            const K = (label,v,note,fg,c,path,vFg)=>({label, v, note, fg,
+              ibg:B[c][0], ifg:B[c][1], path, vFg: vFg||'#0F2A47'});
+
+            const KPI = {
+              before: [
+                K('Total Registrations', String(e.regs), '+18 in the last 7 days','#15803D','blue','M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8'),
+                K('Confirmed', String(confirmed), 'payment cleared','#15803D','green','M12 3a9 9 0 1 0 .01 0M8.5 12l2.3 2.3 4.7-4.8'),
+                K('Seats Available', String(e.seats), capPct>=90 ? 'almost full' : 'of '+cap+' capacity', capPct>=90?'#B45309':'#6B7C93','amber','M3 6h18v12H3zM8 6v12'),
+                K('Expected Attendance', String(e.expected), 'based on historical turnout','#6B7C93','teal','M12 8v4l3 3M12 3a9 9 0 1 0 .01 0'),
+                K('Speaker Status', 'Confirmed', e.speaker,'#15803D','violet','M9 2.5h6v11H9zM5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21'),
+                K('Coordinator', 'Assigned', e.coordinator,'#15803D','teal','M9 8a3.2 3.2 0 1 0 0-6.4M3 20v-1.5A4.5 4.5 0 0 1 7.5 14h3A4.5 4.5 0 0 1 15 18.5V20'),
+                K('Revenue (booked)', '₹'+(e.regs*499/1000).toFixed(1)+'k', 'gross · before fees','#15803D','green','M12 2v20M17 6.5c0-2.2-2.2-3.5-5-3.5s-5 1.3-5 3.5S9.2 10 12 10s5 1.3 5 3.5S14.8 17 12 17s-5-1.3-5-3.5'),
+                K('Readiness', '8 / 10', '2 tasks outstanding','#B45309','amber','M9 12l2 2 4-4M12 3a9 9 0 1 0 .01 0','#B45309')
+              ],
+              during: [
+                K('Live Participants', '412', 'in the session now','#15803D','green','M23 7l-7 5 7 5V7zM1 5h15v14H1z'),
+                K('Peak Participants', '438', 'at 19:22','#6B7C93','blue','M3 17l6-6 4 4 8-8M21 7v6h-6'),
+                K('Attendance', String(attended||412), attRate+'% of confirmed','#15803D','teal','M8 7V3m8 4V3M4 11h16M5 5h14v15H5z'),
+                K('Questions', '34', '28 answered · 6 open','#B45309','violet','M12 3a9 9 0 1 0 .01 0M9.5 9a2.5 2.5 0 1 1 3.5 2.3V14M12 17h.01'),
+                K('Poll Participation', '78%', '3 polls run','#15803D','amber','M4 20V10M10 20V4M16 20v-7M22 20V8'),
+                K('Chat Messages', '186', '92 participants active','#6B7C93','blue','M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'),
+                K('Engagement Score', '82', 'high engagement','#15803D','teal','M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z'),
+                K('Technical Health', 'Stable', 'no dropped streams','#15803D','green','M12 3a9 9 0 1 0 .01 0M8.5 12l2.3 2.3 4.7-4.8')
+              ],
+              after: [
+                K('Attendance', String(attended), attRate+'% of confirmed','#15803D','teal','M8 7V3m8 4V3M4 11h16M5 5h14v15H5z'),
+                K('No-Shows', String(confirmed-attended), 'confirmed but absent','#B45309','amber','M12 3a9 9 0 1 0 .01 0M8 8l8 8','#B45309'),
+                K('Average Rating', '4.7', 'from 96 responses','#15803D','amber','M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z'),
+                K('Engagement Score', '82', 'high engagement','#15803D','teal','M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z'),
+                K('Certificate Eligible', String(Math.round(attended*0.89)), Math.round(attended*0.81)+' issued','#15803D','violet','M12 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8M9 19l3-2 3 2v-4.5'),
+                K('Net Revenue', '₹'+(e.regs*499*0.88/1000).toFixed(1)+'k', 'after fees and refunds','#15803D','green','M12 2v20M17 6.5c0-2.2-2.2-3.5-5-3.5s-5 1.3-5 3.5S9.2 10 12 10s5 1.3 5 3.5S14.8 17 12 17s-5-1.3-5-3.5'),
+                K('Net Profit', '₹'+(e.regs*499*0.52/1000).toFixed(1)+'k', '52% margin','#15803D','green','M3 17l6-6 4 4 8-8M21 7v6h-6'),
+                K('Recording', 'Ready', 'not yet published','#B45309','blue','M23 7l-7 5 7 5V7zM1 5h15v14H1z','#B45309')
+              ]
+            }[phase];
+
+            const HP = [
+              ['Registration Performance','20%', phase==='before' ? 88 : 92],
+              ['Attendance','20%', phase==='before' ? 0 : 83],
+              ['Engagement','20%', phase==='before' ? 0 : 82],
+              ['Content Performance','15%', 94],
+              ['Participant Satisfaction','15%', phase==='before' ? 0 : 94],
+              ['Financial Performance','10%', 90]
+            ].filter(h=>h[2] > 0);
+            const score = Math.round(HP.reduce((t,h)=>t + h[2]*parseInt(h[1])/100, 0) / HP.reduce((t,h)=>t + parseInt(h[1])/100, 0));
+            const band = score>=90 ? ['Excellent','#0E9384','#fff'] : score>=75 ? ['Good','#16345C','#9FE8D8']
+              : score>=60 ? ['Needs Attention','#3A2A12','#F0C078'] : ['Critical','#3A1418','#FF9A8B'];
+
+            const FUN = phase==='before'
+              ? [['Page Views',4820,''],['Registration Started',612,'−87%'],['Registered',e.regs,'−70%'],['Payment Successful',confirmed,'−8%'],['Confirmed',confirmed,'0%']]
+              : [['Page Views',4820,''],['Registration Started',612,'−87%'],['Registered',e.regs,'−70%'],['Payment Successful',confirmed,'−8%'],['Confirmed',confirmed,'0%'],['Attended',attended,'−'+(100-attRate)+'%'],['Certificate Eligible',Math.round(attended*0.89),'−11%']];
+            const fMax = FUN[0][1];
+
+            const CK = {
+              before: [['Speaker assigned',1,e.speaker],['Coordinator assigned',1,e.coordinator],['Agenda finalized',1,'6 sessions'],
+                ['Meeting link configured',1,'Zoom'],['Registration opened',1,'12 Aug'],['Pricing configured',1,e.price],
+                ['Payment configured',1,'Razorpay'],['Reminder scheduled',1,'T−24h · T−1h'],['Resources uploaded',0,'2 of 4 pending'],['Certificate configured',0,'template not set']],
+              during: [['Speaker joined',1,'18:52'],['Coordinator joined',1,'18:48'],['Event started',1,'19:00'],
+                ['Attendance active',1,'auto-tracked'],['Recording active',1,'cloud'],['Q&A active',1,'34 questions'],['Event completed',0,'in progress']],
+              after: [['Attendance finalized',1,'96 present'],['Feedback sent',1,'96 responses'],['Certificates generated',1,'86 issued'],
+                ['Recording uploaded',1,'1h 42m'],['Resources published',1,'4 files'],['Speaker payout processed',0,'awaiting approval'],
+                ['Event published to Library',0,'pending review'],['Post-event report generated',0,'not started']]
+            }[phase];
+            const ckDone = CK.filter(c=>c[1]).length;
+
+            const AL = {
+              before: [['Resources incomplete','2 of 4 resources not uploaded','Warning','amber'],
+                ['Certificate template not configured','Blocks certificate generation after the event','Warning','amber'],
+                ['Seats almost full', e.seats+' of '+cap+' seats remaining','Warning','amber'],
+                ['Registration opened','Opened 12 Aug · '+e.regs+' registered so far','Information','blue']],
+              during: [['6 unanswered questions','Oldest waiting 8 minutes','Warning','amber'],
+                ['Attendance below expected','412 live against 150 expected','Information','blue'],
+                ['Recording active','Cloud recording running normally','Information','green']],
+              after: [['Speaker payout pending','₹22,500 awaiting finance approval','Warning','amber'],
+                ['Recording not published','Ready but not yet in the Event Library','Warning','amber'],
+                ['12 certificates pending','Eligible but not yet issued','Warning','amber'],
+                ['Feedback received','96 responses · 4.7 average','Information','green']]
+            }[phase];
+
+            const QA_BEFORE = [['Add Participant',1],['Send Reminder',0],['Close Registration',0],['Edit Event',0]];
+            const QA_DURING = [['Open Live Event',1],['Monitor Attendance',0],['Monitor Q&A',0],['Send Announcement',0]];
+            const QA_AFTER = [['Finalize Attendance',0],['Issue Certificates',1],['Upload Recording',0],['Publish to Library',0],['Process Speaker Payout',0],['Send Feedback',0]];
+
+            return {
+              wwPhaseLabel: phase==='before' ? 'PRE-EVENT SNAPSHOT' : phase==='during' ? 'LIVE OPERATIONS' : 'POST-EVENT PERFORMANCE',
+              wwPhaseNote: phase==='before' ? 'Registration, readiness and capacity' : phase==='during' ? 'Live participants, engagement and technical health' : 'Attendance, engagement, finance and closure',
+              wwKpiCards: KPI,
+
+              wwHealthScore: String(score), wwHealthBand: band[0], wwHealthBandBg: band[1], wwHealthBandFg: band[2],
+              wwHealthNote: phase==='before'
+                ? 'Attendance, engagement and satisfaction are scored once the event runs.'
+                : 'Attendance is the weakest component — '+attRate+'% of confirmed registrations turned up.',
+              wwHealthParts: HP.map(([label,weight,v])=>({label, weight, score:String(v), pct:v+'%',
+                fg: v>=90?'#5AC0B0':v>=75?'#F0C078':'#FF9A8B', bar: v>=90?'#0E9384':v>=75?'#F0A72A':'#E5484D'})),
+
+              wwFunnel: FUN.map(([label,n,drop])=>({label, n:String(n), drop,
+                pct: Math.round(n/fMax*100)+'%',
+                color: label==='Confirmed' || label==='Attended' ? '#0E9384' : label==='Certificate Eligible' ? '#6D28D9' : '#5AC0B0'})),
+
+              wwCapPct: capPct+'%',
+              wwCapFg: capPct>=90 ? '#B45309' : '#15803D',
+              wwCapColor: capPct>=90 ? '#F0A72A' : '#0E9384',
+              wwCapacity: [
+                ['Maximum', String(cap), '#0F2A47'],['Confirmed', String(confirmed), '#15803D'],
+                ['Pending', String(e.regs-confirmed), '#B45309'],['Reserved','4','#6D28D9'],
+                ['Available', String(e.seats), e.seats<=10?'#B42318':'#15803D'],['Waitlisted','7','#B45309']
+              ].map(([label,v,fg])=>({label, v, fg})),
+              wwCapActions: [['Add Participant'],['Reserve Seat'],['Move from Waitlist'],['Increase Capacity']]
+                .map(([label])=>({label, go:()=>{
+                  if (label==='Add Participant') return this.setState({modal:'addParticipant',
+                    apName:'', apEmail:'', apTicket:'Standard · ₹499', apSeat:'Confirmed', apErr:null});
+                  if (label==='Increase Capacity') return this.setState({modal:'editEvent', eeCapacity:'250'});
+                  if (label==='Move from Waitlist') return this.setState({modal:'addParticipant',
+                    apName:'', apEmail:'', apTicket:'Standard · ₹499', apSeat:'Confirmed', apErr:null});
+                  return this.setState({modal:'addParticipant',
+                    apName:'', apEmail:'', apTicket:'Complimentary', apSeat:'Reserved', apErr:null});
+                }})),
+
+              wwAlertCount: String(AL.filter(a=>a[2]!=='Information').length),
+              wwAlerts: AL.map(([title,detail,sev,c])=>({title, detail, sev,
+                dot:B[c][1], sBg:B[c][0], sFg:B[c][1],
+                go:()=>this.setState({modal:'alertResolve', arCtx:{title, detail, sev}, arAction:'Fix now', arNote:'', arErr:null})})),
+
+              ...(()=>{
+                const price = 499, gross = e.regs*price, cost = 46000;
+                const be = Math.ceil(cost/price);
+                const net = Math.round(gross*0.88), profit = net - cost;
+                const cpr = Math.round(18400/e.regs);
+                const money = (n)=> n>=100000 ? '₹'+(n/100000).toFixed(2)+'L' : '₹'+(n/1000).toFixed(1)+'k';
+                return {
+                  wwFinOutlook: [
+                    ['Gross booked', money(gross), 'at ₹'+price+' per seat', '#fff'],
+                    ['Net projected', money(net), 'after 12% fees', '#5AC0B0'],
+                    ['Event cost', money(cost), 'speaker + platform + ads', '#F0C078'],
+                    ['Projected profit', money(profit), Math.round(profit/net*100)+'% margin', profit>0 ? '#5AC0B0' : '#FF9A8B'],
+                    ['Cost per registration', '₹'+cpr, 'against a ₹140 target', cpr<=140 ? '#5AC0B0' : '#FF9A8B'],
+                    ['Revenue at capacity', money((e.regs+e.seats)*price), 'if every seat sells', '#fff']
+                  ].map(([label,v,note,fg])=>({label, v, note, fg})),
+                  wwBreakEven: String(be),
+                  wwBreakEvenPct: Math.min(100, Math.round(e.regs/be*100))+'%',
+
+                  wwBenchmark: [
+                    ['Registrations', String(e.regs), '164', '+13%', 1],
+                    ['Conversion', '30%', '26%', '+4 pts', 1],
+                    ['Cost per registration', '₹'+cpr, '₹142', cpr<142 ? '−'+Math.round((142-cpr)/142*100)+'%' : '+'+Math.round((cpr-142)/142*100)+'%', cpr<142],
+                    ['Fill rate', '93%', '81%', '+12 pts', 1],
+                    ['Expected turnout', '81%', '78%', '+3 pts', 1]
+                  ].map(([label,mine,avg,delta,good])=>({label, mine, avg, delta, fg: good ? '#15803D' : '#B42318'})),
+
+                  wwAcquisition: (()=>{
+                    const A = [['Website','62','₹96','#0E9384'],['WhatsApp','48','₹74','#2FB3A0'],
+                      ['Email','31','₹58','#5FC9B8'],['LinkedIn','24','₹186','#8FDCCF'],
+                      ['Referral','14','₹0','#BEEDE5'],['Paid campaign','7','₹412','#DDD9CF']];
+                    const max = 62;
+                    return A.map(([label,n,cpr,color])=>({label, n, cpr: cpr+' / reg',
+                      pct: Math.round(parseInt(n)/max*100)+'%', color}));
+                  })(),
+                };
+              })(),
+              // ---- Registration analytics (BRD §10, §44) ----
+              ...(()=>{
+                const T = [['12 Aug',14],['14 Aug',22],['16 Aug',19],['18 Aug',31],['20 Aug',27],['22 Aug',38],['24 Aug',21],['26 Aug',14]];
+                const max = Math.max(...T.map(t=>t[1]));
+                return {
+                  wwRegKpis: [
+                    ['Total registrations', String(e.regs), '+18 in 7 days', '#15803D'],
+                    ['Conversion rate', '30%', 'view → registration', '#0F2A47'],
+                    ['Avg per day', String(Math.round(e.regs/14)), 'across 14 days', '#0F2A47'],
+                    ['Peak day', '38', '22 Aug · after the email push', '#0B7A6E'],
+                    ['Cancellations', '6', '3.2% of registrations', '#B45309']
+                  ].map(([label,v,note,fg])=>({label, v, note, fg})),
+                  wwRegTrend: T.map(([label,n],i)=>({label, n:String(n),
+                    h: Math.max(18, Math.round(n/max*130))+'px',
+                    bg: i>=T.length-2 ? '#0E9384' : '#A9D9CE'})),
+                  wwRegSource: (()=>{
+                    const A = [['Website',62,'34%','#0E9384'],['WhatsApp',48,'31%','#2FB3A0'],
+                      ['Email',31,'28%','#5FC9B8'],['LinkedIn',24,'19%','#8FDCCF'],
+                      ['Referral',14,'46%','#BEEDE5'],['Paid campaign',7,'11%','#DDD9CF']];
+                    const mx = 62;
+                    return A.map(([label,n,conv,color])=>({label, n:String(n), conv,
+                      pct: Math.round(n/mx*100)+'%', color}));
+                  })(),
+                  wwRegTicket: [
+                    ['Early bird','₹399 · closed 18 Aug','84','45%'],
+                    ['Standard','₹499 · open','76','41%'],
+                    ['Group (3+)','₹449 each','18','10%'],
+                    ['Complimentary','partner passes','8','4%']
+                  ].map(([label,note,n,share],i)=>({label, note, n, share, bg: i%2 ? '#FCFBF7' : '#fff'}))
+                };
+              })(),
+              wwChecklistTitle: phase==='before' ? 'Pre-event checklist' : phase==='during' ? 'Event-day checklist' : 'Post-event checklist',
+              wwChecklistDone: ckDone+' of '+CK.length+' done',
+              wwChecklist: CK.map(([label,done,meta])=>({label, meta,
+                mark: done ? '✓' : '', boxBg: done ? '#0E9384' : '#fff', boxBorder: done ? '#0E9384' : '#DDD9CF',
+                fg: done ? '#475467' : '#0F2A47', weight: done ? '500' : '700'})),
+
+              wwQuickActions: ({before:QA_BEFORE, during:QA_DURING, after:QA_AFTER})[phase].map(([label,primary])=>({label,
+                border: primary ? '0' : '1px solid #E5E3DC', bg: primary ? '#0E9384' : '#fff',
+                fg: primary ? '#fff' : '#344054', weight: primary ? '700' : '600',
+                hbg: primary ? '#0B7A6E' : '#F6F5F0',
+                go:()=>{
+                  const M = {'Add Participant':'addParticipant','Send Reminder':'sendReminder','Close Registration':'closeReg','Edit Event':'editEvent'}[label];
+                  if (M) return this.setState({modal:M, apName:'', apEmail:'', apTicket:'Standard · ₹499', apSeat:'Confirmed', apErr:null,
+                    srAudience:'All confirmed registrants', srChannel:['Email'], srTemplate:'T−24h reminder', srMsg:'', srErr:null,
+                    crReason:'Capacity reached', crWaitlist:'Keep open', crNotify:['Waitlisted'], crErr:null});
+                  this.fire(label, e.title+' · '+e.date, true);
+                }}))
+            };
+          })(),
+
+          // ---- Recording (BRD §13, §14, §15, §38) ----
+          wwRec: {title: e.title, duration:'1h 42m', resolution:'1080p', status:'Ready', sBg:'#E7F7EE', sFg:'#15803D'},
+          wwRecActions: [['Play',1],['Publish to Library',0],['Replace',0],['Download',0],['Archive',0]]
+            .map(([label,primary])=>({label,
+              border: primary ? '0' : '1px solid #E5E3DC', bg: primary ? '#0E9384' : '#fff',
+              fg: primary ? '#fff' : '#344054', weight: primary ? '700' : '600',
+              hbg: primary ? '#0B7A6E' : '#F6F5F0',
+              go: ()=>this.fire(label+' — recording', e.title+' · 1h 42m · 1080p', true)})),
+          wwRecMeta: [
+            ['File','mastering-insurance-claims.mp4'],['Duration','1h 42m'],['File size','1.84 GB'],
+            ['Resolution','1080p · H.264'],['Processing','Complete'],['Uploaded','04 Sep 2026, 08:15'],
+            ['Uploaded by','System · cloud recording'],['Version','v1.0']
+          ].map(([k,v])=>({k,v})),
+          wwRecAnalytics: [
+            ['TOTAL VIEWS','412','#0F2A47'],['UNIQUE VIEWERS','286','#0F2A47'],
+            ['AVG WATCH TIME','54 min','#0B7A6E'],['AVG COMPLETION','62%','#B45309'],
+            ['REPLAY VIEWS','126','#6D28D9'],['DROP-OFF POINT','38:10','#B42318']
+          ].map(([label,v,fg])=>({label, v, fg})),
+          wwRecChapters: [
+            ['00:00','Introduction and housekeeping','398','Most watched','green'],
+            ['08:20','Speaker introduction','386','—','grey'],
+            ['15:40','Insurance industry overview','372','—','grey'],
+            ['38:10','Claim settlement walkthrough','341','Drop-off','red'],
+            ['1:04:30','Fraud detection case study','318','Most replayed','violet'],
+            ['1:12:20','Student Q&A','294','—','grey']
+          ].map(([ts,label,views,tag,c],i)=>{
+            const P = {green:['#E7F7EE','#15803D'],red:['#FDE8E8','#B42318'],violet:['#F0EAFD','#6D28D9'],grey:['#F1F3F5','#667085']};
+            return {ts, label, views, tag, bg: i%2 ? '#FCFBF7' : '#fff', tagBg:P[c][0], tagFg:P[c][1]};
+          }),
+          wwAddChapter: ()=>this.fire('Add chapter','Marks a timestamp on the recording timeline', true),
+
+          // ---- Participants (BRD §20) ----
+          wwParticipants: [
+            ['Aarav Sharma','REG-88104','aarav.sharma@gmail.com','Mumbai','28 Jul','Paid','Confirmed','96%','Passed','Issued','4.8'],
+            ['Diya Nair','REG-88097','diya.nair@gmail.com','Kochi','27 Jul','Paid','Confirmed','88%','Passed','Issued','4.6'],
+            ['Rohan Kulkarni','REG-88091','rohan.k@outlook.com','Pune','26 Jul','Paid','Confirmed','74%','Passed','Pending','4.5'],
+            ['Ishaan Verma','REG-88085','ishaan.verma@gmail.com','Delhi','25 Jul','Pending','Pending','—','—','Not eligible','—'],
+            ['Ananya Rao','REG-88072','ananya.rao@gmail.com','Bengaluru','24 Jul','Paid','Confirmed','92%','Passed','Issued','5.0'],
+            ['Kabir Menon','REG-88066','kabir.menon@gmail.com','Chennai','23 Jul','Refunded','Cancelled','—','—','Not eligible','—'],
+            ['Meera Joshi','REG-88054','meera.joshi@gmail.com','Ahmedabad','22 Jul','Paid','Confirmed','58%','Failed','Not eligible','3.9'],
+            ['Vivaan Gupta','REG-88041','vivaan.g@gmail.com','Jaipur','21 Jul','Paid','Waitlisted','—','—','Not eligible','—']
+          ].map(([name,rid,email,city,date,pay,reg,att,assess,cert,fb])=>{
+            const pc = pay==='Paid'?'green':pay==='Pending'?'amber':'red';
+            const rc = reg==='Confirmed'?'green':reg==='Pending'?'amber':reg==='Waitlisted'?'blue':'grey';
+            const cc = cert==='Issued'?'green':cert==='Pending'?'amber':'grey';
+            const P = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],grey:['#F1F3F5','#667085'],blue:['#E9F1FD','#1D4ED8']};
+            return {name, rid, email, city, date, pay, reg, att, assess, cert, fb,
+              payBg:P[pc][0], payFg:P[pc][1], regBg:P[rc][0], regFg:P[rc][1], certBg:P[cc][0], certFg:P[cc][1],
+              attFg: att==='—' ? '#98A2B3' : parseInt(att)>=80 ? '#15803D' : parseInt(att)>=60 ? '#B45309' : '#B42318',
+              open:()=>this.setState({modal:'p360', pCtx:{name,rid,email,city,date,pay,reg,att,assess,cert,fb}})};
+          }),
+
+          // ---- Q&A (BRD §27) ----
+          wwQA: [
+            ['How is depreciation applied on a partial loss claim?','Aarav Sharma','Case Study','19:24','Ananya Deshmukh','Answered','Depreciation applies to the damaged parts only, using IRDAI schedules.','4 min'],
+            ['Can a claim be reopened after final settlement?','Diya Nair','Q&A','19:38','Ananya Deshmukh','Answered','Yes, within 90 days if new material evidence emerges.','2 min'],
+            ['What documents are mandatory for a fire loss claim?','Rohan Kulkarni','Lecture','19:12','Priya Singh','Answered','FIR, surveyor report, stock statement and purchase invoices.','6 min'],
+            ['How do you handle contributory negligence?','Ananya Rao','Case Study','19:31','—','Escalated','—','—'],
+            ['Is the recording shared with all registrants?','Meera Joshi','Introduction','19:04','Priya Singh','Resolved','Shared with confirmed attendees within 48 hours.','1 min'],
+            ['Will we get the settlement templates?','Ishaan Verma','Closing','20:12','—','New','—','—'],
+            ['What is the IRDAI turnaround requirement?','Kabir Menon','Lecture','19:19','Ananya Deshmukh','In Progress','—','—']
+          ].map(([q,who,session,time,assigned,status,answer,res])=>{
+            const c = status==='Answered'||status==='Resolved'?'green':status==='Escalated'?'red':status==='In Progress'?'amber':'blue';
+            const P = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],blue:['#E9F1FD','#1D4ED8']};
+            return {q, who, session, time, assigned, status, answer: answer||'—', res: res||'—',
+              sBg:P[c][0], sFg:P[c][1],
+              go:()=>this.setState({modal:'qaManage', qCtx:{q,who,session,time,assigned,status,answer,res},
+                qmAnswer: answer && answer!=='—' ? answer : '', qmAssign: assigned && assigned!=='—' ? assigned : 'Ananya Deshmukh', qmErr:null})};
+          }),
+
+          // ---- Certificates (BRD §32) ----
+          wwCerts: [
+            ['Aarav Sharma','REG-88104','96% attendance · assessment passed','CRT-2026-8841','04 Sep 2026','Issued','green'],
+            ['Diya Nair','REG-88097','88% attendance · assessment passed','CRT-2026-8842','04 Sep 2026','Issued','green'],
+            ['Ananya Rao','REG-88072','92% attendance · assessment passed','CRT-2026-8843','04 Sep 2026','Issued','green'],
+            ['Rohan Kulkarni','REG-88091','74% attendance · assessment passed','—','—','Pending','amber'],
+            ['Meera Joshi','REG-88054','58% attendance · below 80% threshold','—','—','Not Eligible','grey'],
+            ['Ishaan Verma','REG-88085','did not attend','—','—','Not Eligible','grey']
+          ].map(([name,rid,basis,cid,issued,status,c])=>{
+            const P = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],grey:['#F1F3F5','#667085']};
+            return {name, rid, basis, cid, issued, status, sBg:P[c][0], sFg:P[c][1],
+              actLabel: status==='Issued' ? 'Download' : status==='Pending' ? 'Issue' : 'Review',
+              actBd: status==='Pending' ? '0' : '1px solid #E5E3DC',
+              actBg: status==='Pending' ? '#0E9384' : '#fff',
+              actFg: status==='Pending' ? '#fff' : '#344054',
+              go:()=>this.fire((status==='Issued'?'Downloading':status==='Pending'?'Issuing certificate':'Reviewing eligibility')+' — '+name, basis, true)};
+          }),
+
+          // ---- Activity log (BRD §52) ----
+          wwActivity: [
+            ['Certificates generated','Priya Singh','Coordinator','Certificates','—','86 issued','Bulk generation after attendance finalized','Today, 11:04'],
+            ['Attendance finalized','Priya Singh','Coordinator','Attendance','Draft','96 present · 12 absent','Manual review of 4 partial records','Today, 10:22'],
+            ['Recording uploaded','System','Automation','Recording','Not uploaded','Ready (1h 42m)','Cloud recording processed','Today, 08:15'],
+            ['Attendance corrected','Priya Singh','Coordinator','Attendance','Absent','Present','Participant joined via phone dial-in','Yesterday, 19:48'],
+            ['Event completed','System','Automation','Event','Live','Completed','Session ended at 20:32','Yesterday, 20:32'],
+            ['Event started','Ananya Deshmukh','Speaker','Event','Scheduled','Live','Host joined and started the session','Yesterday, 19:00'],
+            ['Reminder sent','System','Automation','Communication','—','186 recipients','T−1h reminder','Yesterday, 18:00'],
+            ['Price changed','Admin User','Admin','Event','₹599','₹499','Early-bird pricing applied','12 Aug, 14:20'],
+            ['Coordinator assigned','Admin User','Admin','Event','—','Priya Singh','Initial assignment','10 Aug, 09:40'],
+            ['Event created','Admin User','Admin','Event','—','Draft','—','08 Aug, 16:12']
+          ].map(([action,who,role,module,prev,next,remark,when],i)=>({
+            action, who, role, module, prev: prev||'—', next, remark: remark||'—', when,
+            hasPrev: prev && prev!=='—', rowBg: i%2 ? '#FCFBF7' : '#fff'})),
+
           // ---- Event group ----
           wwDetails: KV([
             ['Event Title', e.title],['Event Type', e.type],['Event Code','EVT-WKS-2026-0012'],
@@ -10191,7 +11091,8 @@ class Component extends DCLogic {
             ['Rate your confidence in risk scoring now','1–5 scale',149,'83%','—'],
             ['Which document proves ownership for a fire claim?','4 options',146,'81%','86%']
           ].map(([q,opts,resp,rate,correct],i)=>({q, opts, resp:String(resp), rate, correct,
-            bg: i%2 ? '#FCFBF7' : '#fff', view: this.act('Poll results', q)})),
+            bg: i%2 ? '#FCFBF7' : '#fff',
+            view: ()=>this.setState({modal:'pollResults', prCtx:{q, opts, resp:String(resp), rate, correct}})})),
           wwChatKpis: CARD([
             ['MESSAGES','412','across 4 h'],['PARTICIPANTS','128','71% of attendees'],
             ['PEAK RATE','38/min','during case study'],['FLAGGED','0','no moderation needed','#15803D']
@@ -10315,28 +11216,6 @@ class Component extends DCLogic {
             name, phase, sent, delivered, opened, clicked, failed, channels,
             bg: i%2 ? '#FCFBF7' : '#fff',
             failFg: failed==='0' ? '#98A2B3' : '#B42318'})),
-          wwAlerts: [
-            ['Recording not yet published to Library','Edited recording still processing','Warning','amber'],
-            ['12 certificates pending generation','Feedback not submitted by 12 eligible participants','Warning','amber'],
-            ['4 participant questions unanswered','Oldest raised during the case study session','Warning','amber'],
-            ['Registration closed on schedule','No action needed','Information','blue'],
-            ['Feedback response rate above target','79% against a 60% target','Information','blue']
-          ].map(([title,desc,sev,c])=>({title, desc, sev, dot: BDG2[c][1],
-            sBg: BDG2[c][0], sFg: BDG2[c][1],
-            resolve: this.act(title+' — actioned','Written to the event activity log')})),
-          wwChecklist: [
-            ['BEFORE EVENT', [['Speaker assigned',1],['Coordinator assigned',1],['Agenda finalized',1],
-              ['Meeting link configured',1],['Registration opened',1],['Pricing configured',1],
-              ['Payment configured',1],['Reminders scheduled',1],['Resources uploaded',1],['Certificate configured',1]]],
-            ['EVENT DAY', [['Speaker joined',1],['Coordinator joined',1],['Event started',1],
-              ['Attendance active',1],['Recording active',1],['Q&A active',1],['Event completed',1]]],
-            ['POST EVENT', [['Attendance finalized',1],['Feedback sent',1],['Certificates generated',0],
-              ['Recording uploaded',1],['Resources published',1],['Speaker payout processed',0],
-              ['Published to Library',0],['Post-event report generated',0]]]
-          ].map(([title, rows])=>({title,
-            rows: rows.map(([label,ok])=>({label,
-              icon: ok ? '✓' : '○', iconBg: ok ? '#E7F7EE' : '#F1F3F5',
-              iconFg: ok ? '#15803D' : '#98A2B3', fg: ok ? '#344054' : '#98A2B3'}))})),
           wwTimeline: [
             ['Event created','11 Jun 2026, 11:04','Admin User','Admin','Draft'],
             ['Speaker assigned','12 Jun 2026, 09:20','Admin User','Admin','Draft'],
@@ -10378,7 +11257,7 @@ class Component extends DCLogic {
           ].map(([k,v],i)=>({k, v, bg: i%2 ? '#FCFBF7' : '#fff',
             edit: this.act('Edit — '+k, 'Change is logged to the event activity trail')}))
         };
-      })(),
+      })()),
       wwBack:()=>this.setState({wwEvent:null}),
       ...(()=>{
         const GROUPS = [
@@ -10431,17 +11310,140 @@ class Component extends DCLogic {
           }
         };
       })(),
-      wwParticipants: WW_PARTICIPANTS,
-      wwQA: WW_QA.map(q=>({...q, bg: q.status==='Answered'?'#E7F7EE':q.status==='Approved'?'#E9F1FD':'#FEF3E2',
-        fg: q.status==='Answered'?'#15803D':q.status==='Approved'?'#1D4ED8':'#B45309'})),
-      wwCerts: WW_CERTS.map(c=>({...c, bg: c.status==='Issued'?'#E7F7EE':c.status==='Pending'?'#FEF3E2':'#F1F3F5',
-        fg: c.status==='Issued'?'#15803D':c.status==='Pending'?'#B45309':'#667085'})),
-      wwActivity: WW_ACTIVITY.map(a=>({...a, init:this.initials(a.who)})),
-      wwFunnel: [['Event Page Views','1,840',100,'#0E9384'],['Registrations','1,284',70,'#2FB3A0'],['Confirmed','1,140',62,'#5FC9B8'],['Joined','980',53,'#8FDCCF'],['Stayed 50%+','760',41,'#BEEDE5'],['Completed','610',33,'#D9F0EA']]
-        .map(([label,n,w,bg])=>({label,n,w:w+'%',bg})),
       wwCreate:()=>this.setState({route:'createEvent', ceStep:1, ceType:'Workshop'}),
       mWwCreate: false,
       wwReschedule:()=>this.setState({modal:'wwReschedule'}),
+      mAddPart: s.modal==='addParticipant', mSendRem: s.modal==='sendReminder',
+      mCloseReg: s.modal==='closeReg', mEditEvent: s.modal==='editEvent',
+      mPollRes: s.modal==='pollResults', mAlertRes: s.modal==='alertResolve',
+      ...(()=>{
+        const pr = s.prCtx || {}, ar = s.arCtx || {};
+        const chip = (list, key) => (o)=>{
+          const on = (s[key]||[]).includes(o);
+          return {label:o, border: on?'#0E9384':'#E5E3DC', bg: on?'#EEF6F5':'#fff',
+            fg: on?'#0B7A6E':'#667085', weight: on?'700':'500',
+            pick: ()=>this.setState(x=>{ const cur = x[key]||[];
+              return {[key]: cur.includes(o) ? cur.filter(v=>v!==o) : cur.concat([o])}; })};
+        };
+        const sel = (label,key,opts,def)=>({label, value: s[key]||def, opts: opts.map(o=>({o})),
+          set:(e)=>this.setState({[key]:e.target.value})});
+
+        // poll option breakdown, derived from the response count
+        const total = parseInt(pr.resp)||0;
+        const shares = pr.opts==='Yes / No' ? [[ 'Yes',92],['No',8]]
+          : pr.opts==='1–5 scale' ? [['5 — very confident',34],['4',38],['3',19],['2',6],['1',3]]
+          : [['Option A',78],['Option B',12],['Option C',7],['Option D',3]];
+        return {
+          apFields: [
+            sel('Ticket type','apTicket',['Standard · ₹499','Early bird · ₹399','Group (3+) · ₹449','Complimentary'],'Standard · ₹499'),
+            sel('Seat status','apSeat',['Confirmed','Pending payment','Reserved','Waitlist'],'Confirmed')
+          ],
+          apName: s.apName||'', setApName:(e)=>this.setState({apName:e.target.value}),
+          apEmail: s.apEmail||'', setApEmail:(e)=>this.setState({apEmail:e.target.value}),
+          apErr: s.apErr||'', apErrShow: s.apErr ? 'block' : 'none',
+          apNote: 'Adding beyond capacity requires overbooking to be enabled in Settings.',
+          apSubmit: ()=>{
+            const n = (s.apName||'').trim(), em = (s.apEmail||'').trim();
+            if (!n) return this.setState({apErr:'Participant name is required.'});
+            if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(em)) return this.setState({apErr:'Enter a valid email address.'});
+            this.setState({modal:null});
+            this.fire('Participant added — '+n, em+' · '+(s.apTicket||'')+' · '+(s.apSeat||''), true);
+          },
+
+          srFields: [
+            sel('Audience','srAudience',['All confirmed registrants','Pending payment only','Waitlisted','No-shows from last event','Everyone registered'],'All confirmed registrants'),
+            sel('Template','srTemplate',['T−24h reminder','T−1h reminder','Joining link','Custom message'],'T−24h reminder')
+          ],
+          srChannelChips: ['Email','WhatsApp','SMS','Push'].map(chip(null,'srChannel')),
+          srMsg: s.srMsg||'', setSrMsg:(e)=>this.setState({srMsg:e.target.value}),
+          srErr: s.srErr||'', srErrShow: s.srErr ? 'block' : 'none',
+          srCount: '171 recipients',
+          srSubmit: ()=>{
+            if (!(s.srChannel||[]).length) return this.setState({srErr:'Pick at least one channel.'});
+            this.setState({modal:null});
+            this.fire('Reminder queued', (s.srAudience||'')+' · '+(s.srChannel||[]).join(' · ')+' · '+(s.srTemplate||''), true);
+          },
+
+          crFields: [
+            sel('Reason','crReason',['Capacity reached','Registration deadline passed','Event rescheduled','Cancelled'],'Capacity reached'),
+            sel('Waitlist','crWaitlist',['Keep open','Close as well','Convert to next event'],'Keep open')
+          ],
+          crNotifyChips: ['Waitlisted','Pending payment','Speaker','Coordinator'].map(chip(null,'crNotify')),
+          crWarn: 'Closing registration stops new sign-ups immediately. 14 seats remain unsold.',
+          crSubmit: ()=>{ this.setState({modal:null});
+            this.fire('Registration closed', (s.crReason||'')+' · waitlist: '+(s.crWaitlist||'')+' · notified '+((s.crNotify||[]).join(', ')||'nobody'), true); },
+
+          eeFields: [
+            sel('Event status','eeStatus',['Scheduled','Published','Registration Open','Registration Closed','Draft'],'Scheduled'),
+            sel('Capacity','eeCapacity',['200','150','250','300'],'200'),
+            sel('Price','eePrice',['₹499','₹399','₹599','Free'],'₹499'),
+            sel('Delivery mode','eeMode',['Online · Zoom','Online · Teams','Hybrid','In person'],'Online · Zoom')
+          ],
+          eeSubmit: ()=>{ this.setState({modal:null});
+            this.fire('Event updated', (s.eeStatus||'Scheduled')+' · capacity '+(s.eeCapacity||'200')+' · '+(s.eePrice||'₹499')+' · written to the activity log', true); },
+
+          prTitle: pr.q||'', prSub: (pr.opts||'')+' · '+(pr.resp||'0')+' responses · '+(pr.rate||'')+' response rate',
+          prCorrect: pr.correct||'—', prCorrectShow: (pr.correct && pr.correct!=='—') ? 'flex' : 'none',
+          prOptions: shares.map(([label,pct])=>({label, pct: pct+'%', n: String(Math.round(total*pct/100)),
+            color: pct>=50 ? '#0E9384' : pct>=20 ? '#5AC0B0' : '#BEEDE5'})),
+          prExport: ()=>{ this.setState({modal:null}); this.fire('Poll results exported', (pr.q||'').slice(0,50)+' · CSV', true); },
+
+          arTitle: ar.title||'', arDetail: ar.detail||'', arSev: ar.sev||'',
+          arSevBg: ar.sev==='Critical' ? '#FDE8E8' : ar.sev==='Warning' ? '#FEF3E2' : '#E9F1FD',
+          arSevFg: ar.sev==='Critical' ? '#B42318' : ar.sev==='Warning' ? '#B45309' : '#1D4ED8',
+          arActionField: sel('Resolution','arAction',['Fix now','Assign to coordinator','Snooze 24 hours','Dismiss — not applicable'],'Fix now'),
+          arNote: s.arNote||'', setArNote:(e)=>this.setState({arNote:e.target.value}),
+          arErr: s.arErr||'', arErrShow: s.arErr ? 'block' : 'none',
+          arSubmit: ()=>{
+            const act = s.arAction||'Fix now';
+            if (act==='Dismiss — not applicable' && !(s.arNote||'').trim())
+              return this.setState({arErr:'A reason is required when dismissing an alert.'});
+            this.setState({modal:null});
+            this.fire(act+' — '+(ar.title||''), (s.arNote||'').trim() || (ar.detail||''), true);
+          }
+        };
+      })(),
+      mP360: s.modal==='p360', mQaManage: s.modal==='qaManage',
+      ...(()=>{
+        const p = s.pCtx || {}, q = s.qCtx || {};
+        const P = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],grey:['#F1F3F5','#667085'],blue:['#E9F1FD','#1D4ED8']};
+        const pc = p.pay==='Paid'?'green':p.pay==='Pending'?'amber':'red';
+        const qc = q.status==='Answered'||q.status==='Resolved'?'green':q.status==='Escalated'?'red':q.status==='In Progress'?'amber':'blue';
+        const attN = parseInt(p.att) || 0;
+        return {
+          pName: p.name||'', pSub: (p.rid||'')+' · '+(p.email||''),
+          pStatus: p.reg||'', pStatusBg: P[p.reg==='Confirmed'?'green':p.reg==='Pending'?'amber':p.reg==='Waitlisted'?'blue':'grey'][0],
+          pStatusFg: P[p.reg==='Confirmed'?'green':p.reg==='Pending'?'amber':p.reg==='Waitlisted'?'blue':'grey'][1],
+          pSections: [
+            ['REGISTRATION', [['Registration ID', p.rid||''],['Registered on', (p.date||'')+' 2026'],['Ticket','Standard · ₹499'],['Source','Website · organic'],['City', p.city||'']]],
+            ['PAYMENT', [['Amount','₹499'],['Tax','₹90 (18% GST)'],['Discount','—'],['Payment status', p.pay||''],['Transaction ID', p.pay==='Paid' ? 'TXN-'+(p.rid||'').replace('REG-','') : '—'],['Refund', p.pay==='Refunded' ? '₹499 processed' : '—']]],
+            ['ATTENDANCE', [['Join time', attN ? '18:58' : '—'],['Exit time', attN ? '20:34' : '—'],['Duration', attN ? Math.round(attN*1.02)+' min of 96' : '—'],['Sessions attended', attN ? '5 of 6' : '0 of 6'],['Attendance status', attN>=80 ? 'Present' : attN ? 'Partial' : 'Absent']]],
+            ['ENGAGEMENT', [['Questions asked', attN ? '2' : '0'],['Polls answered', attN ? '3 of 3' : '0 of 3'],['Chat messages', attN ? '7' : '0'],['Reactions', attN ? '12' : '0'],['Resources downloaded', attN ? '4 of 4' : '0 of 4']]],
+            ['LEARNING', [['Assessment', p.assess||'—'],['Score', p.assess==='Passed' ? '84 / 100' : p.assess==='Failed' ? '48 / 100' : '—'],['Assignment', attN ? 'Submitted' : 'Not submitted']]],
+            ['CERTIFICATE', [['Eligibility', attN>=80 ? 'Eligible' : 'Not eligible'],['Certificate ID', p.cert==='Issued' ? 'CRT-2026-'+(p.rid||'').slice(-4) : '—'],['Issue date', p.cert==='Issued' ? '04 Sep 2026' : '—'],['Status', p.cert||'']]],
+            ['FEEDBACK', [['Rating', p.fb||'—'],['Comment', p.fb && p.fb!=='—' ? 'Practical and well paced — the settlement walkthrough was the highlight.' : '—']]]
+          ].map(([title,rows])=>({title, rows: rows.map(([k,v])=>({k, v: v||'—'}))})),
+          pActions: [['Message participant',0],['Correct attendance',0],['Issue certificate',0],['Refund',1],['Remove from event',1]]
+            .map(([label,danger])=>({label,
+              border: danger?'#F0D2CF':'#E5E3DC', fg: danger?'#B42318':'#344054', hbg: danger?'#FEF7F6':'#F6F5F0',
+              go:()=>{ this.setState({modal:null}); this.fire(label+' — '+(p.name||''), (p.rid||'')+' · written to the event activity log', true); }})),
+
+          qTitle: q.q||'', qSub: (q.who||'')+' · '+(q.session||'')+' · '+(q.time||''),
+          qStatus: q.status||'', qStatusBg: P[qc][0], qStatusFg: P[qc][1],
+          qMeta: [['Participant', q.who||''],['Session', q.session||''],['Asked at', q.time||''],['Resolution time', q.res||'—']].map(([k,v])=>({k,v})),
+          qmAnswer: s.qmAnswer||'', setQmAnswer:(e)=>this.setState({qmAnswer:e.target.value}),
+          qmAssign: s.qmAssign||'Ananya Deshmukh', setQmAssign:(e)=>this.setState({qmAssign:e.target.value}),
+          qmAssignOpts: ['Ananya Deshmukh','Priya Singh','Prof. Arun Mehta','Unassigned'].map(o=>({o})),
+          qmErr: s.qmErr||'', qmErrShow: s.qmErr ? 'block' : 'none',
+          qmSubmit: ()=>{
+            if (!(s.qmAnswer||'').trim()) return this.setState({qmErr:'Write an answer before publishing it to the participant.'});
+            this.setState({modal:null});
+            this.fire('Answer published — '+(q.who||''), (q.q||'').slice(0,50)+' · assigned to '+(s.qmAssign||''), true);
+          },
+          qmSecondary: [['Assign only',0],['Escalate',0],['Flag',0],['Resolve without answer',0]].map(([label])=>({label,
+            go:()=>{ this.setState({modal:null}); this.fire(label+' — '+(q.who||''), (q.q||'').slice(0,50), true); }}))
+        };
+      })(),
       mWwReschedule: s.modal==='wwReschedule',
       wwCancel:()=>this.setState({modal:'wwCancel'}),
       mWwCancel: s.modal==='wwCancel',
