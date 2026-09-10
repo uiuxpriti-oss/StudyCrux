@@ -3081,6 +3081,80 @@
                       </div>
                     </sc-if>
 
+                    <sc-if value="{{ sec.isLpView }}" hint-placeholder-val="{{ false }}">
+                      <div>
+                        <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:11px;margin-bottom:18px">
+                          <sc-for list="{{ sec.lpKpis }}" as="k" hint-placeholder-count="7">
+                            <div style="min-width:0;border:1px solid #F0EEE7;border-radius:12px;padding:13px 14px;background:#FCFBF7">
+                              <div style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#7A8699;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.label }}</div>
+                              <div style="font-size:21px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:6px">{{ k.n }}</div>
+                              <div style="font-size:10.5px;font-weight:600;color:{{ k.fg }};margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.note }}</div>
+                            </div>
+                          </sc-for>
+                        </div>
+
+                        <div style="display:flex;gap:2px;background:#FCFBF7;border:1px solid #F0EEE7;border-radius:11px;padding:4px;margin-bottom:14px;width:fit-content">
+                          <sc-for list="{{ sec.lpTabs }}" as="t" hint-placeholder-count="4">
+                            <button onClick="{{ t.pick }}" style="height:32px;padding:0 16px;border:0;border-radius:8px;font-size:13px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;font-family:inherit">{{ t.label }}</button>
+                          </sc-for>
+                        </div>
+
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                          <div style="overflow-x:auto">
+                            <table style="width:100%;min-width:1280px;border-collapse:collapse">
+                              <thead>
+                                <tr style="background:#FCFBF7">
+                                  <th style="padding:11px 16px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">PRODUCT</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TYPE</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PLAN / BATCH</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHER</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LEARNERS</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LAUNCHED</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">VALID UNTIL</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COMPLETION</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RATING</th>
+                                  <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LAST ACTIVITY</th>
+                                  <th style="padding:11px 16px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <sc-for list="{{ sec.lpRows }}" as="p" hint-placeholder-count="6">
+                                  <tr onClick="{{ p.open }}" style="cursor:pointer" style-hover="background:#FCFBF7">
+                                    <td style="padding:12px 16px;border-bottom:1px solid #F5F3EE">
+                                      <div style="font-size:13.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ p.name }}</div>
+                                      <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ p.buyId }}</div>
+                                    </td>
+                                    <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ p.kBg }};color:{{ p.kFg }};white-space:nowrap">{{ p.kind }}</span></td>
+                                    <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ p.plan }}</td>
+                                    <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ p.teacher }}</td>
+                                    <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47">{{ p.learners }}</td>
+                                    <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ p.purchased }}</td>
+                                    <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ p.valid }}</td>
+                                    <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ p.sBg }};color:{{ p.sFg }};white-space:nowrap">{{ p.status }}</span></td>
+                                    <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE">
+                                      <div style="display:flex;align-items:center;gap:8px">
+                                        <div style="width:64px;height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ p.pct }};border-radius:4px;background:{{ p.barBg }}"></div></div>
+                                        <span style="font-size:11.5px;font-weight:700;color:#0F2A47">{{ p.pct }}</span>
+                                      </div>
+                                    </td>
+                                    <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47">{{ p.rating }}</td>
+                                    <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#98A2B3;white-space:nowrap">{{ p.last }}</td>
+                                    <td style="padding:12px 16px 12px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
+                                      <button onClick="{{ p.open }}" style="height:30px;padding:0 13px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;cursor:pointer;white-space:nowrap;font-family:inherit" style-hover="background:#E2F1EE">View Details</button>
+                                    </td>
+                                  </tr>
+                                </sc-for>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div style="display:{{ sec.lpEmpty }};padding:32px 20px;text-align:center">
+                            <div style="font-size:13px;font-weight:700;color:#475467">No products of this type</div>
+                          </div>
+                        </div>
+                      </div>
+                    </sc-if>
+
                     <sc-if value="{{ sec.isList }}" hint-placeholder-val="{{ false }}">
                       <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
                         <sc-for list="{{ sec.listRows }}" as="l" hint-placeholder-count="5">
@@ -5861,6 +5935,9 @@ const C360 = {
       ['Batch C completion is 8% behind target','78% against a target of 86%','High','amber'],
       ['8 students have not logged in for 7 days','Across IC-01 and IC-02','Medium','grey']]}
   ],
+  'Learning & Products': [
+    {t:'LEARNING PRODUCTS', kind:'lpview'}
+  ],
   'Employment & Recruitment': [
     {t:'HIRING SNAPSHOT', kind:'cards', rows:[
       ['SOURCE','Referral','internal — Anita Rao','#0F2A47'],['INTERVIEW AVG','8.6','across 3 rounds','#15803D'],
@@ -6534,6 +6611,25 @@ const RC_AUDIT = [
   ['15 Aug, 11:00 AM','Admin','Admin','SLA changed','\u2014','\u2014','Critical: 2h','Critical: 1h','Tightened response target'],
   ['12 Aug, 9:15 AM','Admin','Admin','Course archived','RC-09 Advanced Risk Modelling','\u2014','Published','Draft','Content under revision'],
   ['10 Aug, 3:40 PM','Admin','Admin','Report generated','All recorded courses','\u2014','\u2014','Course Performance Report','Monthly review']
+];
+
+const CPRODUCTS = [
+  {id:'CPR-7101', name:'IC-01 Live Series', kind:'Live Class', plan:'Batch A — Morning (BT-101)', buyId:'PRD-71101-C',
+   purchased:'01 Apr 2026', valid:'31 Oct 2026', status:'Active', progress:89, last:'Today, 09:14 AM', learners:162, teacher:'Dr. Vikram Verma', rating:'4.8'},
+  {id:'CPR-7102', name:'IC-01 Mock Test Set A', kind:'Mock Test', plan:'20 tests · Elite pack', buyId:'PRD-71102-M',
+   purchased:'20 Jun 2026', valid:'31 Dec 2026', status:'Active', progress:92, last:'Today, 08:02 AM', learners:158, teacher:'Dr. Vikram Verma', rating:'4.7'},
+  {id:'CPR-7103', name:'IC-02 Live Series', kind:'Live Class', plan:'Batch B1 — Morning (BT-204)', buyId:'PRD-71103-C',
+   purchased:'01 Jul 2026', valid:'31 Dec 2026', status:'Active', progress:84, last:'Yesterday, 07:40 PM', learners:118, teacher:'Neha Kulkarni', rating:'4.6'},
+  {id:'CPR-7104', name:'IC-02 Recorded Course', kind:'Recorded', plan:'Chapter-wise · 180 days', buyId:'PRD-71104-R',
+   purchased:'05 May 2026', valid:'01 Nov 2026', status:'Active', progress:71, last:'2 days ago', learners:96, teacher:'Neha Kulkarni', rating:'4.5'},
+  {id:'CPR-7105', name:'IC-11 Live Series', kind:'Live Class', plan:'Batch C — Afternoon (BT-310)', buyId:'PRD-71105-C',
+   purchased:'01 Jun 2026', valid:'31 Dec 2026', status:'Active', progress:78, last:'Today, 02:10 PM', learners:206, teacher:'Prof. Arun Mehta', rating:'4.4'},
+  {id:'CPR-7106', name:'IC-11 Revision Recordings', kind:'Recorded', plan:'Standard · 90 days', buyId:'PRD-71106-R',
+   purchased:'01 Jul 2026', valid:'29 Sep 2026', status:'Expiring Soon', progress:64, last:'3 days ago', learners:184, teacher:'Prof. Arun Mehta', rating:'4.3'},
+  {id:'CPR-7107', name:'IC-11 Mock Test Set B', kind:'Mock Test', plan:'12 tests · standard', buyId:'PRD-71107-M',
+   purchased:'15 Jul 2026', valid:'31 Dec 2026', status:'Active', progress:58, last:'Yesterday, 05:22 PM', learners:142, teacher:'Ritu Bansal', rating:'4.2'},
+  {id:'CPR-7108', name:'IC-38 Starter — Recorded', kind:'Recorded', plan:'Standard · 90 days', buyId:'PRD-71108-R',
+   purchased:'01 Aug 2025', valid:'31 Jan 2026', status:'Expired', progress:100, last:'31 Jan 2026', learners:72, teacher:'Ayesha Khan', rating:'4.4'}
 ];
 
 const CANDIDATES = [

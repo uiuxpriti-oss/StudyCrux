@@ -3631,7 +3631,7 @@ const KPIS = [
   {label:'EXPIRING PLANS',n:'3',delta:'+3 this week',dc:'#B45309',path:'M12 3a9 9 0 1 0 .01 0M12 7v5l3 2',ibg:'#FEF3E2',ifg:'#B45309',link:'View Renewal List →'}
 ];
 
-const TABS = ['Overview','Learning & Products','Certificates','Tickets','Reviews & Ratings','Wallet','Payments','Attendance','Logins','Devices','Comms','Documents','Timeline','Notes'];
+const TABS = ['Overview','Learning & Products','Course & Batch','Certificates','Tickets','Reviews & Ratings','Wallet','Payments','Attendance','Communications','Documents','Logins','Devices','Notes','Activity Timeline'];
 
 const PRODUCTS = [
   {id:'PRD-8801', name:'UPSC BQP 2026', kind:'Mock Test', plan:'Elite Quest (90D)', buyId:'CB-88101-M',
@@ -3899,6 +3899,29 @@ const SEC = {
     ]},
     {t:'ACTIONS',type:'actions',btns:[['Unlock Course'],['Extend Access'],['Revoke Access',1]]}
   ],
+  'Course & Batch': [
+    {t:'ENROLMENT SUMMARY',type:'cards',cards:[
+      card('COURSES ENROLLED','3','2 live · 1 recorded',CL.d),card('ACTIVE BATCHES','2','currently attending',CL.t),
+      card('COMPLETED','1','IC-38 Starter',CL.t),card('BATCH ATTENDANCE','94%','across live batches',CL.t)]},
+    {t:'COURSE & BATCH ALLOCATION',right:'Every course and batch this student is mapped to',type:'table',
+      cols:['Course','Course ID','Batch','Batch ID','Shift','Teacher','Coordinator','Enrolled On','Valid Until','Batch Status','Course Status'],
+      trs:[
+        ['IC-38 Full Prep','C-101','Batch A — Morning','BT-101','07:00 – 09:00','Dr. Vikram Verma','R. Kumar','01 Jul 2026','31 Dec 2026',['Active','green'],['In Progress','green']],
+        ['Life Insurance Elite','C-204','Batch B1 — Morning','BT-204','07:30 – 09:30','Neha Kulkarni','S. Patel','12 Aug 2026','28 Feb 2027',['Active','green'],['In Progress','green']],
+        ['Sociology — Chemistry Series','RC-118','Recorded — no batch','—','Self-paced','Prof. Arun Mehta','—','15 Jul 2026','Lifetime',['—','grey'],['In Progress','green']],
+        ['IC-38 Starter','C-088','Batch D — Morning','BT-044','07:00 – 09:00','Ayesha Khan','R. Kumar','01 Aug 2025','31 Jan 2026',['Completed','grey'],['Completed','grey']]]},
+    {t:'BATCH CHANGE HISTORY',right:'Transfers and reassignments',type:'table',
+      cols:['Date','Course','From Batch','To Batch','Reason','Approved By'],
+      trs:[
+        ['2026-07-18','IC-38 Full Prep','Batch B — Evening (BT-103)','Batch A — Morning (BT-101)','Student request — shift conflict','R. Kumar'],
+        ['2026-08-12','Life Insurance Elite','—','Batch B1 — Morning (BT-204)','New enrolment','S. Patel']]},
+    {t:'COURSE PROGRESS',right:'Completion against each enrolled course',type:'bars',rows:[
+      {label:'IC-38 Full Prep',sub:'Batch A — 26 of 32 sessions held',pct:'72%',color:'#0E9384'},
+      {label:'Life Insurance Elite',sub:'Batch B1 — 8 of 30 sessions held',pct:'27%',color:'#F0A72A'},
+      {label:'Sociology — Chemistry Series',sub:'27 of 56 lessons watched',pct:'48%',color:'#F0A72A'},
+      {label:'IC-38 Starter',sub:'Completed 31 Jan 2026',pct:'100%',color:'#0E9384'}]},
+    {t:'COURSE & BATCH ACTIONS',type:'actions',btns:[['Change Batch'],['Enrol in Course'],['Extend Validity'],['Transfer Student'],['Withdraw from Course',1]]}
+  ],
   'Certificates': [
     {t:'ISSUANCE MODE',type:'certmode'},
     {t:'COMPLETION & ELIGIBILITY',right:'Certificate unlocks at 100%',type:'certprog',rows:[
@@ -4031,7 +4054,7 @@ const SEC = {
     {t:'DEVICE POLICY',type:'kv',rows:[['Max concurrent devices','2'],['Screen recording','Blocked'],['Device limit reached','Yes']]},
     {t:'ACTIONS',type:'actions',btns:[['Reset Device Limit'],['Notify Student'],['Revoke All Devices',1]]}
   ],
-  'Comms': [
+  'Communications': [
     {t:'ENGAGEMENT',type:'cards',cards:[card('SENT (90D)','9','7 outbound · 2 inbound',CL.t),card('OPEN RATE','78%','7 of 9 opened',CL.b),card('REPLY RATE','33%','3 replies received',CL.p),card('PREFERRED','WhatsApp','fastest response',CL.t)]},
     {t:'COMMUNICATION LOG',right:'Every message in and out · expand for delivery detail',type:'comms',rows:[
       {id:'MSG-7741', dir:'Outbound', ch:'WhatsApp', subject:'Renewal reminder — Elite Quest expires in 7 days',
@@ -4078,7 +4101,7 @@ const SEC = {
     ]},
     {t:'ACTIONS',type:'actions',btns:[['Upload Document'],['Download All'],['Request Document']]}
   ],
-  'Timeline': [
+  'Activity Timeline': [
     {t:'ACTIVITY TIMELINE',right:'6 events',type:'list',rows:[
       L('✎','amber','Attempted a mock test','Yesterday',{tag:'Learning',tagBg:'#FEF3E2',tagFg:'#B45309'}),
       L('→','gray','Logged in from Chrome · Windows','Yesterday',{tag:'Access',tagBg:'#F1F3F5',tagFg:'#667085'}),

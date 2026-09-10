@@ -1792,6 +1792,225 @@
                     </div>
                   </sc-if>
 
+                  <sc-if value="{{ spkTabIs.products }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:11px;margin-bottom:18px">
+                        <sc-for list="{{ spkLpKpis }}" as="k" hint-placeholder-count="7">
+                          <div style="min-width:0;border:1px solid #F0EEE7;border-radius:12px;padding:13px 14px;background:#FCFBF7">
+                            <div style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#7A8699;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.label }}</div>
+                            <div style="font-size:21px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:6px">{{ k.n }}</div>
+                            <div style="font-size:10.5px;font-weight:600;color:{{ k.fg }};margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.note }}</div>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex;gap:2px;background:#FCFBF7;border:1px solid #F0EEE7;border-radius:11px;padding:4px;margin-bottom:14px;width:fit-content">
+                        <sc-for list="{{ spkLpTabs }}" as="t" hint-placeholder-count="4">
+                          <button onClick="{{ t.pick }}" style="height:32px;padding:0 16px;border:0;border-radius:8px;font-size:13px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;font-family:inherit">{{ t.label }}</button>
+                        </sc-for>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                        <div style="overflow-x:auto">
+                          <table style="width:100%;min-width:1180px;border-collapse:collapse">
+                            <thead><tr style="background:#FCFBF7">
+                              <th style="padding:11px 16px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PRODUCT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TYPE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PLAN / FORMAT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LEARNERS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">DELIVERED</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">VALID UNTIL</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COMPLETION</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RATING</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LAST ACTIVITY</th><th style="padding:11px 16px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                            </tr></thead>
+                            <tbody>
+                              <sc-for list="{{ spkLpRows }}" as="p" hint-placeholder-count="5">
+                                <tr onClick="{{ p.open }}" style="cursor:pointer" style-hover="background:#FCFBF7">
+                                  <td style="padding:12px 16px;border-bottom:1px solid #F5F3EE">
+                                    <div style="font-size:13.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ p.name }}</div>
+                                    <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ p.buyId }}</div>
+                                  </td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ p.kBg }};color:{{ p.kFg }};white-space:nowrap">{{ p.kind }}</span></td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ p.plan }}</td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47">{{ p.learners }}</td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ p.purchased }}</td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ p.valid }}</td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ p.sBg }};color:{{ p.sFg }};white-space:nowrap">{{ p.status }}</span></td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE">
+                                    <div style="display:flex;align-items:center;gap:8px">
+                                      <div style="width:64px;height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ p.pct }};border-radius:4px;background:{{ p.barBg }}"></div></div>
+                                      <span style="font-size:11.5px;font-weight:700;color:#0F2A47">{{ p.pct }}</span>
+                                    </div>
+                                  </td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47">{{ p.rating }}</td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#98A2B3;white-space:nowrap">{{ p.last }}</td>
+                                  <td style="padding:12px 16px 12px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
+                                    <button onClick="{{ p.open }}" style="height:30px;padding:0 13px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;cursor:pointer;white-space:nowrap;font-family:inherit" style-hover="background:#E2F1EE">View Details</button>
+                                  </td>
+                                </tr>
+                              </sc-for>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ spkTabIs.coursebatch }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">COURSE &amp; BATCH ASSIGNMENTS</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                        <span style="font-size:11.5px;color:#98A2B3">Where this speaker delivers</span>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                        <div style="overflow-x:auto">
+                          <table style="width:100%;min-width:1000px;border-collapse:collapse">
+                            <thead><tr style="background:#FCFBF7">
+                              <th style="padding:11px 16px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COURSE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCH</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKER ROLE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ASSIGNED ON</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ENROLMENT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 16px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                            </tr></thead>
+                            <tbody>
+                              <sc-for list="{{ spkCourseBatch }}" as="r" hint-placeholder-count="5">
+                                <tr onClick="{{ r.open }}" style="cursor:pointer" style-hover="background:#FCFBF7">
+                                  <td style="padding:12px 16px;border-bottom:1px solid #F5F3EE">
+                                    <div style="font-size:13px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.course }}</div>
+                                    <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.cid }}</div>
+                                  </td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE">
+                                    <div style="font-size:12.5px;font-weight:600;color:#344054;white-space:nowrap">{{ r.batch }}</div>
+                                    <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.bid }}</div>
+                                  </td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.roleBg }};color:{{ r.roleFg }};white-space:nowrap">{{ r.role }}</span></td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.assigned }}</td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ r.enrol }}</td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.status }}</span></td>
+                                  <td style="padding:12px 16px 12px 13px;border-bottom:1px solid #F5F3EE;text-align:right"><span style="font-size:11.5px;font-weight:700;color:#0B7A6E;white-space:nowrap">Open →</span></td>
+                                </tr>
+                              </sc-for>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ spkTabIs.comms }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">COMMUNICATION LOG</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                        <span style="font-size:11.5px;color:#98A2B3">Every message in and out</span>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                        <sc-for list="{{ spkComms }}" as="m" hint-placeholder-count="6">
+                          <div style="display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border-bottom:1px solid #F7F5F0">
+                            <span style="font-size:15px;font-weight:800;color:{{ m.dirColor }};flex:none">{{ m.dirIcon }}</span>
+                            <div style="min-width:0;flex:1">
+                              <div style="font-size:13px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ m.subject }}</div>
+                              <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ m.who }} · {{ m.when }}</div>
+                            </div>
+                            <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ m.chBg }};color:{{ m.chFg }};white-space:nowrap;flex:none">{{ m.ch }}</span>
+                            <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ m.stBg }};color:{{ m.stFg }};white-space:nowrap;flex:none">{{ m.state }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ spkTabIs.logins }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">RECENT LOGIN ACTIVITY</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                        <span style="font-size:11.5px;color:#98A2B3">4 events</span>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden;margin-bottom:26px">
+                        <sc-for list="{{ spkLogins }}" as="l" hint-placeholder-count="4">
+                          <div style="display:flex;align-items:center;gap:13px;padding:12px 16px;border-bottom:1px solid #F7F5F0">
+                            <span style="width:28px;height:28px;flex:none;border-radius:8px;background:{{ l.iBg }};color:{{ l.iFg }};font-size:12px;font-weight:700;display:grid;place-items:center">{{ l.ic }}</span>
+                            <div style="flex:1;min-width:0">
+                              <div style="font-size:13px;font-weight:600;color:#0F2A47">{{ l.t }}</div>
+                              <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ l.sub }}</div>
+                            </div>
+                            <span style="font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:999px;background:{{ l.rBg }};color:{{ l.rFg }};flex:none;white-space:nowrap">{{ l.right }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">SESSION SUMMARY</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                        <span style="font-size:11.5px;color:#98A2B3"></span>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden;margin-bottom:26px">
+                        <sc-for list="{{ spkSessionKv }}" as="kv" hint-placeholder-count="5">
+                          <div style="display:grid;grid-template-columns:240px 1fr;gap:14px;padding:11px 16px;background:{{ kv.bg }};border-bottom:1px solid #F7F5F0">
+                            <span style="font-size:12.5px;color:#7A8699">{{ kv.k }}</span>
+                            <span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ kv.v }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">ACTIONS</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                        <span style="font-size:11.5px;color:#98A2B3"></span>
+                      </div>
+                      <div style="display:flex;gap:9px;flex-wrap:wrap">
+                        <sc-for list="{{ spkLoginActions }}" as="a" hint-placeholder-count="3">
+                          <button onClick="{{ a.go }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid {{ a.border }};background:#fff;font-size:13px;font-weight:600;color:{{ a.fg }};cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:{{ a.hbg }}">{{ a.label }}</button>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ spkTabIs.devices }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">REGISTERED DEVICES (3)</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                        <span style="font-size:11.5px;color:#98A2B3"></span>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden;margin-bottom:26px">
+                        <sc-for list="{{ spkDevices }}" as="dv" hint-placeholder-count="3">
+                          <div style="display:flex;align-items:center;gap:13px;padding:13px 16px;border-bottom:1px solid #F7F5F0">
+                            <span style="width:28px;height:28px;flex:none;border-radius:8px;background:{{ dv.iBg }};color:{{ dv.iFg }};font-size:12px;font-weight:700;display:grid;place-items:center">{{ dv.ic }}</span>
+                            <div style="flex:1;min-width:0">
+                              <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+                                <span style="font-size:13px;font-weight:600;color:#0F2A47">{{ dv.t }}</span>
+                                <sc-if value="{{ dv.hasTag }}" hint-placeholder-val="{{ false }}">
+                                  <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:#E7F7EE;color:#15803D">{{ dv.tag }}</span>
+                                </sc-if>
+                              </div>
+                              <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ dv.sub }}</div>
+                            </div>
+                            <button onClick="{{ dv.revoke }}" style="height:30px;padding:0 13px;border-radius:8px;border:1px solid #F0D2CF;background:#fff;font-size:12px;font-weight:600;color:#B42318;cursor:pointer;flex:none;font-family:inherit" style-hover="background:#FEF7F6">Revoke</button>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">DEVICE POLICY</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                        <span style="font-size:11.5px;color:#98A2B3"></span>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden;margin-bottom:26px">
+                        <sc-for list="{{ spkDevicePolicy }}" as="kv" hint-placeholder-count="4">
+                          <div style="display:grid;grid-template-columns:240px 1fr;gap:14px;padding:11px 16px;background:{{ kv.bg }};border-bottom:1px solid #F7F5F0">
+                            <span style="font-size:12.5px;color:#7A8699">{{ kv.k }}</span>
+                            <span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ kv.v }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">ACTIONS</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                        <span style="font-size:11.5px;color:#98A2B3"></span>
+                      </div>
+                      <div style="display:flex;gap:9px;flex-wrap:wrap">
+                        <sc-for list="{{ spkDeviceActions }}" as="a" hint-placeholder-count="3">
+                          <button onClick="{{ a.go }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid {{ a.border }};background:#fff;font-size:13px;font-weight:600;color:{{ a.fg }};cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:{{ a.hbg }}">{{ a.label }}</button>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+
                   <sc-if value="{{ spkTabIs.documents }}" hint-placeholder-val="{{ false }}">
                     <div>
                       <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
@@ -10289,16 +10508,18 @@ class Component extends DCLogic {
       })(),
       onboard, onboardFiltered, onboardPipeline, curSpeaker, obDone, obTotal:s.onboard.length, obReqLeft, canActivate, stages, curStage,
       stageStatus, obPct: stagePct+'%',
-      spkTabs: ['overview','recruitment','profile','events','performance','ratings','attendance','schedule','payments','notes','audience','coordinator','content','documents','tasks','activity'].map(k=>({
+      spkTabs: ['overview','recruitment','profile','coursebatch','products','audience','performance','ratings','attendance','schedule','payments','events','coordinator','content','tasks','comms','documents','logins','devices','notes','activity'].map(k=>({
         key:k, label:({overview:'Overview',recruitment:'Employment & Recruitment',profile:'Personal & Professional',
-          events:'Course & Batch',performance:'Performance & Reports',ratings:'Ratings & Reviews',
-          attendance:'Attendance & Leave',schedule:'Schedule',payments:'Finance & Payroll',
-          notes:'Internal Notes',audience:'Students',coordinator:'Coordinator',content:'Content',
-          documents:'Documents',tasks:'Tasks & Issues',activity:'Activity Log'})[k],
+          coursebatch:'Course & Batch',products:'Learning & Products',performance:'Performance & Reports',
+          ratings:'Ratings & Reviews',attendance:'Attendance & Leave',schedule:'Schedule',payments:'Finance & Payroll',
+          notes:'Internal Notes',audience:'Students',events:'Events',coordinator:'Coordinator',content:'Content',
+          comms:'Communications',logins:'Logins',devices:'Devices',
+          documents:'Documents',tasks:'Tasks & Alerts',activity:'Activity Timeline'})[k],
         color: (s.profTab||'overview')===k?'#0F2A47':'#6B7C93', weight:(s.profTab||'overview')===k?'700':'500',
         border: (s.profTab||'overview')===k?'#0E9384':'transparent',
         go:()=>this.setState({profTab:k})})),
       spkTabIs: (()=>{ const t=s.profTab||'overview'; return {overview:t==='overview',profile:t==='profile',events:t==='events',
+        coursebatch:t==='coursebatch',products:t==='products',comms:t==='comms',logins:t==='logins',devices:t==='devices',
         coordinator:t==='coordinator',audience:t==='audience',performance:t==='performance',content:t==='content',
         payments:t==='payments',documents:t==='documents',tasks:t==='tasks',activity:t==='activity',
         recruitment:t==='recruitment',ratings:t==='ratings',attendance:t==='attendance',
@@ -10505,6 +10726,97 @@ class Component extends DCLogic {
         {ic:'✎',c:'blue',t:'Open to a retainer arrangement from January',s:'Added by Priya Singh · 14 Aug 2026',right:'Noted',rc:'blue'},
         {ic:'✓',c:'green',t:'Form W-8 received and filed',s:'Added by Finance · 06 Aug 2026',right:'Closed',rc:'grey'}
       ].map(n=>({...n, iBg:BDG2[n.c][0], iFg:BDG2[n.c][1], rBg:BDG2[n.rc][0], rFg:BDG2[n.rc][1]})),
+      ...(()=>{
+        const B2 = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],grey:['#F1F3F5','#667085'],blue:['#E9F1FD','#1D4ED8'],violet:['#F0EAFD','#6D28D9'],teal:['#E6F4F1','#0B7A6E']};
+        const SPRODUCTS = [
+          {name:'Fire Insurance Risk Assessment — Workshop',kind:'Live Class',plan:'Half-day · 4 hours',buyId:'PRD-51101-C',purchased:'15 Jul 2026',valid:'31 Dec 2026',status:'Active',progress:88,last:'Today, 09:14 AM',learners:186,rating:'4.9'},
+          {name:'Claims Settlement Masterclass — Recorded',kind:'Recorded',plan:'Standard · Lifetime',buyId:'PRD-51102-R',purchased:'04 Aug 2026',valid:'Lifetime',status:'Active',progress:74,last:'2 days ago',learners:142,rating:'4.7'},
+          {name:'IC-11 Industry Knowledge Check',kind:'Mock Test',plan:'12 tests · standard',buyId:'PRD-51103-M',purchased:'20 Aug 2026',valid:'31 Dec 2026',status:'Active',progress:91,last:'Yesterday, 06:12 PM',learners:168,rating:'4.8'},
+          {name:'Underwriting Fundamentals — Recorded',kind:'Recorded',plan:'Standard · 180 days',valid:'26 Sep 2026',buyId:'PRD-51104-R',purchased:'30 Mar 2026',status:'Expiring Soon',progress:62,last:'5 days ago',learners:96,rating:'4.5'},
+          {name:'Regulatory Update Panel — Recorded',kind:'Recorded',plan:'Standard · 90 days',buyId:'PRD-51105-R',purchased:'07 Jul 2026',valid:'05 Oct 2026',status:'Active',progress:69,last:'4 days ago',learners:112,rating:'4.6'}
+        ];
+        const act = SPRODUCTS.filter(p=>p.status==='Active').length;
+        const exp = SPRODUCTS.filter(p=>p.status==='Expiring Soon').length;
+        const prog = Math.round(SPRODUCTS.reduce((n,p)=>n+p.progress,0)/SPRODUCTS.length);
+        const reach = SPRODUCTS.reduce((n,p)=>n+p.learners,0);
+        const f = s.lpFilter || 'All Products';
+        return {
+          spkLpKpis: [
+            {label:'Total Products',n:String(SPRODUCTS.length),note:'mock · live · recorded',fg:'#6B7C93'},
+            {label:'Active',n:String(act),note:'currently delivering',fg:'#15803D'},
+            {label:'Expiring Soon',n:String(exp),note:'within 30 days',fg:'#B45309'},
+            {label:'Expired',n:'0',note:'none archived',fg:'#15803D'},
+            {label:'Avg Completion',n:prog+'%',note:'weighted across products',fg:'#0B7A6E'},
+            {label:'Learners Reached',n:reach.toLocaleString('en-IN'),note:'lifetime, all products',fg:'#6B7C93'},
+            {label:'Last Activity',n:'Today',note:'09:14 AM · Fire Risk Workshop',fg:'#15803D'}
+          ],
+          spkLpTabs: ['All Products','Mock Tests','Live Classes','Recorded Classes'].map(x=>{
+            const on = f===x;
+            return {label:x, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'600':'500',
+              pick:()=>this.setState({lpFilter:x})};
+          }),
+          spkLpRows: SPRODUCTS.filter(p=>
+            f==='All Products' || (f==='Mock Tests' && p.kind==='Mock Test') ||
+            (f==='Live Classes' && p.kind==='Live Class') || (f==='Recorded Classes' && p.kind==='Recorded')
+          ).map(p=>{
+            const S = {Active:['#E7F7EE','#15803D'],'Expiring Soon':['#FEF3E2','#B45309'],Expired:['#F1F3F5','#667085']}[p.status];
+            const K = {'Mock Test':['#FDE8E8','#B42318'],'Live Class':['#E6F4F1','#0B7A6E'],'Recorded':['#F0EAFD','#6D28D9']}[p.kind];
+            return {...p, sBg:S[0], sFg:S[1], kBg:K[0], kFg:K[1], learners:String(p.learners),
+              pct:p.progress+'%', barBg: p.progress>=70?'#0E9384':p.progress>=40?'#F0A72A':'#E88B78',
+              open:()=>this.fire('Opened — '+p.name, p.kind+' · '+p.learners+' learners · '+p.progress+'% completion', true)};
+          }),
+
+          spkCourseBatch: [
+            ['IC-11 General Insurance','CRS-111','Batch C — Afternoon','BT-310','Guest Faculty','15 Jul 2026','51 / 60','Active','green'],
+            ['IC-11 General Insurance','CRS-111','Batch D — Weekend','BT-322','Guest Faculty','01 Aug 2026','38 / 45','Active','green'],
+            ['IC-02 Practice of Life Insurance','CRS-102','Batch B1 — Morning','BT-204','Panelist','12 Aug 2026','54 / 60','Active','green'],
+            ['Claims Masterclass','CRS-118','Recorded — no batch','—','Content Owner','04 Aug 2026','142 enrolled','Published','green'],
+            ['Underwriting Intensive','CRS-412','Batch A — Morning','BT-501','Guest Faculty','15 Sep 2026','0 / 40','Upcoming','blue']
+          ].map(([course,cid,batch,bid,role,assigned,enrol,status,c])=>({course,cid,batch,bid,role,assigned,enrol,status,
+            sBg:B2[c][0], sFg:B2[c][1],
+            roleBg: role==='Guest Faculty' ? B2.teal[0] : role==='Panelist' ? B2.blue[0] : B2.violet[0],
+            roleFg: role==='Guest Faculty' ? B2.teal[1] : role==='Panelist' ? B2.blue[1] : B2.violet[1],
+            open:()=>this.fire('Opened — '+batch, course+' · '+role+' · '+enrol, true)})),
+
+          spkComms: [
+            {dir:'Outbound',ch:'Crux Chat',subject:'Reminder: upload the IC-11 deck',who:'Admin User',when:'Today, 09:40 AM',state:'Read'},
+            {dir:'Inbound',ch:'Crux Chat',subject:'Requesting a reschedule for 17 Sep',who:'Ananya Deshmukh',when:'Yesterday, 06:22 PM',state:'Received'},
+            {dir:'Outbound',ch:'Email',subject:'September payout — awaiting your invoice',who:'Finance Admin',when:'09 Sep, 03:10 PM',state:'Delivered'},
+            {dir:'Outbound',ch:'Email',subject:'Speaker agreement renewal — please e-sign',who:'HR & Admin',when:'02 Aug, 11:05 AM',state:'Opened'},
+            {dir:'Outbound',ch:'WhatsApp',subject:'Event reminder — IC-11 tomorrow 6:00 PM',who:'System · automation',when:'31 Aug, 08:00 PM',state:'Delivered'},
+            {dir:'Outbound',ch:'Push',subject:'Your session recording is live',who:'System · automation',when:'28 Aug, 12:20 PM',state:'Delivered'}
+          ].map(m=>{
+            const CH = {WhatsApp:'green', Email:'blue', Push:'amber', 'Crux Chat':'teal', SMS:'violet'}[m.ch];
+            const ST = {Read:'green', Opened:'green', Delivered:'teal', Received:'blue', Sent:'grey'}[m.state];
+            return {...m, chBg:B2[CH][0], chFg:B2[CH][1], stBg:B2[ST][0], stFg:B2[ST][1],
+              dirIcon: m.dir==='Outbound' ? '↑' : '↓', dirColor: m.dir==='Outbound' ? '#0B7A6E' : '#1D4ED8'};
+          }),
+
+          spkLogins: [
+            {ic:'✓',c:'green',t:'Chrome 128 · macOS 15',sub:'Mumbai, IN · 103.21.58.14',right:'12 min ago',rc:'grey'},
+            {ic:'✓',c:'green',t:'Safari Mobile · iOS 18',sub:'Mumbai, IN · 103.21.58.20',right:'Yesterday',rc:'grey'},
+            {ic:'✓',c:'green',t:'Chrome 128 · Windows 11',sub:'Mumbai, IN · 49.36.184.9',right:'08 Sep',rc:'grey'},
+            {ic:'!',c:'red',t:'Failed login attempt',sub:'Unknown location · 185.220.101.40',right:'02 Sep',rc:'red'}
+          ].map(l=>({...l, iBg:B2[l.c][0], iFg:B2[l.c][1], rBg:B2[l.rc][0], rFg:B2[l.rc][1]})),
+          spkSessionKv: [['Total logins (30d)','22'],['Avg session','34 min'],['Last password change','14 Jun 2026'],['Two-factor auth','Enabled'],['Flagged logins (90d)','1']]
+            .map(([k,v],i)=>({k,v,bg: i%2 ? '#FCFBF7' : '#fff'})),
+          spkLoginActions: [['Reset Password',0],['Export Log',0],['Sign Out All Sessions',1]].map(([label,danger])=>({label,
+            border: danger?'#F0D2CF':'#E5E3DC', fg: danger?'#B42318':'#344054', hbg: danger?'#FEF7F6':'#F6F5F0',
+            go:()=>this.fire(label, 'Applied to '+(curSpeaker.name||'this speaker'), true)})),
+
+          spkDevices: [
+            {ic:'▤',c:'grey',t:'MacBook Pro · Chrome 128',sub:'Desktop · macOS 15 · active 12 min ago',tag:'This device'},
+            {ic:'▯',c:'grey',t:'iPhone 14 · Safari Mobile',sub:'Mobile · iOS 18 · active yesterday 21:02',tag:''},
+            {ic:'▤',c:'grey',t:'Dell Inspiron · Edge 126',sub:'Desktop · Windows 11 · active 08 Sep 12:40',tag:''}
+          ].map(dv=>({...dv, iBg:B2[dv.c][0], iFg:B2[dv.c][1], hasTag: !!dv.tag,
+            revoke:()=>this.fire('Device revoked — '+dv.t, 'Sessions on this device ended', true)})),
+          spkDevicePolicy: [['Max concurrent devices','3'],['Screen recording','Blocked'],['Device limit reached','No'],['Trusted devices','3']]
+            .map(([k,v],i)=>({k,v,bg: i%2 ? '#FCFBF7' : '#fff'})),
+          spkDeviceActions: [['Reset Device Limit',0],['Notify Speaker',0],['Revoke All Devices',1]].map(([label,danger])=>({label,
+            border: danger?'#F0D2CF':'#E5E3DC', fg: danger?'#B42318':'#344054', hbg: danger?'#FEF7F6':'#F6F5F0',
+            go:()=>this.fire(label, 'Applied to '+(curSpeaker.name||'this speaker'), true)}))
+        };
+      })(),
       spkDocsCount: SPK_DOCS.length,
       spkDownloadDocs: ()=>this.fire('Preparing download','Zipping '+SPK_DOCS.length+' documents', true),
       spkDocs: SPK_DOCS.map(d=>{

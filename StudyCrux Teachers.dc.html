@@ -3534,6 +3534,78 @@
                     </div>
                   </sc-if>
 
+                  <sc-if value="{{ sec.isLpView }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:11px;margin-bottom:18px">
+                        <sc-for list="{{ sec.lpKpis }}" as="k" hint-placeholder-count="7">
+                          <div style="min-width:0;border:1px solid #F0EEE7;border-radius:12px;padding:13px 14px;background:#FCFBF7">
+                            <div style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#7A8699;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.label }}</div>
+                            <div style="font-size:21px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:6px">{{ k.n }}</div>
+                            <div style="font-size:10.5px;font-weight:600;color:{{ k.fg }};margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.note }}</div>
+                          </div>
+                        </sc-for>
+                      </div>
+
+                      <div style="display:flex;gap:2px;background:#FCFBF7;border:1px solid #F0EEE7;border-radius:11px;padding:4px;margin-bottom:14px;width:fit-content">
+                        <sc-for list="{{ sec.lpTabs }}" as="t" hint-placeholder-count="4">
+                          <button onClick="{{ t.pick }}" style="height:32px;padding:0 16px;border:0;border-radius:8px;font-size:13px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;font-family:inherit">{{ t.label }}</button>
+                        </sc-for>
+                      </div>
+
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                        <div style="overflow-x:auto">
+                          <table style="width:100%;min-width:1200px;border-collapse:collapse">
+                            <thead>
+                              <tr style="background:#FCFBF7">
+                                <th style="padding:11px 16px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">PRODUCT</th>
+                                <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TYPE</th>
+                                <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PLAN / BATCH</th>
+                                <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LEARNERS</th>
+                                <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LAUNCHED</th>
+                                <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">VALID UNTIL</th>
+                                <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th>
+                                <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COMPLETION</th>
+                                <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RATING</th>
+                                <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LAST ACTIVITY</th>
+                                <th style="padding:11px 16px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <sc-for list="{{ sec.lpRows }}" as="p" hint-placeholder-count="6">
+                                <tr onClick="{{ p.open }}" style="cursor:pointer" style-hover="background:#FCFBF7">
+                                  <td style="padding:12px 16px;border-bottom:1px solid #F5F3EE">
+                                    <div style="font-size:13.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ p.name }}</div>
+                                    <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ p.buyId }}</div>
+                                  </td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ p.kBg }};color:{{ p.kFg }};white-space:nowrap">{{ p.kind }}</span></td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ p.plan }}</td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47">{{ p.learners }}</td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ p.purchased }}</td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ p.valid }}</td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ p.sBg }};color:{{ p.sFg }};white-space:nowrap">{{ p.status }}</span></td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE">
+                                    <div style="display:flex;align-items:center;gap:8px">
+                                      <div style="width:64px;height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ p.pct }};border-radius:4px;background:{{ p.barBg }}"></div></div>
+                                      <span style="font-size:11.5px;font-weight:700;color:#0F2A47">{{ p.pct }}</span>
+                                    </div>
+                                  </td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47">{{ p.rating }}</td>
+                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#98A2B3;white-space:nowrap">{{ p.last }}</td>
+                                  <td style="padding:12px 16px 12px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
+                                    <button onClick="{{ p.open }}" style="height:30px;padding:0 13px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;cursor:pointer;white-space:nowrap;font-family:inherit" style-hover="background:#E2F1EE">View Details</button>
+                                  </td>
+                                </tr>
+                              </sc-for>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div style="display:{{ sec.lpEmpty }};padding:32px 20px;text-align:center">
+                          <div style="font-size:13px;font-weight:700;color:#475467">No products of this type</div>
+                        </div>
+                      </div>
+                    </div>
+                  </sc-if>
+
                   <sc-if value="{{ sec.isCbFilterBar }}" hint-placeholder-val="{{ false }}">
                     <div>
                     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:13px;margin-bottom:16px">
@@ -4523,7 +4595,24 @@ const CL = {t:'#0B7A6E',d:'#0F2A47',a:'#B45309',r:'#B42318',p:'#6D28D9',b:'#1D4E
 const card = (k,v,sub,vc) => ({k,v,sub,vc:vc||CL.d});
 const BDG = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],grey:['#F1F3F5','#667085'],blue:['#E9F1FD','#1D4ED8'],violet:['#F0EAFD','#6D28D9'],teal:['#E6F4F1','#0B7A6E']};
 
-const TABS = ['Overview','Employment & Recruitment','Personal & Professional','Course & Batch','Performance & Reports','Ratings & Reviews','Attendance & Leave','Schedule','Finance & Payroll','Internal Notes','Students','Documents','Logins','Devices','Achievements','Communication','Activity Log'];
+const TPRODUCTS = [
+  {id:'TPR-9101', name:'IC-38 Full Prep — Live Series', kind:'Live Class', plan:'Batch A — Morning (BT-201)', buyId:'PRD-91101-C',
+   purchased:'01 Apr 2026', valid:'31 Oct 2026', status:'Active', progress:88, last:'Today, 09:28 AM', learners:186, rating:'4.9'},
+  {id:'TPR-9102', name:'Life Insurance Elite — Live Series', kind:'Live Class', plan:'Batch B1 — Morning (BT-204)', buyId:'PRD-91102-C',
+   purchased:'01 Jul 2026', valid:'31 Dec 2026', status:'Active', progress:81, last:'Today, 07:40 AM', learners:132, rating:'4.8'},
+  {id:'TPR-9103', name:'IC-38 Mock Test Set A', kind:'Mock Test', plan:'20 tests · Elite pack', buyId:'PRD-91103-M',
+   purchased:'20 Jun 2026', valid:'31 Dec 2026', status:'Active', progress:91, last:'Yesterday, 06:12 PM', learners:168, rating:'4.8'},
+  {id:'TPR-9104', name:'Claims Masterclass — Recorded', kind:'Recorded', plan:'Standard · Lifetime', buyId:'PRD-91104-R',
+   purchased:'10 Feb 2026', valid:'Lifetime', status:'Active', progress:74, last:'2 days ago', learners:142, rating:'4.7'},
+  {id:'TPR-9105', name:'Underwriting Fundamentals — Recorded', kind:'Recorded', plan:'Standard · 180 days', buyId:'PRD-91105-R',
+   purchased:'30 Mar 2026', valid:'26 Sep 2026', status:'Expiring Soon', progress:62, last:'5 days ago', learners:96, rating:'4.5'},
+  {id:'TPR-9106', name:'IC-38 Starter — Recorded', kind:'Recorded', plan:'Standard · 90 days', buyId:'PRD-91106-R',
+   purchased:'01 Aug 2025', valid:'31 Jan 2026', status:'Expired', progress:100, last:'31 Jan 2026', learners:72, rating:'4.4'},
+  {id:'TPR-9107', name:'IC-38 Mock Test Set B', kind:'Mock Test', plan:'12 tests · draft', buyId:'PRD-91107-M',
+   purchased:'30 Aug 2026', valid:'—', status:'Draft', progress:46, last:'Today, 11:02 AM', learners:88, rating:'—'}
+];
+
+const TABS = ['Overview','Employment & Recruitment','Personal & Professional','Course & Batch','Learning & Products','Performance & Reports','Ratings & Reviews','Attendance & Leave','Schedule','Finance & Payroll','Internal Notes','Students','Documents','Logins','Devices','Achievements','Communication','Activity Log'];
 
 const SEC = {
   'Overview': [
@@ -4729,6 +4818,9 @@ const SEC = {
       {id:'FB-8760',product:'Life Insurance Elite · Batch B1',rating:3,date:'28 Jul 2026',state:'Pending',
        text:'Good teaching but the pace in policy law was too fast for a first-time batch.'}]},
     {t:'STUDENT ACTIONS',type:'actions',btns:[['Message Batch'],['Flag At-Risk Students'],['Export Student List'],['Request Feedback Round']]}
+  ],
+  'Learning & Products': [
+    {t:'LEARNING PRODUCTS', type:'lpview'}
   ],
   'Performance & Reports': [
     {t:'', type:'perfsubtabs'},
@@ -5368,7 +5460,41 @@ class Component extends DCLogic {
       isKpiCards:sec.type==='kpicards', isScopeBar:sec.type==='scopebar', isReviewsView:sec.type==='reviewsview',
       isCalendarView:sec.type==='calendarview', isComms:sec.type==='comms', isScoreOverview:sec.type==='scoreoverview',
       isKpiTarget:sec.type==='kpitarget', isTrendChart:sec.type==='trendchart', isWorkload:sec.type==='workload',
-      isPerfSubtabs:sec.type==='perfsubtabs', isCbFilterBar:sec.type==='cbFilterBar', isCourseBatchAlloc:sec.type==='coursebatchalloc'};
+      isPerfSubtabs:sec.type==='perfsubtabs', isLpView:sec.type==='lpview', isCbFilterBar:sec.type==='cbFilterBar', isCourseBatchAlloc:sec.type==='coursebatchalloc'};
+    if (d.isLpView) {
+      const act = TPRODUCTS.filter(p=>p.status==='Active').length;
+      const exp = TPRODUCTS.filter(p=>p.status==='Expiring Soon').length;
+      const old = TPRODUCTS.filter(p=>p.status==='Expired').length;
+      const prog = Math.round(TPRODUCTS.reduce((n,p)=>n+p.progress,0)/TPRODUCTS.length);
+      const reach = TPRODUCTS.reduce((n,p)=>n+p.learners,0);
+      d.lpKpis = [
+        {label:'Total Products',n:String(TPRODUCTS.length),note:'mock · live · recorded',fg:'#6B7C93'},
+        {label:'Active',n:String(act),note:'currently delivering',fg:'#15803D'},
+        {label:'Expiring Soon',n:String(exp),note:'within 30 days',fg:'#B45309'},
+        {label:'Expired',n:String(old),note:'archived · not renewed',fg:'#B42318'},
+        {label:'Avg Completion',n:prog+'%',note:'weighted across products',fg:'#0B7A6E'},
+        {label:'Learners Reached',n:reach.toLocaleString('en-IN'),note:'lifetime, all products',fg:'#6B7C93'},
+        {label:'Last Activity',n:'Today',note:'11:02 AM · IC-38 Mock Set B',fg:'#15803D'}
+      ];
+      const f = s.lpFilter || 'All Products';
+      d.lpTabs = ['All Products','Mock Tests','Live Classes','Recorded Classes'].map(x=>{
+        const on = f===x;
+        return {label:x, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'600':'500',
+          pick:()=>this.setState({lpFilter:x})};
+      });
+      d.lpRows = TPRODUCTS.filter(p=>
+        f==='All Products' || (f==='Mock Tests' && p.kind==='Mock Test') ||
+        (f==='Live Classes' && p.kind==='Live Class') || (f==='Recorded Classes' && p.kind==='Recorded')
+      ).map(p=>{
+        const S = {Active:['#E7F7EE','#15803D'],'Expiring Soon':['#FEF3E2','#B45309'],Expired:['#F1F3F5','#667085'],Draft:['#F1F3F5','#667085']}[p.status];
+        const K = {'Mock Test':['#FDE8E8','#B42318'],'Live Class':['#E6F4F1','#0B7A6E'],'Recorded':['#F0EAFD','#6D28D9']}[p.kind];
+        return {...p, sBg:S[0], sFg:S[1], kBg:K[0], kFg:K[1],
+          learners:String(p.learners),
+          pct:p.progress+'%', barBg: p.progress>=70?'#0E9384':p.progress>=40?'#F0A72A':'#E88B78',
+          open:()=>this.fire('Opened — '+p.name, p.kind+' · '+p.plan+' · '+p.learners+' learners · '+p.progress+'% completion', true)};
+      });
+      d.lpEmpty = d.lpRows.length ? 'none' : 'block';
+    }
     if (d.isCbFilterBar || d.isCourseBatchAlloc) {
       const _tRow = TEACHERS.find(t=>t[1]===s.teacher);
       const teacherName = (_tRow ? _tRow[0] : s.teacher) || 'Dr. Vikram Verma';
