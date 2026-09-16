@@ -127,7 +127,7 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
             </button>
           </sc-if>
-          <h1 style="margin:0;font-size:23px;font-weight:700;letter-spacing:-.02em;color:#0F2A47;white-space:nowrap">{{ pageTitle }}</h1>
+          <h1 style="margin:0;font-size:23px;font-weight:700;letter-spacing:-.02em;color:#0F2A47;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ pageTitle }}</h1>
         </div>
         <p style="margin:6px 0 0;font-size:13.5px;color:#6B7C93;max-width:520px">{{ pageSub }}</p>
       </div>
@@ -1631,62 +1631,168 @@
                       <div style="display:flex;align-items:center;gap:9px;margin-bottom:18px;flex-wrap:wrap">
                         <div style="display:flex;gap:2px;background:#FCFBF7;border:1px solid #ECEAE2;border-radius:10px;padding:3px">
                           <sc-for list="{{ perfPeriods }}" as="p" hint-placeholder-count="4">
-                            <button onClick="{{ p.pick }}" style="height:30px;padding:0 13px;border:0;border-radius:7px;font-size:12.5px;cursor:pointer;background:{{ p.bg }};color:{{ p.fg }};font-weight:{{ p.weight }};white-space:nowrap">{{ p.label }}</button>
+                            <button onClick="{{ p.pick }}" style="height:30px;padding:0 13px;border:0;border-radius:7px;font-size:12.5px;cursor:pointer;background:{{ p.bg }};color:{{ p.fg }};font-weight:{{ p.weight }};white-space:nowrap;font-family:inherit">{{ p.label }}</button>
                           </sc-for>
                         </div>
                         <span style="flex:1"></span>
-                        <button onClick="{{ perfExport }}" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Download Report</button>
+                        <button onClick="{{ perfExport }}" style="display:flex;align-items:center;gap:7px;height:34px;padding:0 15px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 11l5 5 5-5M4 19h16" /></svg>Export Report
+                        </button>
                       </div>
 
-                      <div style="display:grid;grid-template-columns:250px 1fr;gap:18px;margin-bottom:22px">
-                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:20px;text-align:center;background:#FCFBF7">
-                          <div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#98A2B3">SPEAKER SCORE</div>
-                          <div style="font-size:42px;font-weight:800;color:#0E9384;letter-spacing:-.03em;margin-top:8px">{{ perfScore }}</div>
-                          <div style="font-size:12.5px;color:#98A2B3">/ 100</div>
-                          <div style="font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:#E7F7EE;color:#15803D;display:inline-block;margin-top:10px">{{ perfBand }}</div>
-                          <div style="font-size:12px;color:{{ perfDeltaFg }};margin-top:10px;font-weight:600">{{ perfDelta }}</div>
-                        </div>
-                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:16px 18px">
-                          <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:14px">Score trend · last 6 events</div>
-                          <div style="display:flex;align-items:flex-end;gap:12px;height:130px">
-                            <sc-for list="{{ perfTrend }}" as="b" hint-placeholder-count="6">
-                              <div style="flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end">
-                                <span style="font-size:11.5px;font-weight:700;color:#475467;margin-bottom:5px">{{ b.v }}</span>
-                                <div style="width:100%;max-width:52px;border-radius:6px 6px 0 0;background:{{ b.bg }};height:{{ b.h }}"></div>
-                                <span style="font-size:11px;color:#98A2B3;margin-top:7px;white-space:nowrap">{{ b.label }}</span>
+                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:16px;align-items:start;margin-bottom:22px">
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:20px 22px">
+                          <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#98A2B3">OVERALL PERFORMANCE</div>
+                          <div style="display:flex;align-items:baseline;gap:10px;margin-top:9px">
+                            <span style="font-size:40px;font-weight:800;color:#0F2A47;letter-spacing:-.03em">{{ spScore }}</span>
+                            <span style="font-size:15px;color:#98A2B3">/ 100</span>
+                            <span style="font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px;background:{{ spBandBg }};color:{{ spBandFg }};white-space:nowrap">{{ spBand }}</span>
+                          </div>
+                          <div style="font-size:13px;font-weight:600;color:#15803D;margin-top:8px">{{ spDelta }}</div>
+                          <div style="display:flex;flex-direction:column;gap:13px;margin-top:20px">
+                            <sc-for list="{{ spWeighted }}" as="w" hint-placeholder-count="6">
+                              <div>
+                                <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:6px">
+                                  <span style="font-size:13px;color:#344054;flex:1;min-width:0">{{ w.label }}</span>
+                                  <span style="font-size:11.5px;color:#98A2B3;white-space:nowrap">weight {{ w.weight }}</span>
+                                  <span style="font-size:13.5px;font-weight:800;color:#0F2A47">{{ w.pct }}</span>
+                                </div>
+                                <div style="height:7px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ w.pct }};border-radius:5px;background:{{ w.bar }}"></div></div>
                               </div>
                             </sc-for>
                           </div>
                         </div>
+
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                          <div style="display:flex;align-items:center;gap:10px;padding:17px 20px;border-bottom:1px solid #F2F0EA">
+                            <span style="font-size:15px;font-weight:700;color:#0F2A47">Attention required</span>
+                            <span style="flex:1"></span>
+                            <span style="font-size:12.5px;font-weight:700;color:#B42318">{{ spSignalCount }} signals</span>
+                          </div>
+                          <sc-for list="{{ spSignals }}" as="sg" hint-placeholder-count="5">
+                            <div style="display:flex;align-items:flex-start;gap:11px;padding:13px 20px;border-bottom:1px solid #F7F5F0">
+                              <span style="width:8px;height:8px;flex:none;border-radius:50%;background:{{ sg.dot }};margin-top:6px"></span>
+                              <div style="min-width:0;flex:1">
+                                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                                  <span style="font-size:13px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ sg.title }}</span>
+                                  <span style="font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ sg.sBg }};color:{{ sg.sFg }};white-space:nowrap">{{ sg.sev }}</span>
+                                </div>
+                                <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ sg.detail }}</div>
+                              </div>
+                              <button onClick="{{ sg.go }}" style="border:0;background:transparent;font-size:12.5px;font-weight:600;color:#0B7A6E;cursor:pointer;white-space:nowrap;flex:none;font-family:inherit;padding:0">Open →</button>
+                            </div>
+                          </sc-for>
+                        </div>
                       </div>
 
-                      <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;margin-bottom:11px">SCORE DIMENSIONS · click to expand</div>
-                      <div style="display:flex;flex-direction:column;gap:10px">
-                        <sc-for list="{{ perfDims }}" as="p" hint-placeholder-count="6">
-                          <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
-                            <div onClick="{{ p.toggle }}" style="padding:13px 16px;cursor:pointer" style-hover="background:#FCFBF7">
-                              <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:7px">
-                                <span style="font-size:13px;color:#344054;flex:1">{{ p.chev }} {{ p.label }}</span>
-                                <span style="font-size:11px;color:#98A2B3">{{ p.weight }}</span>
-                                <span style="font-size:13.5px;font-weight:800;color:#0F2A47">{{ p.pct }}</span>
-                              </div>
-                              <div style="height:8px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ p.pct }};border-radius:5px;background:{{ p.color }}"></div></div>
-                            </div>
-                            <sc-if value="{{ p.open }}" hint-placeholder-val="{{ false }}">
-                              <div style="padding:14px 16px;border-top:1px solid #F5F3EE;background:#FCFBF7">
-                                <div style="font-size:12.5px;color:#475467;line-height:1.6;margin-bottom:12px">{{ p.detail }}</div>
-                                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-                                  <sc-for list="{{ p.metrics }}" as="m" hint-placeholder-count="3">
-                                    <div>
-                                      <div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#98A2B3">{{ m.k }}</div>
-                                      <div style="font-size:14px;font-weight:700;color:#0F2A47;margin-top:4px">{{ m.v }}</div>
-                                    </div>
-                                  </sc-for>
-                                </div>
-                              </div>
-                            </sc-if>
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">KPI SUMMARY — CURRENT · TARGET · TREND</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                      </div>
+                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:13px;margin-bottom:22px">
+                        <sc-for list="{{ spKpis }}" as="k" hint-placeholder-count="8">
+                          <div style="min-width:0;border:1px solid #F0EEE7;border-radius:12px;padding:15px 17px">
+                            <div style="font-size:12px;color:#6B7C93;text-wrap:pretty">{{ k.label }}</div>
+                            <div style="font-size:23px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:6px">{{ k.v }}</div>
+                            <div style="font-size:11px;color:#98A2B3;margin-top:5px">{{ k.target }} <span style="color:{{ k.fg }};font-weight:700">{{ k.delta }}</span></div>
                           </div>
                         </sc-for>
+                      </div>
+
+                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:16px;align-items:start;margin-bottom:22px">
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:20px 22px">
+                          <div style="display:flex;align-items:center;gap:11px;margin-bottom:4px;flex-wrap:wrap">
+                            <span style="font-size:15px;font-weight:700;color:#0F2A47;flex:1 1 140px">Performance trend</span>
+                            <div style="display:flex;gap:6px;flex-wrap:wrap">
+                              <sc-for list="{{ spTrendChips }}" as="c" hint-placeholder-count="4">
+                                <button onClick="{{ c.pick }}" style="height:29px;padding:0 12px;border-radius:999px;border:1.5px solid {{ c.border }};background:{{ c.bg }};font-size:11.5px;font-weight:{{ c.weight }};color:{{ c.fg }};cursor:pointer;font-family:inherit;white-space:nowrap">{{ c.label }}</button>
+                              </sc-for>
+                            </div>
+                          </div>
+                          <div style="font-size:11.5px;color:#98A2B3;margin-bottom:14px">{{ spTrendMetric }} · last 6 months</div>
+                          <div style="display:flex;align-items:flex-end;gap:12px;height:168px;padding:0 4px">
+                            <sc-for list="{{ spTrendBars }}" as="b" hint-placeholder-count="6">
+                              <div style="flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end;min-width:0">
+                                <span style="font-size:11.5px;font-weight:700;color:#475467;margin-bottom:6px;white-space:nowrap">{{ b.val }}</span>
+                                <div style="width:100%;max-width:56px;border-radius:6px 6px 0 0;background:{{ b.bg }};height:{{ b.h }}"></div>
+                                <span style="font-size:11px;color:#98A2B3;margin-top:8px">{{ b.label }}</span>
+                              </div>
+                            </sc-for>
+                          </div>
+                        </div>
+
+                        <div>
+                          <div style="border:1px solid #F0EEE7;border-radius:12px;padding:18px 20px;margin-bottom:16px">
+                            <div style="font-size:15px;font-weight:700;color:#0F2A47;margin-bottom:4px">Workload</div>
+                            <div style="font-size:11.5px;color:#98A2B3;margin-bottom:14px">Utilised against configured speaking capacity</div>
+                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+                              <div style="flex:1;height:9px;border-radius:6px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ spLoadPct }};border-radius:6px;background:{{ spLoadColor }}"></div></div>
+                              <span style="font-size:16px;font-weight:800;color:#0F2A47">{{ spLoadPct }}</span>
+                            </div>
+                            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+                              <sc-for list="{{ spLoadStats }}" as="l" hint-placeholder-count="6">
+                                <div style="background:#FCFBF7;border:1px solid #F0EEE7;border-radius:9px;padding:10px 12px;min-width:0">
+                                  <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:#98A2B3;text-wrap:pretty">{{ l.label }}</div>
+                                  <div style="font-size:16px;font-weight:800;color:#0F2A47;margin-top:3px">{{ l.v }}</div>
+                                </div>
+                              </sc-for>
+                            </div>
+                          </div>
+                          <div style="border:1px solid #F0EEE7;border-radius:12px;padding:16px 18px;margin-bottom:16px">
+                            <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#15803D;margin-bottom:11px">STRENGTHS</div>
+                            <div style="display:flex;flex-direction:column;gap:9px">
+                              <sc-for list="{{ spStrengths }}" as="st" hint-placeholder-count="3">
+                                <div style="border-left:3px solid #15803D;background:#FCFBF7;border-radius:8px;padding:10px 13px">
+                                  <div style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ st.t }}</div>
+                                  <div style="font-size:11.5px;color:#7A8699;margin-top:3px;text-wrap:pretty">{{ st.s }}</div>
+                                </div>
+                              </sc-for>
+                            </div>
+                          </div>
+                          <div style="border:1px solid #F0EEE7;border-radius:12px;padding:16px 18px">
+                            <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#B45309;margin-bottom:11px">AREAS REQUIRING ATTENTION</div>
+                            <div style="display:flex;flex-direction:column;gap:9px">
+                              <sc-for list="{{ spAreas }}" as="ar" hint-placeholder-count="3">
+                                <div style="border-left:3px solid #B45309;background:#FCFBF7;border-radius:8px;padding:10px 13px">
+                                  <div style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ ar.t }}</div>
+                                  <div style="font-size:11.5px;color:#7A8699;margin-top:3px;text-wrap:pretty">{{ ar.s }}</div>
+                                </div>
+                              </sc-for>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">PERIOD COMPARISON</span>
+                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                        <span style="font-size:11.5px;color:#98A2B3">this period vs previous</span>
+                      </div>
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                        <div style="overflow-x:auto">
+                          <table style="width:100%;min-width:640px;border-collapse:collapse">
+                            <thead>
+                              <tr style="background:#FCFBF7">
+                                <th style="padding:10px 18px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">METRIC</th>
+                                <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">THIS PERIOD</th>
+                                <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PREVIOUS</th>
+                                <th style="padding:10px 18px 10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">CHANGE</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <sc-for list="{{ spCompare }}" as="r" hint-placeholder-count="7">
+                                <tr style="background:{{ r.rowBg }}">
+                                  <td style="padding:11px 18px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#344054">{{ r.label }}</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:13px;font-weight:800;color:#0F2A47;white-space:nowrap">{{ r.now }}</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#98A2B3;white-space:nowrap">{{ r.prev }}</td>
+                                  <td style="padding:11px 18px 11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.dBg }};color:{{ r.dFg }};white-space:nowrap">{{ r.delta }}</span></td>
+                                </tr>
+                              </sc-for>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </sc-if>
@@ -2091,27 +2197,107 @@
 
                   <sc-if value="{{ spkTabIs.schedule }}" hint-placeholder-val="{{ false }}">
                     <div>
-                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
-                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
-                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">UPCOMING SESSIONS</span>
-                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
-                        <button onClick="{{ goSchedule }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Full calendar →</button>
-                      </div>
-                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
-                        <sc-for list="{{ spkEvents }}" as="e" hint-placeholder-count="5">
-                          <div style="display:flex;align-items:center;gap:13px;padding:13px 16px;border-bottom:1px solid #F7F5F0">
-                            <div style="width:96px;flex:none">
-                              <div style="font-size:12px;font-weight:700;color:#0F2A47">{{ e.date }}</div>
-                              <div style="font-size:10.5px;color:#98A2B3;margin-top:2px">{{ e.time }}</div>
-                            </div>
-                            <div style="min-width:0;flex:1">
-                              <div style="font-size:13px;font-weight:600;color:#0F2A47">{{ e.title }}</div>
-                              <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ e.type }} · {{ e.regs }} registered</div>
-                            </div>
-                            <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ e.sBg }};color:{{ e.sFg }};white-space:nowrap;flex:none">{{ e.status }}</span>
+                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:12px;margin-bottom:18px">
+                        <sc-for list="{{ spkSchKpis }}" as="k" hint-placeholder-count="6">
+                          <div style="min-width:0;border:1px solid #F0EEE7;border-radius:12px;padding:13px 15px;background:#FCFBF7">
+                            <div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">{{ k.label }}</div>
+                            <div style="font-size:21px;font-weight:800;letter-spacing:-.03em;color:{{ k.fg }};margin-top:5px">{{ k.v }}</div>
+                            <div style="font-size:10.5px;color:#98A2B3;margin-top:3px;text-wrap:pretty">{{ k.note }}</div>
                           </div>
                         </sc-for>
                       </div>
+
+                      <div style="display:flex;align-items:center;gap:11px;margin-bottom:14px;flex-wrap:wrap">
+                        <div style="display:flex;gap:2px;background:#FCFBF7;border:1px solid #F0EEE7;border-radius:10px;padding:3px">
+                          <sc-for list="{{ spk_schViewTabs }}" as="t" hint-placeholder-count="2">
+                            <button onClick="{{ t.pick }}" style="display:flex;align-items:center;gap:7px;height:32px;padding:0 14px;border:0;border-radius:7px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};font-family:inherit;white-space:nowrap">
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.path }}" /></svg>{{ t.label }}
+                            </button>
+                          </sc-for>
+                        </div>
+                        <select value="{{ spk_schFilter }}" onChange="{{ spk_setSchFilter }}" style="height:34px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:12.5px;font-weight:600;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+                          <sc-for list="{{ spk_schFilterOpts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+                        </select>
+                        <span style="flex:1"></span>
+                        <span style="font-size:12px;color:#98A2B3;white-space:nowrap">{{ spk_schCount }} sessions</span>
+                        <button onClick="{{ goSchedule }}" style="height:34px;padding:0 13px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Full calendar →</button>
+                      </div>
+
+                      <sc-if value="{{ spk_schIsList }}" hint-placeholder-val="{{ true }}">
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                          <sc-for list="{{ spk_schRows }}" as="e" hint-placeholder-count="6">
+                            <div onClick="{{ e.open }}" style="display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid #F7F5F0;border-left:3px solid {{ e.accent }};cursor:pointer" style-hover="background:#FCFBF7">
+                              <div style="width:104px;flex:none">
+                                <div style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ e.date }}</div>
+                                <div style="font-size:10.5px;color:#98A2B3;margin-top:2px">{{ e.time }}</div>
+                              </div>
+                              <div style="min-width:0;flex:1">
+                                <div style="font-size:13.5px;font-weight:600;color:#0F2A47;text-wrap:pretty">{{ e.title }}</div>
+                                <div style="display:flex;align-items:center;gap:8px;margin-top:5px;flex-wrap:wrap">
+                                  <span style="font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ e.tBg }};color:{{ e.tFg }};white-space:nowrap">{{ e.type }}</span>
+                                  <span style="font-size:11.5px;color:#98A2B3">{{ e.regs }} registered</span>
+                                  <span style="font-size:11.5px;color:#98A2B3">· {{ e.mins }}</span>
+                                </div>
+                              </div>
+                              <div style="width:92px;flex:none;text-align:right">
+                                <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:#98A2B3">ATTENDANCE</div>
+                                <div style="font-size:13.5px;font-weight:800;color:{{ e.attFg }};margin-top:3px">{{ e.attendance }}</div>
+                              </div>
+                              <div style="width:72px;flex:none;text-align:right">
+                                <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:#98A2B3">RATING</div>
+                                <div style="font-size:13.5px;font-weight:800;color:#B45309;margin-top:3px">{{ e.rating }}</div>
+                              </div>
+                              <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;background:{{ e.sBg }};color:{{ e.sFg }};white-space:nowrap;flex:none">{{ e.status }}</span>
+                            </div>
+                          </sc-for>
+                          <div style="display:{{ spk_schEmpty }};padding:32px 20px;text-align:center">
+                            <div style="font-size:13px;font-weight:700;color:#475467">No sessions in this filter</div>
+                          </div>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ spk_schIsCal }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                          <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #F2F0EA;background:#FCFBF7">
+                            <button onClick="{{ spk_schPrev }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467;font-family:inherit" style-hover="background:#F6F5F0">
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6" /></svg>
+                            </button>
+                            <span style="font-size:14px;font-weight:800;color:#0F2A47;min-width:132px;text-align:center">{{ spk_schMonthLabel }}</span>
+                            <button onClick="{{ spk_schNext }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467;font-family:inherit" style-hover="background:#F6F5F0">
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
+                            </button>
+                            <span style="flex:1"></span>
+                            <sc-for list="{{ spk_schLegend }}" as="l" hint-placeholder-count="3">
+                              <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:{{ l.bg }}">
+                                <span style="width:6px;height:6px;border-radius:50%;background:{{ l.dot }}"></span>
+                                <span style="font-size:11px;font-weight:600;color:{{ l.fg }};white-space:nowrap">{{ l.label }}</span>
+                              </span>
+                            </sc-for>
+                          </div>
+                          <div style="padding:16px">
+                            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin-bottom:7px">
+                              <sc-for list="{{ spk_schDows }}" as="d" hint-placeholder-count="7">
+                                <div style="text-align:center;font-size:10px;font-weight:700;letter-spacing:.05em;color:#98A2B3">{{ d.d }}</div>
+                              </sc-for>
+                            </div>
+                            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px">
+                              <sc-for list="{{ spk_schCells }}" as="c" hint-placeholder-count="35">
+                                <div style="min-width:0;min-height:82px;border:1px solid {{ c.bd }};border-radius:9px;background:{{ c.bg }};padding:7px 8px">
+                                  <div style="font-size:11.5px;font-weight:{{ c.dayWeight }};color:{{ c.dayFg }}">{{ c.d }}</div>
+                                  <div style="display:flex;flex-direction:column;gap:4px;margin-top:5px">
+                                    <sc-for list="{{ c.events }}" as="ev" hint-placeholder-count="1">
+                                      <div onClick="{{ ev.open }}" style="border-radius:6px;background:{{ ev.bg }};padding:4px 6px;cursor:pointer" style-hover="filter:brightness(.96)">
+                                        <div style="font-size:9.5px;font-weight:700;color:{{ ev.fg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ ev.title }}</div>
+                                        <div style="font-size:9px;color:{{ ev.fg }};opacity:.75;white-space:nowrap">{{ ev.time }}</div>
+                                      </div>
+                                    </sc-for>
+                                  </div>
+                                </div>
+                              </sc-for>
+                            </div>
+                          </div>
+                        </div>
+                      </sc-if>
                     </div>
                   </sc-if>
 
@@ -2852,13 +3038,113 @@
                 </sc-if>
 
                 <sc-if value="{{ wwTabIs.revenue }}" hint-placeholder-val="{{ false }}">
-                  <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
-                    <sc-for list="{{ wwRevenue }}" as="r" hint-placeholder-count="6">
-                      <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 18px;background:{{ r.bg }};border-bottom:1px solid #F7F5F0">
-                        <span style="font-size:13px;color:#475467">{{ r.k }}</span>
-                        <span style="font-size:14px;font-weight:800;color:#0F2A47">{{ r.v }}</span>
+                  <div>
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                      <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                      <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">REVENUE SUMMARY</span>
+                      <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                      <span style="font-size:11.5px;color:#98A2B3"></span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:26px">
+                      <sc-for list="{{ finSummary }}" as="f" hint-placeholder-count="3">
+                        <div style="min-width:0;border:1px solid #F0EEE7;border-top:3px solid {{ f.accent }};border-radius:12px;padding:16px 18px">
+                          <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699">{{ f.label }}</div>
+                          <div style="font-size:26px;font-weight:800;letter-spacing:-.03em;color:{{ f.fg }};margin-top:7px">{{ f.v }}</div>
+                          <div style="font-size:12px;color:#98A2B3;margin-top:4px">{{ f.note }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                      <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                      <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">REVENUE BREAKDOWN</span>
+                      <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                      <span style="font-size:11.5px;color:#98A2B3">gross to net</span>
+                    </div>
+                    <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden;margin-bottom:26px">
+                      <sc-for list="{{ finBreakdown }}" as="r" hint-placeholder-count="7">
+                        <div style="display:flex;align-items:center;gap:14px;padding:13px 18px;background:{{ r.bg }};border-bottom:1px solid #F7F5F0">
+                          <div style="min-width:0;flex:1">
+                            <div style="font-size:13px;font-weight:{{ r.weight }};color:#0F2A47">{{ r.k }}</div>
+                            <div style="font-size:11px;color:#98A2B3;margin-top:2px;text-wrap:pretty">{{ r.note }}</div>
+                          </div>
+                          <span style="font-size:14.5px;font-weight:800;color:{{ r.fg }};white-space:nowrap">{{ r.v }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                      <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                      <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">PAYMENT METHODS</span>
+                      <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                      <span style="font-size:11.5px;color:#98A2B3">collections by gateway</span>
+                    </div>
+                    <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden;margin-bottom:26px">
+                      <sc-for list="{{ finMethods }}" as="m" hint-placeholder-count="4">
+                        <div style="display:flex;align-items:center;gap:13px;padding:13px 18px;border-bottom:1px solid #F7F5F0">
+                          <span style="width:34px;height:34px;flex:none;border-radius:9px;background:{{ m.ibg }};color:{{ m.ifg }};display:grid;place-items:center;font-size:13px;font-weight:800">{{ m.icon }}</span>
+                          <div style="min-width:0;flex:1">
+                            <div style="font-size:13.5px;font-weight:700;color:#0F2A47">{{ m.name }}</div>
+                            <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ m.meta }}</div>
+                          </div>
+                          <span style="font-size:13.5px;font-weight:800;color:#0F2A47;white-space:nowrap;flex:none">{{ m.amount }}</span>
+                          <span style="font-size:11px;font-weight:700;padding:4px 11px;border-radius:999px;background:{{ m.sBg }};color:{{ m.sFg }};white-space:nowrap;flex:none">{{ m.share }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                      <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                      <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">TRANSACTIONS</span>
+                      <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                      <span style="font-size:11.5px;color:#98A2B3">{{ finTxCount }} payments</span>
+                    </div>
+                    <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden;margin-bottom:26px">
+                      <div style="overflow-x:auto">
+                        <table style="width:100%;min-width:900px;border-collapse:collapse">
+                          <thead>
+                            <tr style="background:#FCFBF7">
+                              <th style="padding:11px 18px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">INVOICE ID</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PARTICIPANT</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">AMOUNT</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">DISCOUNT</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COUPON</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">GST (18%)</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">GATEWAY</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">DATE</th>
+                              <th style="padding:11px 18px 11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <sc-for list="{{ finTx }}" as="t" hint-placeholder-count="6">
+                              <tr style="background:{{ t.bg }}" style-hover="background:#F7FBFA">
+                                <td style="padding:11px 18px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap;font-family:ui-monospace,monospace">{{ t.id }}</td>
+                                <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ t.who }}</td>
+                                <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:13px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ t.amount }}</td>
+                                <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ t.discount }}</td>
+                                <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ t.coupon }}</td>
+                                <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ t.gst }}</td>
+                                <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ t.gateway }}</td>
+                                <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#98A2B3;white-space:nowrap">{{ t.date }}</td>
+                                <td style="padding:11px 18px 11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ t.sBg }};color:{{ t.sFg }};white-space:nowrap">{{ t.status }}</span></td>
+                              </tr>
+                            </sc-for>
+                          </tbody>
+                        </table>
                       </div>
-                    </sc-for>
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                      <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+                      <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">ACTIONS</span>
+                      <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                      <span style="font-size:11.5px;color:#98A2B3"></span>
+                    </div>
+                    <div style="display:flex;gap:9px;flex-wrap:wrap">
+                      <sc-for list="{{ finActions }}" as="a" hint-placeholder-count="4">
+                        <button onClick="{{ a.go }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid {{ a.border }};background:#fff;font-size:13px;font-weight:600;color:{{ a.fg }};cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:{{ a.hbg }}">{{ a.label }}</button>
+                      </sc-for>
+                    </div>
                   </div>
                 </sc-if>
 
@@ -3455,7 +3741,7 @@
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
               <sc-for list="{{ wwEvents }}" as="e" hint-placeholder-count="6">
                 <div onClick="{{ e.manage }}" style="background:#fff;border:1px solid #ECEAE2;border-radius:16px;padding:18px;display:flex;flex-direction:column;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 10px 28px rgba(11,31,62,.07)">
-                  <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap">
+                  <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap;position:relative">
                     <span style="font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px;background:#EEF6F5;color:#0B7A6E">{{ e.type }}</span>
                     <span style="display:{{ e.featuredShow }};font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px;background:#FBF3D6;color:#8A6D0B">Featured</span>
                     <span style="flex:1"></span>
@@ -5568,21 +5854,53 @@
 
       <sc-if value="{{ isPayouts }}" hint-placeholder-val="{{ false }}">
         <div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px">
-            <sc-for list="{{ poKpis }}" as="k" hint-placeholder-count="8">
-              <div onClick="{{ k.pick }}" style="background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 16px;cursor:pointer" style-hover="border-color:#BFE3DC">
-                <div style="font-size:11px;color:#6B7C93">{{ k.label }}</div>
-                <div style="font-size:20px;font-weight:800;color:#0F2A47;margin-top:5px">{{ k.n }}</div>
-                <div style="font-size:10.5px;color:#98A2B3;margin-top:4px">{{ k.note }}</div>
-              </div>
-            </sc-for>
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;flex-wrap:wrap">
+            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;flex-wrap:wrap">
+              <sc-for list="{{ poTabs }}" as="t" hint-placeholder-count="12">
+                <button onClick="{{ t.pick }}" style="height:32px;padding:0 13px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;font-family:inherit">{{ t.label }}</button>
+              </sc-for>
+            </div>
+            <span style="flex:1"></span>
+            <button onClick="{{ poExportRegister }}" style="height:38px;padding:0 15px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Export register</button>
+            <button onClick="{{ poRunDisbursement }}" style="height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">Run disbursement</button>
           </div>
 
-          <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:4px;margin-bottom:16px;overflow-x:auto">
-            <sc-for list="{{ poTabs }}" as="t" hint-placeholder-count="7">
-              <button onClick="{{ t.pick }}" style="height:33px;padding:0 14px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};white-space:nowrap">{{ t.label }}</button>
-            </sc-for>
-          </div>
+          <sc-if value="{{ poIsOverview }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:16px">
+                <sc-for list="{{ poKpis }}" as="k" hint-placeholder-count="12">
+                  <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:15px 17px">
+                    <div style="font-size:11.5px;font-weight:500;color:#6B7C93;line-height:1.3">{{ k.label }}</div>
+                    <div style="font-size:23px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:5px">{{ k.n }}</div>
+                    <div style="font-size:11px;font-weight:600;color:{{ k.fg }};margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.note }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;margin-bottom:16px">
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Payout lifecycle</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px;margin-bottom:18px">{{ poCycle }}</div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:18px">
+                  <sc-for list="{{ poFlow }}" as="fl" hint-placeholder-count="7">
+                    <div style="flex:1;min-width:0">
+                      <div style="height:5px;border-radius:3px;background:{{ fl.bg }}"></div>
+                      <div style="display:flex;align-items:center;gap:6px;margin-top:9px">
+                        <span style="font-size:10px;font-weight:800;color:#98A2B3">{{ fl.n }}</span>
+                        <span style="font-size:11.5px;font-weight:600;color:{{ fl.fg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ fl.st }}</span>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding-top:16px;border-top:1px solid #F2F0EA">
+                  <span style="font-size:11.5px;font-weight:700;color:#7A8699;margin-right:4px">EXCEPTION STATES</span>
+                  <sc-for list="{{ poExceptions }}" as="ex" hint-placeholder-count="5">
+                    <span style="font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:{{ ex.bg }};color:{{ ex.fg }}">{{ ex.st }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+
 
           <sc-if value="{{ poTabIs.transactions }}" hint-placeholder-val="{{ true }}">
             <div>
@@ -6040,7 +6358,7 @@
                     <div style="display:flex;align-items:center;width:100%">
                       <span style="flex:1;height:2px;background:transparent"></span>
                       <span style="width:30px;height:30px;flex:none;border-radius:50%;border:1.5px solid {{ st.border }};background:{{ st.bg }};color:{{ st.fg }};display:grid;place-items:center;font-size:12.5px;font-weight:700">{{ st.n }}</span>
-                      <span style="flex:1;height:2px;background:{{ st.lineBg }};display:{{ st.lineDisplay }}"></span>
+                      <span style="flex:1;height:2px;background:{{ st.lineBg }}"></span>
                     </div>
                     <span style="font-size:11.5px;color:{{ st.labelColor }};font-weight:{{ st.labelWeight }};margin-top:8px;text-align:center">{{ st.label }}</span>
                   </div>
@@ -6111,11 +6429,11 @@
                 </sc-if>
 
                 <div style="display:flex;align-items:center;gap:10px;margin-top:26px;padding-top:18px;border-top:1px solid #F0EEE7">
-                  <button onClick="{{ saveDraft }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">Save Draft</button>
+                  <button onClick="{{ saveDraft }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap;flex:none" style-hover="background:#F6F5F0">Save Draft</button>
                   <span style="flex:1"></span>
-                  <button onClick="{{ prevStep }}" style="display:{{ backDisplay }};height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">Back</button>
-                  <button onClick="{{ nextStep }}" style="display:{{ nextDisplay }};height:38px;padding:0 20px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer">Continue</button>
-                  <button onClick="{{ submitForm }}" style="display:{{ submitDisplay }};height:38px;padding:0 20px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer">Create Speaker</button>
+                  <button onClick="{{ prevStep }}" style="display:{{ backDisplay }};align-items:center;justify-content:center;height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Back</button>
+                  <button onClick="{{ nextStep }}" style="display:{{ nextDisplay }};align-items:center;justify-content:center;height:38px;padding:0 20px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">Continue</button>
+                  <button onClick="{{ submitForm }}" style="display:{{ submitDisplay }};align-items:center;justify-content:center;height:38px;padding:0 20px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer">Create Speaker</button>
                 </div>
               </div>
             </div>
@@ -7238,7 +7556,7 @@
       </div>
       <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7;flex:none">
         <button onClick="{{ closeModal }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">Cancel</button>
-        <button onClick="{{ scSaveDraft }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">Save Draft</button>
+        <button onClick="{{ scSaveDraft }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap;flex:none" style-hover="background:#F6F5F0">Save Draft</button>
         <button onClick="{{ scSchedule }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:13px;font-weight:700;color:#0B7A6E;cursor:pointer">Schedule Event</button>
         <button onClick="{{ scScheduleOpen }}" style="height:38px;padding:0 15px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer">Schedule &amp; Open Registration</button>
       </div>
@@ -7475,7 +7793,7 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
 const T = { teal:'#0E9384', tealD:'#0B7A6E', tealL:'#EEF6F5', navy:'#0F2A47', line:'#ECEAE2', sub:'#6B7C93' };
 
-const BDG2 = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],blue:['#E9F1FD','#1D4ED8'],grey:['#F1F3F5','#667085']};
+const BDG2 = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],blue:['#E9F1FD','#1D4ED8'],grey:['#F1F3F5','#667085'],violet:['#F0EAFD','#6D28D9'],teal:['#E6F4F1','#0B7A6E'],orange:['#FDF0E7','#C2410C']};
 
 const PERF_SPEAKERS = [
   {id:'SPK-2001', name:'Dr. Ankit Sharma', spec:'Insurance Law & Ethics', events:12, attendees:2840, avgAttendance:87, engagement:92, rating:4.8, content:94, reliability:98, delivery:95, satisfaction:96, outcomes:88, lastEvent:'2026-08-24', types:['Webinar','Workshop'], av:'#0E9384'},
@@ -8607,21 +8925,36 @@ class Component extends DCLogic {
     const sum = (arr,k)=>arr.reduce((a,x)=>a+x[k],0);
     return {
       isPayouts: s.route==='payouts', isPayout360: s.route==='payout360', isSpkFinance: s.route==='spkFinance',
+      poIsOverview: (s.poTab||'overview')==='overview',
+      poCycle: 'August 2026 · closes 31 Aug · disburses 5 Sep — the August batch is currently Scheduled',
+      poFlow: [['1','Draft',1],['2','Calculated',1],['3','Pending Review',1],['4','Approved',1],
+        ['5','Scheduled',2],['6','Processing',0],['7','Paid',0]]
+        .map(([n,st,state])=>({n, st,
+          bg: state===1 ? '#0E9384' : state===2 ? '#F0A72A' : '#EFEDE6',
+          fg: state===0 ? '#98A2B3' : '#0F2A47'})),
+      poExceptions: [['Failed','red'],['Rejected','red'],['Disputed','amber'],['Reversed','violet'],['Cancelled','grey']]
+        .map(([st,c])=>({st, bg:BDG2[c][0], fg:BDG2[c][1]})),
+      poExportRegister: ()=>this.fire('Payout register exported','XLSX · August 2026 cycle · all speakers', true),
+      poRunDisbursement: ()=>this.fire('Disbursement queued','August 2026 batch · scheduled for 5 Sep', true),
       poKpis: [
-        ['Total Speaker Payable', inr(sum(TX.filter(t=>t.status!=='Paid'),'net')), 'unpaid compensation','Total Speaker Payable'],
-        ['Pending Approval', inr(sum(TX.filter(t=>t.status==='Pending Approval'),'net')), TX.filter(t=>t.status==='Pending Approval').length+' payouts','Pending Approval'],
-        ['Approved Payouts', inr(sum(TX.filter(t=>t.status==='Approved'),'net')), 'approved, unpaid','Approved Payouts'],
-        ['Paid This Month', inr(sum(TX.filter(t=>t.status==='Paid'),'net')), TX.filter(t=>t.status==='Paid').length+' transactions','Paid This Month'],
-        ['Failed Payments', inr(sum(TX.filter(t=>t.status==='Failed'),'net')), TX.filter(t=>t.status==='Failed').length+' need retry','Failed Payments'],
-        ['Disputed Amount', inr(sum(TX.filter(t=>t.status==='Disputed'),'net')), TX.filter(t=>t.status==='Disputed').length+' under dispute','Disputed Amount'],
-        ['Total Speaker Cost', inr(sum(TX,'net')), 'all events','Total Speaker Cost'],
-        ['Average Speaker Fee', inr(Math.round(sum(TX,'net')/TX.length)), 'per event','Average Speaker Fee']
-      ].map(([label,n,note,filter])=>({label,n,note, on:s.poKpiFilter===filter,
-        pick:()=>this.setState({poKpiFilter: s.poKpiFilter===filter?null:filter})})),
-      poTabs: [['transactions','Payout Transactions'],['batches','Payout Batches'],['adjustments','Adjustments'],['invoices','Invoices'],['failed','Failed Payments'],['disputes','Disputes'],['settings','Payout Settings']].map(([k,label])=>({
-        label, on:(s.poTab||'transactions')===k, bg:(s.poTab||'transactions')===k?'#0E9384':'transparent',
-        fg:(s.poTab||'transactions')===k?'#fff':'#6B7C93', pick:()=>this.setState({poTab:k})})),
-      poTabIs: Object.fromEntries(['transactions','batches','adjustments','invoices','failed','disputes','settings'].map(k=>[k,(s.poTab||'transactions')===k])),
+        {label:'Total Payable',n:inr(sum(TX.filter(t=>t.status!=='Paid'),'net')),note:TX.filter(t=>t.status!=='Paid').length+' speakers · Aug 2026',fg:'#6B7C93'},
+        {label:'Pending Approval',n:inr(sum(TX.filter(t=>t.status==='Pending Approval'),'net')),note:TX.filter(t=>t.status==='Pending Approval').length+' awaiting review',fg:'#B45309'},
+        {label:'Scheduled Payout',n:inr(sum(TX.filter(t=>t.status==='Approved'),'net')),note:'value date 5 Sep 2026',fg:'#1D4ED8'},
+        {label:'Paid This Month',n:inr(sum(TX.filter(t=>t.status==='Paid'),'net')),note:TX.filter(t=>t.status==='Paid').length+' speakers settled',fg:'#15803D'},
+        {label:'Fixed Per Event',n:inr(sum(TX.filter(t=>t.model==='Fixed Per Event'),'net')),note:TX.filter(t=>t.model==='Fixed Per Event').length+' speakers · per event',fg:'#6B7C93'},
+        {label:'Fixed Per Session',n:inr(sum(TX.filter(t=>t.model==='Fixed Per Session'),'net')),note:TX.filter(t=>t.model==='Fixed Per Session').length+' speakers · session-wise',fg:'#6B7C93'},
+        {label:'Revenue Share',n:inr(sum(TX.filter(t=>t.model==='Revenue Share'),'net')),note:TX.filter(t=>t.model==='Revenue Share').length+' speakers · % of revenue',fg:'#6B7C93'},
+        {label:'Failed Payments',n:inr(sum(TX.filter(t=>t.status==='Failed'),'net')),note:TX.filter(t=>t.status==='Failed').length+' transactions to retry',fg:'#B42318'},
+        {label:'Disputed Amount',n:inr(sum(TX.filter(t=>t.status==='Disputed'),'net')),note:TX.filter(t=>t.status==='Disputed').length+' open disputes',fg:'#B42318'},
+        {label:'Total Speaker Cost',n:inr(sum(TX,'net')*7),note:'FY 2026–27 to date',fg:'#6B7C93'},
+        {label:'Average Payout',n:inr(Math.round(sum(TX,'net')/Math.max(1,TX.length))),note:'per speaker this cycle',fg:'#6B7C93'},
+        {label:'Outstanding',n:inr(sum(TX.filter(t=>t.status==='Pending Approval'||t.status==='Failed'),'net')),note:'overdue beyond due date',fg:'#B45309'}
+      ],
+      poTabs: [['overview','Overview'],['transactions','Payout Transactions'],['batches','Payout Batches'],['adjustments','Adjustments'],['invoices','Invoices'],['failed','Failed Payments'],['disputes','Disputes'],['settings','Settings']].map(([k,label])=>({
+        label, on:(s.poTab||'overview')===k, bg:(s.poTab||'overview')===k?'#0E9384':'transparent',
+        weight:(s.poTab||'overview')===k?'700':'500',
+        fg:(s.poTab||'overview')===k?'#fff':'#6B7C93', pick:()=>this.setState({poTab:k})})),
+      poTabIs: Object.fromEntries(['transactions','batches','adjustments','invoices','failed','disputes','settings'].map(k=>[k,(s.poTab||'overview')===k])),
       poQ: s.poQ||'', setPoQ: set('poQ'),
       poSpeaker: s.poSpeaker||'All', setPoSpeaker: set('poSpeaker'),
       poSpeakerOpts: ['All', ...new Set(TX.map(t=>t.speaker))],
@@ -9647,8 +9980,7 @@ class Component extends DCLogic {
       border: i<=s.step ? '#0E9384' : '#E5E3DC',
       labelColor: i<=s.step ? '#0F2A47' : '#98A2B3',
       labelWeight: i===s.step ? '700' : '500',
-      lineBg: i<s.step ? '#0E9384' : '#E5E3DC',
-      lineDisplay: i===steps.length-1 ? 'none' : 'block'
+      lineBg: i===steps.length-1 ? 'transparent' : (i<s.step ? '#0E9384' : '#E5E3DC')
     }));
 
     const perfDateOk = (lastEvent) => {
@@ -10527,6 +10859,176 @@ class Component extends DCLogic {
       spkEvents: SPK_EVENTS.map(e=>({...e, bg:BDG2[e.c][0], fg:BDG2[e.c][1]})),
 
       ...(()=>{
+        const HP = [
+          ['Session Delivery','25%',96],['Audience Engagement','20%',94],
+          ['Punctuality & Readiness','15%',92],['Content Quality','15%',95],
+          ['Participant Satisfaction','15%',94],['Commercial Performance','10%',88]
+        ];
+        const score = Math.round(HP.reduce((t,h)=>t+h[2]*parseInt(h[1])/100,0));
+        const band = score>=90 ? ['Excellent','#E7F7EE','#15803D'] : score>=75 ? ['Good','#E9F1FD','#1D4ED8']
+          : score>=60 ? ['Needs Attention','#FEF3E2','#B45309'] : ['Critical','#FDE8E8','#B42318'];
+
+        const TREND = {
+          'Overall Score': [['Apr',86],['May',88],['Jun',90],['Jul',91],['Aug',93],['Sep',score]].map(([label,v])=>({label,v,val:String(v)})),
+          'Attendance': [['Apr',74],['May',79],['Jun',82],['Jul',91],['Aug',86],['Sep',88]].map(([label,v])=>({label,v,val:v+'%'})),
+          'Rating': [['Apr',43],['May',45],['Jun',46],['Jul',48],['Aug',48],['Sep',48]].map(([label,v])=>({label,v,val:(v/10).toFixed(1)})),
+          'Registrations': [['Apr',180],['May',240],['Jun',290],['Jul',290],['Aug',380],['Sep',420]].map(([label,v])=>({label,v,val:String(v)}))
+        };
+        const tm = s.spTrend || 'Overall Score';
+        const tv = TREND[tm];
+        const tmax = Math.max(...tv.map(x=>x.v));
+
+        const SIG = [
+          ['Recording not published for 2 sessions','Claims Handling Workshop · Regulatory Update Panel','Critical','red'],
+          ['Regulatory Update Panel attendance at 74%','11 points below the speaker average','High','amber'],
+          ['1 session still in draft','Risk Assessment Deep-Dive · 22 Sep, no registrations','High','amber'],
+          ['Speaker payout pending approval','₹22,500 for IC-11 Industry Masterclass','Medium','grey'],
+          ['Feedback response rate at 61%','Below the 75% target across completed sessions','Medium','grey']
+        ];
+
+        return {
+          spScore: String(score), spBand: band[0], spBandBg: band[1], spBandFg: band[2],
+          spDelta: '↑ 4.2% compared with the previous period',
+          spWeighted: HP.map(([label,weight,v])=>({label, weight, pct:v+'%',
+            bar: v>=90 ? '#0E9384' : v>=75 ? '#5AC0B0' : '#F0A72A'})),
+
+          spSignalCount: String(SIG.length),
+          spSignals: SIG.map(([title,detail,sev,c])=>({title, detail, sev,
+            dot:BDG2[c][1], sBg:BDG2[c][0], sFg:BDG2[c][1],
+            go:()=>this.fire('Opened — '+title, detail, true)})),
+
+          spKpis: [
+            ['Sessions Delivered','5','Target 6','▼ 1','#B45309'],
+            ['Total Registrations','1,640','Target 1,500','▲ 9.3%','#15803D'],
+            ['Avg Attendance','84%','Target 80%','▲ 4.0%','#15803D'],
+            ['Avg Rating','4.8 / 5','Target 4.5','▲ 0.3','#15803D'],
+            ['Feedback Responses','61%','Target 75%','▼ 14 pts','#B42318'],
+            ['Questions Answered','96%','Target 90%','▲ 6.0%','#15803D'],
+            ['On-Time Starts','100%','Target 95%','▲ 5.0%','#15803D'],
+            ['Revenue Contribution','₹8.2L','Target ₹7.5L','▲ 9.3%','#15803D']
+          ].map(([label,v,target,delta,fg])=>({label, v, target, delta, fg})),
+
+          spTrendMetric: tm,
+          spTrendChips: Object.keys(TREND).map(k=>{
+            const on = k===tm;
+            return {label:k, border: on?'#0E9384':'#E5E3DC', bg: on?'#EEF6F5':'#fff',
+              fg: on?'#0B7A6E':'#667085', weight: on?'700':'500',
+              pick:()=>this.setState({spTrend:k})};
+          }),
+          spTrendBars: tv.map((x,i)=>({...x, h: Math.max(26, Math.round(x.v/tmax*146))+'px',
+            bg: i>=tv.length-2 ? '#0E9384' : '#A9D9CE'})),
+
+          spLoadPct: '72%', spLoadColor: '#0E9384',
+          spLoadStats: [
+            ['Sessions','5 / 7'],['Hours on stage','11 h'],['Avg session','132 min'],
+            ['Formats','4'],['Coordinators','2'],['Open drafts','1']
+          ].map(([label,v])=>({label, v})),
+          spStrengths: [
+            {t:'Participant satisfaction', s:'4.8 average across 1,640 registrations — highest in the speaker pool'},
+            {t:'Doubt resolution', s:'96% of questions answered in-session'},
+            {t:'Reliability', s:'100% on-time starts with no cancellations this period'}
+          ],
+          spAreas: [
+            {t:'Recording publication', s:'2 completed sessions still have no published recording'},
+            {t:'Feedback collection', s:'61% response rate against a 75% target'},
+            {t:'Panel format attendance', s:'74% on Regulatory Update Panel vs 84% average'}
+          ],
+
+          spCompare: [
+            ['Overall score', String(score), '90', '▲ 4 pts', 'green'],
+            ['Sessions delivered', '5', '4', '▲ 1', 'green'],
+            ['Registrations', '1,640', '1,180', '▲ 39%', 'green'],
+            ['Avg attendance', '84%', '81%', '▲ 3 pts', 'green'],
+            ['Avg rating', '4.8', '4.6', '▲ 0.2', 'green'],
+            ['Feedback response', '61%', '68%', '▼ 7 pts', 'amber'],
+            ['Revenue contribution', '₹8.2L', '₹5.9L', '▲ 39%', 'green']
+          ].map(([label,now,prev,delta,c],i)=>({label, now, prev, delta,
+            rowBg: i%2 ? '#FCFBF7' : '#fff', dBg:BDG2[c][0], dFg:BDG2[c][1]})),
+
+          perfExport: ()=>this.fire('Performance report exported', 'PDF · '+(s.perfPeriod||'This period')+' · '+score+'/100', true)
+        };
+      })(),
+
+      ...(()=>{
+        const TY = {Webinar:['#E9F1FD','#1D4ED8'],Workshop:['#E6F4F1','#0B7A6E'],
+          'Panel Discussion':['#F0EAFD','#6D28D9'],Masterclass:['#FDF0E7','#C2410C']};
+        const mins = {'6:00–8:00 PM':'120 min','5:00–6:30 PM':'90 min','4:00–7:00 PM':'180 min',
+          '6:00–7:00 PM':'60 min','5:00–6:00 PM':'60 min','6:00–9:00 PM':'180 min'};
+        const f = s.schFilter || 'All sessions';
+        const rows = SPK_EVENTS.filter(e =>
+          f==='All sessions' || (f==='Upcoming' && e.status==='Upcoming') ||
+          (f==='Completed' && e.status==='Completed') || (f==='Draft' && e.status==='Draft'));
+        const upcoming = SPK_EVENTS.filter(e=>e.status==='Upcoming');
+        const done = SPK_EVENTS.filter(e=>e.status==='Completed');
+        const avgAtt = Math.round(done.reduce((n,e)=>n+parseInt(e.attendance),0)/done.length);
+        const totalHrs = SPK_EVENTS.reduce((n,e)=>n+parseInt(mins[e.time]||'0'),0)/60;
+        const view = s.schView || 'list';
+
+        // calendar: month offset over Aug/Sep 2026
+        const MONTHS = [['August 2026',2026,7],['September 2026',2026,8]];
+        const mi = Math.max(0, Math.min(1, s.schMonth === undefined ? 0 : s.schMonth));
+        const [monthLabel, yr, mo] = MONTHS[mi];
+        const first = new Date(yr, mo, 1).getDay();          // 0=Sun
+        const lead = (first + 6) % 7;                         // Mon-first grid
+        const dim = new Date(yr, mo+1, 0).getDate();
+        const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const evOn = (day)=>SPK_EVENTS.filter(e=>{
+          const p = e.date.split(' ');
+          return parseInt(p[0])===day && p[1]===MON[mo] && parseInt(p[2])===yr;
+        });
+        const cells = [];
+        for (let i=0;i<lead;i++) cells.push({d:'', bg:'#FCFBF7', bd:'#F5F3EE', dayFg:'#C4C9D0', dayWeight:'500', events:[]});
+        for (let day=1; day<=dim; day++) {
+          const evs = evOn(day);
+          cells.push({d:String(day),
+            bg: evs.length ? '#fff' : '#FCFBF7',
+            bd: evs.length ? '#E4E9E8' : '#F5F3EE',
+            dayFg: evs.length ? '#0F2A47' : '#98A2B3',
+            dayWeight: evs.length ? '800' : '500',
+            events: evs.map(e=>({title:e.title, time:e.time.replace(/:00/g,'').replace(/ /g,''),
+              bg: BDG2[e.c][0], fg: BDG2[e.c][1],
+              open: ()=>this.fire('Opened — '+e.title, e.date+' · '+e.time+' · '+e.status, true)}))});
+        }
+        while (cells.length % 7) cells.push({d:'', bg:'#FCFBF7', bd:'#F5F3EE', dayFg:'#C4C9D0', dayWeight:'500', events:[]});
+
+        return {
+          spkSchKpis: [
+            {label:'TOTAL SESSIONS', v:String(SPK_EVENTS.length), note:'lifetime, all formats', fg:'#0F2A47'},
+            {label:'UPCOMING', v:String(upcoming.length), note: upcoming.length ? 'next on '+upcoming[0].date : 'nothing scheduled', fg:'#1D4ED8'},
+            {label:'COMPLETED', v:String(done.length), note:'delivered sessions', fg:'#15803D'},
+            {label:'AVG ATTENDANCE', v:avgAtt+'%', note:'across completed', fg: avgAtt>=85 ? '#15803D' : '#B45309'},
+            {label:'HOURS DELIVERED', v:totalHrs.toFixed(0)+' h', note:'scheduled stage time', fg:'#0B7A6E'},
+            {label:'DRAFTS', v:String(SPK_EVENTS.filter(e=>e.status==='Draft').length), note:'not yet published', fg:'#B45309'}
+          ],
+          spk_schViewTabs: [
+            ['list','List','M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01'],
+            ['cal','Calendar','M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z']
+          ].map(([k,label,path])=>{
+            const on = view===k;
+            return {label, path, bg: on?'#0B1F3E':'transparent', fg: on?'#fff':'#475467',
+              weight: on?'700':'500', pick:()=>this.setState({schView:k})};
+          }),
+          spk_schIsList: view==='list', schIsCal: view==='cal',
+          spk_schFilter: f, setSchFilter:(e)=>this.setState({schFilter:e.target.value}),
+          spk_schFilterOpts: ['All sessions','Upcoming','Completed','Draft'].map(o=>({o})),
+          spk_schCount: String(rows.length),
+          spk_schEmpty: rows.length ? 'none' : 'block',
+          spk_schRows: rows.map(e=>({...e, regs:String(e.regs), mins: mins[e.time]||'—',
+            sBg: BDG2[e.c][0], sFg: BDG2[e.c][1], accent: BDG2[e.c][1],
+            tBg: (TY[e.type]||TY.Webinar)[0], tFg: (TY[e.type]||TY.Webinar)[1],
+            attFg: e.attendance==='—' ? '#98A2B3' : parseInt(e.attendance)>=85 ? '#15803D' : '#B45309',
+            open: ()=>this.fire('Opened — '+e.title, e.type+' · '+e.date+' · '+e.regs+' registered', true)})),
+          spk_schMonthLabel: monthLabel,
+          spk_schPrev: ()=>this.setState({schMonth: Math.max(0, mi-1)}),
+          spk_schNext: ()=>this.setState({schMonth: Math.min(1, mi+1)}),
+          spk_schDows: ['MON','TUE','WED','THU','FRI','SAT','SUN'].map(d=>({d})),
+          spk_schLegend: [['Upcoming','blue'],['Completed','green'],['Draft','grey']]
+            .map(([label,c])=>({label, bg:BDG2[c][0], fg:BDG2[c][1], dot:BDG2[c][1]})),
+          spk_schCells: cells
+        };
+      })(),
+
+      ...(()=>{
         const q = (s.spkEvQ||'').trim().toLowerCase();
         const typeF = s.spkEvType || 'All';
         const statusF = s.spkEvStatus || 'All';
@@ -10996,6 +11498,64 @@ class Component extends DCLogic {
         const CARD = (rows)=>rows.map(([label,v,sub,fg])=>({label, v, sub, fg: fg||'#0F2A47'}));
 
         return {
+          // ---- Finance: Student-Payments layout ----
+          ...(()=>{
+            const B = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],
+              grey:['#F1F3F5','#667085'],blue:['#E9F1FD','#1D4ED8'],violet:['#F0EAFD','#6D28D9'],teal:['#E6F4F1','#0B7A6E']};
+            const price = 499;
+            const confirmed = Math.round(e.regs * 0.92);
+            const gross = e.regs * price;
+            const discount = Math.round(gross * 0.06);
+            const refunds = Math.round(gross * 0.02);
+            const gst = Math.round((gross - discount) * 0.18);
+            const fees = Math.round((gross - discount) * 0.024);
+            const net = gross - discount - refunds - fees;
+            const money = (n)=> n>=100000 ? '₹'+(n/100000).toFixed(2)+'L' : '₹'+n.toLocaleString('en-IN');
+
+            const TX = [
+              ['INV-2026-991','Aarav Sharma', price, 0, '—', 'Razorpay / UPI','2026-05-01','Paid','green'],
+              ['INV-2026-988','Diya Nair', price, 100, 'EARLYBIRD','Razorpay / UPI','2026-05-02','Paid','green'],
+              ['INV-2026-984','Rohan Kulkarni', price, 0, '—','HDFC Netbanking','2026-05-04','Paid','green'],
+              ['INV-2026-979','Ananya Rao', price, 100, 'EARLYBIRD','Razorpay / Card','2026-05-06','Paid','green'],
+              ['INV-2026-972','Ishaan Verma', price, 0, '—','Razorpay / UPI','2026-05-08','Pending','amber'],
+              ['INV-2026-965','Kabir Menon', price, 0, '—','Razorpay / UPI','2026-05-09','Refunded','red']
+            ];
+
+            return {
+              finSummary: [
+                {label:'GROSS REVENUE', v:money(gross), note:e.regs+' registrations at ₹'+price, fg:'#0F2A47', accent:'#0E9384'},
+                {label:'NET REVENUE', v:money(net), note:'after discounts, refunds and fees', fg:'#15803D', accent:'#15803D'},
+                {label:'REFUNDED', v:money(refunds), note:'1 refund processed', fg: refunds ? '#B42318' : '#98A2B3', accent:'#E88B78'}
+              ],
+              finBreakdown: [
+                ['Gross revenue', money(gross), e.regs+' paid registrations', '#0F2A47', '700'],
+                ['Discounts', '− '+money(discount), 'EARLYBIRD coupon · 22 uses', '#B45309', '500'],
+                ['Refunds', '− '+money(refunds), '1 cancellation refunded in full', '#B42318', '500'],
+                ['Gateway fees', '− '+money(fees), '2.4% Razorpay merchant rate', '#B45309', '500'],
+                ['GST collected', money(gst), '18% · remitted separately', '#475467', '500'],
+                ['Net revenue', money(net), 'settled to the StudyCrux account', '#15803D', '800']
+              ].map(([k,v,note,fg,weight],i)=>({k, v, note, fg, weight, bg: i%2 ? '#FCFBF7' : '#fff'})),
+              finMethods: [
+                ['Razorpay · UPI','⇄','teal','118 payments · instant settlement', money(Math.round(gross*0.62)), '62%','green'],
+                ['Razorpay · Card','▭','violet','42 payments · 2-day settlement', money(Math.round(gross*0.24)), '24%','blue'],
+                ['HDFC Netbanking','⌂','green','21 payments · T+1 settlement', money(Math.round(gross*0.11)), '11%','grey'],
+                ['Wallet credit','◈','amber','5 payments · internal credit', money(Math.round(gross*0.03)), '3%','grey']
+              ].map(([name,icon,c,meta,amount,share,sc])=>({name, icon, meta, amount, share,
+                ibg:B[c][0], ifg:B[c][1], sBg:B[sc][0], sFg:B[sc][1]})),
+              finTxCount: String(TX.length),
+              finTx: TX.map(([id,who,amt,disc,coupon,gateway,date,status,c],i)=>({
+                id, who, coupon, gateway, date, status,
+                amount:'₹'+amt.toLocaleString('en-IN'),
+                discount: disc ? '₹'+disc : '—',
+                gst:'₹'+Math.round((amt-disc)*0.18),
+                bg: i%2 ? '#FCFBF7' : '#fff', sBg:B[c][0], sFg:B[c][1]})),
+              finActions: [['Download Invoices',0],['Send Payment Link',0],['Issue Refund',1]]
+                .map(([label,danger])=>({label,
+                  border: danger?'#F0D2CF':'#E5E3DC', fg: danger?'#B42318':'#344054', hbg: danger?'#FEF7F6':'#F6F5F0',
+                  go:()=>this.fire(label, e.title+' · '+e.regs+' registrations · '+money(net)+' net', true)}))
+            };
+          })(),
+
           // ---- Overview (BRD §7, §8, §9, §11, §49, §50, §60) ----
           ...(()=>{
             const B = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],

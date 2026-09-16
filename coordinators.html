@@ -5935,6 +5935,9 @@ const C360 = {
       ['Batch C completion is 8% behind target','78% against a target of 86%','High','amber'],
       ['8 students have not logged in for 7 days','Across IC-01 and IC-02','Medium','grey']]}
   ],
+  'Learning & Products': [
+    {t:'LEARNING PRODUCTS', kind:'lpview'}
+  ],
   'Employment & Recruitment': [
     {t:'HIRING SNAPSHOT', kind:'cards', rows:[
       ['SOURCE','Referral','internal — Anita Rao','#0F2A47'],['INTERVIEW AVG','8.6','across 3 rounds','#15803D'],
@@ -6012,6 +6015,62 @@ const C360 = {
       ['Certifications','PMP Foundation · Google Workspace Admin']]},
     {t:'ACTIONS', kind:'actions', btns:[['Edit Personal Info'],['Edit Professional Info'],['Download Profile PDF']]}
   ],
+  'Students': [
+    {t:'STUDENT SUMMARY', kind:'cards', rows:[
+      ['Total students','486','across 12 batches','#0F2A47'],['Active','462','currently enrolled','#15803D'],
+      ['At risk','18','attendance below 60%','#B42318'],['Avg attendance','87%','all batches','#15803D']]},
+    {t:'STUDENTS UNDER COORDINATION', right:'Grouped by course', kind:'table', rowAct:'View Student',
+      cols:['Student','Student ID','Course','Batch','Attendance','Progress','Status'], rows:[
+      ['Aarav Sharma','SC-10001','IC-01','Batch A','94%','84%',['Active','green']],
+      ['Ananya Gupta','SC-10006','IC-01','Batch A','100%','91%',['Active','green']],
+      ['Kabir Mehta','SC-10017','IC-02','Batch B','90%','72%',['Active','green']],
+      ['Meera Nair','SC-10021','IC-02','Batch B','77%','61%',['At risk','amber']],
+      ['Divya Krishnan','SC-10014','IC-11','Batch D','58%','44%',['At risk','red']]]},
+    {t:'STUDENT ACTIONS', kind:'actions', btns:[['Message Batch'],['Flag At-Risk Students'],['Export Student List']]}
+  ],
+  'Ratings & Reviews': [
+    {t:'RATING SUMMARY', kind:'cards', rows:[
+      ['Overall rating','4.6','from 214 responses','#B45309'],['Student satisfaction','94%','coordination support','#15803D'],
+      ['Teacher satisfaction','4.4','18 faculty','#B45309'],['Response rate','78%','of surveyed students','#0F2A47']]},
+    {t:'RATING BREAKDOWN', right:'By dimension · last 90 days', kind:'bars', rows:[
+      ['Responsiveness','96%','#0E9384','214 responses'],
+      ['Issue resolution','88%','#0E9384','196 responses'],
+      ['Communication clarity','92%','#0E9384','214 responses'],
+      ['Schedule reliability','90%','#0E9384','214 responses']]},
+    {t:'RECENT REVIEWS', right:'Newest first', kind:'table',
+      cols:['From','Course / Batch','Rating','Comment','Date'], rows:[
+      ['Aarav Sharma','IC-01 · Batch A','5','Doubts always cleared the same day.','28 Aug 2026'],
+      ['Amit Sharma (Teacher)','IC-01','4.5','Schedules shared well in advance.','24 Aug 2026'],
+      ['Meera Nair','IC-02 · Batch B','3','Batch timing changes were communicated late.','18 Aug 2026']]},
+    {t:'REVIEW ACTIONS', kind:'actions', btns:[['Request Feedback Round'],['Export Reviews']]}
+  ],
+  'Finance & Payroll': [
+    {t:'PAYROLL SNAPSHOT', kind:'cards', rows:[
+      ['Monthly salary','₹42,000','fixed · 1–31 cycle','#0F2A47'],['Annual CTC','₹8.40L','revised Jul 2026','#6D28D9'],
+      ['Paid YTD','₹3,78,000','9 cycles settled','#15803D'],['Next payout','01 Sep 2026','₹42,000','#B45309']]},
+    {t:'COMPENSATION', kind:'kv', rows:[
+      ['Compensation mode','Fixed Salary'],['Monthly salary','₹42,000'],['Annual CTC','₹8,40,000'],
+      ['Payment cycle','Monthly · 1–31'],['Payment method','Bank Transfer'],
+      ['Bank account','HDFC ••••4482 · verified'],['PAN','ABCPS••••4K · verified'],
+      ['Last revision','01 Jul 2026 · +₹3,000'],['Next review','01 Jan 2027']]},
+    {t:'PAYOUT HISTORY', right:'Last 6 cycles', kind:'table',
+      cols:['Cycle','Gross','Deductions','Net','Paid on','Status'], rows:[
+      ['Aug 2026','₹42,000','₹4,200','₹37,800','—',['Pending','amber']],
+      ['Jul 2026','₹42,000','₹4,200','₹37,800','01 Aug 2026',['Paid','green']],
+      ['Jun 2026','₹39,000','₹3,900','₹35,100','01 Jul 2026',['Paid','green']],
+      ['May 2026','₹39,000','₹3,900','₹35,100','01 Jun 2026',['Paid','green']],
+      ['Apr 2026','₹39,000','₹3,900','₹35,100','01 May 2026',['Paid','green']],
+      ['Mar 2026','₹39,000','₹3,900','₹35,100','01 Apr 2026',['Paid','green']]]},
+    {t:'PAYROLL ACTIONS', kind:'actions', btns:[['Approve Pending Payout'],['Download Payslip'],['Edit Compensation'],['Hold Payout',1]]}
+  ],
+  'Internal Notes': [
+    {t:'INTERNAL NOTES', right:'Visible to administrators only', kind:'list', rows:[
+      {ic:'★',c:'green',t:'Strongest coordinator on issue turnaround',s:'Added by Vikram Sethi · 26 Aug 2026',right:'Positive',rc:'green'},
+      {ic:'!',c:'amber',t:'Workload at 80% — avoid new batch assignments',s:'Added by Academic Ops · 20 Aug 2026',right:'Action',rc:'amber'},
+      {ic:'✎',c:'blue',t:'Interested in the Senior Coordinator track',s:'Added by Priya Bose (HR) · 12 Aug 2026',right:'Noted',rc:'blue'},
+      {ic:'✓',c:'green',t:'Completed the LMS advanced certification',s:'Added by L&D · 04 Aug 2026',right:'Closed',rc:'grey'}]},
+    {t:'NOTE ACTIONS', kind:'actions', btns:[['Add Internal Note'],['Export Notes'],['Restrict Visibility',1]]}
+  ],
   'Course & Batch': [
     {t:'COURSE SUMMARY', kind:'cards', rows:[
       ['Total courses','3','assigned to this coordinator','#0F2A47'],['Total batches','12','6 active · 1 upcoming','#0F2A47'],
@@ -6032,22 +6091,6 @@ const C360 = {
       ['Batch F — Evening','BT-512','IC-02','2026-09-01','2027-03-01','0','0','0 / 30','—','—','0',['Upcoming','blue']]]},
     {t:'BATCH ACTIONS', kind:'actions', btns:[['View Batch'],['Assign Teacher'],['Replace Teacher'],['Assign Substitute'],['Add Student'],['Transfer Student'],['Schedule Class'],['Send Announcement'],['View Reports'],['Archive Batch',1]]}
   ],
-  'Learning & Products': [
-    {t:'LEARNING PRODUCTS', kind:'lpview'}
-  ],
-  'Students': [
-    {t:'STUDENT SUMMARY', kind:'cards', rows:[
-      ['Total students','486','across 12 batches','#0F2A47'],['Active','462','currently enrolled','#15803D'],
-      ['At risk','18','attendance below 60%','#B42318'],['Avg attendance','87%','all batches','#15803D']]},
-    {t:'STUDENTS UNDER COORDINATION', right:'Grouped by course', kind:'table', rowAct:'View Student',
-      cols:['Student','Student ID','Course','Batch','Attendance','Progress','Status'], rows:[
-      ['Aarav Sharma','SC-10001','IC-01','Batch A','94%','84%',['Active','green']],
-      ['Ananya Gupta','SC-10006','IC-01','Batch A','100%','91%',['Active','green']],
-      ['Kabir Mehta','SC-10017','IC-02','Batch B','90%','72%',['Active','green']],
-      ['Meera Nair','SC-10021','IC-02','Batch B','77%','61%',['At risk','amber']],
-      ['Divya Krishnan','SC-10014','IC-11','Batch D','58%','44%',['At risk','red']]]},
-    {t:'STUDENT ACTIONS', kind:'actions', btns:[['Message Batch'],['Flag At-Risk Students'],['Export Student List']]}
-  ],
   'Teachers': [
     {t:'TEACHER SUMMARY', kind:'cards', rows:[
       ['Total teachers','18','across 12 batches','#0F2A47'],['Active','16','currently teaching','#15803D'],
@@ -6062,6 +6105,66 @@ const C360 = {
       ['Ayesha Khan','TCH-2031','1','1','16','95%','4.6',['On leave','blue']],
       ['Shalini Nair','TCH-2044','1','1','12','78%','4.3',['Active','amber']]]},
     {t:'TEACHER ACTIONS', kind:'actions', btns:[['View Teacher Profile'],['Assign Teacher'],['Change Teacher'],['Assign Substitute'],['View Schedule'],['Contact Teacher'],['View Performance'],['View Attendance'],['Raise Issue',1]]}
+  ],
+  'Schedule': [
+    {t:'SCHEDULE SNAPSHOT', kind:'cards', rows:[
+      ['Classes this month','142','across 12 batches','#0F2A47'],['Completed','128','90%','#15803D'],
+      ['Upcoming','11','next 7 days','#1D4ED8'],['Cancelled','2','make-ups planned','#B42318'],
+      ['Rescheduled','3','this week','#B45309'],['No instructor','1','needs assignment','#B42318'],
+      ['Recording pending','2','beyond 24 h','#B45309'],['On-time start rate','93%','this month','#15803D']]},
+    {t:'UPCOMING & ACTIVE CLASSES', right:'Next 7 days · rescheduled sessions included', kind:'table', rowAct:'Open Class', cols:['Date','Time','Course','Batch','Teacher','Class Type','Duration','Attendance','Recording','Status'], rows:[
+      ['2026-08-16','07:00 – 09:00','IC-01','BT-101','Dr. Vikram Verma','Live class','120 min','40 / 42','Uploaded',['Completed','green']],
+      ['2026-08-16','11:00 – 12:30','IC-02','BT-204','Neha Kulkarni','Live class','90 min','32 / 35','Uploaded',['Completed','green']],
+      ['2026-08-16','14:00 – 16:00','IC-11','BT-310','Prof. Arun Mehta','Live class','120 min','—','—',['Live','green']],
+      ['2026-08-16','18:00 – 19:30','IC-02','BT-103','Amit Sharma','Doubt session','90 min','—','—',['Scheduled','blue']],
+      ['2026-08-17','07:00 – 09:00','IC-11','BT-408','—','Live class','120 min','—','—',['No instructor','red']],
+      ['2026-08-15','18:00 – 20:00','IC-01','BT-103','Ritu Bansal','Live class','120 min','34 / 38','Pending',['Recording pending','amber']]]},
+    {t:'CLASS HISTORY', right:'Completed sessions with delivery outcome', kind:'table', cols:['Date','Course','Batch','Teacher','Attendance','Recording','On time','Status'], rows:[
+      ['2026-08-15','IC-01','BT-101','Dr. Vikram Verma','40 / 42','Uploaded','Yes',['Completed','green']],
+      ['2026-08-14','IC-02','BT-204','Neha Kulkarni','32 / 35','Uploaded','Yes',['Completed','green']],
+      ['2026-08-13','IC-11','BT-310','Prof. Arun Mehta','44 / 51','Uploaded','No',['Completed','amber']],
+      ['2026-08-12','IC-01','BT-103','Ritu Bansal','34 / 38','Pending','Yes',['Recording pending','amber']]]},
+    {t:'SCHEDULE ACTIONS', kind:'actions', btns:[['Open Calendar View'],['Schedule Class'],['Reschedule'],['Assign Substitute'],['Change Teacher'],['Send Notification'],['View Recording'],['Cancel Class',1],['Mark Issue',1]]}
+  ],
+  'Attendance & Leave': [
+    {t:'MY ATTENDANCE KPIS', right:'This coordinator · current month', kind:'cards', rows:[
+      ['Attendance rate','96%','24 of 25 working days','#15803D'],['Present days','24','this month','#15803D'],
+      ['Late arrivals','2','avg 6 min late','#B45309'],['Early exits','1','15 min early','#B45309'],
+      ['Absent days','0','no unplanned absence','#15803D'],['Leave used','2 / 18','16 remaining','#1D4ED8'],
+      ['Avg hours per day','8h 34m','against an 8h target','#15803D'],['Overtime logged','5h 12m','this month','#0F2A47']]},
+    {t:'TODAY\u2019S ATTENDANCE', kind:'kv', rows:[
+      ['Status','Present'],['Scheduled in / out','09:00 \u2014 18:00'],['Actual in / out','08:58 \u2014 in progress'],
+      ['Late by','\u2014'],['Break time','33 min'],['Hours so far','7h 12m'],['Last activity','2 min ago']]},
+    {t:'ATTENDANCE LOG', right:'Daily record with exceptions', kind:'table', rowAct:'Correct',
+      cols:['Date','Status','Scheduled in','Actual in','Late by','Scheduled out','Actual out','Hours','Breaks','Overtime','Exception'], rows:[
+      ['2026-08-16',['Present','green'],'09:00','08:58','\u2014','18:00','18:05','8h 34m','33m','5m','\u2014'],
+      ['2026-08-15',['Present','green'],'09:00','09:02','2 min','18:00','18:14','8h 42m','48m','14m','\u2014'],
+      ['2026-08-14',['Late','amber'],'09:00','09:38','38 min','18:00','18:20','8h 12m','30m','20m','Traffic \u00b7 informed manager'],
+      ['2026-08-13',['Present','green'],'09:00','08:55','\u2014','18:00','17:45','8h 05m','40m','\u2014','Early exit approved'],
+      ['2026-08-12',['On Leave','blue'],'\u2014','\u2014','\u2014','\u2014','\u2014','\u2014','\u2014','\u2014','Planned leave LV-2041']]},
+    {t:'MY ACTIVITY SCORE', right:'Weighted across coordination responsibilities', kind:'bars', rows:[
+      ['Student Support \u2014 weight 25%','96%','#0E9384','142 doubts handled \u00b7 avg 2.4 h'],
+      ['Batch Management \u2014 weight 20%','92%','#0E9384','12 batches \u00b7 6 updates this week'],
+      ['Teacher Coordination \u2014 weight 20%','88%','#5AC0B0','18 faculty \u00b7 4 substitutions arranged'],
+      ['Live Class Operations \u2014 weight 15%','94%','#0E9384','142 classes \u00b7 93% on-time starts'],
+      ['Administrative Tasks \u2014 weight 15%','95%','#0E9384','48 reports \u00b7 all filed on time']]},
+    {t:'ACTIVITY LOG', right:'Today \u00b7 actions taken by this coordinator', kind:'table',
+      cols:['Time','Activity type','Course','Batch','Detail','Status'], rows:[
+      ['10:42 AM','Student Support','IC-01','B07','Doubt resolved \u2014 recorded class access',['Resolved','green']],
+      ['10:25 AM','Batch Update','IC-02','B03','Batch schedule updated for the week',['Completed','green']],
+      ['09:58 AM','Teacher Coordination','IC-11','B02','Substitute confirmed for tomorrow',['Completed','green']],
+      ['09:30 AM','Live Class Operations','IC-01','B01','Class started \u2014 monitored attendance',['Completed','green']],
+      ['09:12 AM','Administrative','\u2014','\u2014','Weekly attendance report filed',['Completed','green']]]},
+    {t:'LEAVE & REGULARIZATION', kind:'table', rowAct:'View',
+      cols:['Reference','Type','Period','Days','Reason','Balance','Status'], rows:[
+      ['LV-2041','Planned leave','16 \u2013 18 Aug 2026','3 days','Family function','8 of 18 remaining',['Approved','green']],
+      ['LV-2033','Half day','02 Aug 2026','0.5 day','Medical appointment','11 of 18 remaining',['Approved','green']],
+      ['RG-8812','Regularization','12 Aug 2026','\u2014','Missing checkout \u2014 forgot to check out','\u2014',['Pending','amber']]]},
+    {t:'ATTENDANCE ALERTS', kind:'alerts', rows:[
+      ['2 late arrivals recorded this month','14 Aug and 08 Aug \u00b7 both with reasons logged','Medium','grey'],
+      ['1 regularization pending approval','RG-8812 \u00b7 missing checkout on 12 Aug','Medium','grey'],
+      ['Overtime approaching monthly cap','5h 12m of a 6h soft cap','Informational','blue']]},
+    {t:'ATTENDANCE ACTIONS', kind:'actions', btns:[['Request Regularization'],['Apply for Leave'],['Export Attendance Report'],['Configure Activity Metrics'],['Raise Discrepancy',1]]}
   ],
   'Performance & Reports': [
     {t:'COORDINATOR PERFORMANCE SCORE', kind:'score'},
@@ -6124,126 +6227,7 @@ const C360 = {
       ['Recorded lecture completion lagging','74% against an 85% expectation','Medium','grey']]},
     {t:'PERFORMANCE ACTIONS', kind:'actions', btns:[['Generate Performance Report'],['Compare Coordinators'],['Schedule Review Meeting'],['Add Internal Note'],['Recommend Promotion'],['Flag for Improvement Plan',1]]}
   ],
-  'Ratings & Reviews': [
-    {t:'RATING SUMMARY', kind:'cards', rows:[
-      ['Overall rating','4.6','from 214 responses','#B45309'],['Student satisfaction','94%','coordination support','#15803D'],
-      ['Teacher satisfaction','4.4','18 faculty','#B45309'],['Response rate','78%','of surveyed students','#0F2A47']]},
-    {t:'RATING BREAKDOWN', right:'By dimension · last 90 days', kind:'bars', rows:[
-      ['Responsiveness','96%','#0E9384','214 responses'],
-      ['Issue resolution','88%','#0E9384','196 responses'],
-      ['Communication clarity','92%','#0E9384','214 responses'],
-      ['Schedule reliability','90%','#0E9384','214 responses']]},
-    {t:'RECENT REVIEWS', right:'Newest first', kind:'table',
-      cols:['From','Course / Batch','Rating','Comment','Date'], rows:[
-      ['Aarav Sharma','IC-01 · Batch A','5','Doubts always cleared the same day.','28 Aug 2026'],
-      ['Amit Sharma (Teacher)','IC-01','4.5','Schedules shared well in advance.','24 Aug 2026'],
-      ['Meera Nair','IC-02 · Batch B','3','Batch timing changes were communicated late.','18 Aug 2026']]},
-    {t:'REVIEW ACTIONS', kind:'actions', btns:[['Request Feedback Round'],['Export Reviews']]}
-  ],
-  'Attendance & Leave': [
-    {t:'MY ATTENDANCE KPIS', right:'This coordinator · current month', kind:'cards', rows:[
-      ['Attendance rate','96%','24 of 25 working days','#15803D'],['Present days','24','this month','#15803D'],
-      ['Late arrivals','2','avg 6 min late','#B45309'],['Early exits','1','15 min early','#B45309'],
-      ['Absent days','0','no unplanned absence','#15803D'],['Leave used','2 / 18','16 remaining','#1D4ED8'],
-      ['Avg hours per day','8h 34m','against an 8h target','#15803D'],['Overtime logged','5h 12m','this month','#0F2A47']]},
-    {t:'TODAY\u2019S ATTENDANCE', kind:'kv', rows:[
-      ['Status','Present'],['Scheduled in / out','09:00 \u2014 18:00'],['Actual in / out','08:58 \u2014 in progress'],
-      ['Late by','\u2014'],['Break time','33 min'],['Hours so far','7h 12m'],['Last activity','2 min ago']]},
-    {t:'ATTENDANCE LOG', right:'Daily record with exceptions', kind:'table', rowAct:'Correct',
-      cols:['Date','Status','Scheduled in','Actual in','Late by','Scheduled out','Actual out','Hours','Breaks','Overtime','Exception'], rows:[
-      ['2026-08-16',['Present','green'],'09:00','08:58','\u2014','18:00','18:05','8h 34m','33m','5m','\u2014'],
-      ['2026-08-15',['Present','green'],'09:00','09:02','2 min','18:00','18:14','8h 42m','48m','14m','\u2014'],
-      ['2026-08-14',['Late','amber'],'09:00','09:38','38 min','18:00','18:20','8h 12m','30m','20m','Traffic \u00b7 informed manager'],
-      ['2026-08-13',['Present','green'],'09:00','08:55','\u2014','18:00','17:45','8h 05m','40m','\u2014','Early exit approved'],
-      ['2026-08-12',['On Leave','blue'],'\u2014','\u2014','\u2014','\u2014','\u2014','\u2014','\u2014','\u2014','Planned leave LV-2041']]},
-    {t:'MY ACTIVITY SCORE', right:'Weighted across coordination responsibilities', kind:'bars', rows:[
-      ['Student Support \u2014 weight 25%','96%','#0E9384','142 doubts handled \u00b7 avg 2.4 h'],
-      ['Batch Management \u2014 weight 20%','92%','#0E9384','12 batches \u00b7 6 updates this week'],
-      ['Teacher Coordination \u2014 weight 20%','88%','#5AC0B0','18 faculty \u00b7 4 substitutions arranged'],
-      ['Live Class Operations \u2014 weight 15%','94%','#0E9384','142 classes \u00b7 93% on-time starts'],
-      ['Administrative Tasks \u2014 weight 15%','95%','#0E9384','48 reports \u00b7 all filed on time']]},
-    {t:'ACTIVITY LOG', right:'Today \u00b7 actions taken by this coordinator', kind:'table',
-      cols:['Time','Activity type','Course','Batch','Detail','Status'], rows:[
-      ['10:42 AM','Student Support','IC-01','B07','Doubt resolved \u2014 recorded class access',['Resolved','green']],
-      ['10:25 AM','Batch Update','IC-02','B03','Batch schedule updated for the week',['Completed','green']],
-      ['09:58 AM','Teacher Coordination','IC-11','B02','Substitute confirmed for tomorrow',['Completed','green']],
-      ['09:30 AM','Live Class Operations','IC-01','B01','Class started \u2014 monitored attendance',['Completed','green']],
-      ['09:12 AM','Administrative','\u2014','\u2014','Weekly attendance report filed',['Completed','green']]]},
-    {t:'LEAVE & REGULARIZATION', kind:'table', rowAct:'View',
-      cols:['Reference','Type','Period','Days','Reason','Balance','Status'], rows:[
-      ['LV-2041','Planned leave','16 \u2013 18 Aug 2026','3 days','Family function','8 of 18 remaining',['Approved','green']],
-      ['LV-2033','Half day','02 Aug 2026','0.5 day','Medical appointment','11 of 18 remaining',['Approved','green']],
-      ['RG-8812','Regularization','12 Aug 2026','\u2014','Missing checkout \u2014 forgot to check out','\u2014',['Pending','amber']]]},
-    {t:'ATTENDANCE ALERTS', kind:'alerts', rows:[
-      ['2 late arrivals recorded this month','14 Aug and 08 Aug \u00b7 both with reasons logged','Medium','grey'],
-      ['1 regularization pending approval','RG-8812 \u00b7 missing checkout on 12 Aug','Medium','grey'],
-      ['Overtime approaching monthly cap','5h 12m of a 6h soft cap','Informational','blue']]},
-    {t:'ATTENDANCE ACTIONS', kind:'actions', btns:[['Request Regularization'],['Apply for Leave'],['Export Attendance Report'],['Configure Activity Metrics'],['Raise Discrepancy',1]]}
-  ],
-  'Schedule': [
-    {t:'SCHEDULE SNAPSHOT', kind:'cards', rows:[
-      ['Classes this month','142','across 12 batches','#0F2A47'],['Completed','128','90%','#15803D'],
-      ['Upcoming','11','next 7 days','#1D4ED8'],['Cancelled','2','make-ups planned','#B42318'],
-      ['Rescheduled','3','this week','#B45309'],['No instructor','1','needs assignment','#B42318'],
-      ['Recording pending','2','beyond 24 h','#B45309'],['On-time start rate','93%','this month','#15803D']]},
-    {t:'UPCOMING & ACTIVE CLASSES', right:'Next 7 days · rescheduled sessions included', kind:'table', rowAct:'Open Class', cols:['Date','Time','Course','Batch','Teacher','Class Type','Duration','Attendance','Recording','Status'], rows:[
-      ['2026-08-16','07:00 – 09:00','IC-01','BT-101','Dr. Vikram Verma','Live class','120 min','40 / 42','Uploaded',['Completed','green']],
-      ['2026-08-16','11:00 – 12:30','IC-02','BT-204','Neha Kulkarni','Live class','90 min','32 / 35','Uploaded',['Completed','green']],
-      ['2026-08-16','14:00 – 16:00','IC-11','BT-310','Prof. Arun Mehta','Live class','120 min','—','—',['Live','green']],
-      ['2026-08-16','18:00 – 19:30','IC-02','BT-103','Amit Sharma','Doubt session','90 min','—','—',['Scheduled','blue']],
-      ['2026-08-17','07:00 – 09:00','IC-11','BT-408','—','Live class','120 min','—','—',['No instructor','red']],
-      ['2026-08-15','18:00 – 20:00','IC-01','BT-103','Ritu Bansal','Live class','120 min','34 / 38','Pending',['Recording pending','amber']]]},
-    {t:'CLASS HISTORY', right:'Completed sessions with delivery outcome', kind:'table', cols:['Date','Course','Batch','Teacher','Attendance','Recording','On time','Status'], rows:[
-      ['2026-08-15','IC-01','BT-101','Dr. Vikram Verma','40 / 42','Uploaded','Yes',['Completed','green']],
-      ['2026-08-14','IC-02','BT-204','Neha Kulkarni','32 / 35','Uploaded','Yes',['Completed','green']],
-      ['2026-08-13','IC-11','BT-310','Prof. Arun Mehta','44 / 51','Uploaded','No',['Completed','amber']],
-      ['2026-08-12','IC-01','BT-103','Ritu Bansal','34 / 38','Pending','Yes',['Recording pending','amber']]]},
-    {t:'SCHEDULE ACTIONS', kind:'actions', btns:[['Open Calendar View'],['Schedule Class'],['Reschedule'],['Assign Substitute'],['Change Teacher'],['Send Notification'],['View Recording'],['Cancel Class',1],['Mark Issue',1]]}
-  ],
-  'Finance & Payroll': [
-    {t:'PAYROLL SNAPSHOT', kind:'cards', rows:[
-      ['Monthly salary','₹42,000','fixed · 1–31 cycle','#0F2A47'],['Annual CTC','₹8.40L','revised Jul 2026','#6D28D9'],
-      ['Paid YTD','₹3,78,000','9 cycles settled','#15803D'],['Next payout','01 Sep 2026','₹42,000','#B45309']]},
-    {t:'COMPENSATION', kind:'kv', rows:[
-      ['Compensation mode','Fixed Salary'],['Monthly salary','₹42,000'],['Annual CTC','₹8,40,000'],
-      ['Payment cycle','Monthly · 1–31'],['Payment method','Bank Transfer'],
-      ['Bank account','HDFC ••••4482 · verified'],['PAN','ABCPS••••4K · verified'],
-      ['Last revision','01 Jul 2026 · +₹3,000'],['Next review','01 Jan 2027']]},
-    {t:'PAYOUT HISTORY', right:'Last 6 cycles', kind:'table',
-      cols:['Cycle','Gross','Deductions','Net','Paid on','Status'], rows:[
-      ['Aug 2026','₹42,000','₹4,200','₹37,800','—',['Pending','amber']],
-      ['Jul 2026','₹42,000','₹4,200','₹37,800','01 Aug 2026',['Paid','green']],
-      ['Jun 2026','₹39,000','₹3,900','₹35,100','01 Jul 2026',['Paid','green']],
-      ['May 2026','₹39,000','₹3,900','₹35,100','01 Jun 2026',['Paid','green']],
-      ['Apr 2026','₹39,000','₹3,900','₹35,100','01 May 2026',['Paid','green']],
-      ['Mar 2026','₹39,000','₹3,900','₹35,100','01 Apr 2026',['Paid','green']]]},
-    {t:'PAYROLL ACTIONS', kind:'actions', btns:[['Approve Pending Payout'],['Download Payslip'],['Edit Compensation'],['Hold Payout',1]]}
-  ],
-  'Tasks & Alerts': [
-    {t:'WORK QUEUE', kind:'tasks', rows:[
-      ['Assign substitute teacher','IC-11 Batch E · tomorrow 07:00','Critical','red','Today'],
-      ['Resolve student complaint','Divya Krishnan · raised 3 days ago','Critical','red','Overdue'],
-      ['Follow up with 12 low-attendance students','Below 60% across two batches','High','amber','Today'],
-      ['Review teacher absence','Ayesha Khan · 2 sessions missed','High','amber','Tomorrow'],
-      ['Approve batch transfer','Kabir Mehta · BT-103 → BT-101','Medium','grey','This week'],
-      ['Reschedule cancelled class','IC-01 Batch B · 15 Aug','Medium','grey','This week'],
-      ['Publish batch announcement','IC-02 Batch F starts 01 Sep','Low','grey','This week'],
-      ['Resolve attendance discrepancy','6 override requests pending','Medium','grey','Today']]},
-    {t:'CRITICAL ALERTS', kind:'alerts', rows:[
-      ['Teacher absent for upcoming class','IC-11 Batch E · tomorrow 07:00 · no substitute','Critical','red'],
-      ['Class without assigned teacher','IC-11 Batch E · 17 Aug','Critical','red'],
-      ['High student dropout risk','6 students in IC-11 Batch D','Critical','red']]},
-    {t:'WARNINGS', kind:'alerts', rows:[
-      ['Low attendance','12 students below 60%','High','amber'],
-      ['Low student engagement','8 students inactive 7+ days','High','amber'],
-      ['Teacher schedule conflict','Prof. Arun Mehta · 16 Aug 14:00','High','amber'],
-      ['Pending assignments','48 submissions overdue','Medium','grey']]},
-    {t:'INFORMATION', kind:'alerts', rows:[
-      ['New student enrollments','24 students added this month','Informational','blue'],
-      ['New teacher assigned','Ritu Bansal added to IC-01 Batch B','Informational','blue'],
-      ['Upcoming batch start','IC-02 Batch F begins 01 Sep','Informational','blue']]}
-  ],
-  'Communications': [
+  'Communication': [
     {t:'ENGAGEMENT', kind:'cards', rows:[
       ['SENT (90D)','54','42 outbound · 12 inbound','#0F2A47'],['OPEN RATE','88%','37 of 42 opened','#1D4ED8'],
       ['REPLY RATE','29%','12 replies received','#6D28D9'],['PREFERRED','WhatsApp','fastest response','#0F2A47']]},
@@ -6279,6 +6263,49 @@ const C360 = {
       ['Average resolution time','6 h 12 m'],['Student complaints','3 open · 1 overdue'],['Teacher issues','1 unresolved']]},
     {t:'ACTIONS', kind:'actions', btns:[['Send Batch Announcement'],['Message Student'],['Message Teacher'],['Send Bulk Notification'],['View All Tickets'],['Escalate to Admin',1]]}
   ],
+  'Tasks & Alerts': [
+    {t:'WORK QUEUE', kind:'tasks', rows:[
+      ['Assign substitute teacher','IC-11 Batch E · tomorrow 07:00','Critical','red','Today'],
+      ['Resolve student complaint','Divya Krishnan · raised 3 days ago','Critical','red','Overdue'],
+      ['Follow up with 12 low-attendance students','Below 60% across two batches','High','amber','Today'],
+      ['Review teacher absence','Ayesha Khan · 2 sessions missed','High','amber','Tomorrow'],
+      ['Approve batch transfer','Kabir Mehta · BT-103 → BT-101','Medium','grey','This week'],
+      ['Reschedule cancelled class','IC-01 Batch B · 15 Aug','Medium','grey','This week'],
+      ['Publish batch announcement','IC-02 Batch F starts 01 Sep','Low','grey','This week'],
+      ['Resolve attendance discrepancy','6 override requests pending','Medium','grey','Today']]},
+    {t:'CRITICAL ALERTS', kind:'alerts', rows:[
+      ['Teacher absent for upcoming class','IC-11 Batch E · tomorrow 07:00 · no substitute','Critical','red'],
+      ['Class without assigned teacher','IC-11 Batch E · 17 Aug','Critical','red'],
+      ['High student dropout risk','6 students in IC-11 Batch D','Critical','red']]},
+    {t:'WARNINGS', kind:'alerts', rows:[
+      ['Low attendance','12 students below 60%','High','amber'],
+      ['Low student engagement','8 students inactive 7+ days','High','amber'],
+      ['Teacher schedule conflict','Prof. Arun Mehta · 16 Aug 14:00','High','amber'],
+      ['Pending assignments','48 submissions overdue','Medium','grey']]},
+    {t:'INFORMATION', kind:'alerts', rows:[
+      ['New student enrollments','24 students added this month','Informational','blue'],
+      ['New teacher assigned','Ritu Bansal added to IC-01 Batch B','Informational','blue'],
+      ['Upcoming batch start','IC-02 Batch F begins 01 Sep','Informational','blue']]}
+  ],
+  'Logins': [
+    {t:'RECENT LOGIN ACTIVITY', right:'4 events', kind:'list', rows:[
+      {ic:'✓',c:'green',t:'Chrome · Windows 11',s:'Mumbai, IN · 103.21.58.10',right:'Yesterday',rc:'grey'},
+      {ic:'✓',c:'green',t:'StudyCrux App · Android',s:'New Delhi, IN · 49.36.12.20',right:'3d ago',rc:'grey'},
+      {ic:'✓',c:'green',t:'Safari · iPhone',s:'New Delhi, IN · 49.36.12.33',right:'6d ago',rc:'grey'},
+      {ic:'!',c:'red',t:'Failed login attempt',s:'Unknown location · 185.220.101.40',right:'10d ago',rc:'red'}]},
+    {t:'SESSION SUMMARY', kind:'kv', rows:[
+      ['Total logins (30d)','12'],['Avg session','18 min'],['Last password change','7 May 2026'],['Two-factor auth','Disabled']]},
+    {t:'ACTIONS', kind:'actions', btns:[['Reset Password'],['Export Log'],['Sign Out All Sessions',1]]}
+  ],
+  'Devices': [
+    {t:'REGISTERED DEVICES (3)', kind:'list', rows:[
+      {ic:'▤',c:'grey',t:'Windows 11 · Chrome',s:'Desktop · active Yesterday',kind:'btn',right:'Revoke',tag:'This device',tagBg:'#E7F7EE',tagFg:'#15803D'},
+      {ic:'▯',c:'grey',t:'Redmi Note 13',s:'Android · App v4.2 · active 3d ago',kind:'btn',right:'Revoke'},
+      {ic:'▯',c:'grey',t:'iPhone 14',s:'iOS · Safari · active 6d ago',kind:'btn',right:'Revoke'}]},
+    {t:'DEVICE POLICY', kind:'kv', rows:[
+      ['Max concurrent devices','2'],['Screen recording','Blocked'],['Device limit reached','Yes']]},
+    {t:'ACTIONS', kind:'actions', btns:[['Reset Device Limit'],['Notify Coordinator'],['Revoke All Devices',1]]}
+  ],
   'Documents': [
     {t:'UPLOAD DOCUMENT', kind:'upload'},
     {t:'DOCUMENT SUMMARY', kind:'cards', rows:[
@@ -6305,25 +6332,6 @@ const C360 = {
       ['Police Verification','Background','2025-03-05','HR','2026-09-30',['Expiring','amber']]]},
     {t:'DOCUMENT ACTIONS', kind:'actions', btns:[['Upload Document'],['Request Re-upload'],['Download All'],['Mark Verified'],['View Version History'],['Revoke Document',1]]}
   ],
-  'Logins': [
-    {t:'RECENT LOGIN ACTIVITY', right:'4 events', kind:'list', rows:[
-      {ic:'✓',c:'green',t:'Chrome · Windows 11',s:'Mumbai, IN · 103.21.58.10',right:'Yesterday',rc:'grey'},
-      {ic:'✓',c:'green',t:'StudyCrux App · Android',s:'New Delhi, IN · 49.36.12.20',right:'3d ago',rc:'grey'},
-      {ic:'✓',c:'green',t:'Safari · iPhone',s:'New Delhi, IN · 49.36.12.33',right:'6d ago',rc:'grey'},
-      {ic:'!',c:'red',t:'Failed login attempt',s:'Unknown location · 185.220.101.40',right:'10d ago',rc:'red'}]},
-    {t:'SESSION SUMMARY', kind:'kv', rows:[
-      ['Total logins (30d)','12'],['Avg session','18 min'],['Last password change','7 May 2026'],['Two-factor auth','Disabled']]},
-    {t:'ACTIONS', kind:'actions', btns:[['Reset Password'],['Export Log'],['Sign Out All Sessions',1]]}
-  ],
-  'Devices': [
-    {t:'REGISTERED DEVICES (3)', kind:'list', rows:[
-      {ic:'▤',c:'grey',t:'Windows 11 · Chrome',s:'Desktop · active Yesterday',kind:'btn',right:'Revoke',tag:'This device',tagBg:'#E7F7EE',tagFg:'#15803D'},
-      {ic:'▯',c:'grey',t:'Redmi Note 13',s:'Android · App v4.2 · active 3d ago',kind:'btn',right:'Revoke'},
-      {ic:'▯',c:'grey',t:'iPhone 14',s:'iOS · Safari · active 6d ago',kind:'btn',right:'Revoke'}]},
-    {t:'DEVICE POLICY', kind:'kv', rows:[
-      ['Max concurrent devices','2'],['Screen recording','Blocked'],['Device limit reached','Yes']]},
-    {t:'ACTIONS', kind:'actions', btns:[['Reset Device Limit'],['Notify Coordinator'],['Revoke All Devices',1]]}
-  ],
   'Permissions': [
     {t:'ACCESS SCOPE', kind:'scope'},
     {t:'GRANTED PERMISSIONS', kind:'permtable', rows:[
@@ -6340,15 +6348,7 @@ const C360 = {
       ['Change assigned teacher'],['Override attendance'],['Send bulk notifications'],
       ['Teacher performance reports'],['Payout access']]}
   ],
-  'Internal Notes': [
-    {t:'INTERNAL NOTES', right:'Visible to administrators only', kind:'list', rows:[
-      {ic:'★',c:'green',t:'Strongest coordinator on issue turnaround',s:'Added by Vikram Sethi · 26 Aug 2026',right:'Positive',rc:'green'},
-      {ic:'!',c:'amber',t:'Workload at 80% — avoid new batch assignments',s:'Added by Academic Ops · 20 Aug 2026',right:'Action',rc:'amber'},
-      {ic:'✎',c:'blue',t:'Interested in the Senior Coordinator track',s:'Added by Priya Bose (HR) · 12 Aug 2026',right:'Noted',rc:'blue'},
-      {ic:'✓',c:'green',t:'Completed the LMS advanced certification',s:'Added by L&D · 04 Aug 2026',right:'Closed',rc:'grey'}]},
-    {t:'NOTE ACTIONS', kind:'actions', btns:[['Add Internal Note'],['Export Notes'],['Restrict Visibility',1]]}
-  ],
-  'Activity Timeline': [
+  'Activity Log': [
     {t:'AUDIT TRAIL', right:'Immutable · every action recorded', kind:'audit', rows:[
       {when:'12 Aug · 16:20',user:'Priya Sharma',dept:'Coordination',ip:'49.36.184.22',action:'Teacher assigned',old:'—',neu:'Amit Sharma',reason:'Primary teacher confirmed for IC-01 Batch A'},
       {when:'12 Aug · 15:45',user:'Priya Sharma',dept:'Coordination',ip:'49.36.184.22',action:'Student transferred',old:'Batch B',neu:'Batch A',reason:'Timing conflict with the evening slot — Rahul Kumar'},
@@ -9757,7 +9757,7 @@ class Component extends DCLogic {
               pick: label==='Assign Batch' ? (()=>this.setState({dirMenu:null, fm:'allocate', fmCtx:{}, fmStep:0, fmErr:null}))
                 : label==='View Profile' ? (()=>this.setState({dirMenu:null, prof:c[0], profTab:'Overview'}))
                 : /^Send (Email|WhatsApp|Notification)/.test(label) ? (()=>this.setState({dirMenu:null, fm:'message', fmCtx:{who:c[0], channel:label.replace('Send ','')}, fmStep:0, fmErr:null}))
-                : label==='View Activity Log' ? (()=>this.setState({dirMenu:null, prof:c[0], profTab:'Activity Timeline'}))
+                : label==='View Activity Log' ? (()=>this.setState({dirMenu:null, prof:c[0], profTab:'Activity Log'}))
                 : label==='View Attendance' ? (()=>this.setState({dirMenu:null, prof:c[0], profTab:'Attendance & Activity'}))
                 : label==='View Students' ? (()=>this.setState({dirMenu:null, prof:c[0], profTab:'Courses & Batches'}))
                 : label==='View Schedule' ? (()=>this.setState({dirMenu:null, prof:c[0], profTab:'Schedule'}))
