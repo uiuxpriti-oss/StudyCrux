@@ -1953,45 +1953,6 @@
                     </div>
                   </sc-if>
 
-                  <sc-if value="{{ spkTabIs.coursebatch }}" hint-placeholder-val="{{ false }}">
-                    <div>
-                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
-                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
-                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">COURSE &amp; BATCH ASSIGNMENTS</span>
-                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
-                        <span style="font-size:11.5px;color:#98A2B3">Where this speaker delivers</span>
-                      </div>
-                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
-                        <div style="overflow-x:auto">
-                          <table style="width:100%;min-width:1000px;border-collapse:collapse">
-                            <thead><tr style="background:#FCFBF7">
-                              <th style="padding:11px 16px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COURSE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCH</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKER ROLE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ASSIGNED ON</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ENROLMENT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 16px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
-                            </tr></thead>
-                            <tbody>
-                              <sc-for list="{{ spkCourseBatch }}" as="r" hint-placeholder-count="5">
-                                <tr onClick="{{ r.open }}" style="cursor:pointer" style-hover="background:#FCFBF7">
-                                  <td style="padding:12px 16px;border-bottom:1px solid #F5F3EE">
-                                    <div style="font-size:13px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.course }}</div>
-                                    <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.cid }}</div>
-                                  </td>
-                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE">
-                                    <div style="font-size:12.5px;font-weight:600;color:#344054;white-space:nowrap">{{ r.batch }}</div>
-                                    <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.bid }}</div>
-                                  </td>
-                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.roleBg }};color:{{ r.roleFg }};white-space:nowrap">{{ r.role }}</span></td>
-                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.assigned }}</td>
-                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ r.enrol }}</td>
-                                  <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.status }}</span></td>
-                                  <td style="padding:12px 16px 12px 13px;border-bottom:1px solid #F5F3EE;text-align:right"><span style="font-size:11.5px;font-weight:700;color:#0B7A6E;white-space:nowrap">Open →</span></td>
-                                </tr>
-                              </sc-for>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </sc-if>
-
                   <sc-if value="{{ spkTabIs.comms }}" hint-placeholder-val="{{ false }}">
                     <div>
                       <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
@@ -2298,6 +2259,49 @@
                           </div>
                         </div>
                       </sc-if>
+
+                      <sc-if value="{{ spk_schIsCal }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                          <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #F2F0EA;background:#FCFBF7;flex-wrap:wrap">
+                            <button onClick="{{ spk_schPrev }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467;font-family:inherit" style-hover="background:#F6F5F0">
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6" /></svg>
+                            </button>
+                            <span style="font-size:14px;font-weight:800;color:#0F2A47;min-width:132px;text-align:center">{{ spk_schMonthLabel }}</span>
+                            <button onClick="{{ spk_schNext }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467;font-family:inherit" style-hover="background:#F6F5F0">
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
+                            </button>
+                            <span style="flex:1"></span>
+                            <sc-for list="{{ spk_schLegend }}" as="l" hint-placeholder-count="3">
+                              <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:{{ l.bg }}">
+                                <span style="width:6px;height:6px;border-radius:50%;background:{{ l.dot }}"></span>
+                                <span style="font-size:11px;font-weight:600;color:{{ l.fg }};white-space:nowrap">{{ l.label }}</span>
+                              </span>
+                            </sc-for>
+                          </div>
+                          <div style="padding:16px">
+                            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin-bottom:7px">
+                              <sc-for list="{{ spk_schDows }}" as="d" hint-placeholder-count="7">
+                                <div style="text-align:center;font-size:10px;font-weight:700;letter-spacing:.05em;color:#98A2B3">{{ d.d }}</div>
+                              </sc-for>
+                            </div>
+                            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px">
+                              <sc-for list="{{ spk_schCells }}" as="c" hint-placeholder-count="35">
+                                <div style="min-width:0;min-height:82px;border:1px solid {{ c.bd }};border-radius:9px;background:{{ c.bg }};padding:7px 8px">
+                                  <div style="font-size:11.5px;font-weight:{{ c.dayWeight }};color:{{ c.dayFg }}">{{ c.d }}</div>
+                                  <div style="display:flex;flex-direction:column;gap:4px;margin-top:5px">
+                                    <sc-for list="{{ c.events }}" as="ev" hint-placeholder-count="1">
+                                      <div onClick="{{ ev.open }}" style="border-radius:6px;background:{{ ev.bg }};padding:4px 6px;cursor:pointer">
+                                        <div style="font-size:9.5px;font-weight:700;color:{{ ev.fg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ ev.title }}</div>
+                                        <div style="font-size:9px;color:{{ ev.fg }};opacity:.75;white-space:nowrap">{{ ev.time }}</div>
+                                      </div>
+                                    </sc-for>
+                                  </div>
+                                </div>
+                              </sc-for>
+                            </div>
+                          </div>
+                        </div>
+                      </sc-if>
                     </div>
                   </sc-if>
 
@@ -2495,17 +2499,53 @@
       <sc-if value="{{ isAllocation }}" hint-placeholder-val="{{ false }}">
         <div>
           <sc-if value="{{ wwEvent }}" hint-placeholder-val="{{ false }}">
-            <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px">
-              <button onClick="{{ wwBack }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
-              </button>
-              <div style="min-width:0;flex:1">
-                <div style="font-size:16px;font-weight:800;color:#0F2A47">{{ wwCur.title }}</div>
-                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">{{ wwCur.type }} · {{ wwCur.date }} · {{ wwCur.time }} · Speaker: {{ wwCur.speaker }} · Coordinator: {{ wwCur.coordinator }}</div>
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:16px;overflow:hidden;margin-bottom:16px">
+              <div style="background:#0B1F3E;padding:24px 26px 26px">
+                <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+                  <div style="width:96px;height:96px;flex:none;border-radius:14px;background:{{ wwHero.tileBg }};border:3px solid rgba(255,255,255,.16);display:grid;place-items:center">
+                    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="{{ wwHero.tileFg }}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ wwHero.tilePath }}" /></svg>
+                  </div>
+                  <div style="min-width:0;flex:1 1 320px">
+                    <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:9px">
+                      <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:4px 10px;border-radius:999px;background:{{ wwHero.typeBg }};color:{{ wwHero.typeFg }};white-space:nowrap">{{ wwHero.typeLabel }}</span>
+                      <sc-if value="{{ wwHero.featured }}" hint-placeholder-val="{{ false }}">
+                        <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:4px 10px;border-radius:999px;background:#3A2A12;color:#F0C078;white-space:nowrap">FEATURED</span>
+                      </sc-if>
+                      <span style="display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:999px;background:{{ wwHero.stBg }};color:{{ wwHero.stFg }};white-space:nowrap">
+                        <span style="width:6px;height:6px;border-radius:50%;background:{{ wwHero.stDot }};animation:{{ wwHero.stAnim }}"></span>{{ wwCur.status }}
+                      </span>
+                    </div>
+                    <div style="font-size:26px;font-weight:800;color:#fff;letter-spacing:-.025em;line-height:1.2;text-wrap:pretty">{{ wwCur.title }}</div>
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:11px">
+                      <sc-for list="{{ wwHero.meta }}" as="m" hint-placeholder-count="5">
+                        <span style="display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:#C7D3E3;white-space:nowrap">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7E96B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="{{ m.path }}" /></svg>{{ m.v }}
+                        </span>
+                      </sc-for>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:13px">
+                      <sc-for list="{{ wwHero.people }}" as="p" hint-placeholder-count="2">
+                        <button onClick="{{ p.go }}" style="display:flex;align-items:center;gap:9px;padding:6px 13px 6px 6px;border-radius:999px;border:1px solid #28456C;background:#122C50;cursor:pointer;font-family:inherit" style-hover="background:#14335C;border-color:#3A5A88">
+                          <span style="width:26px;height:26px;flex:none;border-radius:50%;background:{{ p.avBg }};display:grid;place-items:center;font-size:10.5px;font-weight:800;color:#fff">{{ p.init }}</span>
+                          <span style="min-width:0;text-align:left">
+                            <span style="display:block;font-size:9.5px;font-weight:700;letter-spacing:.05em;color:#7E96B8">{{ p.role }}</span>
+                            <span style="display:block;font-size:12px;font-weight:600;color:#fff;white-space:nowrap">{{ p.name }}</span>
+                          </span>
+                        </button>
+                      </sc-for>
+                    </div>
+                  </div>
+
+                  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;flex:none;width:310px;align-content:start">
+                    <sc-for list="{{ wwHeroActions }}" as="a" hint-placeholder-count="6">
+                      <button onClick="{{ a.go }}" style="grid-column:{{ a.span }};display:flex;align-items:center;justify-content:center;gap:7px;height:36px;padding:0 13px;border-radius:9px;border:1px solid {{ a.border }};background:{{ a.bg }};font-size:12.5px;font-weight:{{ a.weight }};color:{{ a.fg }};cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:{{ a.hbg }}">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="{{ a.path }}" /></svg>{{ a.label }}
+                      </button>
+                    </sc-for>
+                  </div>
+                </div>
               </div>
-              <span style="font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:999px;background:{{ wwCur.bg }};color:{{ wwCur.fg }}">{{ wwCur.status }}</span>
-              <button onClick="{{ wwReschedule }}" style="height:36px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Reschedule</button>
-              <button onClick="{{ wwCancel }}" style="height:36px;padding:0 14px;border-radius:9px;border:1px solid #F0D2CF;background:#fff;font-size:12.5px;font-weight:600;color:#B42318;cursor:pointer">Cancel</button>
+
             </div>
 
             <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
@@ -5971,6 +6011,205 @@
             </div>
           </sc-if>
 
+          <sc-if value="{{ poTabIs.speakers }}" hint-placeholder-val="{{ false }}">
+            <div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-bottom:16px">
+              <sc-for list="{{ poSpkKpis }}" as="k" hint-placeholder-count="6">
+                <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 16px">
+                  <div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">{{ k.label }}</div>
+                  <div style="font-size:22px;font-weight:800;letter-spacing:-.03em;color:{{ k.fg }};margin-top:6px">{{ k.v }}</div>
+                  <div style="font-size:11px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Speaker payout register</div>
+                  <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Payment model, banking, tax details and lifetime settlement per speaker</div>
+                </div>
+                <div style="overflow-x:auto">
+                  <table style="width:100%;min-width:1180px;border-collapse:collapse">
+                    <thead><tr style="background:#FCFBF7">
+                      <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKER</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PAYMENT MODEL</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BANK ACCOUNT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PAN</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EVENTS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">GROSS PAID</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TDS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">NET PAID</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TERMS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                    </tr></thead>
+                    <tbody>
+                      <sc-for list="{{ poSpkRows }}" as="r" hint-placeholder-count="6">
+                        <tr onClick="{{ r.open }}" style="background:{{ r.rowBg }};cursor:pointer" style-hover="background:#F7FBFA">
+                          <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE">
+                            <div style="font-size:13px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.name }}</div>
+                            <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.id }}</div>
+                          </td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.model }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap;font-family:ui-monospace,monospace">{{ r.bank }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap;font-family:ui-monospace,monospace">{{ r.pan }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ r.events }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.gross }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.tds }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ r.net }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.terms }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.status }}</span></td>
+                          <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right"><span style="font-size:11.5px;font-weight:700;color:#0B7A6E;white-space:nowrap">Open →</span></td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ poTabIs.events }}" hint-placeholder-val="{{ false }}">
+            <div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-bottom:16px">
+              <sc-for list="{{ poEvKpis }}" as="k" hint-placeholder-count="6">
+                <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 16px">
+                  <div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">{{ k.label }}</div>
+                  <div style="font-size:22px;font-weight:800;letter-spacing:-.03em;color:{{ k.fg }};margin-top:6px">{{ k.v }}</div>
+                  <div style="font-size:11px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Event payouts</div>
+                  <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">One row per event engagement — fee, attendance bonus, TDS and net payable</div>
+                </div>
+                <div style="overflow-x:auto">
+                  <table style="width:100%;min-width:1240px;border-collapse:collapse">
+                    <thead><tr style="background:#FCFBF7">
+                      <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PAYOUT ID</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EVENT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKER</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">FORMAT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EVENT DATE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ATTENDEES</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BASE FEE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BONUS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">GROSS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TDS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">NET</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                    </tr></thead>
+                    <tbody>
+                      <sc-for list="{{ poEvRows }}" as="r" hint-placeholder-count="7">
+                        <tr onClick="{{ r.open }}" style="background:{{ r.rowBg }};cursor:pointer" style-hover="background:#F7FBFA">
+                          <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE;font-size:11px;font-weight:700;color:#0F2A47;white-space:nowrap;font-family:ui-monospace,monospace">{{ r.id }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.event }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.speaker }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.type }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.date }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ r.attendees }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.fee }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.bonus }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.gross }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.tds }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ r.net }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.status }}</span></td>
+                          <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right"><span style="font-size:11.5px;font-weight:700;color:#0B7A6E;white-space:nowrap">Open →</span></td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ poTabIs.revshare }}" hint-placeholder-val="{{ false }}">
+            <div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-bottom:16px">
+              <sc-for list="{{ poRsKpis }}" as="k" hint-placeholder-count="6">
+                <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 16px">
+                  <div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">{{ k.label }}</div>
+                  <div style="font-size:22px;font-weight:800;letter-spacing:-.03em;color:{{ k.fg }};margin-top:6px">{{ k.v }}</div>
+                  <div style="font-size:11px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Revenue share</div>
+                  <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Recorded-product revenue attributed to a speaker, and the share earned against it</div>
+                </div>
+                <div style="overflow-x:auto">
+                  <table style="width:100%;min-width:1180px;border-collapse:collapse">
+                    <thead><tr style="background:#FCFBF7">
+                      <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SHARE ID</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKER</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PRODUCT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SHARE RATE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LEARNERS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COURSE REVENUE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SHARE EARNED</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TDS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">NET</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PERIOD</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                    </tr></thead>
+                    <tbody>
+                      <sc-for list="{{ poRsRows }}" as="r" hint-placeholder-count="5">
+                        <tr onClick="{{ r.open }}" style="background:{{ r.rowBg }};cursor:pointer" style-hover="background:#F7FBFA">
+                          <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE;font-size:11px;font-weight:700;color:#0F2A47;white-space:nowrap;font-family:ui-monospace,monospace">{{ r.id }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.speaker }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.product }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#F0EAFD;color:#6D28D9;white-space:nowrap">{{ r.rate }}</span></td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ r.learners }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.revenue }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ r.share }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.tds }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ r.net }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.period }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.status }}</span></td>
+                          <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right"><span style="font-size:11.5px;font-weight:700;color:#0B7A6E;white-space:nowrap">Open →</span></td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ poTabIs.payslips }}" hint-placeholder-val="{{ false }}">
+            <div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-bottom:16px">
+              <sc-for list="{{ poPsKpis }}" as="k" hint-placeholder-count="6">
+                <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 16px">
+                  <div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">{{ k.label }}</div>
+                  <div style="font-size:22px;font-weight:800;letter-spacing:-.03em;color:{{ k.fg }};margin-top:6px">{{ k.v }}</div>
+                  <div style="font-size:11px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Payslips</div>
+                  <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">One statement per speaker per cycle — downloadable once the cycle closes</div>
+                </div>
+                <div style="overflow-x:auto">
+                  <table style="width:100%;min-width:960px;border-collapse:collapse">
+                    <thead><tr style="background:#FCFBF7">
+                      <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PAYSLIP ID</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKER</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKER ID</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PERIOD</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EVENTS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">GROSS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TDS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">NET</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                    </tr></thead>
+                    <tbody>
+                      <sc-for list="{{ poPsRows }}" as="r" hint-placeholder-count="6">
+                        <tr style="background:{{ r.rowBg }}" style-hover="background:#F7FBFA">
+                          <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE;font-size:11px;font-weight:700;color:#0F2A47;white-space:nowrap;font-family:ui-monospace,monospace">{{ r.id }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.speaker }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap;font-family:ui-monospace,monospace">{{ r.spkId }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.period }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ r.events }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.gross }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.tds }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ r.net }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.status }}</span></td>
+                          <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
+                            <button onClick="{{ r.go }}" style="height:29px;padding:0 12px;border-radius:8px;border:{{ r.actBd }};background:{{ r.actBg }};font-size:11.5px;font-weight:700;color:{{ r.actFg }};cursor:pointer;font-family:inherit;white-space:nowrap">{{ r.actLabel }}</button>
+                          </td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ poTabIs.recon }}" hint-placeholder-val="{{ false }}">
+            <div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-bottom:16px">
+              <sc-for list="{{ poRcKpis }}" as="k" hint-placeholder-count="6">
+                <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 16px">
+                  <div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">{{ k.label }}</div>
+                  <div style="font-size:22px;font-weight:800;letter-spacing:-.03em;color:{{ k.fg }};margin-top:6px">{{ k.v }}</div>
+                  <div style="font-size:11px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Bank reconciliation</div>
+                  <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Ledger total against the bank statement for every disbursement cycle</div>
+                </div>
+                <div style="overflow-x:auto">
+                  <table style="width:100%;min-width:1040px;border-collapse:collapse">
+                    <thead><tr style="background:#FCFBF7">
+                      <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RECON ID</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">CYCLE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BANK</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">DISBURSED ON</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TRANSACTIONS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LEDGER TOTAL</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATEMENT TOTAL</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">VARIANCE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                    </tr></thead>
+                    <tbody>
+                      <sc-for list="{{ poRcRows }}" as="r" hint-placeholder-count="5">
+                        <tr style="background:{{ r.rowBg }}" style-hover="background:#F7FBFA">
+                          <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE;font-size:11px;font-weight:700;color:#0F2A47;white-space:nowrap;font-family:ui-monospace,monospace">{{ r.id }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.cycle }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.bank }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.date }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47;white-space:nowrap">{{ r.txns }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.ledger }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.statement }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:{{ r.varFg }};white-space:nowrap">{{ r.variance }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.status }}</span></td>
+                          <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
+                            <button onClick="{{ r.go }}" style="height:29px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Open</button>
+                          </td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
           <sc-if value="{{ poTabIs.batches }}" hint-placeholder-val="{{ false }}">
             <div>
               <button onClick="{{ poCreateBatch }}" style="height:37px;padding:0 14px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;margin-bottom:14px">+ Create Payout Batch</button>
@@ -6392,11 +6631,45 @@
                   <div>
                     <div style="font-size:15px;font-weight:700;color:#0F2A47;margin-bottom:4px">Expertise &amp; subjects</div>
                     <div style="font-size:12.5px;color:#6B7C93;margin-bottom:20px">Used to match this speaker to relevant webinars and workshops.</div>
+
                     <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Primary area of expertise *</label>
-                    <input value="{{ form.exp }}" onChange="{{ setExp }}" placeholder="e.g. Insurance &amp; Risk, Claims &amp; Underwriting" style="width:100%;height:40px;border:1px solid {{ expBorder }};border-radius:9px;font-size:13.5px;padding:0 12px;outline:0;box-sizing:border-box" />
+                    <input value="{{ form.exp }}" onChange="{{ setExp }}" placeholder="e.g. Insurance &amp; Risk, Claims &amp; Underwriting" style="width:100%;height:40px;border:1px solid {{ expBorder }};border-radius:9px;font-size:13.5px;padding:0 12px;outline:0;box-sizing:border-box;font-family:inherit" />
                     <div style="display:{{ errExpDisplay }};font-size:11.5px;color:#D92D20;margin-top:6px">{{ errExp }}</div>
-                    <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin:16px 0 7px">Years of experience</label>
-                    <input value="{{ form.yrs }}" onChange="{{ setYrs }}" placeholder="e.g. 9" style="width:200px;height:40px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;padding:0 12px;outline:0;box-sizing:border-box" />
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px">
+                      <div><label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Years of experience</label><input value="{{ form.yrs }}" onChange="{{ setYrs }}" placeholder="e.g. 14" style="width:100%;height:40px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;padding:0 12px;outline:0;box-sizing:border-box;font-family:inherit" /></div>
+                      <div><label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Audience level</label><select value="{{ form.level }}" onChange="{{ setLevel }}" style="width:100%;height:40px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;padding:0 11px;outline:0;background:#fff;color:#0F2A47;font-family:inherit"><sc-for list="{{ levelOpts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for></select></div>
+                      <div><label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Current designation</label><input value="{{ form.designation }}" onChange="{{ setDesignation }}" placeholder="e.g. Claims Head" style="width:100%;height:40px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;padding:0 12px;outline:0;box-sizing:border-box;font-family:inherit" /></div>
+                      <div><label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Organization</label><input value="{{ form.org }}" onChange="{{ setOrg }}" placeholder="e.g. HDFC Ergo General Insurance" style="width:100%;height:40px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;padding:0 12px;outline:0;box-sizing:border-box;font-family:inherit" /></div>
+                    </div>
+
+                    <div style="margin-top:18px">
+                      <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Session formats this speaker can deliver</label>
+                      <div style="display:flex;gap:8px;flex-wrap:wrap">
+                        <sc-for list="{{ formatChips }}" as="c" hint-placeholder-count="5">
+                          <button onClick="{{ c.pick }}" style="height:34px;padding:0 14px;border-radius:999px;border:1.5px solid {{ c.border }};background:{{ c.bg }};font-size:12.5px;font-weight:{{ c.weight }};color:{{ c.fg }};cursor:pointer;font-family:inherit;white-space:nowrap">{{ c.label }}</button>
+                        </sc-for>
+                      </div>
+                    </div>
+
+                    <div style="margin-top:18px">
+                      <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Languages</label>
+                      <div style="display:flex;gap:8px;flex-wrap:wrap">
+                        <sc-for list="{{ langChips }}" as="c" hint-placeholder-count="5">
+                          <button onClick="{{ c.pick }}" style="height:34px;padding:0 14px;border-radius:999px;border:1.5px solid {{ c.border }};background:{{ c.bg }};font-size:12.5px;font-weight:{{ c.weight }};color:{{ c.fg }};cursor:pointer;font-family:inherit;white-space:nowrap">{{ c.label }}</button>
+                        </sc-for>
+                      </div>
+                    </div>
+
+                    <div style="margin-top:18px">
+                      <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Short bio</label>
+                      <textarea value="{{ form.bio }}" onChange="{{ setBio }}" placeholder="One or two lines used on the event landing page" style="width:100%;min-height:84px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;padding:11px 12px;outline:0;box-sizing:border-box;font-family:inherit;resize:vertical"></textarea>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px">
+                      <div><label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">LinkedIn URL</label><input value="{{ form.linkedin }}" onChange="{{ setLinkedin }}" placeholder="linkedin.com/in/username" style="width:100%;height:40px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;padding:0 12px;outline:0;box-sizing:border-box;font-family:inherit" /></div>
+                      <div><label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Engagement model</label><select value="{{ form.model }}" onChange="{{ setModel }}" style="width:100%;height:40px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;padding:0 11px;outline:0;background:#fff;color:#0F2A47;font-family:inherit"><sc-for list="{{ modelOpts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for></select></div>
+                    </div>
                   </div>
                 </sc-if>
 
@@ -6404,13 +6677,18 @@
                   <div>
                     <div style="font-size:15px;font-weight:700;color:#0F2A47;margin-bottom:4px">Documents</div>
                     <div style="font-size:12.5px;color:#6B7C93;margin-bottom:20px">Optional at creation — the speaker can upload these during onboarding. Verification stays blocked until required documents are received.</div>
-                    <sc-for list="{{ [{d:'Resume / CV'},{d:'Photo ID (Aadhaar / Passport)'},{d:'Professional credentials'},{d:'Bank details'},{d:'Signed speaker agreement'}] }}" as="doc" hint-placeholder-count="5">
-                      <div style="display:flex;align-items:center;gap:13px;padding:13px 15px;border:1px dashed #E5E3DC;border-radius:10px;margin-bottom:10px">
-                        <span style="font-size:17px">📄</span>
-                        <span style="flex:1;font-size:13px;color:#344054">{{ doc.d }}</span>
-                        <button onClick="{{ saveDraft }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer">Upload</button>
+                    <sc-for list="{{ docSlots }}" as="doc" hint-placeholder-count="5">
+                      <div style="display:flex;align-items:center;gap:13px;padding:13px 15px;border:1px {{ doc.borderStyle }} {{ doc.borderColor }};border-radius:10px;margin-bottom:10px;background:{{ doc.bg }}">
+                        <span style="width:32px;height:32px;flex:none;border-radius:9px;background:{{ doc.iBg }};color:{{ doc.iFg }};display:grid;place-items:center;font-size:9.5px;font-weight:800">{{ doc.ext }}</span>
+                        <div style="flex:1;min-width:0">
+                          <div style="font-size:13px;font-weight:600;color:#0F2A47">{{ doc.d }}</div>
+                          <div style="font-size:11px;color:#98A2B3;margin-top:2px">{{ doc.note }}</div>
+                        </div>
+                        <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ doc.tagBg }};color:{{ doc.tagFg }};white-space:nowrap;flex:none">{{ doc.tag }}</span>
+                        <button onClick="{{ doc.upload }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid {{ doc.btnBd }};background:{{ doc.btnBg }};font-size:12px;font-weight:600;color:{{ doc.btnFg }};cursor:pointer;font-family:inherit;white-space:nowrap;flex:none" style-hover="background:#F6F5F0">{{ doc.btnLabel }}</button>
                       </div>
                     </sc-for>
+                    <div style="padding:12px 14px;border-radius:10px;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;margin-top:4px;text-wrap:pretty">{{ docNote }}</div>
                   </div>
                 </sc-if>
 
@@ -6418,13 +6696,20 @@
                   <div>
                     <div style="font-size:15px;font-weight:700;color:#0F2A47;margin-bottom:4px">Review</div>
                     <div style="font-size:12.5px;color:#6B7C93;margin-bottom:20px">Confirm the details below. A verification checklist is generated automatically on creation.</div>
-                    <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
-                      <div style="display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #F7F5F0"><span style="font-size:12.5px;color:#7A8699">Full name</span><span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ form.name }}</span></div>
-                      <div style="display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #F7F5F0"><span style="font-size:12.5px;color:#7A8699">Email</span><span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ form.email }}</span></div>
-                      <div style="display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #F7F5F0"><span style="font-size:12.5px;color:#7A8699">Phone</span><span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ form.phone }}</span></div>
-                      <div style="display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #F7F5F0"><span style="font-size:12.5px;color:#7A8699">Expertise</span><span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ form.exp }}</span></div>
-                      <div style="display:flex;justify-content:space-between;padding:11px 16px"><span style="font-size:12.5px;color:#7A8699">Experience</span><span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ form.yrs }} yrs</span></div>
-                    </div>
+                    <sc-for list="{{ reviewGroups }}" as="g" hint-placeholder-count="3">
+                      <div style="margin-bottom:16px">
+                        <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#98A2B3;margin-bottom:8px">{{ g.title }}</div>
+                        <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                          <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="5">
+                            <div style="display:flex;justify-content:space-between;gap:16px;padding:11px 16px;border-bottom:1px solid #F7F5F0;background:{{ r.rowBg }}">
+                              <span style="font-size:12.5px;color:#7A8699;flex:none">{{ r.k }}</span>
+                              <span style="font-size:12.5px;font-weight:600;color:{{ r.fg }};min-width:0;text-align:right;text-wrap:pretty">{{ r.v }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </div>
+                    </sc-for>
+                    <div style="padding:12px 14px;border-radius:10px;background:#FEF3E2;border:1px solid #F5DFC0;font-size:12px;font-weight:600;color:#B45309;text-wrap:pretty">{{ reviewNote }}</div>
                   </div>
                 </sc-if>
 
@@ -6945,6 +7230,45 @@
       <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
         <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
         <button onClick="{{ qmSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit">Publish Answer</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mEvFlow }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:580px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
+      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47">{{ evTitle }}</h3>
+          <p style="margin:5px 0 0;font-size:13px;color:#6B7C93;text-wrap:pretty">{{ evSub }}</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div style="padding:20px 24px">
+        <sc-for list="{{ evFields }}" as="f" hint-placeholder-count="5">
+          <div style="margin-bottom:14px">
+            <label style="display:block;font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">{{ f.label }}</label>
+            <sc-if value="{{ f.isSelect }}" hint-placeholder-val="{{ true }}">
+              <select value="{{ f.value }}" onChange="{{ f.set }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+                <sc-for list="{{ f.opts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+              </select>
+            </sc-if>
+            <sc-if value="{{ f.isText }}" hint-placeholder-val="{{ false }}">
+              <input value="{{ f.value }}" onChange="{{ f.set }}" style="width:100%;height:40px;padding:0 13px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit;box-sizing:border-box" />
+            </sc-if>
+            <sc-if value="{{ f.isArea }}" hint-placeholder-val="{{ false }}">
+              <textarea value="{{ f.value }}" onChange="{{ f.set }}" placeholder="{{ f.ph }}" style="width:100%;min-height:92px;padding:11px 13px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit;resize:vertical;box-sizing:border-box"></textarea>
+            </sc-if>
+            <div style="display:{{ f.hintShow }};font-size:11.5px;color:#98A2B3;margin-top:6px;text-wrap:pretty">{{ f.hint }}</div>
+          </div>
+        </sc-for>
+        <div style="padding:12px 14px;border-radius:10px;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;text-wrap:pretty">{{ evInfo }}</div>
+        <div style="display:{{ evErrShow }};padding:11px 14px;border-radius:9px;background:#FDE8E8;color:#B42318;font-size:12.5px;font-weight:600;margin-top:12px">{{ evErr }}</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ closeModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Cancel</button>
+        <button onClick="{{ evSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:{{ evBtnBg }};font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit" style-hover="background:{{ evBtnHbg }}">{{ evBtn }}</button>
       </div>
     </div>
   </sc-if>
@@ -8950,11 +9274,144 @@ class Component extends DCLogic {
         {label:'Average Payout',n:inr(Math.round(sum(TX,'net')/Math.max(1,TX.length))),note:'per speaker this cycle',fg:'#6B7C93'},
         {label:'Outstanding',n:inr(sum(TX.filter(t=>t.status==='Pending Approval'||t.status==='Failed'),'net')),note:'overdue beyond due date',fg:'#B45309'}
       ],
-      poTabs: [['overview','Overview'],['transactions','Payout Transactions'],['batches','Payout Batches'],['adjustments','Adjustments'],['invoices','Invoices'],['failed','Failed Payments'],['disputes','Disputes'],['settings','Settings']].map(([k,label])=>({
+      ...(()=>{
+        const money = (n)=> n>=100000 ? '₹'+(n/100000).toFixed(2)+'L' : '₹'+n.toLocaleString('en-IN');
+
+        // ---- Speakers ledger ----
+        const SPK = [
+          ['Ananya Deshmukh','SPK-0104','Per Event','HDFC ••••4482','ABCPV••••2K',5,112000,11200,100800,'Net-15','Active','green'],
+          ['Prof. Arun Mehta','SPK-0088','Per Event + Rev Share','ICICI ••••7719','AEMPM••••8L',4,96000,9600,86400,'Net-15','Active','green'],
+          ['Neha Kulkarni','SPK-0121','Per Event','SBI ••••3304','BKNPK••••4R',3,54000,5400,48600,'Net-15','Active','green'],
+          ['Ritu Bansal','SPK-0136','Revenue Share','Axis ••••9902','CRTPB••••1M',2,38400,3840,34560,'Net-30','Active','green'],
+          ['Ayesha Khan','SPK-0147','Per Event','HDFC ••••2261','DKLPA••••7J',2,30000,3000,27000,'Net-15','On hold','amber'],
+          ['Karan Bhatt','SPK-0158','Per Event','Kotak ••••5580','EFGPK••••3N',1,15000,1500,13500,'Net-15','Pending KYC','red']
+        ];
+
+        // ---- Event payouts ----
+        const EV = [
+          ['EVP-4101','IC-11 Industry Masterclass','Ananya Deshmukh','Masterclass','26 Aug 2026',412,25000,0,25000,2500,22500,'Pending Approval','amber'],
+          ['EVP-4098','Insurance Career Masterclass','Ananya Deshmukh','Webinar','17 Aug 2026',386,22000,2000,24000,2400,21600,'Paid','green'],
+          ['EVP-4094','Claims Handling Workshop','Prof. Arun Mehta','Workshop','04 Aug 2026',298,18000,0,18000,1800,16200,'Paid','green'],
+          ['EVP-4090','Underwriting Fundamentals','Neha Kulkarni','Webinar','20 Jul 2026',214,15000,0,15000,1500,13500,'Paid','green'],
+          ['EVP-4086','Regulatory Update Panel','Prof. Arun Mehta','Panel Discussion','07 Jul 2026',162,12000,0,12000,1200,10800,'Paid','green'],
+          ['EVP-4082','Health Insurance Deep-Dive','Ritu Bansal','Workshop','12 Jun 2026',188,20000,1500,21500,2150,19350,'Paid','green'],
+          ['EVP-4078','Risk Assessment Deep-Dive','Ayesha Khan','Masterclass','22 Sep 2026',0,15000,0,15000,1500,13500,'Scheduled','blue']
+        ];
+
+        // ---- Revenue share ----
+        const RS = [
+          ['RS-2041','Prof. Arun Mehta','Claims Masterclass — Recorded','30%',142,284000,85200,8520,76680,'Aug 2026','Paid','green'],
+          ['RS-2038','Ritu Bansal','IC-11 Revision Recordings','25%',184,248000,62000,6200,55800,'Aug 2026','Approved','blue'],
+          ['RS-2034','Prof. Arun Mehta','Claims Masterclass — Recorded','30%',128,256000,76800,7680,69120,'Jul 2026','Paid','green'],
+          ['RS-2029','Ritu Bansal','IC-11 Revision Recordings','25%',166,224000,56000,5600,50400,'Jul 2026','Paid','green'],
+          ['RS-2024','Neha Kulkarni','Underwriting Fundamentals','20%',96,192000,38400,3840,34560,'Jun 2026','Paid','green']
+        ];
+
+        // ---- Payslips ----
+        const PS = [
+          ['PSL-8841','Ananya Deshmukh','SPK-0104','Aug 2026',2,47000,4700,42300,'Generated','green'],
+          ['PSL-8838','Prof. Arun Mehta','SPK-0088','Aug 2026',3,103200,10320,92880,'Generated','green'],
+          ['PSL-8835','Neha Kulkarni','SPK-0121','Aug 2026',1,15000,1500,13500,'Generated','green'],
+          ['PSL-8832','Ritu Bansal','SPK-0136','Aug 2026',2,82000,8200,73800,'Generated','green'],
+          ['PSL-8829','Ayesha Khan','SPK-0147','Aug 2026',1,15000,1500,13500,'Pending','amber'],
+          ['PSL-8826','Karan Bhatt','SPK-0158','Jul 2026',1,15000,1500,13500,'Generated','green']
+        ];
+
+        // ---- Reconciliation ----
+        const RC = [
+          ['REC-1204','Aug 2026 · Cycle 2','HDFC Corporate','26 Aug 2026',18,342000,342000,0,'Matched','green'],
+          ['REC-1201','Aug 2026 · Cycle 1','HDFC Corporate','12 Aug 2026',14,268000,268000,0,'Matched','green'],
+          ['REC-1198','Jul 2026 · Cycle 2','HDFC Corporate','28 Jul 2026',16,296000,281000,15000,'Variance','amber'],
+          ['REC-1195','Jul 2026 · Cycle 1','HDFC Corporate','14 Jul 2026',12,224000,224000,0,'Matched','green'],
+          ['REC-1192','Jun 2026 · Cycle 2','HDFC Corporate','27 Jun 2026',15,258000,258000,0,'Matched','green']
+        ];
+
+        const R = (c)=>({sBg:BDG2[c][0], sFg:BDG2[c][1]});
+
+        return {
+          // Speakers
+          poSpkKpis: [
+            {label:'PAYABLE SPEAKERS', v:String(SPK.length), note:'on the payout register', fg:'#0F2A47'},
+            {label:'LIFETIME PAID', v:money(SPK.reduce((n,r)=>n+r[8],0)), note:'net of TDS', fg:'#15803D'},
+            {label:'TDS WITHHELD', v:money(SPK.reduce((n,r)=>n+r[7],0)), note:'10% u/s 194J', fg:'#0F2A47'},
+            {label:'ON HOLD', v:String(SPK.filter(r=>r[10]!=='Active').length), note:'blocked from disbursement', fg:'#B45309'}
+          ],
+          poSpkRows: SPK.map(([name,id,model,bank,pan,events,gross,tds,net,terms,status,c],i)=>({
+            name, id, model, bank, pan, events:String(events),
+            gross:money(gross), tds:money(tds), net:money(net), terms, status, ...R(c),
+            rowBg: i%2 ? '#FCFBF7' : '#fff',
+            open:()=>this.fire('Opened payout profile — '+name, id+' · '+model+' · '+money(net)+' net paid', true)})),
+
+          // Event payouts
+          poEvKpis: [
+            {label:'EVENT PAYOUTS', v:String(EV.length), note:'across 6 speakers', fg:'#0F2A47'},
+            {label:'PAID', v:money(EV.filter(r=>r[11]==='Paid').reduce((n,r)=>n+r[10],0)), note:EV.filter(r=>r[11]==='Paid').length+' settled', fg:'#15803D'},
+            {label:'PENDING APPROVAL', v:money(EV.filter(r=>r[11]==='Pending Approval').reduce((n,r)=>n+r[10],0)), note:'awaiting finance sign-off', fg:'#B45309'},
+            {label:'SCHEDULED', v:money(EV.filter(r=>r[11]==='Scheduled').reduce((n,r)=>n+r[10],0)), note:'future events', fg:'#1D4ED8'},
+            {label:'AVG PER EVENT', v:money(Math.round(EV.reduce((n,r)=>n+r[8],0)/EV.length)), note:'gross fee', fg:'#6D28D9'},
+            {label:'BONUSES PAID', v:money(EV.reduce((n,r)=>n+r[7],0)), note:'attendance incentives', fg:'#15803D'}
+          ],
+          poEvRows: EV.map(([id,event,speaker,type,date,attendees,fee,bonus,gross,tds,net,status,c],i)=>({
+            id, event, speaker, type, date, attendees:String(attendees),
+            fee:money(fee), bonus: bonus ? money(bonus) : '—',
+            gross:money(gross), tds:money(tds), net:money(net), status, ...R(c),
+            rowBg: i%2 ? '#FCFBF7' : '#fff',
+            open:()=>this.fire('Opened — '+id, event+' · '+speaker+' · '+money(net)+' net', true)})),
+
+          // Revenue share
+          poRsKpis: [
+            {label:'REVENUE-SHARE SPEAKERS', v:'3', note:'on share agreements', fg:'#0F2A47'},
+            {label:'COURSE REVENUE', v:money(RS.reduce((n,r)=>n+r[5],0)), note:'gross, attributed', fg:'#0F2A47'},
+            {label:'SHARE EARNED', v:money(RS.reduce((n,r)=>n+r[6],0)), note:'before TDS', fg:'#6D28D9'},
+            {label:'SHARE PAID', v:money(RS.filter(r=>r[10]==='Paid').reduce((n,r)=>n+r[8],0)), note:'net of TDS', fg:'#15803D'},
+            {label:'PENDING', v:money(RS.filter(r=>r[10]!=='Paid').reduce((n,r)=>n+r[8],0)), note:'approved, not disbursed', fg:'#B45309'},
+            {label:'AVG SHARE RATE', v:'26%', note:'weighted by revenue', fg:'#0B7A6E'}
+          ],
+          poRsRows: RS.map(([id,speaker,product,rate,learners,revenue,share,tds,net,period,status,c],i)=>({
+            id, speaker, product, rate, learners:String(learners),
+            revenue:money(revenue), share:money(share), tds:money(tds), net:money(net), period, status, ...R(c),
+            rowBg: i%2 ? '#FCFBF7' : '#fff',
+            open:()=>this.fire('Opened — '+id, product+' · '+rate+' of '+money(revenue)+' = '+money(share), true)})),
+
+          // Payslips
+          poPsKpis: [
+            {label:'PAYSLIPS', v:String(PS.length), note:'last two cycles', fg:'#0F2A47'},
+            {label:'GENERATED', v:String(PS.filter(r=>r[8]==='Generated').length), note:'available to download', fg:'#15803D'},
+            {label:'PENDING', v:String(PS.filter(r=>r[8]!=='Generated').length), note:'awaiting cycle close', fg:'#B45309'},
+            {label:'TOTAL NET', v:money(PS.reduce((n,r)=>n+r[7],0)), note:'across all payslips', fg:'#0F2A47'}
+          ],
+          poPsRows: PS.map(([id,speaker,spkId,period,events,gross,tds,net,status,c],i)=>({
+            id, speaker, spkId, period, events:String(events),
+            gross:money(gross), tds:money(tds), net:money(net), status, ...R(c),
+            rowBg: i%2 ? '#FCFBF7' : '#fff',
+            actLabel: status==='Generated' ? 'Download' : 'Generate',
+            actBd: status==='Generated' ? '1px solid #E5E3DC' : '0',
+            actBg: status==='Generated' ? '#fff' : '#0E9384',
+            actFg: status==='Generated' ? '#344054' : '#fff',
+            go:()=>this.fire((status==='Generated'?'Downloading ':'Generating ')+id, speaker+' · '+period+' · '+money(net)+' net', true)})),
+
+          // Reconciliation
+          poRcKpis: [
+            {label:'CYCLES RECONCILED', v:String(RC.filter(r=>r[8]==='Matched').length)+' / '+RC.length, note:'bank vs ledger', fg:'#15803D'},
+            {label:'TOTAL DISBURSED', v:money(RC.reduce((n,r)=>n+r[6],0)), note:'per bank statement', fg:'#0F2A47'},
+            {label:'OPEN VARIANCE', v:money(RC.reduce((n,r)=>n+r[7],0)), note:'1 cycle unmatched', fg:'#B45309'},
+            {label:'LAST RECONCILED', v:'26 Aug', note:'Aug 2026 · Cycle 2', fg:'#0F2A47'}
+          ],
+          poRcRows: RC.map(([id,cycle,bank,date,txns,ledger,statement,variance,status,c],i)=>({
+            id, cycle, bank, date, txns:String(txns),
+            ledger:money(ledger), statement:money(statement),
+            variance: variance ? money(variance) : '—',
+            varFg: variance ? '#B42318' : '#98A2B3',
+            status, ...R(c), rowBg: i%2 ? '#FCFBF7' : '#fff',
+            go:()=>this.fire(status==='Matched' ? 'Opened — '+id : 'Investigating variance — '+id,
+              cycle+' · '+(variance ? money(variance)+' unmatched' : 'fully matched'), true)}))
+        };
+      })(),
+      poTabs: [['overview','Overview'],['transactions','Payout Transactions'],['speakers','Speakers'],['events','Event Payouts'],['revshare','Revenue Share'],['batches','Payout Batches'],['adjustments','Adjustments'],['payslips','Payslips'],['invoices','Invoices'],['failed','Failed Payments'],['disputes','Disputes'],['recon','Reconciliation'],['settings','Settings']].map(([k,label])=>({
         label, on:(s.poTab||'overview')===k, bg:(s.poTab||'overview')===k?'#0E9384':'transparent',
         weight:(s.poTab||'overview')===k?'700':'500',
         fg:(s.poTab||'overview')===k?'#fff':'#6B7C93', pick:()=>this.setState({poTab:k})})),
-      poTabIs: Object.fromEntries(['transactions','batches','adjustments','invoices','failed','disputes','settings'].map(k=>[k,(s.poTab||'overview')===k])),
+      poTabIs: Object.fromEntries(['transactions','speakers','events','revshare','batches','adjustments','payslips','invoices','failed','disputes','recon','settings'].map(k=>[k,(s.poTab||'overview')===k])),
       poQ: s.poQ||'', setPoQ: set('poQ'),
       poSpeaker: s.poSpeaker||'All', setPoSpeaker: set('poSpeaker'),
       poSpeakerOpts: ['All', ...new Set(TX.map(t=>t.speaker))],
@@ -9838,7 +10295,13 @@ class Component extends DCLogic {
       payout360:['Payout · '+(s.poWho||'SPK-PO-00121'),'Full contract → event → calculation → approval → payment trail.'],
       spkFinance:['Speaker Finance 360°',(s.finWho||'Dr. Ankit Sharma')+' · lifetime earnings, compensation, payments and disputes.']
     };
-    const [pageTitle, pageSub] = titles[s.route] || titles.dash;
+    let [pageTitle, pageSub] = titles[s.route] || titles.dash;
+    if (s.route==='allocation' && s.wwEvent !== null && s.wwEvent !== undefined) {
+      const _i = Number(s.wwEvent) || 0;
+      const _e = WW_EVENTS[_i] || WW_EVENTS[0];
+      pageTitle = 'Event · '+_e.title;
+      pageSub = 'EVT-'+String(1400 + _i*7)+' · '+_e.type+' · '+_e.date+' · '+_e.time+' · '+_e.status;
+    }
 
     const navItems = [
       ['dash','Dashboard'],
@@ -10028,8 +10491,9 @@ class Component extends DCLogic {
         ['Avg Rating', (SPEAKERS.reduce((a,x)=>a+parseFloat(x.rating),0)/SPEAKERS.length).toFixed(1), 'across all speakers', '#B45309', ()=>{}],
         ['Total Sessions', String(SPEAKERS.reduce((a,x)=>a+x.sessions,0)), 'all time', '#6B7C93', ()=>this.nav('allocation')]
       ].map(([label,n,note,fg,go])=>({label,n,note,fg,go})),
-      showBack: s.route==='appDetail' || s.route==='speakerDetail' || s.route==='perf360' || s.route==='payout360' || s.route==='spkFinance' || s.route==='contentDetail',
-      goBack: ()=>this.nav(s.route==='appDetail'?'speakers':s.route==='perf360'?'performance':(s.route==='payout360'||s.route==='spkFinance')?'payouts':s.route==='contentDetail'?'content':'speakers'),
+      showBack: s.route==='appDetail' || s.route==='speakerDetail' || s.route==='perf360' || s.route==='payout360' || s.route==='spkFinance' || s.route==='contentDetail' || (s.route==='allocation' && s.wwEvent !== null && s.wwEvent !== undefined),
+      goBack: ()=>{ if (s.route==='allocation' && s.wwEvent !== null && s.wwEvent !== undefined) return this.setState({wwEvent:null});
+        return this.nav(s.route==='appDetail'?'speakers':s.route==='perf360'?'performance':(s.route==='payout360'||s.route==='spkFinance')?'payouts':s.route==='contentDetail'?'content':'speakers'); },
       studentOpen:s.studentOpen, speakerOpen:s.speakerOpen,
       studentChevron: s.studentOpen?'rotate(180deg)':'rotate(0deg)',
       speakerChevron: s.speakerOpen?'rotate(180deg)':'rotate(0deg)',
@@ -10840,9 +11304,9 @@ class Component extends DCLogic {
       })(),
       onboard, onboardFiltered, onboardPipeline, curSpeaker, obDone, obTotal:s.onboard.length, obReqLeft, canActivate, stages, curStage,
       stageStatus, obPct: stagePct+'%',
-      spkTabs: ['overview','recruitment','profile','coursebatch','products','audience','performance','ratings','attendance','schedule','payments','events','coordinator','content','tasks','comms','documents','logins','devices','notes','activity'].map(k=>({
+      spkTabs: ['overview','recruitment','profile','products','audience','performance','ratings','attendance','schedule','payments','events','coordinator','content','tasks','comms','documents','logins','devices','notes','activity'].map(k=>({
         key:k, label:({overview:'Overview',recruitment:'Employment & Recruitment',profile:'Personal & Professional',
-          coursebatch:'Course & Batch',products:'Learning & Products',performance:'Performance & Reports',
+          products:'Learning & Products',performance:'Performance & Reports',
           ratings:'Ratings & Reviews',attendance:'Attendance & Leave',schedule:'Schedule',payments:'Finance & Payroll',
           notes:'Internal Notes',audience:'Students',events:'Events',coordinator:'Coordinator',content:'Content',
           comms:'Communications',logins:'Logins',devices:'Devices',
@@ -10851,7 +11315,7 @@ class Component extends DCLogic {
         border: (s.profTab||'overview')===k?'#0E9384':'transparent',
         go:()=>this.setState({profTab:k})})),
       spkTabIs: (()=>{ const t=s.profTab||'overview'; return {overview:t==='overview',profile:t==='profile',events:t==='events',
-        coursebatch:t==='coursebatch',products:t==='products',comms:t==='comms',logins:t==='logins',devices:t==='devices',
+        products:t==='products',comms:t==='comms',logins:t==='logins',devices:t==='devices',
         coordinator:t==='coordinator',audience:t==='audience',performance:t==='performance',content:t==='content',
         payments:t==='payments',documents:t==='documents',tasks:t==='tasks',activity:t==='activity',
         recruitment:t==='recruitment',ratings:t==='ratings',attendance:t==='attendance',
@@ -11008,7 +11472,43 @@ class Component extends DCLogic {
             return {label, path, bg: on?'#0B1F3E':'transparent', fg: on?'#fff':'#475467',
               weight: on?'700':'500', pick:()=>this.setState({schView:k})};
           }),
-          spk_schIsList: view==='list', schIsCal: view==='cal',
+          spk_schIsList: view==='list', spk_schIsCal: view==='cal',
+          ...(()=>{
+            const MONTHS = [['August 2026',2026,7],['September 2026',2026,8]];
+            const mi = Math.max(0, Math.min(1, s.spk_schMonth === undefined ? 1 : s.spk_schMonth));
+            const [monthLabel, yr, mo] = MONTHS[mi];
+            const lead = (new Date(yr, mo, 1).getDay() + 6) % 7;
+            const dim = new Date(yr, mo+1, 0).getDate();
+            const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            const blank = {d:'', bg:'#FCFBF7', bd:'#F5F3EE', dayFg:'#C4C9D0', dayWeight:'500', events:[]};
+            const cells = [];
+            for (let i=0;i<lead;i++) cells.push(blank);
+            for (let day=1; day<=dim; day++) {
+              const evs = SPK_EVENTS.filter(e=>{
+                const p = e.date.split(' ');
+                return parseInt(p[0])===day && p[1]===MON[mo] && parseInt(p[2])===yr;
+              });
+              cells.push({d:String(day),
+                bg: evs.length ? '#fff' : '#FCFBF7',
+                bd: evs.length ? '#E4E9E8' : '#F5F3EE',
+                dayFg: evs.length ? '#0F2A47' : '#98A2B3',
+                dayWeight: evs.length ? '800' : '500',
+                events: evs.map(e=>({title:e.title,
+                  time: e.time.replace(/:00/g,'').replace(/ /g,''),
+                  bg: BDG2[e.c][0], fg: BDG2[e.c][1],
+                  open: ()=>this.fire('Opened — '+e.title, e.date+' · '+e.time+' · '+e.status, true)}))});
+            }
+            while (cells.length % 7) cells.push(blank);
+            return {
+              spk_schMonthLabel: monthLabel,
+              spk_schPrev: ()=>this.setState({spk_schMonth: Math.max(0, mi-1)}),
+              spk_schNext: ()=>this.setState({spk_schMonth: Math.min(1, mi+1)}),
+              spk_schDows: ['MON','TUE','WED','THU','FRI','SAT','SUN'].map(d=>({d})),
+              spk_schLegend: [['Upcoming','blue'],['Completed','green'],['Draft','grey']]
+                .map(([label,c])=>({label, bg:BDG2[c][0], fg:BDG2[c][1], dot:BDG2[c][1]})),
+              spk_schCells: cells
+            };
+          })(),
           spk_schFilter: f, setSchFilter:(e)=>this.setState({schFilter:e.target.value}),
           spk_schFilterOpts: ['All sessions','Upcoming','Completed','Draft'].map(o=>({o})),
           spk_schCount: String(rows.length),
@@ -11231,11 +11731,15 @@ class Component extends DCLogic {
       ...(()=>{
         const B2 = {green:['#E7F7EE','#15803D'],amber:['#FEF3E2','#B45309'],red:['#FDE8E8','#B42318'],grey:['#F1F3F5','#667085'],blue:['#E9F1FD','#1D4ED8'],violet:['#F0EAFD','#6D28D9'],teal:['#E6F4F1','#0B7A6E']};
         const SPRODUCTS = [
-          {name:'Fire Insurance Risk Assessment — Workshop',kind:'Live Class',plan:'Half-day · 4 hours',buyId:'PRD-51101-C',purchased:'15 Jul 2026',valid:'31 Dec 2026',status:'Active',progress:88,last:'Today, 09:14 AM',learners:186,rating:'4.9'},
-          {name:'Claims Settlement Masterclass — Recorded',kind:'Recorded',plan:'Standard · Lifetime',buyId:'PRD-51102-R',purchased:'04 Aug 2026',valid:'Lifetime',status:'Active',progress:74,last:'2 days ago',learners:142,rating:'4.7'},
-          {name:'IC-11 Industry Knowledge Check',kind:'Mock Test',plan:'12 tests · standard',buyId:'PRD-51103-M',purchased:'20 Aug 2026',valid:'31 Dec 2026',status:'Active',progress:91,last:'Yesterday, 06:12 PM',learners:168,rating:'4.8'},
-          {name:'Underwriting Fundamentals — Recorded',kind:'Recorded',plan:'Standard · 180 days',valid:'26 Sep 2026',buyId:'PRD-51104-R',purchased:'30 Mar 2026',status:'Expiring Soon',progress:62,last:'5 days ago',learners:96,rating:'4.5'},
-          {name:'Regulatory Update Panel — Recorded',kind:'Recorded',plan:'Standard · 90 days',buyId:'PRD-51105-R',purchased:'07 Jul 2026',valid:'05 Oct 2026',status:'Active',progress:69,last:'4 days ago',learners:112,rating:'4.6'}
+          {name:'Fire Insurance Risk Assessment',kind:'Workshop',plan:'Half-day · 4 hours',buyId:'SES-51101-W',purchased:'15 Jul 2026',valid:'Delivered',status:'Delivered',progress:92,last:'15 Jul 2026, 13:02',learners:186,rating:'4.9'},
+          {name:'Mastering Insurance Claims',kind:'Webinar',plan:'Evening · 90 min',buyId:'SES-51102-W',purchased:'28 Aug 2026',valid:'Registration open',status:'Scheduled',progress:0,last:'Today, 09:14 AM',learners:186,rating:'—'},
+          {name:'IC-11 Industry Masterclass',kind:'Masterclass',plan:'Premium · 3 hours',buyId:'SES-51103-M',purchased:'26 Aug 2026',valid:'Delivered',status:'Delivered',progress:96,last:'26 Aug 2026, 21:32',learners:412,rating:'4.8'},
+          {name:'Insurance Career Masterclass',kind:'Masterclass',plan:'Premium · 2 hours',buyId:'SES-51104-M',purchased:'17 Aug 2026',valid:'Delivered',status:'Delivered',progress:94,last:'17 Aug 2026, 20:14',learners:386,rating:'4.9'},
+          {name:'Claims Handling Workshop',kind:'Workshop',plan:'Full-day · 6 hours',buyId:'SES-51105-W',purchased:'04 Aug 2026',valid:'Delivered',status:'Delivered',progress:89,last:'04 Aug 2026, 17:40',learners:298,rating:'4.7'},
+          {name:'Regulatory Update Panel',kind:'Panel Discussion',plan:'Panel of 4 · 90 min',buyId:'SES-51106-P',purchased:'07 Jul 2026',valid:'Delivered',status:'Delivered',progress:74,last:'07 Jul 2026, 19:28',learners:162,rating:'4.6'},
+          {name:'Claims Settlement Masterclass',kind:'Recorded',plan:'Standard · Lifetime',buyId:'SES-51107-R',purchased:'04 Aug 2026',valid:'Lifetime',status:'Active',progress:74,last:'2 days ago',learners:142,rating:'4.7'},
+          {name:'Underwriting Fundamentals',kind:'Recorded',plan:'Standard · 180 days',buyId:'SES-51108-R',purchased:'30 Mar 2026',valid:'26 Sep 2026',status:'Expiring Soon',progress:62,last:'5 days ago',learners:96,rating:'4.5'},
+          {name:'Risk Assessment Deep-Dive',kind:'Masterclass',plan:'Premium · 3 hours',buyId:'SES-51109-M',purchased:'22 Sep 2026',valid:'Draft',status:'Draft',progress:0,last:'Today, 11:02 AM',learners:0,rating:'—'}
         ];
         const act = SPRODUCTS.filter(p=>p.status==='Active').length;
         const exp = SPRODUCTS.filter(p=>p.status==='Expiring Soon').length;
@@ -11252,17 +11756,20 @@ class Component extends DCLogic {
             {label:'Learners Reached',n:reach.toLocaleString('en-IN'),note:'lifetime, all products',fg:'#6B7C93'},
             {label:'Last Activity',n:'Today',note:'09:14 AM · Fire Risk Workshop',fg:'#15803D'}
           ],
-          spkLpTabs: ['All Products','Mock Tests','Live Classes','Recorded Classes'].map(x=>{
+          spkLpTabs: ['All Sessions','Webinars','Workshops','Masterclasses','Panels','Recorded'].map(x=>{
             const on = f===x;
             return {label:x, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'600':'500',
               pick:()=>this.setState({lpFilter:x})};
           }),
           spkLpRows: SPRODUCTS.filter(p=>
-            f==='All Products' || (f==='Mock Tests' && p.kind==='Mock Test') ||
-            (f==='Live Classes' && p.kind==='Live Class') || (f==='Recorded Classes' && p.kind==='Recorded')
+            f==='All Sessions' || (f==='Webinars' && p.kind==='Webinar') ||
+            (f==='Workshops' && p.kind==='Workshop') || (f==='Masterclasses' && p.kind==='Masterclass') ||
+            (f==='Panels' && p.kind==='Panel Discussion') || (f==='Recorded' && p.kind==='Recorded')
           ).map(p=>{
-            const S = {Active:['#E7F7EE','#15803D'],'Expiring Soon':['#FEF3E2','#B45309'],Expired:['#F1F3F5','#667085']}[p.status];
-            const K = {'Mock Test':['#FDE8E8','#B42318'],'Live Class':['#E6F4F1','#0B7A6E'],'Recorded':['#F0EAFD','#6D28D9']}[p.kind];
+            const S = {Delivered:['#E7F7EE','#15803D'],Active:['#E7F7EE','#15803D'],Scheduled:['#E9F1FD','#1D4ED8'],
+              'Expiring Soon':['#FEF3E2','#B45309'],Draft:['#F1F3F5','#667085'],Expired:['#F1F3F5','#667085']}[p.status] || ['#F1F3F5','#667085'];
+            const K = {Webinar:['#E9F1FD','#1D4ED8'],Workshop:['#E6F4F1','#0B7A6E'],Masterclass:['#FDF0E7','#C2410C'],
+              'Panel Discussion':['#F0EAFD','#6D28D9'],Recorded:['#F0EAFD','#6D28D9']}[p.kind] || ['#F1F3F5','#667085'];
             return {...p, sBg:S[0], sFg:S[1], kBg:K[0], kFg:K[1], learners:String(p.learners),
               pct:p.progress+'%', barBg: p.progress>=70?'#0E9384':p.progress>=40?'#F0A72A':'#E88B78',
               open:()=>this.fire('Opened — '+p.name, p.kind+' · '+p.learners+' learners · '+p.progress+'% completion', true)};
@@ -11553,6 +12060,102 @@ class Component extends DCLogic {
                 .map(([label,danger])=>({label,
                   border: danger?'#F0D2CF':'#E5E3DC', fg: danger?'#B42318':'#344054', hbg: danger?'#FEF7F6':'#F6F5F0',
                   go:()=>this.fire(label, e.title+' · '+e.regs+' registrations · '+money(net)+' net', true)}))
+            };
+          })(),
+
+          ...(()=>{
+            const B2 = BDG2;
+            const st = e.status;
+            const live = st==='Live';
+            const done = st==='Completed';
+            const TILE = {Webinar:['#14335C','#7FB6F0','M23 7l-7 5 7 5V7zM1 5h15v14H1z'],
+              Workshop:['#123B34','#5AC0B0','M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.2 2.2-2.1-2.1z'],
+              Masterclass:['#3A2A12','#F0C078','M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z'],
+              'Panel Discussion':['#2A1F3E','#C4A5F0','M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.9']};
+            const T = TILE[e.type] || TILE.Webinar;
+            const TYPEC = {Webinar:['#14335C','#7FB6F0'],Workshop:['#123B34','#5AC0B0'],
+              Masterclass:['#3A2A12','#F0C078'],'Panel Discussion':['#2A1F3E','#C4A5F0']};
+            const TC = TYPEC[e.type] || TYPEC.Webinar;
+            const STC = {Live:['#123B34','#5AC0B0','#22C55E'], Completed:['#16345C','#9FB6D4','#9FB6D4'],
+              Scheduled:['#14335C','#7FB6F0','#7FB6F0'], Draft:['#1B3358','#9FB2CC','#9FB2CC'],
+              'Registration Open':['#123B34','#5AC0B0','#22C55E'], Cancelled:['#3A1418','#FF9A8B','#FF9A8B']};
+            const SC = STC[st] || STC.Scheduled;
+            const cap = e.regs + e.seats;
+            const confirmed = Math.round(e.regs * 0.92);
+            const attended = e.attended || (done ? Math.round(confirmed*0.83) : 0);
+            const attRate = confirmed ? Math.round(attended/confirmed*100) : 0;
+            const AV = ['#2C5A8A','#0B7A6E','#6D28D9','#C2410C'];
+            const init = (n)=>String(n||'').replace(/^(Dr\.|Prof\.)\s+/,'').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+            const money = (n)=> n>=100000 ? '₹'+(n/100000).toFixed(2)+'L' : '₹'+(n/1000).toFixed(1)+'k';
+
+            return {
+              wwHero: {
+                code: 'EVT-'+String(1400 + (Number(s.wwEvent)||0)*7),
+                tileBg: T[0], tileFg: T[1], tilePath: T[2],
+                typeBg: TC[0], typeFg: TC[1], typeLabel: String(e.type||'').toUpperCase(),
+                featured: !!e.featured,
+                stBg: SC[0], stFg: SC[1], stDot: SC[2],
+                stAnim: live ? 'pulseDot 1.6s infinite' : 'none',
+                meta: [
+                  ['M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z', e.date],
+                  ['M12 8v4l3 3M12 3a9 9 0 1 0 .01 0', e.time+' IST'],
+                  ['M12 3a9 9 0 1 0 .01 0M12 7v5l3 2', e.duration || '2 hours'],
+                  ['M12 3a9 9 0 1 0 .01 0M2.5 12h19M12 3c2.5 2.4 4 5.6 4 9s-1.5 6.6-4 9c-2.5-2.4-4-5.6-4-9s1.5-6.6 4-9', 'Online'],
+                  ['M3 6h18v12H3zM8 6v12', e.price || '₹499']
+                ].map(([path,v])=>({path, v})),
+                people: [
+                  ['SPEAKER', e.speaker, AV[0]],
+                  ['COORDINATOR', e.coordinator, AV[1]]
+                ].map(([role,name,avBg])=>({role, name, avBg, init: init(name),
+                  go: ()=>this.fire('Opening '+role.toLowerCase()+' 360 — '+name, e.title, true)}))
+              },
+              wwHeroStrip: (done ? [
+                ['REGISTRATIONS', String(e.regs), 'of '+cap+' seats', '#0F2A47'],
+                ['ATTENDED', String(attended), attRate+'% of confirmed', '#15803D'],
+                ['AVG RATING', '4.7', 'from 96 responses', '#B45309'],
+                ['NET REVENUE', money(Math.round(e.regs*499*0.88)), 'after fees', '#15803D'],
+                ['CERTIFICATES', String(Math.round(attended*0.81)), 'issued of '+Math.round(attended*0.89)+' eligible', '#6D28D9']
+              ] : live ? [
+                ['LIVE NOW', '412', 'peak 438 at 19:22', '#15803D'],
+                ['REGISTRATIONS', String(e.regs), 'of '+cap+' seats', '#0F2A47'],
+                ['QUESTIONS', '34', '28 answered', '#B45309'],
+                ['ENGAGEMENT', '82', 'high', '#0B7A6E'],
+                ['STREAM', 'Stable', 'no drops', '#15803D']
+              ] : [
+                ['REGISTRATIONS', String(e.regs), '+18 in 7 days', '#0F2A47'],
+                ['CONFIRMED', String(confirmed), 'payment cleared', '#15803D'],
+                ['SEATS LEFT', String(e.seats), e.seats<=20 ? 'almost full' : 'of '+cap, e.seats<=20 ? '#B45309' : '#0F2A47'],
+                ['BOOKED REVENUE', money(e.regs*499), 'gross', '#15803D'],
+                ['READINESS', '8 / 10', '2 tasks open', '#B45309']
+              ]).map(([label,v,note,fg])=>({label, v, note, fg})),
+
+              wwHeroActions: (done
+                ? [['Publish to Library',1,'lib','span 2'],['Issue Certificates',0,'cert','span 1'],['Upload Recording',0,'upload','span 1'],['Export Report',0,'down','span 1'],['Archive Event',2,'arch','span 1']]
+                : live
+                ? [['Open Live Event',1,'play','span 2'],['Monitor Attendance',0,'eye','span 1'],['Send Announcement',0,'mega','span 1'],['Monitor Q&A',0,'qa','span 1'],['End Session',2,'stop','span 1']]
+                : [['Send Reminder',1,'reminder','span 2'],['Add Participant',0,'add','span 1'],['Share Event',0,'share','span 1'],['Reschedule',0,'cal','span 1'],['Cancel Event',2,'x','span 1']]
+              ).map(([label,kind,icon,span])=>({label, span, path: ({reminder:'M18 8A6 6 0 1 0 6 8c0 7-3 8-3 8h18s-3-1-3-8M13.7 21a2 2 0 0 1-3.4 0',add:'M12 5v14M5 12h14',share:'M18 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6M6 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6M18 13a3 3 0 1 0 0 6 3 3 0 0 0 0-6M8.6 10.6l6.8-3.9M8.6 13.4l6.8 3.9',cal:'M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z',x:'M18 6 6 18M6 6l12 12',play:'M23 7l-7 5 7 5V7zM1 5h15v14H1z',eye:'M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7M12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5',mega:'M3 11v2l14 5V6zM17 9a3 3 0 0 1 0 6',qa:'M12 3a9 9 0 1 0 .01 0M9.5 9a2.5 2.5 0 1 1 3.5 2.3V14M12 17h.01',stop:'M6 6h12v12H6z',upload:'M12 16V4M7 9l5-5 5 5M4 19h16',cert:'M12 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8M9 19l3-2 3 2v-4.5',lib:'M4 4h4v16H4zM10 4h4v16h-4zM17 5l3.6 14.5-1.9.5L15 5.5z',down:'M12 16V4M7 11l5 5 5-5M4 20h16',arch:'M3 6h18v4H3zM5 10h14v10H5zM9.5 14h5'})[icon],
+                border: kind===1 ? '0' : kind===2 ? '#5A2A2E' : '#28456C',
+                bg: kind===1 ? '#0E9384' : 'transparent',
+                fg: kind===1 ? '#fff' : kind===2 ? '#FF9A8B' : '#DCE7F3',
+                weight: kind===1 ? '700' : '600',
+                hbg: kind===1 ? '#0B7A6E' : kind===2 ? '#3A1418' : '#14335C',
+                go: ()=>{
+                  if (label==='Reschedule') return this.setState({modal:'wwReschedule'});
+                  if (label==='Cancel Event') return this.setState({modal:'wwCancel'});
+                  const M = {'Send Reminder':'evReminder','Add Participant':'evAddPart','Share Event':'evShare',
+                    'Issue Certificates':'evCerts','Upload Recording':'evRecording','Export Report':'evExport',
+                    'Publish to Library':'evPublish','Archive Event':'evArchive','Send Announcement':'evAnnounce',
+                    'End Session':'evEndSession','Open Live Event':'evJoinLive','Monitor Attendance':'evMonitorAtt',
+                    'Monitor Q&A':'evMonitorQa'}[label];
+                  if (M) return this.setState({modal:M, evErr:null});
+                  this.fire(label, e.title+' · '+e.date, true);
+                }})),
+              wwPrimaryLabel: done ? 'Publish to Library' : live ? 'Open Live Event' : 'Send Reminder',
+              wwPrimaryAct: ()=>this.fire(
+                done ? 'Publishing to Event Library' : live ? 'Opening live event' : 'Reminder scheduled',
+                e.title+' · '+e.date, true),
+              wwShare: ()=>this.fire('Event link copied', 'studycrux.io/e/'+String(e.title||'event').toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,40), true)
             };
           })(),
 
@@ -12316,6 +12919,199 @@ class Component extends DCLogic {
             go:()=>{ this.setState({modal:null}); this.fire(label+' — '+(q.who||''), (q.q||'').slice(0,50), true); }}))
         };
       })(),
+      ...(()=>{
+        const ev = (WW_EVENTS[Number(s.wwEvent)||0] || WW_EVENTS[0]);
+        const cap = ev.regs + ev.seats;
+        const confirmed = Math.round(ev.regs * 0.92);
+        const attended = ev.attended || Math.round(confirmed*0.83);
+        const F = (label, key, def, opts, hint)=>({label, key, kind: opts ? 'select' : 'text',
+          value: s['ev_'+key] ?? def, opts: (opts||[]).map(o=>({o})), hint: hint||'', hintShow: hint?'block':'none',
+          set:(e)=>this.setState({['ev_'+key]:e.target.value, evErr:null})});
+        const TA = (label, key, def, ph)=>({label, key, kind:'area',
+          value: s['ev_'+key] ?? def, ph: ph||'', opts:[], hint:'', hintShow:'none',
+          set:(e)=>this.setState({['ev_'+key]:e.target.value, evErr:null})});
+
+        const FLOWS = {
+          evReminder: {
+            title:'Send reminder', sub:ev.title+' · '+ev.regs+' registrants',
+            fields:[
+              F('Audience','remAud','All registrants',['All registrants','Confirmed only','Pending payment','Waitlisted','Not yet opened the last email']),
+              F('Channels','remCh','Email + WhatsApp',['Email only','Email + WhatsApp','Email + SMS','All channels']),
+              F('Send','remWhen','Now',['Now','1 hour before','24 hours before','Custom time']),
+              TA('Message','remMsg','Reminder: '+ev.title+' starts '+ev.date+' at '+ev.time+'. Join link is in your dashboard.','What the registrant receives')
+            ],
+            info:'Reminders are logged against each participant and appear in their communication history.',
+            btn:'Send Reminder', danger:false,
+            done:()=>'Reminder queued · '+(s.ev_remAud||'All registrants')+' via '+(s.ev_remCh||'Email + WhatsApp')
+          },
+          evAddPart: {
+            title:'Add participant', sub:ev.seats+' of '+cap+' seats available',
+            fields:[
+              F('Full name','apName',''),
+              F('Email','apEmail',''),
+              F('Mobile','apPhone',''),
+              F('Ticket','apTicket','Standard · '+ev.price,['Standard · '+ev.price,'Early bird','Complimentary','Partner pass']),
+              F('Payment','apPay','Mark as paid',['Mark as paid','Send payment link','Waive payment']),
+              F('Notify','apNotify','Send confirmation now',['Send confirmation now','Do not notify'])
+            ],
+            info: ev.seats > 0
+              ? 'Adding a participant consumes one of the '+ev.seats+' remaining seats.'
+              : 'No seats remain — this participant will be added to the waitlist.',
+            btn:'Add Participant', danger:false, requires:['apName','apEmail'],
+            done:()=>'Added '+(s.ev_apName||'participant')+' · '+(s.ev_apTicket||'Standard')
+          },
+          evShare: {
+            title:'Share event', sub:'studycrux.io/e/'+String(ev.title).toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,40),
+            fields:[
+              F('Link type','shType','Public registration page',['Public registration page','Direct join link','Invite-only link','Preview link (internal)']),
+              F('Expiry','shExp','No expiry',['No expiry','24 hours','7 days','Until event starts']),
+              F('Share via','shVia','Copy link',['Copy link','Email','WhatsApp','LinkedIn','Download QR code']),
+              F('Track clicks','shTrack','Yes',['Yes','No'])
+            ],
+            info:'Invite-only links require the recipient to sign in before registering.',
+            btn:'Share', danger:false,
+            done:()=>(s.ev_shVia||'Copy link')+' · '+(s.ev_shType||'Public registration page')
+          },
+          evCerts: {
+            title:'Issue certificates', sub:Math.round(attended*0.89)+' eligible of '+attended+' attendees',
+            fields:[
+              F('Eligibility rule','ctRule','Attendance ≥ 80%',['Attendance ≥ 80%','Attendance ≥ 60%','Attended any part','Attendance + assessment passed']),
+              F('Template','ctTpl','StudyCrux — Webinar',['StudyCrux — Webinar','StudyCrux — Workshop','StudyCrux — Masterclass']),
+              F('Signatory','ctSign','Academic Head',['Academic Head','Speaker','Both']),
+              F('Delivery','ctDel','Email + dashboard',['Email + dashboard','Dashboard only','Email only'])
+            ],
+            info:'Certificates carry a verifiable ID. Re-issuing replaces the previous PDF but keeps the original ID.',
+            btn:'Generate & Issue', danger:false,
+            done:()=>Math.round(attended*0.89)+' certificates queued · '+(s.ev_ctTpl||'')
+          },
+          evRecording: {
+            title:'Upload recording', sub:ev.title+' · '+ev.date,
+            fields:[
+              F('Source','rcSrc','Cloud recording (auto)',['Cloud recording (auto)','Upload file','External URL']),
+              F('Visibility','rcVis','Attendees only',['Attendees only','All registrants','Public','Internal only']),
+              F('Available until','rcUntil','90 days after upload',['30 days after upload','90 days after upload','180 days','Lifetime']),
+              F('Generate captions','rcCap','Yes — English',['Yes — English','Yes — English + Hindi','No']),
+              F('Add chapters','rcChap','Auto-detect',['Auto-detect','Manual','None'])
+            ],
+            info:'Processing takes around 20 minutes. The recording stays unpublished until processing completes.',
+            btn:'Start Upload', danger:false,
+            done:()=>'Recording queued · '+(s.ev_rcVis||'Attendees only')+' · '+(s.ev_rcCap||'')
+          },
+          evExport: {
+            title:'Export report', sub:ev.title+' · '+ev.date,
+            fields:[
+              F('Report','exRep','Complete event report',['Complete event report','Participant report','Attendance report','Engagement report','Feedback report','Finance report']),
+              F('Format','exFmt','XLSX workbook',['XLSX workbook','CSV bundle','PDF report']),
+              F('Detail','exDet','Summary + row-level',['Summary only','Summary + row-level','Row-level only']),
+              F('Delivery','exDel','Download',['Download','Email link','Secure drop'])
+            ],
+            info:'Exports are logged in the event activity trail with your name and timestamp.',
+            btn:'Generate Export', danger:false,
+            done:()=>(s.ev_exRep||'Complete event report')+' · '+(s.ev_exFmt||'XLSX workbook')
+          },
+          evPublish: {
+            title:'Publish to library', sub:ev.title+' · '+ev.date,
+            fields:[
+              F('Include','pbInc','Recording + resources + Q&A',['Recording only','Recording + resources','Recording + resources + Q&A','Everything incl. feedback summary']),
+              F('Access','pbAcc','Enrolled learners',['Enrolled learners','All learners','Specific courses','Public']),
+              F('Attach to course','pbCourse','None',['None','IC-38 Full Prep','Life Insurance Elite','Claims Masterclass']),
+              F('Validity','pbVal','Lifetime',['30 days','90 days','180 days','Lifetime']),
+              TA('Library description','pbDesc',ev.desc||'','Shown on the library card')
+            ],
+            info:'Publishing creates a reference to the original asset — the historical event record stays untouched.',
+            btn:'Publish', danger:false,
+            done:()=>'Published · '+(s.ev_pbAcc||'Enrolled learners')+' · '+(s.ev_pbVal||'Lifetime')
+          },
+          evArchive: {
+            title:'Archive event', sub:ev.title+' · '+ev.date,
+            fields:[
+              F('Reason','arReason','Event concluded',['Event concluded','Superseded by a newer event','Content retired','Data retention policy']),
+              F('Keep searchable','arSearch','Yes',['Yes','No']),
+              F('Retain analytics','arKeep','Yes — full history',['Yes — full history','Summary only','No'])
+            ],
+            info:'Archiving hides the event from active lists. It stays available for reporting and can be restored.',
+            btn:'Archive Event', danger:true,
+            done:()=>'Archived · '+(s.ev_arReason||'Event concluded')
+          },
+          evAnnounce: {
+            title:'Send announcement', sub:'412 participants currently live',
+            fields:[
+              F('Visibility','anVis','In-session banner',['In-session banner','Chat message','Banner + chat','Push notification']),
+              F('Priority','anPri','Normal',['Normal','Important','Urgent']),
+              TA('Announcement','anMsg','','What participants will see')
+            ],
+            info:'Announcements appear immediately for everyone in the session and are stored in the event log.',
+            btn:'Send Now', danger:false, requires:['anMsg'],
+            done:()=>'Announcement sent to 412 participants'
+          },
+          evEndSession: {
+            title:'End session', sub:'412 participants currently live',
+            fields:[
+              F('Attendance','esAtt','Finalize now',['Finalize now','Keep open for 15 minutes','Finalize manually later']),
+              F('Recording','esRec','Stop and process',['Stop and process','Stop without processing','Keep recording']),
+              F('Post-event email','esMail','Send thank-you + feedback',['Send thank-you + feedback','Thank-you only','Do not send']),
+              TA('Closing note','esNote','','Optional note for the event record')
+            ],
+            info:'Ending the session disconnects all participants and locks attendance once finalized.',
+            btn:'End Session', danger:true,
+            done:()=>'Session ended · attendance '+(s.ev_esAtt||'Finalize now').toLowerCase()
+          },
+          evJoinLive: {
+            title:'Open live event', sub:ev.title+' · 412 live',
+            fields:[
+              F('Join as','jlRole','Host',['Host','Co-host','Silent observer']),
+              F('Camera','jlCam','Off',['Off','On']),
+              F('Microphone','jlMic','Muted',['Muted','Unmuted'])
+            ],
+            info:'Joining as a silent observer does not appear in the participant list or affect attendance.',
+            btn:'Join Session', danger:false,
+            done:()=>'Joining as '+(s.ev_jlRole||'Host')+' — opening the session'
+          },
+          evMonitorAtt: {
+            title:'Monitor attendance', sub:'412 live · '+confirmed+' confirmed',
+            fields:[
+              F('View','maView','Live participants',['Live participants','Joined and left','Never joined','Late joiners','Early exits']),
+              F('Refresh','maRef','Every 30 seconds',['Every 10 seconds','Every 30 seconds','Every minute','Manual']),
+              F('Alert me when','maAlert','Attendance drops 10%',['Attendance drops 10%','Attendance drops 25%','Below expected turnout','Never'])
+            ],
+            info:'Attendance is captured from join and leave events, then reconciled when the session ends.',
+            btn:'Open Monitor', danger:false,
+            done:()=>'Monitoring · '+(s.ev_maView||'Live participants')
+          },
+          evMonitorQa: {
+            title:'Monitor Q&A', sub:'34 questions · 6 unanswered',
+            fields:[
+              F('Show','mqShow','Unanswered first',['Unanswered first','Newest first','Most upvoted','Escalated only']),
+              F('Auto-assign to','mqAssign',ev.speaker,[ev.speaker, ev.coordinator,'Round robin','Do not auto-assign']),
+              F('Moderation','mqMod','Review before showing',['Review before showing','Publish immediately','Speaker approves'])
+            ],
+            info:'Questions left unanswered at session end roll into the post-event Q&A record.',
+            btn:'Open Q&A', danger:false,
+            done:()=>'Q&A console open · '+(s.ev_mqShow||'Unanswered first')
+          }
+        };
+
+        const key = Object.keys(FLOWS).find(k=>s.modal===k);
+        const flow = FLOWS[key] || {title:'', sub:'', fields:[], info:'', btn:'', danger:false};
+        return {
+          mEvFlow: !!key,
+          evTitle: flow.title, evSub: flow.sub, evInfo: flow.info,
+          evBtn: flow.btn, evBtnBg: flow.danger ? '#B42318' : '#0E9384', evBtnHbg: flow.danger ? '#96190F' : '#0B7A6E',
+          evFields: flow.fields.map(f=>({...f,
+            isText: f.kind==='text', isSelect: f.kind==='select', isArea: f.kind==='area'})),
+          evErr: s.evErr||'', evErrShow: s.evErr ? 'block' : 'none',
+          evSubmit: ()=>{
+            const req = flow.requires || [];
+            const miss = req.find(k2=>!String(s['ev_'+k2]||'').trim());
+            if (miss) {
+              const f = flow.fields.find(x=>x.key===miss);
+              return this.setState({evErr:(f ? f.label : 'A required field')+' is required.'});
+            }
+            this.setState({modal:null});
+            this.fire(flow.title, flow.done ? flow.done() : ev.title, true);
+          }
+        };
+      })(),
       mWwReschedule: s.modal==='wwReschedule',
       wwCancel:()=>this.setState({modal:'wwCancel'}),
       mWwCancel: s.modal==='wwCancel',
@@ -12421,6 +13217,103 @@ class Component extends DCLogic {
       setPhone:(e)=>this.setState({form:{...f,phone:e.target.value}, errors:{...s.errors,phone:null}}),
       setExp:(e)=>this.setState({form:{...f,exp:e.target.value}, errors:{...s.errors,exp:null}}),
       setYrs:(e)=>this.setState({form:{...f,yrs:e.target.value}}),
+      setLevel:(e)=>this.setState({form:{...f,level:e.target.value}}),
+      setDesignation:(e)=>this.setState({form:{...f,designation:e.target.value}}),
+      setOrg:(e)=>this.setState({form:{...f,org:e.target.value}}),
+      setBio:(e)=>this.setState({form:{...f,bio:e.target.value}}),
+      setLinkedin:(e)=>this.setState({form:{...f,linkedin:e.target.value}}),
+      setModel:(e)=>this.setState({form:{...f,model:e.target.value}}),
+      levelOpts: ['Beginner','Intermediate','Advanced','Mixed'].map(o=>({o})),
+      modelOpts: ['Fixed honorarium','Per event','Revenue share','Hybrid','Pro bono'].map(o=>({o})),
+      formatChips: ['Webinar','Workshop','Masterclass','Panel Discussion','Recorded'].map(x=>{
+        const sel = f.formats || ['Webinar'];
+        const on = sel.includes(x);
+        return {label:x, border: on?'#0E9384':'#E5E3DC', bg: on?'#EEF6F5':'#fff',
+          fg: on?'#0B7A6E':'#667085', weight: on?'700':'500',
+          pick: ()=>this.setState({form:{...f, formats: on ? sel.filter(v=>v!==x) : sel.concat([x])}})};
+      }),
+      langChips: ['English','Hindi','Marathi','Tamil','Gujarati','Bengali'].map(x=>{
+        const sel = f.langs || ['English'];
+        const on = sel.includes(x);
+        return {label:x, border: on?'#0E9384':'#E5E3DC', bg: on?'#EEF6F5':'#fff',
+          fg: on?'#0B7A6E':'#667085', weight: on?'700':'500',
+          pick: ()=>this.setState({form:{...f, langs: on ? sel.filter(v=>v!==x) : sel.concat([x])}})};
+      }),
+      ...(()=>{
+        const up = f.uploads || {};
+        const DOCS = [
+          ['Resume / CV','PDF','Professional background and speaking history',1],
+          ['Photo ID (Aadhaar / Passport)','ID','Identity verification — required before activation',1],
+          ['Professional credentials','PDF','Certifications, fellowships, licences',1],
+          ['Bank details','DOC','Cancelled cheque or bank letter for payouts',1],
+          ['Signed speaker agreement','DOC','Generated after approval — speaker e-signs',0],
+          ['Transparent PNG headshot','IMG','Used on event creatives and the landing page',0]
+        ];
+        const EXTC = {PDF:['#FDE8E8','#B42318'],ID:['#E9F1FD','#1D4ED8'],DOC:['#E9F1FD','#1D4ED8'],IMG:['#F0EAFD','#6D28D9']};
+        const done = DOCS.filter(d=>up[d[0]]).length;
+        const reqPending = DOCS.filter(d=>d[3] && !up[d[0]]).length;
+        return {
+          docSlots: DOCS.map(([d,ext,note,req])=>{
+            const has = !!up[d];
+            return {d, ext, note, iBg:EXTC[ext][0], iFg:EXTC[ext][1],
+              borderStyle: has ? 'solid' : 'dashed',
+              borderColor: has ? '#C5E8D4' : '#E5E3DC',
+              bg: has ? '#FCFDFC' : '#fff',
+              tag: has ? 'Uploaded' : req ? 'Required' : 'Optional',
+              tagBg: has ? '#E7F7EE' : req ? '#FEF3E2' : '#F1F3F5',
+              tagFg: has ? '#15803D' : req ? '#B45309' : '#667085',
+              btnLabel: has ? 'Replace' : 'Upload',
+              btnBd: has ? '#E5E3DC' : '#BFE3DC',
+              btnBg: has ? '#fff' : '#EEF6F5',
+              btnFg: has ? '#344054' : '#0B7A6E',
+              upload: ()=>{
+                this.setState({form:{...f, uploads:{...up, [d]: !has}}});
+                this.fire(has ? 'Removed — '+d : 'Uploaded — '+d, has ? 'Slot cleared' : ext+' attached to this speaker record', true);
+              }};
+          }),
+          docNote: reqPending
+            ? done+' of '+DOCS.length+' attached · '+reqPending+' required document'+(reqPending>1?'s':'')+' still outstanding. The speaker can upload these during onboarding.'
+            : 'All required documents attached — verification can begin as soon as the record is created.'
+        };
+      })(),
+      ...(()=>{
+        const up = f.uploads || {};
+        const V = (x, fallback)=> (x && String(x).trim()) ? String(x) : (fallback || 'Not provided');
+        const missing = (x)=> !(x && String(x).trim());
+        const docCount = Object.keys(up).filter(k=>up[k]).length;
+        const G = [
+          ['IDENTITY & CONTACT', [
+            ['Full name', V(f.name)], ['Email', V(f.email)], ['Phone', V(f.phone)]
+          ]],
+          ['EXPERTISE', [
+            ['Primary expertise', V(f.exp)],
+            ['Years of experience', f.yrs ? f.yrs+' yrs' : 'Not provided'],
+            ['Audience level', V(f.level, 'Intermediate')],
+            ['Designation', V(f.designation)],
+            ['Organization', V(f.org)],
+            ['Session formats', (f.formats && f.formats.length) ? f.formats.join(' · ') : 'Webinar'],
+            ['Languages', (f.langs && f.langs.length) ? f.langs.join(' · ') : 'English'],
+            ['Short bio', V(f.bio)],
+            ['LinkedIn', V(f.linkedin)]
+          ]],
+          ['ENGAGEMENT & DOCUMENTS', [
+            ['Engagement model', V(f.model, 'Fixed honorarium')],
+            ['Documents attached', docCount ? docCount+' of 6' : 'None yet'],
+            ['Onboarding', 'Three-stage flow generated on creation'],
+            ['Verification', 'Checklist generated automatically']
+          ]]
+        ];
+        const gaps = [f.exp, f.designation, f.org, f.bio].filter(missing).length;
+        return {
+          reviewGroups: G.map(([title, rows])=>({title,
+            rows: rows.map(([k,v],i)=>({k, v,
+              fg: v==='Not provided' || v==='None yet' ? '#98A2B3' : '#0F2A47',
+              rowBg: i%2 ? '#FCFBF7' : '#fff'}))})),
+          reviewNote: gaps
+            ? gaps+' optional field'+(gaps>1?'s':'')+' left blank — the speaker completes these during onboarding. Nothing here blocks creation.'
+            : 'Everything captured. The record activates once identity and credential documents clear verification.'
+        };
+      })(),
       errName:s.errors.name, errEmail:s.errors.email, errPhone:s.errors.phone, errExp:s.errors.exp,
       nameBorder: s.errors.name?'#D92D20':'#E5E3DC', emailBorder: s.errors.email?'#D92D20':'#E5E3DC',
       phoneBorder: s.errors.phone?'#D92D20':'#E5E3DC', expBorder: s.errors.exp?'#D92D20':'#E5E3DC',
