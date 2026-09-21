@@ -1672,7 +1672,7 @@
                             <div style="display:flex;flex-direction:column;gap:10px">
                               <sc-for list="{{ perfDims }}" as="d" hint-placeholder-count="6">
                                 <div>
-                                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:#344054">{{ d.label }} · {{ d.weight }}%</span><span style="font-weight:700;color:#0F2A47">{{ d.pct }}</span></div>
+                                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:#344054">{{ d.label }} · {{ d.weight }}</span><span style="font-weight:700;color:#0F2A47">{{ d.pct }}</span></div>
                                   <div style="height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ d.pct }};border-radius:4px;background:#0E9384"></div></div>
                                 </div>
                               </sc-for>
@@ -4353,7 +4353,7 @@
                   <div style="display:flex;flex-direction:column;gap:10px">
                     <sc-for list="{{ perfDims }}" as="d" hint-placeholder-count="6">
                       <div>
-                        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:#344054">{{ d.label }} · {{ d.weight }}%</span><span style="font-weight:700;color:#0F2A47">{{ d.pct }}</span></div>
+                        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:#344054">{{ d.label }} · {{ d.weight }}</span><span style="font-weight:700;color:#0F2A47">{{ d.pct }}</span></div>
                         <div style="height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ d.pct }};border-radius:4px;background:#0E9384"></div></div>
                       </div>
                     </sc-for>
@@ -7547,7 +7547,7 @@
         <sc-for list="{{ perfDims }}" as="d" hint-placeholder-count="6">
           <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px solid #F7F5F0">
             <span style="color:#344054">{{ d.label }}</span>
-            <span style="color:#98A2B3">{{ d.pct }} × {{ d.weight }}%</span>
+            <span style="color:#98A2B3">{{ d.pct }} × {{ d.weight }}</span>
             <span style="font-weight:700;color:#0F2A47">{{ d.weighted }}</span>
           </div>
         </sc-for>
@@ -11922,10 +11922,11 @@ class Component extends DCLogic {
         ['Contract Validity','02 Aug 2026 → 01 Aug 2027']
       ].map(([k,v],i)=>({k,v,bg: i%2 ? '#FCFBF7' : '#fff'})),
       spkPayActions: [
-        ['Approve Pending Payout',0],['Generate Invoice',0],['Download Statement',0],['Raise Adjustment',0],['Hold Payout',1]
-      ].map(([label,danger])=>({label,
+        ['Approve Pending Payout','spApprove',0],['Generate Invoice','spInvoice',0],
+        ['Download Statement','spStatement',0],['Raise Adjustment','spAdjust',0],['Hold Payout','spHold',1]
+      ].map(([label,modal,danger])=>({label,
         border: danger?'#F0D2CF':'#E5E3DC', fg: danger?'#B42318':'#344054', hbg: danger?'#FEF7F6':'#F6F5F0',
-        go: ()=>this.fire(label, danger ? 'Payout held — finance notified' : 'Action recorded against this speaker', true)})),
+        go: ()=>this.setState({modal, evErr:null})})),
       spkTasksPending: SPK_TASKS.filter(t=>t.status==='Pending'),
       spkTasksDone: SPK_TASKS.filter(t=>t.status==='Completed'),
       spkIssues: SPK_ISSUES.map(i=>({...i, bg: i.status==='Resolved'?'#E7F7EE':'#FEF3E2', fg: i.status==='Resolved'?'#15803D':'#B45309'})),
@@ -12213,10 +12214,10 @@ class Component extends DCLogic {
             const mkMenu = () => [
               ['Edit Event','evEditEvent',0],
               ['Duplicate','evDuplicate',0],
-              ['Reschedule','wwReschedule',0],
+              ['Reschedule','evReschedule',0],
               ['Message Registrants','evReminder',0],
               ['Download Registrations','evExport',0],
-              ['Cancel Event','wwCancel',1]
+              ['Cancel Event','evCancel',1]
             ].map(([label,modal,danger],mi)=>({label,
               fg: danger ? '#B42318' : '#344054',
               hbg: danger ? '#FEF7F6' : '#F6F5F0',
@@ -13390,6 +13391,105 @@ class Component extends DCLogic {
             info:'Disbursement is irreversible once the bank accepts the file. Unverified accounts and payouts missing an invoice are held back rather than failing the whole run.',
             btn:'Run Disbursement', danger:true,
             done:()=>'7 payouts released · \u20b980,100 net · '+(s.ev_pdMethod||'Bank transfer (NEFT)')
+          },
+          spApprove: {
+            title:'Approve pending payout', sub:'Ananya Deshmukh · IC-11 Industry Masterclass',
+            fields:[
+              F('Payout','saPayout','IC-11 Industry Masterclass · \u20b922,500 net',['IC-11 Industry Masterclass · \u20b922,500 net','All pending for this speaker']),
+              F('Verify against','saVerify','Attendance and recording',['Attendance only','Attendance and recording','Attendance, recording and feedback','Skip checks']),
+              F('Fee','saFee','\u20b925,000 as agreed',['\u20b925,000 as agreed','Override fee','Apply bonus','Apply penalty']),
+              F('Deductions','saDed','TDS 10% u/s 194J = \u20b92,500',['TDS 10% u/s 194J = \u20b92,500','No TDS','TDS + adjustment']),
+              F('Release schedule','saWhen','Next disbursement run',['Immediately','Next disbursement run','Net-15 from event date','Specific date']),
+              TA('Approval note','saNote','','Recorded against the payout and in the audit trail')
+            ],
+            info:'Approval locks the fee and deduction figures. Only Finance can reopen an approved payout.',
+            btn:'Approve Payout', danger:false,
+            done:()=>'Approved \u20b922,500 net · '+(s.ev_saWhen||'Next disbursement run')
+          },
+          spInvoice: {
+            title:'Generate invoice', sub:'Ananya Deshmukh · SPK-0142',
+            fields:[
+              F('Invoice for','siFor','IC-11 Industry Masterclass',['IC-11 Industry Masterclass','All pending payouts','Selected date range','Full financial year']),
+              F('Invoice number','siNum','Auto — INV-2026-0418',['Auto — INV-2026-0418','Enter manually']),
+              F('Invoice date','siDate','Today',['Today','Event date','Last day of month','Specific date']),
+              F('Raised by','siBy','Speaker (self-billing on their behalf)',['Speaker (self-billing on their behalf)','StudyCrux on behalf of speaker']),
+              F('Tax treatment','siTax','TDS 10% u/s 194J · no GST',['TDS 10% u/s 194J · no GST','GST 18% + TDS','No tax']),
+              F('Delivery','siDel','Email to speaker + finance',['Email to speaker + finance','Email to speaker only','Download only','Attach to payout record'])
+            ],
+            info:'Generated invoices attach to the payout record and satisfy the invoice-required check at disbursement.',
+            btn:'Generate Invoice', danger:false,
+            done:()=>'Invoice created · '+(s.ev_siNum||'INV-2026-0418')
+          },
+          spStatement: {
+            title:'Download statement', sub:'Ananya Deshmukh · earnings statement',
+            fields:[
+              F('Period','ssPeriod','FY 2026\u201327 to date',['Current month','Last 3 months','FY 2026\u201327 to date','Full engagement history','Custom range']),
+              F('Include','ssInc','Fees, TDS, net and UTRs',['Fees and net only','Fees, TDS, net and UTRs','Everything including adjustments']),
+              F('Group by','ssGroup','Event',['Event','Month','Payment batch','Event type']),
+              F('Format','ssFmt','PDF statement',['PDF statement','XLSX workbook','CSV']),
+              F('Include TDS certificate','ssTds','Yes — Form 16A summary',['Yes — Form 16A summary','No'])
+            ],
+            info:'Statements are generated from settled transactions only — pending payouts appear as a separate outstanding line.',
+            btn:'Download Statement', danger:false,
+            done:()=>(s.ev_ssPeriod||'FY 2026\u201327 to date')+' · '+(s.ev_ssFmt||'PDF statement')
+          },
+          spAdjust: {
+            title:'Raise adjustment', sub:'Ananya Deshmukh · SPK-0142',
+            fields:[
+              F('Adjustment type','spaType','Bonus',['Bonus','Penalty','Expense reimbursement','Fee correction','Advance recovery']),
+              F('Apply to','spaTo','IC-11 Industry Masterclass',['IC-11 Industry Masterclass','Next payout','Specific payout','Standalone adjustment']),
+              F('Amount','spaAmt','',null),
+              F('Taxable','spaTax','Yes — include in TDS base',['Yes — include in TDS base','No — outside TDS']),
+              F('Approval','spaAppr','Finance approval required',['Auto-approve','Finance approval required','Finance + Super Admin']),
+              TA('Reason','spaReason','','Required — shown to the speaker on their statement')
+            ],
+            info:'Adjustments never edit a settled payout. A positive or negative line is added and recalculated at the next run.',
+            btn:'Raise Adjustment', danger:false, requires:['spaAmt','spaReason'],
+            done:()=>(s.ev_spaType||'Bonus')+' \u20b9'+(s.ev_spaAmt||'0')+' \u00b7 '+(s.ev_spaAppr||'Finance approval required')
+          },
+          spHold: {
+            title:'Hold payout', sub:'Ananya Deshmukh · \u20b922,500 pending',
+            fields:[
+              F('Hold','shWhat','IC-11 Industry Masterclass only',['IC-11 Industry Masterclass only','All pending payouts','All future payouts']),
+              F('Reason','shReason','Recording not published',['Recording not published','Attendance under review','Invoice missing','Bank details unverified','Dispute raised','Compliance review','Other']),
+              F('Release when','shRelease','Condition cleared',['Condition cleared','Manual release only','Specific date']),
+              F('Notify speaker','shNotify','Yes — with reason',['Yes — with reason','Yes — without reason','No']),
+              TA('Internal note','shNote','','Required — visible to Finance and Super Admin')
+            ],
+            info:'A held payout is excluded from every disbursement run until released. The speaker sees it as "on hold" in their dashboard.',
+            btn:'Hold Payout', danger:true, requires:['shNote'],
+            done:()=>'Held \u00b7 '+(s.ev_shReason||'Recording not published')+' \u00b7 '+(s.ev_shWhat||'')
+          },
+          evReschedule: {
+            title:'Reschedule event', sub:ev.title+' · currently '+ev.date+' at '+ev.time,
+            fields:[
+              F('New date','erDate',''),
+              F('New start time','erTime',ev.time),
+              F('Duration','erDur','Keep current',['Keep current','60 min','90 min','2 hours','Half day','Full day']),
+              F('Reason','erReason','Speaker availability',['Speaker availability','Low registrations','Technical issue','Venue or platform change','Clash with another event','Other']),
+              F('Notify','erNotify','Registrants, speaker and coordinator',['Registrants, speaker and coordinator','Registrants only','Speaker and coordinator only','Nobody — silent change']),
+              F('Registrations','erRegs','Carry over automatically',['Carry over automatically','Ask registrants to reconfirm','Reopen registration','Close registration']),
+              F('Refund option','erRefund','Offer refund on request',['No refund — carried over','Offer refund on request','Automatic full refund']),
+              TA('Message','erMsg','','Added to the reschedule notification')
+            ],
+            info:'The original schedule is preserved on the event record. Reminders are recalculated against the new date.',
+            btn:'Reschedule Event', danger:false, requires:['erDate'],
+            done:()=>'Moved to '+(s.ev_erDate||'')+' · '+(s.ev_erNotify||'')
+          },
+          evCancel: {
+            title:'Cancel event', sub:ev.title+' · '+ev.regs+' registrants',
+            fields:[
+              F('Reason','ecReason','Speaker unavailable',['Speaker unavailable','Low registrations','Technical or platform failure','Venue unavailable','Business decision','Force majeure','Other']),
+              F('Refunds','ecRefund','Full refund to all paid registrants',['Full refund to all paid registrants','Partial refund','Credit to wallet','No refund — free event']),
+              F('Refund timeline','ecWhen','Within 5 working days',['Immediately','Within 5 working days','Within 10 working days','Next billing cycle']),
+              F('Speaker payout','ecPayout','Cancellation policy applies',['No payout','Cancellation policy applies','Full payout as agreed','Refer to Finance']),
+              F('Offer alternative','ecAlt','No alternative',['No alternative','Move to the next similar event','Offer recorded content','Offer a credit note']),
+              F('Notify','ecNotify','Registrants, speaker and coordinator',['Registrants, speaker and coordinator','Registrants only','Everyone including waitlist']),
+              TA('Message to registrants','ecMsg','','Sent with the cancellation notice')
+            ],
+            info:'Cancelling stops all registrations immediately and cannot be undone. Attendance, feedback and historical data are retained on the record.',
+            btn:'Cancel Event', danger:true, requires:['ecMsg'],
+            done:()=>'Cancelled · '+(s.ev_ecReason||'')+' · '+(s.ev_ecRefund||'')
           },
           evReminder: {
             title:'Send reminder', sub:ev.title+' · '+ev.regs+' registrants',
