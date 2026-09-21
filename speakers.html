@@ -242,7 +242,7 @@
                         </td>
                         <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ e.speaker }}</td>
                         <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ e.date }}</td>
-                        <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47">{{ e.regs }}</td>
+                        <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47">{{ e.reg }}</td>
                         <td style="padding:10px 20px 10px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:{{ e.bg }};color:{{ e.fg }};white-space:nowrap">{{ e.status }}</span></td>
                       </tr>
                     </sc-for>
@@ -1627,175 +1627,328 @@
                   </sc-if>
 
                   <sc-if value="{{ spkTabIs.performance }}" hint-placeholder-val="{{ false }}">
-                    <div>
-                      <div style="display:flex;align-items:center;gap:9px;margin-bottom:18px;flex-wrap:wrap">
-                        <div style="display:flex;gap:2px;background:#FCFBF7;border:1px solid #ECEAE2;border-radius:10px;padding:3px">
-                          <sc-for list="{{ perfPeriods }}" as="p" hint-placeholder-count="4">
-                            <button onClick="{{ p.pick }}" style="height:30px;padding:0 13px;border:0;border-radius:7px;font-size:12.5px;cursor:pointer;background:{{ p.bg }};color:{{ p.fg }};font-weight:{{ p.weight }};white-space:nowrap;font-family:inherit">{{ p.label }}</button>
-                          </sc-for>
-                        </div>
-                        <span style="flex:1"></span>
-                        <button onClick="{{ perfExport }}" style="display:flex;align-items:center;gap:7px;height:34px;padding:0 15px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 11l5 5 5-5M4 19h16" /></svg>Export Report
+                  <div>
+                    <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;flex-wrap:wrap">
+                      <span style="flex:1"></span>
+                      <button onClick="{{ perfExport }}" style="display:flex;align-items:center;gap:7px;height:34px;padding:0 15px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 11l5 5 5-5M4 19h16" /></svg>Export Report
+                      </button>
+                      <div style="position:relative;flex:none">
+                        <button onClick="{{ perfPeriodMenu }}" style="display:flex;align-items:center;gap:8px;height:34px;padding:0 13px;border-radius:9px;border:1px solid {{ perfPeriodBd }};background:{{ perfPeriodBg }};font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>
+                          {{ perfPeriodLabel }}
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
                         </button>
-                      </div>
-
-                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:16px;align-items:start;margin-bottom:22px">
-                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:20px 22px">
-                          <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#98A2B3">OVERALL PERFORMANCE</div>
-                          <div style="display:flex;align-items:baseline;gap:10px;margin-top:9px">
-                            <span style="font-size:40px;font-weight:800;color:#0F2A47;letter-spacing:-.03em">{{ spScore }}</span>
-                            <span style="font-size:15px;color:#98A2B3">/ 100</span>
-                            <span style="font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px;background:{{ spBandBg }};color:{{ spBandFg }};white-space:nowrap">{{ spBand }}</span>
-                          </div>
-                          <div style="font-size:13px;font-weight:600;color:#15803D;margin-top:8px">{{ spDelta }}</div>
-                          <div style="display:flex;flex-direction:column;gap:13px;margin-top:20px">
-                            <sc-for list="{{ spWeighted }}" as="w" hint-placeholder-count="6">
-                              <div>
-                                <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:6px">
-                                  <span style="font-size:13px;color:#344054;flex:1;min-width:0">{{ w.label }}</span>
-                                  <span style="font-size:11.5px;color:#98A2B3;white-space:nowrap">weight {{ w.weight }}</span>
-                                  <span style="font-size:13.5px;font-weight:800;color:#0F2A47">{{ w.pct }}</span>
-                                </div>
-                                <div style="height:7px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ w.pct }};border-radius:5px;background:{{ w.bar }}"></div></div>
-                              </div>
-                            </sc-for>
-                          </div>
-                        </div>
-
-                        <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
-                          <div style="display:flex;align-items:center;gap:10px;padding:17px 20px;border-bottom:1px solid #F2F0EA">
-                            <span style="font-size:15px;font-weight:700;color:#0F2A47">Attention required</span>
-                            <span style="flex:1"></span>
-                            <span style="font-size:12.5px;font-weight:700;color:#B42318">{{ spSignalCount }} signals</span>
-                          </div>
-                          <sc-for list="{{ spSignals }}" as="sg" hint-placeholder-count="5">
-                            <div style="display:flex;align-items:flex-start;gap:11px;padding:13px 20px;border-bottom:1px solid #F7F5F0">
-                              <span style="width:8px;height:8px;flex:none;border-radius:50%;background:{{ sg.dot }};margin-top:6px"></span>
-                              <div style="min-width:0;flex:1">
-                                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-                                  <span style="font-size:13px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ sg.title }}</span>
-                                  <span style="font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ sg.sBg }};color:{{ sg.sFg }};white-space:nowrap">{{ sg.sev }}</span>
-                                </div>
-                                <div style="font-size:11.5px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ sg.detail }}</div>
-                              </div>
-                              <button onClick="{{ sg.go }}" style="border:0;background:transparent;font-size:12.5px;font-weight:600;color:#0B7A6E;cursor:pointer;white-space:nowrap;flex:none;font-family:inherit;padding:0">Open →</button>
+                        <div style="display:{{ perfPeriodDisplay }};position:absolute;top:40px;right:0;width:188px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;z-index:30;text-align:left">
+                          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;color:#98A2B3;padding:6px 11px 7px">PERIOD</div>
+                          <sc-for list="{{ perfPeriods }}" as="p" hint-placeholder-count="4">
+                            <div onClick="{{ p.pick }}" style="display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;font-size:13px;font-weight:{{ p.menuWeight }};color:{{ p.menuFg }};cursor:pointer" style-hover="background:#F7FBFA">
+                              <span style="width:14px;flex:none;color:#0E9384;font-weight:800">{{ p.tick }}</span>{{ p.label }}
                             </div>
                           </sc-for>
                         </div>
                       </div>
+                    </div>
+                    <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:4px;margin-bottom:16px;overflow-x:auto">
+                      <sc-for list="{{ perfTabsList }}" as="t" hint-placeholder-count="9">
+                        <button onClick="{{ t.go }}" style="height:34px;padding:0 15px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap">{{ t.label }}</button>
+                      </sc-for>
+                    </div>
 
-                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
-                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
-                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">KPI SUMMARY — CURRENT · TARGET · TREND</span>
-                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
-                      </div>
-                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:13px;margin-bottom:22px">
-                        <sc-for list="{{ spKpis }}" as="k" hint-placeholder-count="8">
-                          <div style="min-width:0;border:1px solid #F0EEE7;border-radius:12px;padding:15px 17px">
-                            <div style="font-size:12px;color:#6B7C93;text-wrap:pretty">{{ k.label }}</div>
-                            <div style="font-size:23px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:6px">{{ k.v }}</div>
-                            <div style="font-size:11px;color:#98A2B3;margin-top:5px">{{ k.target }} <span style="color:{{ k.fg }};font-weight:700">{{ k.delta }}</span></div>
+                    <sc-if value="{{ perfTabIs.overview }}" hint-placeholder-val="{{ true }}">
+                      <div>
+                        <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:16px;margin-bottom:16px">
+                          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                            <div style="display:flex;align-items:baseline;gap:10px">
+                              <span onClick="{{ perfOpenBreakdown }}" style="font-size:38px;font-weight:800;color:#0E9384;letter-spacing:-.02em;cursor:pointer" style-hover="text-decoration:underline">{{ perfScoreN }}</span>
+                              <span style="font-size:13px;color:#98A2B3">/ 100 — {{ perfScoreStatus }}</span>
+                            </div>
+                            <div style="font-size:12.5px;font-weight:600;color:#15803D;margin-top:6px">{{ perfScoreDelta }}</div>
+                            <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">Target score: {{ perfScoreTarget }}</div>
+                            <div style="font-size:11px;color:#0E9384;margin-top:10px;cursor:pointer;font-weight:600" onClick="{{ perfOpenBreakdown }}">View score breakdown →</div>
                           </div>
-                        </sc-for>
-                      </div>
-
-                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:16px;align-items:start;margin-bottom:22px">
-                        <div style="border:1px solid #F0EEE7;border-radius:12px;padding:20px 22px">
-                          <div style="display:flex;align-items:center;gap:11px;margin-bottom:4px;flex-wrap:wrap">
-                            <span style="font-size:15px;font-weight:700;color:#0F2A47;flex:1 1 140px">Performance trend</span>
-                            <div style="display:flex;gap:6px;flex-wrap:wrap">
-                              <sc-for list="{{ spTrendChips }}" as="c" hint-placeholder-count="4">
-                                <button onClick="{{ c.pick }}" style="height:29px;padding:0 12px;border-radius:999px;border:1.5px solid {{ c.border }};background:{{ c.bg }};font-size:11.5px;font-weight:{{ c.weight }};color:{{ c.fg }};cursor:pointer;font-family:inherit;white-space:nowrap">{{ c.label }}</button>
+                          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                            <div style="font-size:12px;font-weight:700;color:#7A8699;margin-bottom:12px">PERFORMANCE DIMENSIONS</div>
+                            <div style="display:flex;flex-direction:column;gap:10px">
+                              <sc-for list="{{ perfDims }}" as="d" hint-placeholder-count="6">
+                                <div>
+                                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:#344054">{{ d.label }} · {{ d.weight }}%</span><span style="font-weight:700;color:#0F2A47">{{ d.pct }}</span></div>
+                                  <div style="height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ d.pct }};border-radius:4px;background:#0E9384"></div></div>
+                                </div>
                               </sc-for>
                             </div>
                           </div>
-                          <div style="font-size:11.5px;color:#98A2B3;margin-bottom:14px">{{ spTrendMetric }} · last 6 months</div>
-                          <div style="display:flex;align-items:flex-end;gap:12px;height:168px;padding:0 4px">
-                            <sc-for list="{{ spTrendBars }}" as="b" hint-placeholder-count="6">
-                              <div style="flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end;min-width:0">
-                                <span style="font-size:11.5px;font-weight:700;color:#475467;margin-bottom:6px;white-space:nowrap">{{ b.val }}</span>
-                                <div style="width:100%;max-width:56px;border-radius:6px 6px 0 0;background:{{ b.bg }};height:{{ b.h }}"></div>
-                                <span style="font-size:11px;color:#98A2B3;margin-top:8px">{{ b.label }}</span>
+                        </div>
+
+                        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px">
+                          <sc-for list="{{ perfKpis }}" as="k" hint-placeholder-count="8">
+                            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 15px">
+                              <div style="font-size:11px;color:#98A2B3">{{ k.label }}</div>
+                              <div style="font-size:19px;font-weight:800;color:#0F2A47;margin-top:5px">{{ k.cur }}</div>
+                              <div style="display:flex;align-items:center;gap:6px;margin-top:5px">
+                                <span style="font-size:10.5px;color:#98A2B3">Target: {{ k.tgt }}</span>
+                                <span style="font-size:10.5px;font-weight:700;color:{{ k.deltaFg }}">{{ k.deltaTxt }}</span>
+                              </div>
+                            </div>
+                          </sc-for>
+                        </div>
+
+                        <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px;margin-bottom:16px">
+                          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+                            <div style="font-size:14px;font-weight:700;color:#0F2A47">Performance trend · last 6 months</div>
+                            <div style="display:flex;gap:6px;flex-wrap:wrap">
+                              <sc-for list="{{ perfTrendMetrics }}" as="m" hint-placeholder-count="7">
+                                <button onClick="{{ m.pick }}" style="height:28px;padding:0 11px;border-radius:999px;border:1px solid #E5E3DC;background:{{ m.bg }};color:{{ m.fg }};font-size:11px;font-weight:600;cursor:pointer">{{ m.label }}</button>
+                              </sc-for>
+                            </div>
+                          </div>
+                          <div style="display:flex;align-items:flex-end;gap:14px;height:150px">
+                            <sc-for list="{{ perfTrendPts }}" as="p" hint-placeholder-count="6">
+                              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                                <span style="font-size:10.5px;font-weight:600;color:#475467">{{ p.v }}</span>
+                                <div style="width:100%;max-width:34px;height:{{ p.h }};border-radius:6px 6px 3px 3px;background:#0E9384"></div>
+                                <span style="font-size:10.5px;color:#98A2B3">{{ p.m }}</span>
                               </div>
                             </sc-for>
                           </div>
                         </div>
 
-                        <div>
-                          <div style="border:1px solid #F0EEE7;border-radius:12px;padding:18px 20px;margin-bottom:16px">
-                            <div style="font-size:15px;font-weight:700;color:#0F2A47;margin-bottom:4px">Workload</div>
-                            <div style="font-size:11.5px;color:#98A2B3;margin-bottom:14px">Utilised against configured speaking capacity</div>
-                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-                              <div style="flex:1;height:9px;border-radius:6px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ spLoadPct }};border-radius:6px;background:{{ spLoadColor }}"></div></div>
-                              <span style="font-size:16px;font-weight:800;color:#0F2A47">{{ spLoadPct }}</span>
+                        <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                          <div style="font-size:14px;font-weight:700;color:#0F2A47;margin-bottom:12px">Attention required</div>
+                          <sc-for list="{{ perfAttention }}" as="a" hint-placeholder-count="4">
+                            <div onClick="{{ a.go }}" style="display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-top:1px solid #F5F3EE;cursor:pointer">
+                              <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ a.sBg }};color:{{ a.sFg }};flex:none">{{ a.sev }}</span>
+                              <div style="min-width:0">
+                                <div style="font-size:13px;font-weight:600;color:#0F2A47">{{ a.t }}</div>
+                                <div style="font-size:11.5px;color:#98A2B3;margin-top:2px">{{ a.s }}</div>
+                              </div>
                             </div>
-                            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
-                              <sc-for list="{{ spLoadStats }}" as="l" hint-placeholder-count="6">
-                                <div style="background:#FCFBF7;border:1px solid #F0EEE7;border-radius:9px;padding:10px 12px;min-width:0">
-                                  <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:#98A2B3;text-wrap:pretty">{{ l.label }}</div>
-                                  <div style="font-size:16px;font-weight:800;color:#0F2A47;margin-top:3px">{{ l.v }}</div>
-                                </div>
-                              </sc-for>
-                            </div>
-                          </div>
-                          <div style="border:1px solid #F0EEE7;border-radius:12px;padding:16px 18px;margin-bottom:16px">
-                            <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#15803D;margin-bottom:11px">STRENGTHS</div>
-                            <div style="display:flex;flex-direction:column;gap:9px">
-                              <sc-for list="{{ spStrengths }}" as="st" hint-placeholder-count="3">
-                                <div style="border-left:3px solid #15803D;background:#FCFBF7;border-radius:8px;padding:10px 13px">
-                                  <div style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ st.t }}</div>
-                                  <div style="font-size:11.5px;color:#7A8699;margin-top:3px;text-wrap:pretty">{{ st.s }}</div>
-                                </div>
-                              </sc-for>
-                            </div>
-                          </div>
-                          <div style="border:1px solid #F0EEE7;border-radius:12px;padding:16px 18px">
-                            <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#B45309;margin-bottom:11px">AREAS REQUIRING ATTENTION</div>
-                            <div style="display:flex;flex-direction:column;gap:9px">
-                              <sc-for list="{{ spAreas }}" as="ar" hint-placeholder-count="3">
-                                <div style="border-left:3px solid #B45309;background:#FCFBF7;border-radius:8px;padding:10px 13px">
-                                  <div style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ ar.t }}</div>
-                                  <div style="font-size:11.5px;color:#7A8699;margin-top:3px;text-wrap:pretty">{{ ar.s }}</div>
-                                </div>
-                              </sc-for>
-                            </div>
-                          </div>
+                          </sc-for>
+                          <div style="display:{{ perfAttentionEmpty }};font-size:12.5px;color:#98A2B3;padding:8px 0">No exceptions flagged — performance is on track.</div>
                         </div>
                       </div>
+                    </sc-if>
 
-                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
-                        <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
-                        <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">PERIOD COMPARISON</span>
-                        <span style="flex:1;height:1px;background:#F0EEE7"></span>
-                        <span style="font-size:11.5px;color:#98A2B3">this period vs previous</span>
-                      </div>
-                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                    <sc-if value="{{ perfTabIs.events }}" hint-placeholder-val="{{ false }}">
+                      <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
                         <div style="overflow-x:auto">
-                          <table style="width:100%;min-width:640px;border-collapse:collapse">
-                            <thead>
-                              <tr style="background:#FCFBF7">
-                                <th style="padding:10px 18px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">METRIC</th>
-                                <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">THIS PERIOD</th>
-                                <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PREVIOUS</th>
-                                <th style="padding:10px 18px 10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">CHANGE</th>
-                              </tr>
-                            </thead>
+                          <table style="width:100%;min-width:980px;border-collapse:collapse">
+                            <thead><tr style="background:#FCFBF7">
+                              <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">EVENT</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TYPE</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">DATE</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">REGISTRATIONS</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ATTENDANCE</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RATING</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ENGAGEMENT</th>
+                              <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th>
+                              <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                            </tr></thead>
                             <tbody>
-                              <sc-for list="{{ spCompare }}" as="r" hint-placeholder-count="7">
-                                <tr style="background:{{ r.rowBg }}">
-                                  <td style="padding:11px 18px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#344054">{{ r.label }}</td>
-                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:13px;font-weight:800;color:#0F2A47;white-space:nowrap">{{ r.now }}</td>
-                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#98A2B3;white-space:nowrap">{{ r.prev }}</td>
-                                  <td style="padding:11px 18px 11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.dBg }};color:{{ r.dFg }};white-space:nowrap">{{ r.delta }}</span></td>
+                              <sc-for list="{{ perfEventRows }}" as="e" hint-placeholder-count="6">
+                                <tr style-hover="background:#FCFBF7">
+                                  <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE;font-size:13px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ e.name }}</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ e.type }}</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ e.date }}</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ e.reg }}</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ e.att }} ({{ e.attPct }})</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ e.rating }}/5</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ e.eng }}%</td>
+                                  <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ e.sBg }};color:{{ e.sFg }};white-space:nowrap">{{ e.status }}</span></td>
+                                  <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right"><span onClick="{{ e.view }}" style="font-size:12px;font-weight:600;color:#0B7A6E;cursor:pointer;white-space:nowrap">View →</span></td>
                                 </tr>
                               </sc-for>
                             </tbody>
                           </table>
                         </div>
                       </div>
-                    </div>
-                  </sc-if>
+                    </sc-if>
+
+                    <sc-if value="{{ perfTabIs.audience }}" hint-placeholder-val="{{ false }}">
+                      <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px">
+                        <div style="font-size:14px;font-weight:700;color:#0F2A47;margin-bottom:16px">Audience funnel</div>
+                        <div style="display:flex;flex-direction:column;gap:12px">
+                          <sc-for list="{{ perfFunnel }}" as="f" hint-placeholder-count="6">
+                            <div>
+                              <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px"><span style="font-weight:500;color:#344054">{{ f.label }}</span><span style="font-weight:700;color:#0F2A47">{{ f.n }} ({{ f.pct }})</span></div>
+                              <div style="height:9px;border-radius:5px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ f.pct }};border-radius:5px;background:#0E9384"></div></div>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </div>
+                    </sc-if>
+
+                    <sc-if value="{{ perfTabIs.engagement }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+                        <sc-for list="{{ perfEngagement }}" as="m" hint-placeholder-count="9">
+                          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 16px">
+                            <div style="font-size:11px;color:#98A2B3">{{ m.label }}</div>
+                            <div style="font-size:20px;font-weight:800;color:#0F2A47;margin-top:5px">{{ m.n }}</div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+
+                    <sc-if value="{{ perfTabIs.content }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                        <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                          <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:13px">Content quality</div>
+                          <sc-for list="{{ perfContent }}" as="c" hint-placeholder-count="9">
+                            <div style="margin-bottom:10px">
+                              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:#344054">{{ c.label }}</span><span style="font-weight:700;color:#0F2A47">{{ c.pct }}</span></div>
+                              <div style="height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ c.pct }};border-radius:4px;background:#1D4ED8"></div></div>
+                            </div>
+                          </sc-for>
+                        </div>
+                        <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                          <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:13px">Delivery quality</div>
+                          <sc-for list="{{ perfDelivery }}" as="d" hint-placeholder-count="9">
+                            <div style="margin-bottom:10px">
+                              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:#344054">{{ d.label }}</span><span style="font-weight:700;color:#0F2A47">{{ d.pct }}</span></div>
+                              <div style="height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ d.pct }};border-radius:4px;background:#0E9384"></div></div>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </div>
+                    </sc-if>
+
+                    <sc-if value="{{ perfTabIs.feedback }}" hint-placeholder-val="{{ false }}">
+                      <div>
+                        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:16px">
+                          <sc-for list="{{ perfFeedbackKpis }}" as="k" hint-placeholder-count="5">
+                            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 15px">
+                              <div style="font-size:11px;color:#98A2B3">{{ k.label }}</div>
+                              <div style="font-size:19px;font-weight:800;color:#0F2A47;margin-top:5px">{{ k.n }}</div>
+                            </div>
+                          </sc-for>
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:16px">
+                          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                            <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:13px">Rating distribution</div>
+                            <sc-for list="{{ perfFeedback.dist }}" as="d" hint-placeholder-count="5">
+                              <div style="margin-bottom:9px">
+                                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:#B45309">{{ d.label }}</span><span style="font-weight:700;color:#0F2A47">{{ d.pct }}</span></div>
+                                <div style="height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ d.pct }};border-radius:4px;background:#F0A72A"></div></div>
+                              </div>
+                            </sc-for>
+                          </div>
+                          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                            <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:13px">Student comments</div>
+                            <sc-for list="{{ perfFeedback.comments }}" as="c" hint-placeholder-count="3">
+                              <div style="border-left:3px solid #0E9384;padding:4px 0 4px 12px;margin-bottom:12px">
+                                <div style="font-size:12.5px;color:#344054;line-height:1.5">“{{ c.text }}”</div>
+                                <div style="font-size:11px;color:#98A2B3;margin-top:4px">{{ c.event }}</div>
+                              </div>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </div>
+                    </sc-if>
+
+                    <sc-if value="{{ perfTabIs.outcomes }}" hint-placeholder-val="{{ false }}">
+                      <div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+                          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                            <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:13px">Learning outcomes</div>
+                            <div style="display:flex;align-items:center;gap:14px">
+                              <div><div style="font-size:11px;color:#98A2B3">Pre-Event</div><div style="font-size:20px;font-weight:800;color:#0F2A47">{{ perfOutcomes.pre }}</div></div>
+                              <span style="color:#98A2B3">→</span>
+                              <div><div style="font-size:11px;color:#98A2B3">Post-Event</div><div style="font-size:20px;font-weight:800;color:#0F2A47">{{ perfOutcomes.post }}</div></div>
+                              <span style="color:#98A2B3">→</span>
+                              <div><div style="font-size:11px;color:#98A2B3">Improvement</div><div style="font-size:20px;font-weight:800;color:#15803D">{{ perfOutcomes.improvement }}</div></div>
+                            </div>
+                            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px">
+                              <div><div style="font-size:11px;color:#98A2B3">Resource Downloads</div><div style="font-size:15px;font-weight:700;color:#0F2A47;margin-top:3px">{{ perfOutcomes.resourceDownloads }}</div></div>
+                              <div><div style="font-size:11px;color:#98A2B3">Follow-up Engagement</div><div style="font-size:15px;font-weight:700;color:#0F2A47;margin-top:3px">{{ perfOutcomes.followUp }}</div></div>
+                              <div><div style="font-size:11px;color:#98A2B3">Mock-Test Attempts</div><div style="font-size:15px;font-weight:700;color:#0F2A47;margin-top:3px">{{ perfOutcomes.mockAttempts }}</div></div>
+                              <div><div style="font-size:11px;color:#98A2B3">Course Exploration</div><div style="font-size:15px;font-weight:700;color:#0F2A47;margin-top:3px">{{ perfOutcomes.courseExplore }}</div></div>
+                            </div>
+                          </div>
+                          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                            <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:13px">Q&amp;A performance</div>
+                            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+                              <div><div style="font-size:11px;color:#98A2B3">Questions Received</div><div style="font-size:17px;font-weight:800;color:#0F2A47;margin-top:3px">{{ perfOutcomes.qa.received }}</div></div>
+                              <div><div style="font-size:11px;color:#98A2B3">Answered</div><div style="font-size:17px;font-weight:800;color:#0F2A47;margin-top:3px">{{ perfOutcomes.qa.answered }}</div></div>
+                              <div><div style="font-size:11px;color:#98A2B3">Answer Rate</div><div style="font-size:17px;font-weight:800;color:#15803D;margin-top:3px">{{ perfOutcomes.qa.rate }}</div></div>
+                              <div><div style="font-size:11px;color:#98A2B3">Unanswered</div><div style="font-size:17px;font-weight:800;color:#B45309;margin-top:3px">{{ perfOutcomes.qa.unanswered }}</div></div>
+                              <div><div style="font-size:11px;color:#98A2B3">Follow-up Required</div><div style="font-size:17px;font-weight:800;color:#0F2A47;margin-top:3px">{{ perfOutcomes.qa.followupReq }}</div></div>
+                              <div><div style="font-size:11px;color:#98A2B3">Follow-up Completed</div><div style="font-size:17px;font-weight:800;color:#0F2A47;margin-top:3px">{{ perfOutcomes.qa.followupDone }}</div></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                          <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:4px">Event conversion</div>
+                          <div style="font-size:11.5px;color:#98A2B3;margin-bottom:13px">Tracked as an event outcome — not a dominant speaker-quality metric</div>
+                          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                            <sc-for list="{{ perfOutcomes.conversion }}" as="c" hint-placeholder-count="7">
+                              <div style="text-align:center;padding:10px 14px;border:1px solid #F0EEE7;border-radius:10px;background:#FCFBF7">
+                                <div style="font-size:14px;font-weight:800;color:#0F2A47">{{ c.n }}</div>
+                                <div style="font-size:10px;color:#98A2B3;margin-top:3px">{{ c.label }}</div>
+                              </div>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </div>
+                    </sc-if>
+
+                    <sc-if value="{{ perfTabIs.payouts }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                        <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                          <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:14px">Payout summary</div>
+                          <div style="display:flex;flex-direction:column;gap:11px">
+                            <div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="color:#7A8699">Events Completed</span><span style="font-weight:700;color:#0F2A47">{{ perfPayout.events }}</span></div>
+                            <div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="color:#7A8699">Payout per Event</span><span style="font-weight:700;color:#0F2A47">{{ perfPayout.perEvent }}</span></div>
+                            <div style="display:flex;justify-content:space-between;font-size:12.5px;padding-top:9px;border-top:1px solid #F5F3EE"><span style="color:#7A8699">Total Earnings</span><span style="font-weight:800;color:#0F2A47">{{ perfPayout.total }}</span></div>
+                            <div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="color:#7A8699">Paid</span><span style="font-weight:700;color:#15803D">{{ perfPayout.paid }}</span></div>
+                            <div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="color:#7A8699">Pending</span><span style="font-weight:700;color:#B45309">{{ perfPayout.pending }}</span></div>
+                          </div>
+                          <div style="font-size:11px;color:#98A2B3;margin-top:14px">Detailed transactions live in Contracts &amp; Payouts.</div>
+                        </div>
+                        <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px">
+                          <div style="font-size:13.5px;font-weight:700;color:#0F2A47;margin-bottom:14px">Reliability &amp; workload</div>
+                          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+                            <div><div style="font-size:11px;color:#98A2B3">Events Accepted</div><div style="font-size:16px;font-weight:800;color:#0F2A47;margin-top:3px">{{ perfReliability.accepted }}</div></div>
+                            <div><div style="font-size:11px;color:#98A2B3">Cancellations</div><div style="font-size:16px;font-weight:800;color:#0F2A47;margin-top:3px">{{ perfReliability.cancelled }}</div></div>
+                            <div><div style="font-size:11px;color:#98A2B3">Late Arrivals</div><div style="font-size:16px;font-weight:800;color:#0F2A47;margin-top:3px">{{ perfReliability.lateArrivals }}</div></div>
+                            <div><div style="font-size:11px;color:#98A2B3">No-Shows</div><div style="font-size:16px;font-weight:800;color:#0F2A47;margin-top:3px">{{ perfReliability.noShows }}</div></div>
+                            <div><div style="font-size:11px;color:#98A2B3">Hours Delivered</div><div style="font-size:16px;font-weight:800;color:#0F2A47;margin-top:3px">{{ perfWorkload.hours }}</div></div>
+                            <div><div style="font-size:11px;color:#98A2B3">Upcoming Events</div><div style="font-size:16px;font-weight:800;color:#0F2A47;margin-top:3px">{{ perfWorkload.upcoming }}</div></div>
+                          </div>
+                        </div>
+                      </div>
+                    </sc-if>
+
+                    <sc-if value="{{ perfTabIs.activity }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                        <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                          <div style="padding:16px 18px;border-bottom:1px solid #F2F0EA;font-size:13.5px;font-weight:700;color:#0F2A47">Goals &amp; targets</div>
+                          <sc-for list="{{ perfGoals }}" as="g" hint-placeholder-count="5">
+                            <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #F7F5F0">
+                              <div style="min-width:0;flex:1">
+                                <div style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ g.kpi }}</div>
+                                <div style="font-size:11px;color:#98A2B3;margin-top:2px">Current {{ g.cur }} · Target {{ g.tgt }}</div>
+                              </div>
+                              <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ g.sBg }};color:{{ g.sFg }};white-space:nowrap">{{ g.status }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                        <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                          <div style="padding:16px 18px;border-bottom:1px solid #F2F0EA;font-size:13.5px;font-weight:700;color:#0F2A47">Activity log</div>
+                          <sc-for list="{{ perfActivity }}" as="a" hint-placeholder-count="6">
+                            <div style="padding:12px 18px;border-bottom:1px solid #F7F5F0">
+                              <div style="display:flex;justify-content:space-between;gap:10px">
+                                <span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ a.a }}</span>
+                                <span style="font-size:11px;color:#98A2B3;white-space:nowrap">{{ a.d }}</span>
+                              </div>
+                              <div style="font-size:11.5px;color:#7A8699;margin-top:3px">{{ a.ev }}</div>
+                              <div style="font-size:11px;color:#98A2B3;margin-top:2px">{{ a.note }}</div>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-if>
 
                   <sc-if value="{{ spkTabIs.content }}" hint-placeholder-val="{{ false }}">
                     <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
@@ -2195,7 +2348,7 @@
                               <div style="min-width:0;flex:1">
                                 <div style="font-size:13.5px;font-weight:600;color:#0F2A47;text-wrap:pretty">{{ e.title }}</div>
                                 <div style="display:flex;align-items:center;gap:8px;margin-top:5px;flex-wrap:wrap">
-                                  <span style="font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ e.tBg }};color:{{ e.tFg }};white-space:nowrap">{{ e.type }}</span>
+                                  <span style="font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:#EEF6F5;color:#0B7A6E;white-space:nowrap">{{ e.type }}</span>
                                   <span style="font-size:11.5px;color:#98A2B3">{{ e.regs }} registered</span>
                                   <span style="font-size:11.5px;color:#98A2B3">· {{ e.mins }}</span>
                                 </div>
@@ -3786,6 +3939,14 @@
                     <span style="display:{{ e.featuredShow }};font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px;background:#FBF3D6;color:#8A6D0B">Featured</span>
                     <span style="flex:1"></span>
                     <span style="font-size:12.5px;font-weight:700;color:{{ e.seatsFg }};white-space:nowrap">{{ e.seatsLabel }}</span>
+                    <button onClick="{{ e.menu }}" style="width:30px;height:30px;flex:none;border-radius:8px;border:1px solid {{ e.menuBd }};background:{{ e.menuBg }};display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7" /><circle cx="12" cy="12" r="1.7" /><circle cx="12" cy="19" r="1.7" /></svg>
+                    </button>
+                    <div style="display:{{ e.menuDisplay }};position:absolute;top:36px;right:0;width:222px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;z-index:30;text-align:left">
+                      <sc-for list="{{ e.menuItems }}" as="m" hint-placeholder-count="6">
+                        <div onClick="{{ m.pick }}" style="padding:9px 12px;border-radius:8px;font-size:13.5px;color:{{ m.fg }};cursor:pointer;border-top:{{ m.bt }};margin-top:{{ m.mt }};padding-top:{{ m.pt }}" style-hover="background:{{ m.hbg }}">{{ m.label }}</div>
+                      </sc-for>
+                    </div>
                   </div>
 
                   <div style="height:132px;border-radius:12px;background:{{ e.thumbBg }};display:grid;place-items:center;overflow:hidden;position:relative">
@@ -3873,7 +4034,7 @@
                           <div style="font-size:12.5px;font-weight:700;color:{{ e.attFg }};white-space:nowrap">{{ e.attLabel }}</div>
                           <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;white-space:nowrap">{{ e.attNote }}</div>
                         </td>
-                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:{{ e.ratingFg }};white-space:nowrap">{{ e.ratingLabel }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#B45309;white-space:nowrap">★ {{ e.rating }}</td>
                         <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE">
                           <div style="display:flex;gap:5px">
                             <span title="Content" style="width:8px;height:8px;border-radius:50%;background:{{ e.hContent }}"></span>
@@ -5385,14 +5546,15 @@
             <select value="{{ clType }}" onChange="{{ setClType }}" style="height:38px;padding:0 11px;border:1px solid #E5E3DC;border-radius:10px;font-size:12.5px;background:#fff;outline:0"><option>All</option><option>Webinar</option><option>Workshop</option></select>
             <select value="{{ clHealth }}" onChange="{{ setClHealth }}" style="height:38px;padding:0 11px;border:1px solid #E5E3DC;border-radius:10px;font-size:12.5px;background:#fff;outline:0"><option>All</option><option>Complete</option><option>Needs Review</option><option>Missing Content</option></select>
             <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:9px;padding:3px">
-              <button onClick="{{ setClView }}" style="height:30px;padding:0 12px;border:0;border-radius:7px;font-size:12px;cursor:pointer;background:{{ clViewGrid }} ? '#0E9384' : 'transparent';color:{{ clViewGrid }} ? '#fff' : '#6B7C93'">Grid</button>
-              <button onClick="{{ setClView }}" style="height:30px;padding:0 12px;border:0;border-radius:7px;font-size:12px;cursor:pointer;background:{{ clViewList }} ? '#0E9384' : 'transparent';color:{{ clViewList }} ? '#fff' : '#6B7C93'">List</button>
+              <button onClick="{{ clSetGrid }}" style="height:30px;padding:0 12px;border:0;border-radius:7px;font-size:12px;font-weight:{{ clGridWeight }};cursor:pointer;background:{{ clGridBg }};color:{{ clGridFg }};font-family:inherit">Grid</button>
+              <button onClick="{{ clSetList }}" style="height:30px;padding:0 12px;border:0;border-radius:7px;font-size:12px;font-weight:{{ clListWeight }};cursor:pointer;background:{{ clListBg }};color:{{ clListFg }};font-family:inherit">List</button>
             </div>
             <button onClick="{{ clUpload }}" style="height:38px;padding:0 13px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Upload Archived Content</button>
-            <button onClick="{{ clImport }}" style="height:38px;padding:0 13px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer">Import Event</button>
+            <button onClick="{{ clImport }}" style="height:38px;padding:0 13px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit">Import Event</button>
             <button onClick="{{ clExportAll }}" style="height:38px;padding:0 15px;border-radius:10px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer">Export</button>
           </div>
 
+          <sc-if value="{{ clIsGrid }}" hint-placeholder-val="{{ true }}">
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
             <sc-for list="{{ clCards }}" as="e" hint-placeholder-count="6">
               <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
@@ -5427,6 +5589,54 @@
               </div>
             </sc-for>
           </div>
+          </sc-if>
+
+          <sc-if value="{{ clIsList }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+              <div style="overflow-x:auto">
+                <table style="width:100%;min-width:1180px;border-collapse:collapse">
+                  <thead>
+                    <tr style="background:#FCFBF7">
+                      <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">EVENT</th>
+                      <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TYPE</th>
+                      <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKER</th>
+                      <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">DATE</th>
+                      <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">REGISTERED</th>
+                      <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ATTENDED</th>
+                      <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RECORDING</th>
+                      <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RESOURCES</th>
+                      <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RATING</th>
+                      <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">HEALTH</th>
+                      <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <sc-for list="{{ clCards }}" as="e" hint-placeholder-count="6">
+                      <tr onClick="{{ e.open }}" style="cursor:pointer" style-hover="background:#F7FBFA">
+                        <td style="padding:12px 20px;border-bottom:1px solid #F5F3EE">
+                          <div style="font-size:13px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ e.name }}</div>
+                          <div style="font-size:10.5px;color:#98A2B3;margin-top:2px">{{ e.duration }}</div>
+                        </td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#EEF6F5;color:#0B7A6E;white-space:nowrap">{{ e.type }}</span></td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ e.speaker }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ e.date }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47">{{ e.reg }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#15803D">{{ e.att }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#E9F1FD;color:#1D4ED8;white-space:nowrap">{{ e.recIcon }} Recording</span></td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ e.resources }} files</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#B45309;white-space:nowrap">★ {{ e.rating }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ e.hBg }};color:{{ e.hFg }};white-space:nowrap">{{ e.hLabel }} · {{ e.contentHealth }}%</span></td>
+                        <td style="padding:12px 20px 12px 13px;border-bottom:1px solid #F5F3EE;text-align:right;white-space:nowrap">
+                          <button onClick="{{ e.mReuse }}" style="height:29px;padding:0 11px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;margin-right:6px" style-hover="background:#F6F5F0">Reuse</button>
+                          <button onClick="{{ e.mExport }}" style="height:29px;padding:0 11px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:11.5px;font-weight:700;color:#0B7A6E;cursor:pointer;font-family:inherit" style-hover="background:#E2F1EE">Export</button>
+                        </td>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </sc-if>
           <div style="display:{{ clEmpty }};padding:44px 20px;text-align:center;background:#fff;border:1px solid #ECEAE2;border-radius:14px"><div style="font-size:14px;font-weight:700;color:#475467">No completed events match your filters.</div></div>
         </div>
       </sc-if>
@@ -6344,14 +6554,18 @@
           </sc-if>
 
           <sc-if value="{{ poTabIs.settings }}" hint-placeholder-val="{{ false }}">
-            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;max-width:620px">
-              <div style="font-size:14px;font-weight:700;color:#0F2A47;margin-bottom:14px">Payout settings</div>
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;max-width:760px">
+              <div style="font-size:15px;font-weight:700;color:#0F2A47;margin-bottom:3px">Payout settings</div>
+              <div style="font-size:12.5px;color:#6B7C93;margin-bottom:16px">Defaults applied to every new speaker engagement. Existing contracts keep their agreed terms.</div>
               <sc-for list="{{ poSettings }}" as="p" hint-placeholder-count="9">
-                <div style="display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid #F7F5F0">
-                  <span style="font-size:12.5px;color:#7A8699">{{ p.label }}</span>
-                  <span style="font-size:12.5px;font-weight:600;color:#0F2A47;text-align:right">{{ p.value }}</span>
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:16px;align-items:center;padding:10px 0;border-bottom:1px solid #F7F5F0">
+                  <span style="font-size:13px;color:#475467;min-width:0;text-wrap:pretty">{{ p.label }}</span>
+                  <select value="{{ p.value }}" onChange="{{ p.set }}" style="width:100%;height:38px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;font-weight:600;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+                    <sc-for list="{{ p.opts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+                  </select>
                 </div>
               </sc-for>
+              <div style="display:{{ poDirtyShow }};padding:11px 13px;border-radius:9px;background:#FEF3E2;border:1px solid #F5DFC0;font-size:12px;font-weight:600;color:#B45309;margin-top:14px">Unsaved changes — {{ poDirtyCount }} setting(s) modified.</div>
               <button onClick="{{ poSaveSettings }}" style="margin-top:16px;height:37px;padding:0 15px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer">Save Settings</button>
             </div>
           </sc-if>
@@ -9259,7 +9473,7 @@ class Component extends DCLogic {
       poExceptions: [['Failed','red'],['Rejected','red'],['Disputed','amber'],['Reversed','violet'],['Cancelled','grey']]
         .map(([st,c])=>({st, bg:BDG2[c][0], fg:BDG2[c][1]})),
       poExportRegister: ()=>this.fire('Payout register exported','XLSX · August 2026 cycle · all speakers', true),
-      poRunDisbursement: ()=>this.fire('Disbursement queued','August 2026 batch · scheduled for 5 Sep', true),
+      poRunDisbursement: ()=>this.setState({modal:'poDisburse', evErr:null}),
       poKpis: [
         {label:'Total Payable',n:inr(sum(TX.filter(t=>t.status!=='Paid'),'net')),note:TX.filter(t=>t.status!=='Paid').length+' speakers · Aug 2026',fg:'#6B7C93'},
         {label:'Pending Approval',n:inr(sum(TX.filter(t=>t.status==='Pending Approval'),'net')),note:TX.filter(t=>t.status==='Pending Approval').length+' awaiting review',fg:'#B45309'},
@@ -9420,7 +9634,7 @@ class Component extends DCLogic {
       poStatus: s.poStatus||'All', setPoStatus: set('poStatus'),
       poReset: ()=>{ this.setState({poSpeaker:'All',poEvType:'All',poModel:'All',poStatus:'All',poQ:'',poKpiFilter:null}); this.fire('Filters reset','Showing all payout transactions'); },
       poExport: ()=>this.fire('Export ready', poRows.length+' transactions · CSV, Excel and PDF'),
-      poGenerate: ()=>this.fire('Payouts generated', 'Calculated for all completed events awaiting payout'),
+      poGenerate: ()=>this.setState({modal:'poGenerate', evErr:null}),
       poRows, poEmpty: poRows.length?'none':'block',
 
       poBatches: [
@@ -9455,13 +9669,37 @@ class Component extends DCLogic {
         resolve:()=>this.setState({modal:'poResolveDispute', dsCur:d.id, dsDecision:'Accept speaker claim', dsNote:''}),
         view:()=>this.fire('Dispute — '+d.id, d.speaker+' · '+d.type)})),
 
-      poSettings: [
-        ['Default Payment Model','Fixed Per Event'],['Default Payment Due','7 days after event'],
-        ['Invoice Requirement','Required for external speakers'],['TDS Configuration','10% on gross'],
-        ['Revenue Share Basis','Net revenue after refunds and gateway fees'],['Cancellation Rules','Tiered — 0% / 25% / 50% / 100%'],
-        ['Approval Requirement','Finance approval mandatory'],['Payment Methods','Bank transfer · UPI'],['Payout Cycle','Event-based']
-      ].map(([label,value])=>({label,value})),
-      poSaveSettings: ()=>this.fire('Payout settings saved', 'Applies to newly generated payouts'),
+      ...(()=>{
+        const SET = [
+          ['Default Payment Model','poModel','Fixed Per Event',['Fixed Per Event','Per Participant','Revenue Share','Hybrid','Negotiated per speaker']],
+          ['Default Payment Due','poDue','7 days after event',['On event day','3 days after event','7 days after event','15 days after event','30 days after event']],
+          ['Invoice Requirement','poInv','Required for external speakers',['Required for all speakers','Required for external speakers','Optional','Not required']],
+          ['TDS Configuration','poTds','10% on gross',['No TDS','5% on gross','10% on gross','10% on net','2% u/s 194C']],
+          ['Revenue Share Basis','poRev','Net revenue after refunds and gateway fees',['Gross revenue','Net revenue after refunds','Net revenue after refunds and gateway fees','Net profit after event cost']],
+          ['Cancellation Rules','poCanc','Tiered — 0% / 25% / 50% / 100%',['No payout on cancellation','Flat 50% on cancellation','Full payout regardless','Tiered — 0% / 25% / 50% / 100%']],
+          ['Approval Requirement','poAppr','Finance approval mandatory',['No approval needed','Coordinator approval','Finance approval mandatory','Finance + Super Admin above ₹50k']],
+          ['Payment Methods','poMeth','Bank transfer · UPI',['Bank transfer only','Bank transfer · UPI','Bank transfer · UPI · PayPal','All methods']],
+          ['Payout Cycle','poCycle','Event-based',['Event-based','Weekly','Fortnightly','Monthly — 1st','Monthly — 15th']]
+        ];
+        const dirty = SET.filter(([,k,def])=>(s[k] ?? def) !== def).length;
+        return {
+          poSettings: SET.map(([label,key,def,opts])=>({label, value: s[key] ?? def,
+            opts: opts.map(o=>({o})), set:(e)=>this.setState({[key]:e.target.value})})),
+          ...(()=>{
+        const grid = (s.clView||'grid')==='grid';
+        return {
+          clSetGrid: ()=>this.setState({clView:'grid'}),
+          clSetList: ()=>this.setState({clView:'list'}),
+          clGridBg: grid?'#0E9384':'transparent', clGridFg: grid?'#fff':'#6B7C93', clGridWeight: grid?'700':'500',
+          clListBg: !grid?'#0E9384':'transparent', clListFg: !grid?'#fff':'#6B7C93', clListWeight: !grid?'700':'500',
+          clIsGrid: grid, clIsList: !grid
+        };
+      })(),
+      poDirtyCount: String(dirty), poDirtyShow: dirty ? 'block' : 'none',
+          poSaveSettings: ()=>this.fire(dirty ? 'Payout settings saved' : 'No changes to save',
+            dirty ? dirty+' setting(s) updated · applies to newly generated payouts' : 'Every setting is already at its saved value', !!dirty)
+        };
+      })(),
 
       // ---- transaction 360 ----
       po360: {pid:who.pid, tid:who.tid, status:who.status, speaker:who.speaker, spkId:who.spkId, coord:who.coord,
@@ -9587,9 +9825,9 @@ class Component extends DCLogic {
       preview: ()=>this.fire('Previewing recording', e.name),
       menuOpen: s.clMenu===e.ceId, menuDisplay: s.clMenu===e.ceId?'block':'none',
       menu:(ev)=>{ev.stopPropagation();this.setState(p=>({clMenu:p.clMenu===e.ceId?null:e.ceId}));},
-      mReuse:()=>{this.setState({clMenu:null});this.fire('Reuse content', e.name+' — added as a reference, original preserved');},
-      mArchive:()=>{this.setState({clMenu:null});this.fire('Event archived', e.name);},
-      mExport:()=>{this.setState({clMenu:null});this.fire('Exporting event data', e.name);}
+      mReuse:()=>this.setState({clMenu:null, modal:'clReuse', evErr:null}),
+      mArchive:()=>this.setState({clMenu:null, modal:'clArchive', evErr:null}),
+      mExport:()=>this.setState({clMenu:null, modal:'clItemExport', evErr:null}),
     }));
 
     const clWho = CONTENT_EVENTS.find(e=>e.ceId===s.clWho) || CONTENT_EVENTS[0] || {};
@@ -9613,9 +9851,9 @@ class Component extends DCLogic {
       clHealth: s.clHealth||'All', setClHealth: set('clHealth'),
       clView: s.clView||'grid', setClView:(v)=>()=>this.setState({clView:v}),
       clViewGrid: (s.clView||'grid')==='grid', clViewList: s.clView==='list',
-      clUpload: ()=>this.fire('Upload archived content', 'Opens the archive intake flow'),
-      clImport: ()=>this.fire('Import event', 'Select a completed event to import'),
-      clExportAll: ()=>this.fire('Exporting library', clCards.length+' events queued'),
+      clUpload: ()=>this.setState({modal:'clUpload', evErr:null}),
+      clImport: ()=>this.setState({modal:'clImport', evErr:null}),
+      clExportAll: ()=>this.setState({modal:'clExport', evErr:null}),
 
       clWhoName: clWho.name, clWhoType: clWho.type, clWhoDate: clWho.date, clWhoSpeaker: clWho.speaker, clWhoDuration: clWho.duration,
       clWhoRating: clWho.rating, clWhoReg: clWho.reg, clWhoAtt: clWho.att, clWhoAttPct: clWho.attPct,
@@ -10582,7 +10820,7 @@ class Component extends DCLogic {
         ['Career in Insurance','Seminar','Priya Mehta','30 Aug','5:00 PM','380','Confirmed','green'],
         ['IC-01 Expert Session','Webinar','Amit Kumar','02 Sep','7:00 PM','96','At Risk','amber'],
         ['Claims Masterclass Live','Workshop','Sofia Bergström','05 Sep','4:00 PM','188','Confirmed','green']
-      ].map(([title,type,speaker,date,time,regs,status,c])=>({title,type,speaker,date,time,regs,status,bg:BDG2[c][0],fg:BDG2[c][1]})),
+      ].map(([title,type,speaker,date,time,regs,status,c])=>({title,type,speaker,date,time,regs,reg:regs,status,bg:BDG2[c][0],fg:BDG2[c][1]})),
       todayOps: [
         ['Speaker confirmation pending','Webinar: Insurance Trends · Rahul Sharma','#B42318'],
         ['Technical check pending','Seminar: Career in Insurance','#B45309'],
@@ -10953,6 +11191,7 @@ class Component extends DCLogic {
           obLinkEmpty: list.length ? 'none' : 'block',
           obLinkRows: list.map(([ref,name,mobile,email,sent,opened,expires,progress,status,c])=>{
             const open = s.obLinkMenu===ref;
+            const cm2 = null;
             return {ref, name, mobile, email, sent, opened, expires, progress, status,
               sBg: BDG2[c][0], sFg: BDG2[c][1],
               expFg: status==='Expired' ? '#B42318' : '#475467',
@@ -10974,13 +11213,15 @@ class Component extends DCLogic {
               menuDisplay: open ? 'block' : 'none',
               menu: ()=>this.setState(x=>({obLinkMenu: x.obLinkMenu===ref ? null : ref})),
               menuItems: [
-                ['Open Onboarding File',0],['Resend Link',0],['Regenerate Link',0],
-                ['Copy Link',0],['Revoke Link',1]
-              ].map(([label,danger])=>({label,
+                ['Open Onboarding File','',0],['Resend Link','oblResend',0],['Regenerate Link','oblRegen',0],
+                ['Copy Link','oblCopy',0],['Revoke Link','oblRevoke',1]
+              ].map(([label,modal,danger])=>({label,
                 fg: danger?'#B42318':'#344054', hbg: danger?'#FEF7F6':'#F6F5F0',
                 bt: danger?'1px solid #F5F3EE':'0', mt: danger?'4px':'0', pt: danger?'8px':'0',
-                pick: ()=>{ this.setState({obLinkMenu:null});
-                  this.fire(label+' — '+name, danger ? 'Link invalidated immediately' : email, !danger); }}))};
+                pick: ()=>{
+                  if (!modal) { this.setState({obLinkMenu:null}); return; }
+                  this.setState({obLinkMenu:null, modal, oblCtx:{ref,name,email,mobile,sent,progress,status}, oblErr:null});
+                }}))};
           }),
 
           obCandListView: s.obView==='candidates' && !s.obCandOpen,
@@ -11637,7 +11878,13 @@ class Component extends DCLogic {
         return {
           perfPeriods: ['Last 3 events','Last 6 events','This year','All time'].map(p=>({label:p,
             bg: p===period?'#0B1F3E':'transparent', fg: p===period?'#fff':'#475467', weight: p===period?'700':'500',
-            pick:()=>this.setState({perfPeriod:p})})),
+            tick: p===period ? '✓' : '', menuWeight: p===period?'700':'500', menuFg: p===period?'#0B7A6E':'#344054',
+            pick:()=>this.setState({perfPeriod:p, perfPeriodOpen:false})})),
+          perfPeriodLabel: period,
+          perfPeriodMenu: ()=>this.setState({perfPeriodOpen: !s.perfPeriodOpen}),
+          perfPeriodDisplay: s.perfPeriodOpen ? 'block' : 'none',
+          perfPeriodBd: s.perfPeriodOpen ? '#0E9384' : '#E5E3DC',
+          perfPeriodBg: s.perfPeriodOpen ? '#EEF6F5' : '#fff',
           perfExport: ()=>this.fire('Performance report generated', period+' · PDF downloading', true),
           perfScore: String(base),
           perfBand: base>=93 ? 'Excellent' : base>=88 ? 'Strong' : 'Good',
@@ -11963,8 +12210,31 @@ class Component extends DCLogic {
             const pct = e.expected ? Math.min(100, Math.round(e.regs/e.expected*100)) : 0;
             const attPct = e.regs && e.attended ? Math.round(e.attended/e.regs*100) : 0;
             const menuOpen = s.wwMenu===i;
+            const mkMenu = () => [
+              ['Edit Event','evEditEvent',0],
+              ['Duplicate','evDuplicate',0],
+              ['Reschedule','wwReschedule',0],
+              ['Message Registrants','evReminder',0],
+              ['Download Registrations','evExport',0],
+              ['Cancel Event','wwCancel',1]
+            ].map(([label,modal,danger],mi)=>({label,
+              fg: danger ? '#B42318' : '#344054',
+              hbg: danger ? '#FEF7F6' : '#F6F5F0',
+              bt: danger ? '1px solid #F5F3EE' : '0',
+              mt: danger ? '5px' : '0',
+              pt: danger ? '10px' : '9px',
+              pick: (ev)=>{ if (ev && ev.stopPropagation) ev.stopPropagation();
+                this.setState({wwMenu:null, wwEvent:i, modal, evErr:null}); }}));
+            const baseManage = ()=>this.setState({wwEvent:i, wwTab:'overview', wwMenu:null});
             return {...e, bg:BDG2[e.c][0], fg:BDG2[e.c][1],
               init: this.initials(e.speaker),
+              manage: menuOpen ? (()=>this.setState({wwMenu:null})) : baseManage,
+              menuDisplay: menuOpen ? 'block' : 'none',
+              menuBd: menuOpen ? '#0E9384' : '#E5E3DC',
+              menuBg: menuOpen ? '#EEF6F5' : '#fff',
+              menu: (ev)=>{ if (ev && ev.stopPropagation) ev.stopPropagation();
+                this.setState({wwMenu: menuOpen ? null : i}); },
+              menuItems: mkMenu(),
               featuredShow: e.featured ? 'inline-flex' : 'none',
               seatsLabel: e.seats ? e.seats+' seats left' : (e.status==='Completed' ? 'Completed' : 'Full'),
               seatsFg: e.seats && e.seats<20 ? '#E5484D' : e.seats ? '#B45309' : '#98A2B3',
@@ -11979,7 +12249,6 @@ class Component extends DCLogic {
               ratingLabel: e.rating==='—' ? '—' : '★ '+e.rating,
               ratingFg: e.rating==='—' ? '#98A2B3' : '#B45309',
               hContent:hC(e.health[0]), hReg:hC(e.health[1]), hTech:hC(e.health[2]),
-              manage:()=>this.setState({wwEvent:i, wwTab:'overview', wwMenu:null}),
               primaryLabel: e.status==='Live' ? 'Join Live' : e.status==='Completed' ? 'View Report' : 'Manage Event',
               primary:()=>this.setState({wwEvent:i, wwTab: e.status==='Completed' ? 'analytics' : 'overview', wwMenu:null}),
               menuDisplay: menuOpen ? 'block' : 'none',
@@ -12921,6 +13190,7 @@ class Component extends DCLogic {
       })(),
       ...(()=>{
         const ev = (WW_EVENTS[Number(s.wwEvent)||0] || WW_EVENTS[0]);
+        const ob = s.oblCtx || {};
         const cap = ev.regs + ev.seats;
         const confirmed = Math.round(ev.regs * 0.92);
         const attended = ev.attended || Math.round(confirmed*0.83);
@@ -12932,6 +13202,195 @@ class Component extends DCLogic {
           set:(e)=>this.setState({['ev_'+key]:e.target.value, evErr:null})});
 
         const FLOWS = {
+          evEditEvent: {
+            title:'Edit event', sub:ev.title+' · '+ev.date,
+            fields:[
+              F('Event title','edTitle',ev.title),
+              F('Event type','edType',ev.type,['Webinar','Workshop','Masterclass','Panel Discussion']),
+              F('Date','edDate',ev.date),
+              F('Start time','edTime',ev.time),
+              F('Capacity','edCap',String(cap)),
+              F('Price','edPrice',ev.price),
+              F('Visibility','edVis','Public',['Public','Unlisted','Invite only','Internal']),
+              TA('Description','edDesc',ev.desc||'','Shown on the registration page')
+            ],
+            info:'Changing the date or time notifies every registrant, the speaker and the coordinator.',
+            btn:'Save Changes', danger:false, requires:['edTitle'],
+            done:()=>'Updated · '+(s.ev_edTitle||ev.title)
+          },
+          evDuplicate: {
+            title:'Duplicate event', sub:'Copy of '+ev.title,
+            fields:[
+              F('New title','dpTitle',ev.title+' (copy)'),
+              F('New date','dpDate','Not scheduled'),
+              F('Copy','dpWhat','Everything except registrations',['Everything except registrations','Settings only','Settings + agenda','Settings + agenda + resources']),
+              F('Keep speaker','dpSpeaker','Yes — '+ev.speaker,['Yes — '+ev.speaker,'No, assign later']),
+              F('Keep coordinator','dpCoord','Yes — '+ev.coordinator,['Yes — '+ev.coordinator,'No, assign later']),
+              F('Create as','dpStatus','Draft',['Draft','Scheduled','Registration open'])
+            ],
+            info:'Registrations, attendance and feedback are never copied. The new event gets its own event code.',
+            btn:'Duplicate', danger:false, requires:['dpTitle'],
+            done:()=>'Created '+(s.ev_dpTitle||'')+' · '+(s.ev_dpStatus||'Draft')
+          },
+          oblResend: {
+            title:'Resend onboarding link', sub:ob.name+' · '+ob.email,
+            fields:[
+              F('Send to','orTo',ob.email||'',null),
+              F('Channel','orCh','Email + WhatsApp',['Email only','Email + WhatsApp','Email + SMS','All channels']),
+              F('Extend expiry','orExp','Keep current expiry',['Keep current expiry','+7 days','+14 days','+30 days']),
+              TA('Note','orNote','','Optional line added to the email')
+            ],
+            info:'The same link is sent again — any progress the speaker has already made is preserved.',
+            btn:'Resend Link', danger:false,
+            done:()=>'Link resent · '+(s.ev_orCh||'Email + WhatsApp')
+          },
+          oblRegen: {
+            title:'Regenerate onboarding link', sub:ob.name+' · '+ob.ref,
+            fields:[
+              F('Reason','ogReason','',null),
+              F('New validity','ogVal','7 days',['48 hours','7 days','14 days','30 days']),
+              F('Send immediately','ogSend','Yes',['Yes','No — copy link only']),
+              F('Keep saved progress','ogKeep','Yes',['Yes','No — start fresh'])
+            ],
+            info:'Regenerating invalidates the previous link immediately. Anyone holding the old URL loses access.',
+            btn:'Regenerate & Send', danger:true, requires:['ogReason'],
+            done:()=>'New link issued · valid '+(s.ev_ogVal||'7 days')
+          },
+          oblCopy: {
+            title:'Copy onboarding link', sub:ob.name+' · '+ob.ref,
+            fields:[
+              F('Link','ocLink','studycrux.io/onboard/'+String(ob.ref||'').toLowerCase(),null),
+              F('Format','ocFmt','Plain URL',['Plain URL','Markdown','HTML anchor','QR code']),
+              F('Log this','ocLog','Yes — record in activity',['Yes — record in activity','No'])
+            ],
+            info:'Copying does not notify the speaker. Use Resend if they need a fresh email.',
+            btn:'Copy Link', danger:false,
+            done:()=>'Copied · '+(s.ev_ocFmt||'Plain URL')
+          },
+          oblRevoke: {
+            title:'Revoke onboarding link', sub:ob.name+' · '+ob.ref,
+            fields:[
+              F('Reason','ovReason','',null),
+              F('Candidate status','ovStatus','Keep as is',['Keep as is','Mark withdrawn','Mark rejected','Archive candidate']),
+              F('Notify speaker','ovNotify','Yes',['Yes','No'])
+            ],
+            info:'Revoking kills the link immediately. Submitted data stays on the candidate record.',
+            btn:'Revoke Link', danger:true, requires:['ovReason'],
+            done:()=>'Link revoked · '+(s.ev_ovStatus||'Keep as is')
+          },
+          clUpload: {
+            title:'Upload archived content', sub:'Add a past event to the content library',
+            fields:[
+              F('Event title','cuTitle',''),
+              F('Event type','cuType','Webinar',['Webinar','Workshop','Masterclass','Panel Discussion']),
+              F('Event date','cuDate',''),
+              F('Speaker','cuSpeaker','Dr. Ankit Sharma',['Dr. Ankit Sharma','Ananya Deshmukh','Sofia Bergström','Prof. Arun Mehta','Other — type below']),
+              F('Recording','cuRec','Upload file',['Upload file','External URL','No recording']),
+              F('Resources','cuRes','None yet',['None yet','Slide deck','Slide deck + handouts','Full resource pack']),
+              F('Visibility','cuVis','Internal only',['Internal only','Enrolled learners','All learners','Public']),
+              TA('Description','cuDesc','','Shown on the library card')
+            ],
+            info:'Archived uploads are marked as historical — they never appear in upcoming event lists.',
+            btn:'Upload Content', danger:false, requires:['cuTitle','cuDate'],
+            done:()=>'Uploaded · '+(s.ev_cuTitle||'')+' · '+(s.ev_cuVis||'Internal only')
+          },
+          clImport: {
+            title:'Import event', sub:'Pull a completed event into the library',
+            fields:[
+              F('Source','ciSrc','StudyCrux events',['StudyCrux events','Zoom cloud','YouTube','CSV manifest']),
+              F('Event','ciEvent','IC-11 Industry Masterclass',['IC-11 Industry Masterclass','Insurance Career Masterclass','Claims Handling Workshop','Regulatory Update Panel']),
+              F('Include','ciInc','Recording + resources + Q&A',['Recording only','Recording + resources','Recording + resources + Q&A','Everything']),
+              F('Attendance data','ciAtt','Import',['Import','Skip']),
+              F('Set status','ciStatus','Completed',['Completed','Archived'])
+            ],
+            info:'Importing links to the original event record — analytics stay connected rather than duplicated.',
+            btn:'Import', danger:false,
+            done:()=>'Imported '+(s.ev_ciEvent||'')+' · '+(s.ev_ciInc||'')
+          },
+          clExport: {
+            title:'Export library', sub:'Content library register',
+            fields:[
+              F('Scope','ceScope','All content',['All content','Current filter','Selected items','Archived only']),
+              F('Include','ceInc','Metadata + analytics',['Metadata only','Metadata + analytics','Metadata + analytics + asset links']),
+              F('Format','ceFmt','XLSX workbook',['XLSX workbook','CSV bundle','PDF report','JSON']),
+              F('Delivery','ceDel','Download',['Download','Email link','Secure drop'])
+            ],
+            info:'Media files are never included — the export carries links, not assets.',
+            btn:'Generate Export', danger:false,
+            done:()=>(s.ev_ceScope||'All content')+' · '+(s.ev_ceFmt||'XLSX workbook')
+          },
+          clReuse: {
+            title:'Reuse content', sub:'Publish this recording into another surface',
+            fields:[
+              F('Reuse as','crAs','Recorded lecture',['Recorded lecture','Course resource','Revision session','Student resource','Promotional clip']),
+              F('Attach to','crTo','IC-38 Full Prep',['IC-38 Full Prep','Life Insurance Elite','Claims Masterclass','Student Resource Library']),
+              F('Access','crAcc','Enrolled learners',['Enrolled learners','All learners','Specific batch','Public']),
+              F('Validity','crVal','Lifetime',['30 days','90 days','180 days','Lifetime']),
+              F('Link type','crLink','Reference the original',['Reference the original','Create an independent copy'])
+            ],
+            info:'A reference keeps one source of truth — edits to the original propagate everywhere it is used.',
+            btn:'Reuse Content', danger:false,
+            done:()=>'Reused as '+(s.ev_crAs||'')+' in '+(s.ev_crTo||'')
+          },
+          clArchive: {
+            title:'Archive content', sub:'Move out of the active library',
+            fields:[
+              F('Reason','caReason','Content retired',['Content retired','Superseded by newer content','Speaker request','Retention policy']),
+              F('Keep searchable','caSearch','Yes',['Yes','No']),
+              F('Existing links','caLinks','Keep working',['Keep working','Redirect to replacement','Break links']),
+              F('Retain analytics','caKeep','Yes — full history',['Yes — full history','Summary only','No'])
+            ],
+            info:'Archived content stays available for reporting and can be restored at any time.',
+            btn:'Archive', danger:true,
+            done:()=>'Archived · '+(s.ev_caReason||'Content retired')
+          },
+          clItemExport: {
+            title:'Export content item', sub:'Single library record',
+            fields:[
+              F('Include','ieInc','Metadata + analytics',['Metadata only','Metadata + analytics','Analytics only','Q&A transcript']),
+              F('Format','ieFmt','PDF report',['PDF report','XLSX workbook','CSV','JSON']),
+              F('Recording link','ieRec','Include signed URL',['Include signed URL','Exclude','Include public URL']),
+              F('Link expiry','ieExp','7 days',['24 hours','7 days','30 days','No expiry'])
+            ],
+            info:'Signed URLs expire on the chosen schedule and are logged against your account.',
+            btn:'Export Item', danger:false,
+            done:()=>(s.ev_ieInc||'')+' · '+(s.ev_ieFmt||'PDF report')
+          },
+          poGenerate: {
+            title:'Generate payouts', sub:'Completed events awaiting a payout record',
+            fields:[
+              F('Scope','pgScope','All completed events awaiting payout',['All completed events awaiting payout','Selected speakers only','Single event','Specific date range']),
+              F('Period','pgPeriod','Aug 2026',['Aug 2026','Jul 2026','Sep 2026','Last 90 days','Custom range']),
+              F('Payment model','pgModel','Use each speaker\u2019s agreed model',['Use each speaker\u2019s agreed model','Force fixed per event','Force per participant','Force revenue share']),
+              F('Attendance gate','pgGate','Skip events below 50% attendance',['No gate — pay all completed events','Skip events below 50% attendance','Skip events below 70% attendance','Flag for review instead of skipping']),
+              F('Deductions','pgDed','Apply TDS and adjustments',['Apply TDS and adjustments','TDS only','No deductions']),
+              F('Recording requirement','pgRec','Hold payout until recording is published',['Pay regardless','Hold payout until recording is published','Flag but still generate']),
+              F('Approval route','pgAppr','Finance approval required',['Auto-approve under \u20b910,000','Finance approval required','Finance + Super Admin above \u20b950,000']),
+              F('Create as','pgStatus','Pending approval',['Draft batch','Pending approval','Approved and scheduled']),
+              F('Notify speakers','pgNotify','On approval',['Immediately','On approval','On payment','Do not notify']),
+              TA('Batch note','pgNote','','Appears on the batch record and in the audit trail')
+            ],
+            info:'Generation creates one payout record per speaker per qualifying event. Events already carrying a payout are skipped automatically — nothing is ever double-generated.',
+            btn:'Generate Payouts', danger:false,
+            done:()=>'7 payouts · '+(s.ev_pgPeriod||'Aug 2026')+' · '+(s.ev_pgStatus||'Pending approval')
+          },
+          poDisburse: {
+            title:'Run disbursement', sub:'Release approved payouts to speaker bank accounts',
+            fields:[
+              F('Batch','pdBatch','BATCH-2041 · Aug 2026',['BATCH-2041 · Aug 2026','BATCH-2033 · Jul 2026','All approved payouts','Selected rows only']),
+              F('Include','pdInc','Approved payouts only',['Approved payouts only','Approved + scheduled','Everything except held']),
+              F('Payment method','pdMethod','Bank transfer (NEFT)',['Bank transfer (NEFT)','Bank transfer (IMPS)','UPI','Mixed — use each speaker\u2019s preference']),
+              F('Value date','pdDate','Today',['Today','Next working day','Specific date']),
+              F('Bank verification','pdVerify','Block unverified accounts',['Block unverified accounts','Warn but proceed','Skip verification']),
+              F('Invoice check','pdInv','Require invoice on file',['Require invoice on file','Warn if missing','Do not check']),
+              F('On failure','pdFail','Retry once, then hold',['Retry once, then hold','Hold immediately','Retry three times']),
+              F('Remittance advice','pdAdvice','Email each speaker',['Email each speaker','Email + WhatsApp','Do not send']),
+              TA('Reference note','pdNote','','Appears on the bank narration and the payout record')
+            ],
+            info:'Disbursement is irreversible once the bank accepts the file. Unverified accounts and payouts missing an invoice are held back rather than failing the whole run.',
+            btn:'Run Disbursement', danger:true,
+            done:()=>'7 payouts released · \u20b980,100 net · '+(s.ev_pdMethod||'Bank transfer (NEFT)')
+          },
           evReminder: {
             title:'Send reminder', sub:ev.title+' · '+ev.regs+' registrants',
             fields:[
