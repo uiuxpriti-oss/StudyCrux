@@ -2,14 +2,13 @@ repo: uiuxpriti-oss/StudyCrux
 branch: claude/zealous-lovelace-o9hpsg
 
 ## Last sync
-date: 2026-09-03T12:37:50Z
-commit: 95ebbc72f990
+date: 2026-09-25T15:40:00Z
 
 ### Updated in this project
-- All six modules now pushed upstream (commit 95ebbc7) — repo and project are in sync.
-- Added upstream: Dashboard, Coordinators and Role & Access (deploy html + .dc.html sources).
-- Updated upstream: Students, Teachers, Speakers, index.html — cross-module sidebar linking, Inter typeface, normalized header/search/table styles, Teacher Performance rebuild.
-- Excluded from the repo by .gitignore: screenshots/, uploads/, uploads_source/.
+- Students: fixed blank screen from missing flow context; Resolve Exception flow verified.
+- Teachers: card/row overflow menus, 13 multi-step flows, allocation row menus, Create Batch / Bulk / Export flows.
+- Coordinators: six Profile Actions flows (personal, professional, employment, compensation, documents, PDF).
+- Roles & Access: designation-based Create Role, Invite User with states, Role Hierarchy modal with drag-and-drop, bulk user picker.
 
 ## Screen map
 | Project screen | Repo files |
@@ -26,5 +25,7 @@ commit: 95ebbc72f990
 | images | assets/aarav.png, assets/aditya.png, assets/ananya.png, assets/divya.png, assets/teacher-hero.png |
 
 ## Sync history
+- 2026-09-25T14:12:28Z — modules integrated from uploads; photos pulled from repo.
+- 2026-09-03T12:37:50Z — all six modules pushed upstream (commit 95ebbc72f990).
 - 2026-09-03T10:57:43Z — repo access verified; read-only, nothing imported.
 - 2026-09-03T05:02:16Z — repo associated; tree read, nothing imported.

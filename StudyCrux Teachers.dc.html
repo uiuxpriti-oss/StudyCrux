@@ -291,7 +291,7 @@
           <sc-if value="{{ isGrid }}" hint-placeholder-val="{{ true }}">
             <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px">
               <sc-for list="{{ teachers }}" as="t" hint-placeholder-count="8">
-                <div onClick="{{ t.open }}" style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.07)">
+                <div onClick="{{ t.open }}" style="position:relative;min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.07)">
                   <div style="display:flex;align-items:flex-start;gap:12px">
                     <div style="width:48px;height:48px;flex:none;border-radius:50%;background:{{ t.avBg }};display:grid;place-items:center;color:#fff;font-size:15px;font-weight:700">{{ t.init }}</div>
                     <div style="min-width:0;flex:1">
@@ -301,6 +301,12 @@
                         <span style="font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ t.sBg }};color:{{ t.sFg }}">{{ t.statusShort }}</span>
                       </div>
                     </div>
+                    <button onClick="{{ t.menu }}" style="width:28px;height:28px;flex:none;border-radius:8px;border:1px solid {{ t.kBd }};background:{{ t.kBg }};display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg></button>
+                  </div>
+                  <div onClick="{{ t.stop }}" style="display:{{ t.menuDisplay }};position:absolute;top:52px;right:16px;z-index:40;width:216px;max-height:340px;overflow-y:auto;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;text-align:left;cursor:default">
+                    <sc-for list="{{ t.menuItems }}" as="m" hint-placeholder-count="8">
+                      <div onClick="{{ m.pick }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:{{ m.fg }};cursor:pointer;border-top:{{ m.bt }};margin-top:{{ m.mt }};padding-top:{{ m.pt }};white-space:nowrap" style-hover="background:{{ m.hbg }}">{{ m.label }}</div>
+                    </sc-for>
                   </div>
                   <div style="font-size:12.5px;color:#475467;margin-top:13px;text-wrap:pretty">{{ t.subject }}</div>
                   <div style="font-size:11.5px;color:#98A2B3;margin-top:4px">{{ t.mode }} · {{ t.exp }} experience</div>
@@ -371,7 +377,13 @@
                         <td style="padding:12px 14px;border-bottom:1px solid #F5F3EE;font-size:13px;color:#475467">{{ t.sessions }}</td>
                         <td style="padding:12px 14px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ t.payout }}</td>
                         <td style="padding:12px 14px;border-bottom:1px solid #F5F3EE"><span style="font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px;background:{{ t.sBg }};color:{{ t.sFg }};white-space:nowrap">{{ t.status }}</span></td>
-                        <td style="padding:12px 20px 12px 8px;border-bottom:1px solid #F5F3EE;text-align:right">
+                        <td style="padding:12px 20px 12px 8px;border-bottom:1px solid #F5F3EE;text-align:right;position:relative;white-space:nowrap">
+                          <button onClick="{{ t.menu }}" style="width:28px;height:28px;margin-right:6px;border-radius:7px;border:1px solid {{ t.kBd }};background:{{ t.kBg }};display:inline-grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg></button>
+                          <div onClick="{{ t.stop }}" style="display:{{ t.menuDisplay }};position:absolute;top:44px;right:20px;z-index:40;width:216px;max-height:340px;overflow-y:auto;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;text-align:left;cursor:default">
+                    <sc-for list="{{ t.menuItems }}" as="m" hint-placeholder-count="8">
+                      <div onClick="{{ m.pick }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:{{ m.fg }};cursor:pointer;border-top:{{ m.bt }};margin-top:{{ m.mt }};padding-top:{{ m.pt }};white-space:nowrap" style-hover="background:{{ m.hbg }}">{{ m.label }}</div>
+                    </sc-for>
+                  </div>
                           <button onClick="{{ t.open }}" style="width:28px;height:28px;border-radius:7px;border:1px solid #E5E3DC;background:#fff;display:inline-grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
                           </button>
@@ -795,7 +807,12 @@
                               <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.statusBg }};color:{{ r.statusFg }};white-space:nowrap">{{ r.status }}</span></td>
                               <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.allocBg }};color:{{ r.allocFg }};white-space:nowrap">{{ r.alloc }}</span></td>
                               <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right;white-space:nowrap">
-                                <button onClick="{{ r.act }}" style="height:29px;padding:0 12px;border-radius:8px;border:{{ r.actBd }};background:{{ r.actBg2 }};font-size:11.5px;font-weight:700;color:{{ r.actFg }};cursor:pointer">{{ r.actLabel }}</button>
+                                <button onClick="{{ r.menu }}" style="width:30px;height:30px;border-radius:8px;border:1px solid {{ r.kBd }};background:{{ r.kBg }};display:inline-grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg></button>
+                                <div style="display:{{ r.menuDisplay }};position:fixed;top:{{ r.mTop }};left:{{ r.mLeft }};z-index:60;width:236px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;text-align:left;white-space:nowrap">
+                                  <sc-for list="{{ r.menuItems }}" as="m" hint-placeholder-count="7">
+                                    <div onClick="{{ m.pick }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:#344054;cursor:pointer;border-top:{{ m.bt }};margin-top:{{ m.mt }}" style-hover="background:#F7FBFA;color:#0B7A6E">{{ m.label }}</div>
+                                  </sc-for>
+                                </div>
                               </td>
                             </tr>
                           </sc-for>
@@ -4569,6 +4586,154 @@
     </div>
   </main>
 </div>
+      <sc-if value="{{ fm.open }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ fm.cancel }}" style="position:fixed;inset:0;background:rgba(11,31,62,.46);z-index:84"></div>
+        <div style="position:fixed;z-index:85;top:50%;left:50%;transform:translate(-50%,-50%);width:{{ fm.width }};max-width:95vw;max-height:92vh;display:flex;flex-direction:column;background:#fff;border-radius:16px;box-shadow:0 30px 80px rgba(11,31,62,.32);overflow:hidden">
+          <div style="padding:20px 24px;border-bottom:1px solid #F0EEE7">
+            <div style="display:flex;align-items:flex-start;gap:12px">
+              <div style="min-width:0;flex:1">
+                <div style="font-size:17px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">{{ fm.title }}</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:5px;text-wrap:pretty">{{ fm.sub }}</div>
+              </div>
+              <button onClick="{{ fm.cancel }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+              </button>
+            </div>
+            <div style="display:{{ fm.stepDisplay }};gap:10px;margin-top:16px">
+              <sc-for list="{{ fm.steps }}" as="st" hint-placeholder-count="3">
+                <div onClick="{{ st.pick }}" style="flex:1;min-width:0;cursor:pointer">
+                  <div style="height:4px;border-radius:3px;background:{{ st.barBg }}"></div>
+                  <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+                    <span style="width:19px;height:19px;flex:none;border-radius:50%;background:{{ st.nBg }};color:{{ st.nFg }};display:grid;place-items:center;font-size:10.5px;font-weight:800">{{ st.n }}</span>
+                    <span style="font-size:11.5px;font-weight:{{ st.weight }};color:{{ st.fg }};min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ st.label }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:18px">
+            <sc-for list="{{ fm.groups }}" as="g" hint-placeholder-count="2">
+              <div>
+                <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+                  <span style="width:3px;height:12px;border-radius:2px;background:#0E9384"></span>
+                  <span style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#475467">{{ g.t }}</span>
+                  <span style="flex:1;height:1px;background:#F2F0EA"></span>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px 16px">
+                  <sc-for list="{{ g.fields }}" as="fd" hint-placeholder-count="6">
+                    <div style="grid-column:{{ fd.span }};min-width:0">
+                      <label style="display:block;font-size:11.5px;font-weight:600;color:#344054;margin-bottom:7px">{{ fd.label }}</label>
+                      <sc-if value="{{ fd.isText }}" hint-placeholder-val="{{ true }}">
+                        <input value="{{ fd.value }}" onChange="{{ fd.set }}" placeholder="{{ fd.placeholder }}" style="width:100%;height:38px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
+                      </sc-if>
+                      <sc-if value="{{ fd.isDate }}" hint-placeholder-val="{{ false }}">
+                        <input type="date" value="{{ fd.value }}" onChange="{{ fd.set }}" style="width:100%;height:38px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
+                      </sc-if>
+                      <sc-if value="{{ fd.isSelect }}" hint-placeholder-val="{{ false }}">
+                        <select value="{{ fd.value }}" onChange="{{ fd.set }}" style="width:100%;height:38px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0">
+                          <sc-for list="{{ fd.opts }}" as="o" hint-placeholder-count="4">
+                            <option value="{{ o.o }}" selected="{{ o.sel }}">{{ o.o }}</option>
+                          </sc-for>
+                        </select>
+                      </sc-if>
+                      <sc-if value="{{ fd.isArea }}" hint-placeholder-val="{{ false }}">
+                        <textarea value="{{ fd.value }}" onChange="{{ fd.set }}" rows="3" placeholder="{{ fd.placeholder }}" style="width:100%;padding:11px 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;line-height:1.55;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box;resize:vertical;font-family:inherit"></textarea>
+                      </sc-if>
+                      <sc-if value="{{ fd.isRead }}" hint-placeholder-val="{{ false }}">
+                        <div style="min-height:38px;display:flex;align-items:center;padding:9px 12px;border:1px solid #EDEBE4;border-radius:9px;background:#FCFBF7;font-size:12.5px;font-weight:500;color:#475467;text-wrap:pretty">{{ fd.value }}</div>
+                      </sc-if>
+                      <sc-if value="{{ fd.isChips }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;flex-wrap:wrap;gap:7px">
+                          <sc-for list="{{ fd.items }}" as="c" hint-placeholder-count="4">
+                            <button onClick="{{ c.pick }}" style="height:32px;padding:0 13px;border-radius:999px;border:1px solid {{ c.bd }};background:{{ c.bg }};font-size:12.5px;font-weight:{{ c.fw }};color:{{ c.fg }};cursor:pointer">{{ c.o }}</button>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ fd.isRadio }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;flex-wrap:wrap;gap:9px">
+                          <sc-for list="{{ fd.items }}" as="c" hint-placeholder-count="3">
+                            <div onClick="{{ c.pick }}" style="display:flex;align-items:center;gap:9px;border:1.5px solid {{ c.bd }};background:{{ c.bg }};border-radius:10px;padding:9px 13px;cursor:pointer">
+                              <span style="width:15px;height:15px;flex:none;border-radius:50%;border:1.5px solid {{ c.bd }};display:grid;place-items:center">
+                                <span style="width:8px;height:8px;border-radius:50%;background:{{ c.dot }}"></span>
+                              </span>
+                              <span style="font-size:12.5px;font-weight:600;color:{{ c.fg }}">{{ c.o }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ fd.isKv }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                          <sc-for list="{{ fd.items }}" as="kv" hint-placeholder-count="4">
+                            <div style="display:grid;grid-template-columns:180px 1fr;gap:12px;padding:10px 14px;background:{{ kv.bg }};border-bottom:1px solid #F7F5F0">
+                              <span style="font-size:12px;color:#7A8699">{{ kv.k }}</span>
+                              <span style="font-size:12.5px;font-weight:600;color:#0F2A47;text-wrap:pretty">{{ kv.v }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ fd.isChecks }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:9px">
+                          <sc-for list="{{ fd.items }}" as="c" hint-placeholder-count="4">
+                            <div style="min-width:0;display:flex;align-items:center;gap:10px;border:1px solid #F0EEE7;border-radius:10px;padding:10px 12px;background:#FCFBF7">
+                              <span style="width:18px;height:18px;flex:none;border-radius:6px;border:1.5px solid {{ c.bd }};background:{{ c.bg }};color:#fff;display:grid;place-items:center;font-size:10.5px;font-weight:800">{{ c.mark }}</span>
+                              <span style="font-size:12.5px;font-weight:600;color:{{ c.fg }};min-width:0;text-wrap:pretty">{{ c.t }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ fd.isUploads }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;flex-direction:column;gap:8px">
+                          <sc-for list="{{ fd.items }}" as="u" hint-placeholder-count="1">
+                            <div onClick="{{ u.pick }}" style="display:flex;align-items:center;gap:12px;border:1.5px dashed #D6D3CA;border-radius:10px;padding:11px 14px;background:#FCFBF7;cursor:pointer" style-hover="border-color:#0E9384;background:#F7FBFA">
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6E" stroke-width="2" stroke-linecap="round" style="flex:none"><path d="M12 16V4M7 9l5-5 5 5M4 20h16" /></svg>
+                              <span style="flex:1;min-width:0;font-size:12.5px;font-weight:600;color:#0F2A47">{{ u.name }}</span>
+                              <span style="font-size:11px;font-weight:600;color:{{ u.reqFg }}">{{ u.req }}</span>
+                              <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ u.sBg }};color:{{ u.sFg }}">{{ u.state }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ fd.isTable }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                          <sc-for list="{{ fd.items }}" as="row" hint-placeholder-count="4">
+                            <div style="display:grid;grid-template-columns:1.4fr repeat(4,minmax(0,1fr));gap:10px;padding:10px 14px;background:{{ row.bg }};border-bottom:1px solid #F7F5F0">
+                              <span style="font-size:12.5px;font-weight:{{ row.fw }};color:#0F2A47;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ row.a }}</span>
+                              <span style="font-size:12px;color:#475467">{{ row.b }}</span>
+                              <span style="font-size:12px;color:#475467">{{ row.c }}</span>
+                              <span style="font-size:12px;color:#475467">{{ row.d }}</span>
+                              <span style="font-size:12px;color:#475467">{{ row.e }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <div style="display:{{ fm.warnDisplay }};align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;background:#FEF3E2">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2.1" stroke-linecap="round" style="flex:none;margin-top:1px"><path d="M12 3 2 20h20zM12 10v4M12 17h.01" /></svg>
+              <span style="font-size:12.5px;font-weight:600;color:#92400E;text-wrap:pretty">{{ fm.warn }}</span>
+            </div>
+            <div style="display:{{ fm.infoDisplay }};align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;background:#EEF6F5">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0B7A6E" stroke-width="2.1" stroke-linecap="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
+              <span style="font-size:12.5px;color:#0B7A6E;text-wrap:pretty">{{ fm.info }}</span>
+            </div>
+            <div style="display:{{ fm.errDisplay }};align-items:center;gap:9px;padding:11px 14px;border-radius:10px;background:#FDE8E8">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.1" stroke-linecap="round" style="flex:none"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16h.01" /></svg>
+              <span style="font-size:12.5px;font-weight:600;color:#B42318">{{ fm.err }}</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+            <button onClick="{{ fm.back }}" style="display:{{ fm.backDisplay }};align-items:center;height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">Back</button>
+            <span style="flex:1"></span>
+            <button onClick="{{ fm.cancel }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Cancel</button>
+            <button onClick="{{ fm.primary }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">{{ fm.primaryLabel }}</button>
+          </div>
+        </div>
+      </sc-if>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0E9384&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#0E9384&quot;,&quot;#1D4ED8&quot;,&quot;#6D28D9&quot;,&quot;#B45309&quot;]},&quot;defaultView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;grid&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;grid&quot;,&quot;list&quot;]},&quot;showPayoutColumn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
 const AVP = ['#0E9384','#1D4ED8','#6D28D9','#B45309','#0B7A6E','#B42318','#0F766E','#4338CA'];
@@ -5373,6 +5538,37 @@ const PBATCH = [
 ];
 
 class Component extends DCLogic {
+  tMenuItems(t) {
+    const [name,id] = t, SEP = [5,10,13,15];
+    const go = (tab)=>()=>this.setState({tMenu:null, route:'profile', teacher:id, tab2:tab});
+    const act = (label,danger)=>()=>this.setState({tMenu:null, teacher:id, fm:'act', fmStep:0, fmErr:null, fmCtx:{label, danger}});
+    const flow = (kind)=>()=>{ const reset = {}; Object.keys(this.state).forEach(k=>{ if (/^(ta|tb|tl|te|tw|tn|tx|tv|ts|td)[A-Z]/.test(k)) reset[k]=undefined; });
+      this.setState({...reset, tMenu:null, teacher:id, fm:kind, fmStep:0, fmErr:null, fmCtx:{tid:id, teacher:name}}); };
+    const msg = (ch)=>()=>this.setState({tMenu:null, teacher:id, fm:'msg', fmStep:0, fmErr:null, fmCtx:{teacher:name, channel:ch},
+      msCh: ch==='Email' ? ['Email'] : ch==='WhatsApp' ? ['WhatsApp','SMS'] : ['In-app'], msType:'Upcoming class', msSubject:undefined, msBody:undefined});
+    return [
+      ['Edit Teacher',0,()=>this.setState({tMenu:null, teacher:id, fm:'onboard', fmCtx:{edit:1}, fmStep:0, fmErr:null})],
+      ['View Profile',0,go('Overview')],
+      ['Assign Course',0,flow('tAssign')],
+      ['Allocate Batch',0,flow('tAlloc')],
+      ['Schedule Live Class',0,flow('tLive')],
+      ['View Schedule',0,go('Schedule')],
+      ['View Attendance & Leave',0,go('Attendance & Leave')],
+      ['View Students',0,go('Students')],
+      ['View Performance',0,go('Performance & Reports')],
+      ['View Reviews',0,go('Ratings & Reviews')],
+      ['Send Email',0,flow('tEmail')],
+      ['Send WhatsApp / SMS',0,flow('tWa')],
+      ['Send Notification',0,flow('tNotif')],
+      ['Export Profile',0,flow('tExport')],
+      ['View Activity Log',0,go('Activity Log')],
+      ['Put on Leave',1,flow('tLeave')],
+      ['Suspend',1,flow('tSuspend')],
+      ['Deactivate',1,flow('tDeact')]
+    ].map(([label,danger,pick],i)=>({label, pick:(e)=>{ e&&e.stopPropagation&&e.stopPropagation(); pick(); },
+      fg: danger?'#B42318':'#344054', hbg: danger?'#FEF7F6':'#F7FBFA',
+      bt: SEP.includes(i)?'1px solid #F2F0EA':'none', mt: SEP.includes(i)?'4px':'0', pt: SEP.includes(i)?'8px':'8px'}));
+  }
   state = { route:'dash', view:'grid', tab:'All', q:'',
     tfOpen:false, tfSubject:'All', tfMode:'All', tfPayout:'All', tfRating:'All', tfLang:'All',
     toast:'', toastMsg:'', toastSub:'' };
@@ -5390,7 +5586,7 @@ class Component extends DCLogic {
 
   fx = (key, def, kind, opts, extra) => ({label:'', kind:kind||'text', span:'span 1',
     value: this.state[key] !== undefined ? this.state[key] : def,
-    opts:(opts||[]).map(o=>({o})),
+    opts:(opts||[]).map(o=>({o, sel: o===(this.state[key] !== undefined ? this.state[key] : def)})),
     set:(e)=>this.setState({[key]:e.target.value, fmErr:null}), ...(extra||{})});
 
   f = (label, key, def, kind, opts, extra) => {
@@ -5732,7 +5928,8 @@ class Component extends DCLogic {
     }
     if (d.isActions) d.btns = sec.btns.map(b=>({label:b[0],
       border: b[1]?'#F0D2CF':'#E5E3DC', fg: b[1]?'#B42318':'#344054', hbg: b[1]?'#FEF7F6':'#F6F5F0',
-      pick: (b[2] || b[0]==='View Class History →') ? ()=>this.setState({tab2: b[2] || 'Course & Batch'}) : ()=>this.setState({fm:'act', fmStep:0, fmErr:null, fmCtx:{label:b[0], danger:b[1]||0}})}));
+      pick: (b[2] || b[0]==='View Class History →') ? ()=>this.setState({tab2: b[2] || 'Course & Batch'}) : ({'Assign Course':'tAssign','Allocate Batch':'tAlloc','Schedule Live Class':'tLive'})[b[0]] ? ()=>this.setState({fm:({'Assign Course':'tAssign','Allocate Batch':'tAlloc','Schedule Live Class':'tLive'})[b[0]], fmStep:0, fmErr:null, fmCtx:{}})
+      : ()=>this.setState({fm:'act', fmStep:0, fmErr:null, fmCtx:{label:b[0], danger:b[1]||0}})}));
     if (d.isUpload) d.up = this.act('Upload dialog opened','PDF, JPG or PNG up to 10 MB · verified by admin after upload');
     if (d.isReviews) d.revRows = sec.rows.map(r=>{
       const S = {Published:['#E7F7EE','#15803D'], Pending:['#FEF3E2','#B45309'], Hidden:['#F1F3F5','#667085']}[r.state];
@@ -6128,7 +6325,12 @@ class Component extends DCLogic {
         statusShort: ({'Pending Approval':'Pending','Docs Pending':'Docs due'})[t[12]] || t[12],
         init:this.initials(t[0]), avBg:AVc(t[0]),
         sBg:TS[t[12]][0], sFg:TS[t[12]][1],
-        open:()=>this.setState({route:'profile', teacher:t[1]})})),
+        open:()=>this.setState({route:'profile', teacher:t[1], tMenu:null}),
+        stop:(e)=>e.stopPropagation(),
+        menu:(e)=>{ e.stopPropagation(); this.setState({tMenu: s.tMenu===t[1] ? null : t[1]}); },
+        menuDisplay: s.tMenu===t[1] ? 'block' : 'none',
+        kBg: s.tMenu===t[1] ? '#EEF6F5' : '#fff', kBd: s.tMenu===t[1] ? '#BFE3DC' : '#E5E3DC',
+        menuItems: this.tMenuItems(t)})),
 
       isProfOverview: (s.tab2||'Overview')==='Overview',
       profGridCols: (s.tab2||'Overview')==='Overview' ? 'minmax(0,1fr) 300px' : 'minmax(0,1fr)',
@@ -6345,6 +6547,272 @@ class Component extends DCLogic {
             }});
         }
 
+
+        if (['tAssign','tAlloc','tLive','tEmail','tWa','tNotif','tExport','tLeave','tSuspend','tDeact'].includes(kind)) {
+          const T = TEACHERS.find(x=>x[1]===(ctx.tid||s.teacher)) || TEACHERS[0];
+          const who = T[0], wid = T[1], subj = T[4].split(' · ')[0];
+          const v = (k,d)=> s[k]!==undefined ? s[k] : d;
+          const RO = (label,val,span)=>this.f(label,'ro_'+label,val,'readonly',null,span?{span}:{});
+          const COURSES = ['IC-38 Full Prep','IC-38 Starter','Life Insurance Elite','Health Crux Pro','Taxation Intensive','Exam Strategy'];
+          const BATCHES = {'IC-38 Full Prep':['Batch A — Morning (BT-101)','Batch A — Evening (BT-102)','Batch B — Evening (BT-103)'],
+            'IC-38 Starter':['Starter — Weekend (BT-120)'],'Life Insurance Elite':['Batch B1 — Morning (BT-204)','Batch B2 — Evening (BT-205)'],
+            'Health Crux Pro':['Batch C — Afternoon (BT-310)'],'Taxation Intensive':['Fast-Track Weekend (BT-408)'],'Exam Strategy':['Crash — Evening (BT-512)']};
+          const LOAD = {'TCH-2001':12,'TCH-2002':14,'TCH-2003':6,'TCH-2004':5,'TCH-2005':15};
+          const used = LOAD[wid] ?? 10, capH = T[5]==='Full-time' ? 16 : T[5]==='Part-time' ? 10 : 6;
+          const back = ()=>this.setState({fmStep:Math.max(0,step-1), fmErr:null});
+          const nav = (last, onDone, check)=>({backDisplay: step>0 ? 'inline-flex' : 'none', back,
+            primary: ()=>{ const e = check && check(step); if (e) return this.setState({fmErr:e});
+              if (step<last) return this.setState({fmStep:step+1, fmErr:null}); close(); onDone(); }});
+
+
+          const first = who.replace(/^(Dr\.|Prof\.)\s*/,'').split(' ')[0];
+          const CLS = [['06 Oct','IC-38 · Claims Module 08','BT-101','18:00'],['07 Oct','IC-38 · Doubt clinic','BT-102','19:30'],['08 Oct','Life Elite · Policy Law 04','BT-204','07:00'],['09 Oct','IC-38 · Revision','BT-101','18:00']];
+          const SUBS = ['Neha Kulkarni','Prof. Arun Mehta','Rahul Kumar','Ritu Bansal'].filter(x=>x!==who);
+          const danger = ['tLeave','tSuspend','tDeact'].includes(kind);
+
+          if (kind==='tEmail' || kind==='tWa' || kind==='tNotif') {
+            const P = kind==='tEmail' ? 'te' : kind==='tWa' ? 'tw' : 'tn';
+            const TPL = {'Upcoming class':'Hi '+first+', a reminder that your next live session is scheduled shortly. Please join 5 minutes early.',
+              'Recording pending':'Hi '+first+', the recording for your last session is not uploaded yet. Please upload it within 24 hours.',
+              'Document expiry':'Hi '+first+', a compliance document is expiring soon. Please upload the renewed copy from your faculty portal.',
+              'Payout published':'Hi '+first+', your payout statement for this cycle is now available in the faculty portal.',
+              'Schedule confirmation':'Hi '+first+', please confirm your availability for next week\u2019s sessions.',
+              'Write my own':''};
+            const tpl = v(P+'Tpl','Upcoming class'), body = v(P+'Body', TPL[tpl]);
+            const setTpl = (e)=>this.setState({[P+'Tpl']:e.target.value, [P+'Body']:TPL[e.target.value], fmErr:null});
+            const META = {tEmail:['Send Email','Email','Send Email'], tWa:['Send WhatsApp / SMS','WhatsApp','Send Message'], tNotif:['Send Notification','In-app','Send Notification']}[kind];
+            const to = kind==='tEmail' ? T[2] : kind==='tWa' ? T[3] : 'Faculty app + portal · '+wid;
+            const labels = ['Compose','Delivery','Preview & send'];
+            const compose = [
+              RO('To', to, 'span 2'),
+              {...this.f('Template',P+'Tpl',tpl,'select',Object.keys(TPL)), set:setTpl},
+              ...(kind==='tEmail' ? [this.f('Subject *',P+'Subj','StudyCrux — '+tpl,'text',null,{span:'span 2'}), this.f('CC','teCc','Coordinator','select',['Nobody','Coordinator','Academic head','HR'])] : []),
+              ...(kind==='tWa' ? [this.fradio('Send as','twVia','WhatsApp (fallback SMS)',['WhatsApp (fallback SMS)','WhatsApp only','SMS only'])] : []),
+              ...(kind==='tNotif' ? [this.f('Title *',P+'Subj',tpl,'text',null,{span:'span 2'}), this.f('Priority','tnPri','Normal','select',['Low','Normal','High','Critical'])] : []),
+              this.f('Message *',P+'Body',body,'textarea',null,{span:'span 3',placeholder:'Write the message…'}),
+              ...(kind==='tEmail' ? [this.fuploads('Attachments',[['Attachment',1,'Optional','grey']])] : []),
+              RO('Length', String(body||'').length+' characters'+(kind==='tWa' && String(body||'').length>160 ? ' · 2 SMS parts if fallback' : ''))];
+            const G = [
+              [{t:'Compose', fields:compose}],
+              [{t:'Delivery', fields:[
+                this.fradio('When',P+'When','Send now',['Send now','Schedule']),
+                this.f('Send at',P+'At','2026-09-26','date'),
+                this.f('Time',P+'Time','09:00','select',['08:00','09:00','12:00','17:00','20:00']),
+                ...(kind==='tNotif' ? [this.fchips('Surfaces','tnSurf',['Push','In-app inbox'],['Push','In-app inbox','Portal banner'])] : []),
+                this.fradio('Require acknowledgement',P+'Ack','No',['No','Yes']),
+                this.fradio('Log on profile',P+'Log','Yes — Communication tab',['Yes — Communication tab','No'])]}],
+              [{t:'Preview', fields:[
+                RO('Channel', META[1]+' → '+to,'span 3'),
+                ...(kind!=='tWa' ? [RO('Subject / title', v(P+'Subj', kind==='tEmail' ? 'StudyCrux — '+tpl : tpl),'span 3')] : []),
+                RO('Message', body||'—','span 3'),
+                RO('Delivery', v(P+'When','Send now')==='Send now' ? 'Immediately' : v(P+'At','2026-09-26')+' at '+v(P+'Time','09:00')),
+                RO('Acknowledgement', v(P+'Ack','No'))]}]];
+            return wrap({title:META[0], width:'760px', sub:who+' ('+wid+')', stepDisplay:'flex', steps:mkSteps(labels), groups:G[step],
+              info: kind==='tWa' ? 'WhatsApp uses approved templates only · replies land in the Communication tab.' : 'Delivery status is tracked on the teacher\u2019s Communication tab.',
+              infoDisplay:'flex', primaryLabel: step<2 ? 'Continue' : (v(P+'When','Send now')==='Schedule' ? 'Schedule' : META[2]),
+              ...nav(2, ()=>this.fire((v(P+'When','Send now')==='Schedule'?'Scheduled — ':'Sent — ')+META[1]+' to '+who, tpl+' · logged on profile'),
+                (st)=> st===0 && !String(body||'').trim() ? 'Message cannot be empty.' : st===0 && kind!=='tWa' && !String(v(P+'Subj','x')).trim() ? 'Add a subject / title.' : null)});
+          }
+
+          if (kind==='tExport') {
+            const secs = v('txSecs',['Personal','Professional','Employment','Teaching','Performance']);
+            const fmt = v('txFmt','PDF');
+            const G = [{t:'Export', fields:[
+              this.fchips('Sections *','txSecs',secs,['Personal','Professional','Employment','Teaching','Students','Performance','Attendance','Payroll','Documents','Activity log']),
+              this.fradio('Format','txFmt',fmt,['PDF','Excel (.xlsx)','ZIP (with documents)'],2),
+              this.f('Deliver','txHow','Download now','select',['Download now','Email to me']),
+              this.fchips('Mask sensitive data','txMask',['Bank account','ID numbers'],['Bank account','ID numbers','Personal phone','Salary figures'])]}];
+            return wrap({title:'Export Profile', width:'640px', sub:who+' ('+wid+') · logged in the audit trail',
+              groups:G, primaryLabel:'Export',
+              primary: ()=>{ if (!(secs||[]).length) return this.setState({fmErr:'Pick at least one section.'});
+                close(); this.fire('Export ready — '+who, (secs||[]).length+' sections · '+fmt+' · '+v('txHow','Download now')); }});
+          }
+
+          if (danger) {
+            const P = {tLeave:'tv', tSuspend:'ts', tDeact:'td'}[kind];
+            const META = {tLeave:['Put on Leave','Leave approved'], tSuspend:['Suspend Teacher','Teacher suspended'], tDeact:['Deactivate Teacher','Teacher deactivated']}[kind];
+            const handle = v(P+'Cls','Assign substitute'), sub = v(P+'Sub',SUBS[0]);
+            const conf = v(P+'Conf','');
+            const first3 = kind==='tLeave' ? [{t:'Leave details', fields:[
+                this.f('Leave type *','tvType','Casual leave','select',['Casual leave','Sick leave','Earned leave','Unpaid leave','Maternity / paternity','Sabbatical']),
+                this.f('From *','tvFrom','2026-10-06','date'), this.f('To *','tvTo','2026-10-09','date'),
+                this.fradio('Day type','tvHalf','Full days',['Full days','First half','Second half']),
+                RO('Leave balance','8 days of 18 annual · 4 days requested'),
+                this.f('Reason *','tvWhy','','textarea',null,{span:'span 3',placeholder:'e.g. Family function in Chennai'}),
+                this.fuploads('Supporting document',[['Medical certificate / letter',1,'Optional','grey']])]}]
+              : kind==='tSuspend' ? [{t:'Suspension', fields:[
+                this.f('Reason *','tsWhy','Policy violation','select',['Policy violation','Compliance documents expired','Repeated no-shows','Student complaint under review','Payroll / contract dispute']),
+                this.f('Duration','tsDur','14 days','select',['7 days','14 days','30 days','Until review']),
+                this.f('Effective from','tsFrom','2026-09-26','date'),
+                this.fradio('Portal access','tsAcc','Block immediately',['Block immediately','Read-only access']),
+                this.fradio('Payouts','tsPay','Hold pending payouts',['Hold pending payouts','Continue payouts']),
+                this.f('Incident details *','tsNote','','textarea',null,{span:'span 3',placeholder:'What happened, ticket / complaint IDs, who approved.'}),
+                this.fuploads('Evidence',[['Complaint / report',1,'Optional','grey']])]}]
+              : [{t:'Exit details', fields:[
+                this.f('Reason *','tdWhy','Resigned','select',['Resigned','Contract ended','Terminated','Retired','Duplicate record']),
+                this.f('Last working day *','tdLwd','2026-10-31','date'),
+                this.f('Notice period','tdNotice','30 days — served','select',['30 days — served','30 days — waived','Pay in lieu','Not applicable']),
+                this.fradio('Eligible for rehire','tdRehire','Yes',['Yes','No','Review later']),
+                this.f('Exit notes *','tdNote','','textarea',null,{span:'span 3',placeholder:'Exit interview summary and handover notes.'})]}];
+            const impact = [{t:'Classes affected ('+CLS.length+')', fields:[
+                ...CLS.map(c=>RO(c[0]+' · '+c[3], c[1]+' · '+c[2],'span 3')),
+                this.fradio('Handle these classes',P+'Cls',handle,['Assign substitute','Reschedule after','Cancel & notify students']),
+                ...(handle==='Assign substitute' ? [this.f('Substitute teacher',P+'Sub',sub,'select',SUBS), RO('Substitute availability', sub+' · free for 4 of 4 slots')] : [])]},
+              ...(kind==='tDeact' ? [{t:'Batches & settlement', fields:[
+                this.fradio('Batches & courses','tdBatch','Transfer to another teacher',['Transfer to another teacher','Archive']),
+                this.f('Transfer to','tdTo',SUBS[0],'select',SUBS),
+                this.fradio('Final settlement','tdFnf','Process full & final',['Process full & final','Hold for review']),
+                this.fchips('Revoke','tdRev',['Portal login','Content edit rights','Payout account'],['Portal login','Content edit rights','Payout account','Email alias'])]}] : [])];
+            const confirmWord = kind==='tLeave' ? '' : kind==='tSuspend' ? 'SUSPEND' : 'DEACTIVATE';
+            const review = [{t:'Review', fields:[
+                RO('Teacher',who+' ('+wid+')'), RO('Action',META[0]),
+                RO(kind==='tLeave'?'Dates':kind==='tSuspend'?'Duration':'Last day', kind==='tLeave' ? v('tvFrom','2026-10-06')+' → '+v('tvTo','2026-10-09') : kind==='tSuspend' ? v('tsDur','14 days')+' from '+v('tsFrom','2026-09-26') : v('tdLwd','2026-10-31')),
+                RO('Classes', CLS.length+' · '+handle+(handle==='Assign substitute' ? ' → '+sub : ''),'span 3'),
+                this.fchips('Notify',P+'Notify',['Teacher','Coordinator','Students'],['Teacher','Coordinator','Academic head','HR','Finance','Students']),
+                ...(confirmWord ? [this.f('Type '+confirmWord+' to confirm *',P+'Conf',conf,'text',null,{placeholder:confirmWord})] : [])]}];
+            const G = [first3, impact, review];
+            const check = (st)=>{
+              if (st===0 && kind==='tLeave' && !String(v('tvWhy','')).trim()) return 'Add a reason for the leave.';
+              if (st===0 && kind==='tSuspend' && !String(v('tsNote','')).trim()) return 'Add incident details.';
+              if (st===0 && kind==='tDeact' && !String(v('tdNote','')).trim()) return 'Add exit notes.';
+              if (st===2 && confirmWord && String(conf).trim().toUpperCase()!==confirmWord) return 'Type '+confirmWord+' to confirm.';
+              return null; };
+            return wrap({title:META[0], width:'780px', sub:who+' ('+wid+')', stepDisplay:'flex', steps:mkSteps(['Details','Impact','Confirm']), groups:G[step],
+              warn: kind==='tLeave' ? (step===1 ? CLS.length+' scheduled classes fall inside this leave window.' : '') : 'Critical action — written to the audit trail with your admin ID.',
+              warnDisplay: (kind!=='tLeave' || step===1) ? 'flex' : 'none',
+              info: kind==='tLeave' ? 'The teacher shows as On Leave on the directory and timetable for these dates.' : '', infoDisplay: kind==='tLeave' ? 'flex' : 'none',
+              primaryLabel: step<2 ? 'Continue' : META[0],
+              ...nav(2, ()=>this.fire(META[1]+' — '+who, CLS.length+' classes · '+handle+(handle==='Assign substitute'?' ('+sub+')':'')+' · audit logged'), check)});
+          }
+
+          if (kind==='tAssign') {
+            const course = v('taCourse', COURSES[0]), role = v('taRole','Primary faculty');
+            const mods = v('taMods',['Module 1 — Principles','Module 2 — Policy Law','Module 3 — Claims']);
+            const labels = ['Course','Role & scope','Access & payout','Review'];
+            const G = [
+              [{t:'Select course', fields:[
+                 this.f('Course *','taCourse',course,'select',COURSES),
+                 this.f('Course type','taType','Live + Recorded','select',['Live','Recorded','Live + Recorded','Mock tests only']),
+                 this.f('Effective from','taFrom','2026-10-01','date'),
+                 RO('Current teachers on this course', course==='IC-38 Full Prep' ? 'Dr. Vikram Verma (Primary) · Neha Kulkarni (Co-faculty)' : 'Prof. Arun Mehta (Primary)','span 3'),
+                 RO('Subject match', subj+' → '+course+(/IC-38|Life|Health/.test(course) ? ' · strong match' : ' · partial match'),'span 3')]}],
+              [{t:'Teaching role', fields:[
+                 this.fradio('Role *','taRole',role,['Primary faculty','Co-faculty','Guest faculty','Content reviewer']),
+                 this.f('Valid till','taTo','2027-03-31','date'),
+                 this.fchips('Modules owned *','taMods',mods,['Module 1 — Principles','Module 2 — Policy Law','Module 3 — Claims','Module 4 — Underwriting','Module 5 — Regulations','Revision & Mocks']),
+                 this.fchips('Responsibilities','taResp',['Live classes','Doubt solving'],['Live classes','Recorded lectures','Doubt solving','Mock test authoring','Evaluation','Notes & PDFs'])]}],
+              [{t:'Content access', fields:[
+                 this.fchips('Grant access to','taAccess',['Question bank','Mock tests','Recorded library'],['Question bank','Mock tests','Recorded library','Presentation templates','Previous recordings','Student analytics']),
+                 this.fradio('Content publishing','taPub','Needs coordinator approval',['Publish directly','Needs coordinator approval'])]},
+               {t:'Payout for this course', fields:[
+                 this.f('Payout model','taPay',T[11].split(' · ')[0],'select',['Per session','Per hour','Monthly retainer','Revenue share','Included in salary']),
+                 this.f('Rate','taRate',T[11].split(' · ')[1]||'—','text'),
+                 this.f('Approver','taAppr','Academic head','select',['Academic head','Finance','Academic head + Finance'])]}],
+              [{t:'Review assignment', fields:[
+                 RO('Teacher',who+' ('+wid+')'), RO('Course',course), RO('Role',role),
+                 RO('Modules',(mods||[]).join(', ')||'—','span 3'),
+                 RO('Access',(v('taAccess',['Question bank','Mock tests','Recorded library'])||[]).join(', '),'span 2'),
+                 RO('Payout',v('taPay',T[11].split(' · ')[0])+' · '+v('taRate',T[11].split(' · ')[1]||'—')),
+                 this.fchips('Notify','taNotify',['Teacher','Coordinator'],['Teacher','Coordinator','Academic head','Finance','Enrolled students']),
+                 this.f('Note','taNote','','textarea',null,{span:'span 3',placeholder:'Optional — shared with the teacher in the assignment email.'})]}]];
+            const dup = role==='Primary faculty' && course==='IC-38 Full Prep';
+            return wrap({title:'Assign Course', width:'800px', sub:who+' ('+wid+') · adds a course to the teaching scope',
+              stepDisplay:'flex', steps:mkSteps(labels), groups:G[step],
+              warn: step===1 && dup ? 'IC-38 Full Prep already has a primary faculty (Dr. Vikram Verma). Assigning another primary will make them co-primary.' : '',
+              warnDisplay: step===1 && dup ? 'flex' : 'none',
+              info: step===3 ? 'The course appears on the teacher\u2019s dashboard from the effective date · access is granted automatically.' : 'Progress is kept if you go back a step.',
+              infoDisplay:'flex', primaryLabel: step<3 ? 'Continue' : 'Assign Course',
+              ...nav(3, ()=>this.fire('Course assigned — '+course, who+' · '+role+' · '+(mods||[]).length+' modules · from '+v('taFrom','2026-10-01')),
+                (st)=> st===1 && !(mods||[]).length ? 'Select at least one module.' : null)});
+          }
+
+          if (kind==='tAlloc') {
+            const course = v('tbCourse', COURSES[0]), list = BATCHES[course] || [];
+            const batch = v('tbBatch', list[0]), hrs = +(v('tbHrs','4 hours').split(' ')[0]);
+            const after = used + hrs, over = after > capH;
+            const days = v('tbDays',['Mon','Wed','Fri']), slot = v('tbSlot','07:00 – 08:30');
+            const clash = wid==='TCH-2001' && slot==='10:00 – 11:30';
+            const labels = ['Batch','Capacity & timetable','Handover','Review'];
+            const G = [
+              [{t:'Choose batch', fields:[
+                 this.f('Course *','tbCourse',course,'select',COURSES),
+                 this.f('Batch *','tbBatch',batch,'select',list),
+                 this.f('Coordinator','tbCoord','R. Kumar','select',['R. Kumar','S. Patel','A. Nair','P. Bose']),
+                 RO('Batch details', batch+' · 42 students · starts 05 Oct 2026 · ends 20 Dec 2026','span 3'),
+                 RO('Current teacher', /BT-10[12]/.test(batch) ? 'Dr. Vikram Verma' : 'Unassigned','span 3')]}],
+              [{t:'Workload', fields:[
+                 this.f('Weekly hours *','tbHrs',v('tbHrs','4 hours'),'select',['2 hours','4 hours','6 hours','8 hours']),
+                 RO('Current load', used+' h of '+capH+' h / week'),
+                 RO('After allocation', after+' h of '+capH+' h'+(over?' · over capacity':' · OK'))]},
+               {t:'Timetable', fields:[
+                 this.fchips('Days *','tbDays',days,['Mon','Tue','Wed','Thu','Fri','Sat','Sun']),
+                 this.f('Slot *','tbSlot',slot,'select',['07:00 – 08:30','10:00 – 11:30','14:00 – 15:30','18:00 – 19:30','19:30 – 21:00']),
+                 this.f('Platform','tbPlat','Zoom','select',['Zoom','Google Meet','StudyCrux Live'])]}],
+              [{t:'Handover', fields:[
+                 this.fradio('If batch has a teacher','tbHand','Replace from start date',['Replace from start date','Co-teach','Split by module']),
+                 this.f('Start date','tbStart','2026-10-05','date'),
+                 this.fradio('Existing scheduled classes','tbExist','Move to new teacher',['Move to new teacher','Keep with current teacher']),
+                 this.fchips('Notify','tbNotify',['Teacher','Coordinator','Students'],['Teacher','Coordinator','Previous teacher','Students','Academic head'])]}],
+              [{t:'Review allocation', fields:[
+                 RO('Teacher',who+' ('+wid+')'), RO('Batch',batch,'span 2'),
+                 RO('Timetable',(days||[]).join(', ')+' · '+slot+' · '+v('tbPlat','Zoom'),'span 2'), RO('Load after',after+' h of '+capH+' h'),
+                 RO('Coordinator',v('tbCoord','R. Kumar')), RO('Handover',v('tbHand','Replace from start date')), RO('Starts',v('tbStart','2026-10-05')),
+                 this.f('Note','tbNote','','textarea',null,{span:'span 3',placeholder:'Optional — added to the batch log.'})]}]];
+            const warnTxt = step===1 && over ? who+' would be at '+after+' h against a '+capH+' h weekly cap. Reduce hours or get academic head approval.'
+              : step===1 && clash ? who+' already teaches BT-101 at 10:00 on weekdays — pick another slot.' : '';
+            return wrap({title:'Allocate Batch', width:'800px', sub:who+' ('+wid+') · assigns a live batch with timetable and coordinator',
+              stepDisplay:'flex', steps:mkSteps(labels), groups:G[step],
+              warn:warnTxt, warnDisplay: warnTxt ? 'flex' : 'none',
+              info: step===3 ? 'Sessions are generated on the teacher and batch calendars · students see the new teacher from the start date.' : 'Capacity is checked against the teacher\u2019s engagement type.',
+              infoDisplay:'flex', primaryLabel: step<3 ? 'Continue' : 'Allocate Batch',
+              ...nav(3, ()=>this.fire('Batch allocated — '+batch, who+' · '+(days||[]).join('/')+' '+slot+' · '+hrs+' h/week'),
+                (st)=> st===0 && !batch ? 'Pick a batch.' : st===1 && !(days||[]).length ? 'Select at least one teaching day.' : st===1 && clash ? 'Resolve the timetable clash first.' : null)});
+          }
+
+          if (kind==='tLive') {
+            const course = v('tlCourse', COURSES[0]), list = BATCHES[course] || [];
+            const batch = v('tlBatch', list[0]), title = v('tlTitle',''), start = v('tlStart','18:00'), date = v('tlDate','2026-10-06');
+            const clash = wid==='TCH-2001' && start==='10:00';
+            const rep = v('tlRep','Does not repeat');
+            const labels = ['Session','Date & time','Delivery','Review & publish'];
+            const G = [
+              [{t:'Session details', fields:[
+                 this.f('Course *','tlCourse',course,'select',COURSES),
+                 this.f('Batch *','tlBatch',batch,'select',list),
+                 this.f('Session type','tlType','Regular class','select',['Regular class','Doubt clinic','Revision','Mock review','Demo class']),
+                 this.f('Class / module title *','tlTitle',title,'text',null,{span:'span 3',placeholder:'Claims Module 08 — Settlement process'}),
+                 this.f('Agenda','tlAgenda','','textarea',null,{span:'span 3',placeholder:'What this session covers and any pre-reading.'})]}],
+              [{t:'When', fields:[
+                 this.f('Date *','tlDate',date,'date'),
+                 this.f('Start time *','tlStart',start,'select',['07:00','09:00','10:00','14:00','18:00','19:00','20:00']),
+                 this.f('Duration','tlDur','90 minutes','select',['45 minutes','60 minutes','90 minutes','120 minutes']),
+                 this.f('Repeats','tlRep',rep,'select',['Does not repeat','Every weekday','Mon / Wed / Fri','Weekly on this day']),
+                 this.f('Ends on','tlEnd','2026-12-20','date'),
+                 RO('Teacher availability', clash ? 'Busy — BT-101 at 10:00' : 'Free at this time','span 1')]}],
+              [{t:'Delivery', fields:[
+                 this.f('Platform','tlPlat','Zoom','select',['Zoom','Google Meet','StudyCrux Live']),
+                 this.f('Co-host','tlCo','Coordinator — R. Kumar','select',['None','Coordinator — R. Kumar','Coordinator — S. Patel','TA — A. Nair']),
+                 this.fradio('Recording','tlRec','Auto-record and publish',['Auto-record and publish','Record, hold for review','Do not record']),
+                 this.fchips('Attach materials','tlMat',['Slides'],['Slides','Notes PDF','Practice quiz','Previous recording']),
+                 this.fradio('Attendance','tlAtt','Track from join event',['Track from join event','Manual roll call'])]}],
+              [{t:'Review', fields:[
+                 RO('Teacher',who+' ('+wid+')'), RO('Class',title||'—','span 2'),
+                 RO('Batch',batch,'span 2'), RO('When',date+' · '+start+' · '+v('tlDur','90 minutes')),
+                 RO('Repeats',rep), RO('Platform',v('tlPlat','Zoom')), RO('Recording',v('tlRec','Auto-record and publish'))]},
+               {t:'Publish', fields:[
+                 this.fradio('Status','tlPub','Publish now',['Publish now','Save as draft']),
+                 this.fchips('Notify students via','tlNotify',['Email','In-app'],['Email','SMS','WhatsApp','In-app']),
+                 this.f('Reminder','tlRem','30 minutes before','select',['None','15 minutes before','30 minutes before','1 hour before','1 day before'])]}]];
+            return wrap({title:'Schedule Live Class', width:'800px', sub:who+' ('+wid+') · creates a session on the teacher and batch timetables',
+              stepDisplay:'flex', steps:mkSteps(labels), groups:G[step],
+              warn: step===1 && clash ? who+' already teaches BT-101 at 10:00. Pick another start time.' : '',
+              warnDisplay: step===1 && clash ? 'flex' : 'none',
+              info: step===3 ? 'Students in the batch get the join link · the session appears on the faculty timetable.' : 'The join link is generated when the class is published.',
+              infoDisplay:'flex', primaryLabel: step<3 ? 'Continue' : (v('tlPub','Publish now')==='Save as draft' ? 'Save Draft' : 'Schedule Class'),
+              ...nav(3, ()=>this.fire((v('tlPub','Publish now')==='Save as draft'?'Draft saved — ':'Class scheduled — ')+title, who+' · '+date+' at '+start+' · '+batch),
+                (st)=> st===0 && !String(title).trim() ? 'Enter the class or module title.' : st===1 && clash ? 'Resolve the time clash first.' : null)});
+          }
+        }
         if (kind==='act') {
           const L = ctx.label || 'Action';
           const who = (TEACHERS.find(x=>x[1]===s.teacher) || TEACHERS[0])[0];
@@ -6593,6 +7061,25 @@ class Component extends DCLogic {
               C('Format','format',['PDF (.pdf)'],['PDF (.pdf)','Excel (.xlsx)','ZIP archive'])]]
           };
 
+          Object.assign(SPEC, {
+            'Put on Leave': ['Put on Leave','Classes in this window need a substitute',[
+              F('Leave type','lvType','Casual leave','select',['Casual leave','Sick leave','Earned leave','Unpaid leave','Sabbatical']),
+              F('From','lvFrom','2026-09-28','date'), F('To','lvTo','2026-10-02','date'),
+              R('Affected classes','lvCls','Assign substitute',['Assign substitute','Reschedule','Cancel & notify students']),
+              NOTIFY(), NOTE('Reason for leave.')]],
+            'Suspend Teacher': ['Suspend Teacher','Blocks portal access and removes the teacher from upcoming classes',[
+              F('Reason','spWhy','Policy violation','select',['Policy violation','Compliance documents expired','Repeated no-shows','Student complaint under review','Payroll / contract dispute']),
+              F('Duration','spDur','Until review','select',['7 days','14 days','30 days','Until review']),
+              R('Upcoming classes','spCls','Reassign to substitute',['Reassign to substitute','Put on hold']),
+              R('Payouts','spPay','Hold pending payouts',['Hold pending payouts','Continue payouts']),
+              NOTIFY(), NOTE('What happened and who approved the suspension.')]],
+            'Deactivate Teacher': ['Deactivate Teacher','Ends the engagement — record is kept for audit',[
+              F('Reason','dcWhy','Resigned','select',['Resigned','Contract ended','Terminated','Retired','Duplicate record']),
+              F('Last working day','dcLwd','2026-09-30','date'),
+              R('Batches & courses','dcBatch','Transfer to another teacher',['Transfer to another teacher','Archive']),
+              R('Final settlement','dcFnf','Process full & final',['Process full & final','Hold for review']),
+              NOTIFY(), NOTE('Exit notes — recorded permanently.')]]
+          });
           const spec = SPEC[L] || [L, 'Confirm this action against '+who,
             [NOTE('Reason — recorded in the teacher audit log.'), NOTIFY()]];
           return wrap({title:spec[0], width:'740px',
@@ -6833,7 +7320,8 @@ class Component extends DCLogic {
             'Custom reminder':''
           };
           const type = s.msType || 'Upcoming class';
-          return wrap({title:'Send Message', width:'700px',
+          const chT = ctx.channel==='WhatsApp' ? 'Send WhatsApp / SMS' : ctx.channel ? 'Send '+ctx.channel : 'Send Message';
+          return wrap({title:chT, width:'700px',
             sub:who+' · delivered through the channels selected below',
             groups:[
               {t:'Message', fields:[
@@ -7006,6 +7494,156 @@ class Component extends DCLogic {
               this.fire('Bulk import complete','98 classes created · 2 rows flagged · error file available'); }});
         }
 
+        const ftable = (label, head, rows)=>({...this.flags('table'), isTable:true, label, span:'span 3',
+          items:[{a:head[0],b:head[1],c:head[2],d:head[3],e:head[4],bg:'#FCFBF7',fw:'700'}, ...rows.map((r,i)=>({a:r[0],b:r[1],c:r[2],d:r[3],e:r[4],bg:i%2?'#FAF9F4':'#fff',fw:'600'}))]});
+        const alSub = (ctx.batch||'Batch')+' · '+(ctx.course||'');
+        const BLIST = ['IC-38 Full Prep · Batch A — Morning (BT-101)','IC-38 Full Prep · Batch A — Evening (BT-102)','IC-38 Full Prep · Batch B — Evening (BT-103)',
+          'IC-38 Full Prep · Batch D — Hybrid (BT-106)','Life Insurance Elite · Batch B1 — Morning (BT-204)','Life Insurance Elite · Batch B2 — Evening (BT-205)',
+          'Health Crux Pro · Batch C — Afternoon (BT-310)','Exam Strategy · Batch 02 (BT-512)'];
+        if (kind==='alCreate') {
+          const course = s.cbCourse || 'IC-38 Full Prep', mode = s.cbMode || 'Live Online';
+          const name = s.cbName !== undefined ? s.cbName : '';
+          const days = s.cbDays || ['Mon','Wed','Fri'], slot = s.cbSlot || '07:00 – 08:30';
+          const teacher = s.cbT || 'Assign later', cap = s.cbCap || '45';
+          const clash = teacher==='Dr. Vikram Verma' && slot==='07:00 – 08:30';
+          const labels = ['Basics','Timetable','Teacher & coordinator','Review'];
+          const G = [
+            [{t:'Batch basics', fields:[
+              this.f('Course *','cbCourse',course,'select',['IC-38 Full Prep','IC-38 Starter','Life Insurance Elite','Health Crux Pro','Taxation Intensive','Exam Strategy']),
+              this.f('Batch name *','cbName',name,'text',null,{span:'span 2',placeholder:'e.g. Batch E — Morning'}),
+              this.fradio('Mode','cbMode',mode,['Live Online','Hybrid','Offline'],3),
+              this.f('Capacity *','cbCap',cap,'select',['30','40','45','55','70']),
+              this.f('Start date *','cbStart','2026-10-05','date'), this.f('End date *','cbEnd','2026-12-20','date'),
+              this.f('Language','cbLang','Hindi + English','select',['English','Hindi','Hindi + English','English + Tamil'])]}],
+            [{t:'Timetable', fields:[
+              this.fchips('Days *','cbDays',days,['Mon','Tue','Wed','Thu','Fri','Sat','Sun']),
+              this.f('Slot *','cbSlot',slot,'select',['07:00 – 08:30','10:00 – 11:30','14:00 – 15:30','18:00 – 19:30','19:30 – 21:00']),
+              this.f('Platform','cbPlat',mode==='Offline'?'Classroom':'Zoom','select',['Zoom','Google Meet','StudyCrux Live','Classroom']),
+              ...(mode!=='Live Online' ? [this.f('Centre','cbCentre','Bengaluru HQ','select',['Bengaluru HQ','Chennai Centre','Mumbai Centre','Delhi Centre'])] : []),
+              this.fradio('Recording','cbRec','Auto-record and publish',['Auto-record and publish','Hold for review','Do not record'],3)]}],
+            [{t:'People', fields:[
+              this.f('Teacher','cbT',teacher,'select',['Assign later','Dr. Vikram Verma','Neha Kulkarni','Prof. Arun Mehta','Ritu Bansal','Ayesha Khan','Shalini Nair']),
+              this.f('Teacher availability','ro_cbAv', teacher==='Assign later' ? 'Batch will show as Unassigned' : clash ? 'Busy — already teaches BT-101 at this slot' : 'Free at this slot · within weekly capacity','readonly',null,{span:'span 2'}),
+              this.f('Coordinator *','cbCo','R. Kumar','select',['R. Kumar','S. Patel','A. Nair','P. Bose']),
+              this.fradio('Enrollment','cbEnr','Open for enrollment',['Open for enrollment','Invite only','Closed — draft'],3)]}],
+            [{t:'Review', fields:[this.fkv('',[['Course',course],['Batch',(name||'—')+' · '+mode],['Runs',(s.cbStart||'2026-10-05')+' → '+(s.cbEnd||'2026-12-20')],
+              ['Capacity',cap+' students'],['Timetable',days.join(', ')+' · '+slot],['Teacher',teacher],['Coordinator',s.cbCo||'R. Kumar'],['Enrollment',s.cbEnr||'Open for enrollment']])]},
+             {t:'Publish', fields:[this.fchips('Notify','cbNotify',['Teacher','Coordinator'],['Teacher','Coordinator','Waitlisted students','Sales team'])]}]];
+          return wrap({title:'Create Batch', width:'780px', sub:'Adds a batch under a course · generates sessions on the timetable',
+            stepDisplay:'flex', steps:mkSteps(labels), groups:G[step],
+            warn: step===2 && clash ? 'Dr. Vikram Verma already teaches at 07:00 on these days. Change the slot or pick another teacher.' : '', warnDisplay: step===2 && clash ? 'flex' : 'none',
+            info: step===3 ? 'Sessions are generated for every selected day between the start and end dates.' : 'You can come back to any step.', infoDisplay:'flex',
+            backDisplay: step>0 ? 'inline-flex' : 'none', back:()=>this.setState({fmStep:step-1, fmErr:null}),
+            primaryLabel: step<3 ? 'Continue' : 'Create Batch',
+            primary: ()=>{
+              if (step===0 && !String(name).trim()) return this.setState({fmErr:'Enter a batch name.'});
+              if (step===1 && !days.length) return this.setState({fmErr:'Pick at least one day.'});
+              if (step===2 && clash) return this.setState({fmErr:'Resolve the teacher clash first.'});
+              if (step<3) return this.setState({fmStep:step+1, fmErr:null});
+              close(); this.fire('Batch created — '+name, course+' · BT-'+(600+name.length)+' · '+(teacher==='Assign later'?'Unassigned':teacher)); }});
+        }
+        if (kind==='alBulk') {
+          const sel = s.bkSel || [], act = s.bkAct || 'Reassign teacher';
+          const labels = ['Select batches','Action','Confirm'];
+          const actF = act==='Reassign teacher' ? [this.f('New teacher *','bkT','Neha Kulkarni','select',['Dr. Vikram Verma','Neha Kulkarni','Prof. Arun Mehta','Ritu Bansal','Ayesha Khan']), this.f('Effective from','bkFrom','2026-10-01','date')]
+            : act==='Reassign coordinator' ? [this.f('New coordinator *','bkC','S. Patel','select',['R. Kumar','S. Patel','A. Nair','P. Bose']), this.f('Effective from','bkFrom','2026-10-01','date')]
+            : act==='Change status' ? [this.f('New status *','bkSt','Paused','select',['Active','Paused','Completed','Archived'])]
+            : act==='Notify' ? [this.fchips('Audience','bkAud',['Teachers'],['Teachers','Coordinators','Students']), this.f('Message *','bkMsg','','textarea',null,{span:'span 3',placeholder:'Message to send…'})]
+            : [this.fradio('Format','bkFmt','Excel (.xlsx)',['Excel (.xlsx)','CSV','PDF'],3)];
+          const G = [
+            [{t:'Batches ('+sel.length+' selected)', fields:[this.fchips('Pick batches','bkSel',sel,BLIST)]}],
+            [{t:'Action', fields:[this.fradio('What to do','bkAct',act,['Reassign teacher','Reassign coordinator','Change status','Notify','Export'],3), ...actF]}],
+            [{t:'Confirm', fields:[this.fkv('',[['Batches',sel.length+' selected'],['Action',act],...(act==='Reassign teacher'?[['New teacher',s.bkT||'Neha Kulkarni']]:act==='Reassign coordinator'?[['New coordinator',s.bkC||'S. Patel']]:act==='Change status'?[['New status',s.bkSt||'Paused']]:[])]),
+              this.f('Note','bkNote','','textarea',null,{span:'span 3',placeholder:'Optional — recorded against every batch.'})]}]];
+          return wrap({title:'Bulk Actions', width:'760px', sub:'Apply one change to several batches at once',
+            stepDisplay:'flex', steps:mkSteps(labels), groups:G[step],
+            warn: step===2 && act==='Change status' && (s.bkSt||'Paused')!=='Active' ? 'Students in these batches lose live-class access until the status changes back.' : '', warnDisplay: step===2 && act==='Change status' && (s.bkSt||'Paused')!=='Active' ? 'flex' : 'none',
+            backDisplay: step>0 ? 'inline-flex' : 'none', back:()=>this.setState({fmStep:step-1, fmErr:null}),
+            primaryLabel: step<2 ? 'Continue' : 'Apply to '+sel.length+' batch'+(sel.length===1?'':'es'),
+            primary: ()=>{
+              if (step===0 && !sel.length) return this.setState({fmErr:'Select at least one batch.'});
+              if (step===1 && act==='Notify' && !String(s.bkMsg||'').trim()) return this.setState({fmErr:'Write the message.'});
+              if (step<2) return this.setState({fmStep:step+1, fmErr:null});
+              close(); this.fire(act+' — '+sel.length+' batches', 'Applied · audit logged'); }});
+        }
+        if (kind==='alExport') {
+          const fmt = s.exFmt || 'Excel (.xlsx)';
+          return wrap({title:'Export Allocation', width:'640px', sub:'Course-wise batch allocation',
+            groups:[{t:'Export', fields:[
+              this.fradio('Scope','exScope','All batches (20)',['All batches (20)','Current filters','Unassigned only'],3),
+              this.fchips('Columns','exCols',['Batch','Teacher','Coordinator','Enrollment','Runs','Status','Allocation'],['Batch','Teacher','Coordinator','Enrollment','Assigned on','Runs','Mode','Status','Allocation']),
+              this.fradio('Format','exFmt',fmt,['Excel (.xlsx)','CSV','PDF'],3),
+              this.f('Deliver','exHow','Download now','select',['Download now','Email to me'])]}],
+            primaryLabel:'Export',
+            primary: ()=>{ if (!(s.exCols||[1]).length) return this.setState({fmErr:'Pick at least one column.'});
+              close(); this.fire('Allocation exported', (s.exScope||'All batches (20)')+' · '+fmt); }});
+        }
+        if (kind==='alView') {
+          return wrap({title:ctx.batch||'Batch', width:'720px', sub:(ctx.bid||'')+' · '+(ctx.course||'')+' · '+(ctx.cid||''),
+            groups:[
+              {t:'Batch', fields:[this.fkv('',[['Batch ID',ctx.bid||'—'],['Teacher',ctx.teacher||'—'],['Coordinator',ctx.coord||'—'],['Mode',ctx.mode||'—'],
+                ['Runs',ctx.runs||'—'],['Enrollment',(ctx.enr||'—')+(ctx.pct?' · '+ctx.pct+' full':'')],['Status',ctx.status||'—'],['Allocation',ctx.alloc||'—']])]},
+              {t:'Course', fields:[this.fkv('',[['Course',ctx.course||'—'],['Code',ctx.cid||'—'],['Health',ctx.health||'—'],
+                ['Batches',String(ctx.cBatches||'—')],['Students',String(ctx.cStudents||'—')],['Teachers',String(ctx.cTeachers||'—')]])]}],
+            primaryLabel:'View Students', primary:()=>this.setState({fm:'alStudents', fmCtx:ctx, fmErr:null})});
+        }
+        if (kind==='alSched') {
+          const T = ctx.teacher && ctx.teacher!=='—' ? ctx.teacher : 'Unassigned';
+          return wrap({title:'Schedule — '+(ctx.batch||'Batch'), width:'760px', sub:alSub,
+            groups:[{t:'Next 2 weeks', fields:[ftable('',['Session','Date','Time','Teacher','Status'],[
+              ['Claims Module 08','Mon 28 Sep','07:00 – 08:30',T,'Scheduled'],
+              ['Claims Module 09','Wed 30 Sep','07:00 – 08:30',T,'Scheduled'],
+              ['Doubt clinic','Thu 01 Oct','18:00 – 19:00',T,'Scheduled'],
+              ['Revision — Modules 7–9','Fri 02 Oct','07:00 – 08:30','Ritu Bansal','Substitute'],
+              ['Mock test review','Mon 05 Oct','07:00 – 08:30',T,'Draft'],
+              ['Underwriting 01','Wed 07 Oct','07:00 – 08:30',T,'Scheduled']])]}],
+            info:'1 session this fortnight is covered by a substitute.', infoDisplay:'flex',
+            primaryLabel:'Schedule Class', primary:()=>this.setState({fm:'schedule', fmStep:0, fmErr:null, fmCtx:{teacher:T==='Unassigned'?undefined:T, batch:ctx.batch, course:ctx.course}})});
+        }
+        if (kind==='alStudents') {
+          const q = (s.asQ||'').toLowerCase();
+          const ROWS = [['Aarav Sharma','SC-10001','94%','78%','Active'],['Riya Iyer','SC-10004','88%','71%','Active'],['Kabir Mehta','SC-10017','62%','44%','At risk'],
+            ['Meera Nair','SC-10021','91%','82%','Active'],['Rohan Verma','SC-10032','70%','55%','Active'],['Sneha Patil','SC-10028','48%','31%','At risk'],
+            ['Divya Krishnan','SC-10014','96%','88%','Active'],['Ishita Desai','SC-10010','83%','67%','Active']].filter(r=>!q || r[0].toLowerCase().includes(q));
+          return wrap({title:'Students — '+(ctx.batch||'Batch'), width:'780px', sub:alSub+' · '+(ctx.enr||'')+' enrolled',
+            groups:[{t:'Enrolled students', fields:[
+              this.f('Search','asQ','','text',null,{span:'span 2',placeholder:'Search by name'}),
+              this.f('Filter','asF','All','select',['All','Active','At risk']),
+              ftable('',['Student','ID','Attendance','Progress','Status'], ROWS.filter(r=>(s.asF||'All')==='All' || r[4]===s.asF))]}],
+            info:'2 students are below 65% attendance — flagged At risk.', infoDisplay:'flex',
+            primaryLabel:'Move Students', primary:()=>this.setState({fm:'alMove', fmCtx:ctx, fmErr:null})});
+        }
+        if (kind==='alMove') {
+          const to = s.mvTo || 'Batch B — Evening (BT-103)';
+          return wrap({title:'Move Students', width:'680px', sub:(ctx.batch||'Batch')+' · '+(ctx.course||''),
+            groups:[{t:'Move', fields:[
+              this.fradio('Who','mvWho','Selected students',['Selected students','All students'],3),
+              this.fchips('Students','mvSel',['Aarav Sharma','Riya Iyer'],['Aarav Sharma','Riya Iyer','Kabir Mehta','Meera Nair','Rohan Verma','Sneha Patil']),
+              this.f('Move to batch *','mvTo',to,'select',['Batch A — Morning (BT-101)','Batch A — Evening (BT-102)','Batch B — Evening (BT-103)','Batch B1 — Morning (BT-204)','Batch C — Afternoon (BT-310)']),
+              this.f('Effective from','mvFrom','2026-10-01','date'),
+              this.f('Reason','mvWhy','Timing preference','select',['Timing preference','Batch full','Teacher change','Performance grouping','Student request']),
+              this.fradio('Progress','mvProg','Carry over progress & attendance',['Carry over progress & attendance','Start fresh'],3),
+              this.fchips('Notify','mvNotify',['Students','Coordinator'],['Students','Coordinator','Both teachers'])]}],
+            info:'Target batch capacity is checked before moving.', infoDisplay:'flex', primaryLabel:'Move Students',
+            primary: ()=>{ const n = (s.mvWho||'Selected students')==='All students' ? 'All' : (s.mvSel||['Aarav Sharma','Riya Iyer']).length;
+              if (n===0) return this.setState({fmErr:'Select at least one student.'});
+              close(); this.fire('Students moved — '+n+' to '+to.split(' (')[0], 'from '+(ctx.batch||'batch')+' · effective '+(s.mvFrom||'2026-10-01')); }});
+        }
+        if (kind==='alCoordFm') {
+          const cur = ctx.coord && ctx.coord!=='—' ? ctx.coord : '';
+          const nw = s.acCo || (cur==='R. Kumar' ? 'S. Patel' : 'R. Kumar');
+          return wrap({title: cur ? 'Reassign Coordinator' : 'Assign Coordinator', width:'640px', sub:(ctx.batch||'Batch')+' · '+(ctx.course||''),
+            groups:[{t:'Coordinator', fields:[
+              this.f('Current coordinator','ro_acCur',cur||'None assigned','readonly'),
+              this.f('New coordinator *','acCo',nw,'select',['R. Kumar','S. Patel','A. Nair','P. Bose']),
+              this.f('Effective from','acFrom','2026-10-01','date'),
+              this.f('Workload','ro_acLoad',nw+' · 6 of 8 batches','readonly'),
+              ...(cur ? [this.f('Reason','acWhy','Workload balancing','select',['Workload balancing','Coordinator on leave','Performance','Shift change'])] : []),
+              this.fchips('Notify','acNotify',['Coordinator','Teacher'],['Coordinator','Previous coordinator','Teacher','Students'])]}],
+            primaryLabel: cur ? 'Reassign' : 'Assign',
+            primary: ()=>{ if (nw===cur) return this.setState({fmErr:'Pick a different coordinator.'});
+              close(); this.fire('Coordinator '+(cur?'reassigned':'assigned')+' — '+nw, (ctx.batch||'')+' · from '+(s.acFrom||'2026-10-01')); }});
+        }
         if (kind==='sub') {
           const LOAD = {'Ritu Bansal':'14 h / 16 h weekly · free at this slot','Neha Kulkarni':'10 h / 16 h weekly · free at this slot',
             'Prof. Arun Mehta':'18 h / 16 h weekly · already overloaded','Ayesha Khan':'9 h / 16 h weekly · free at this slot',
@@ -7361,9 +7999,9 @@ class Component extends DCLogic {
       allocIsBatches: s.allocView==='Batches',
       allocIsTeachers: s.allocView==='Teachers',
       allocSearch: s.allocSearch||'', setAllocSearch:(e)=>this.setState({allocSearch:e.target.value}),
-      allocBulk: this.act('Bulk actions', 'Select batches to reassign, notify or export together'),
-      allocExport: this.act('Allocation exported', 'CSV downloading — 20 batches'),
-      allocCreateBatch: this.act('Create Batch', 'New batch draft opened — assign a course to continue'),
+      allocBulk: ()=>this.setState({fm:'alBulk', fmStep:0, fmErr:null, fmCtx:{}}),
+      allocExport: ()=>this.setState({fm:'alExport', fmStep:0, fmErr:null, fmCtx:{}}),
+      allocCreateBatch: ()=>{ const r={}; Object.keys(this.state).forEach(k=>{ if(/^cb[A-Z]/.test(k)) r[k]=undefined; }); this.setState({...r, fm:'alCreate', fmStep:0, fmErr:null, fmCtx:{}}); },
       allocCoursesVM: COURSE_ALLOC.filter(cs => (s.alCourse||'All')==='All' || cs.name===s.alCourse).map(cs=>{
         const open = (s.allocOpenCourse===undefined ? cs.cid==='C-101' : s.allocOpenCourse===cs.cid);
         const hC = cs.health==='Healthy'?'green':cs.health==='Critical'?'red':'amber';
@@ -7393,7 +8031,26 @@ class Component extends DCLogic {
             actFg: b.alloc==='Unassigned' ? '#fff' : '#344054',
             act: b.alloc==='Unassigned'
               ? ()=>this.setState({mAlloc:{batch:b.batch, bid:b.bid, course:cs.name, shift:b.mode, coord:b.coord}, alTeacher:'Dr. Vikram Verma', alCoord:b.coord, alNotify:['Email','WhatsApp']})
-              : ()=>this.setState({mAlloc:{batch:b.batch, bid:b.bid, course:cs.name, shift:b.mode, coord:b.coord, reassign:1, current:b.teacher}, alTeacher:b.teacher, alCoord:b.coord, alNotify:['Email','WhatsApp']})
+              : ()=>this.setState({mAlloc:{batch:b.batch, bid:b.bid, course:cs.name, shift:b.mode, coord:b.coord, reassign:1, current:b.teacher}, alTeacher:b.teacher, alCoord:b.coord, alNotify:['Email','WhatsApp']}),
+            ...(()=>{ const on = s.alMenu && s.alMenu.id===b.bid; const un = b.alloc==='Unassigned';
+              const close = {alMenu:null};
+              const openFm = (kind, extra)=>()=>this.setState({...close, fm:kind, fmStep:0, fmErr:null, fmCtx:{batch:b.batch, bid:b.bid, course:cs.name, teacher:b.teacher, coord:b.coord, mode:b.mode, enr:b.enr||'', ...(extra||{})}});
+              const assign = un
+                ? ()=>this.setState({...close, mAlloc:{batch:b.batch, bid:b.bid, course:cs.name, shift:b.mode, coord:b.coord}, alTeacher:'Dr. Vikram Verma', alCoord:b.coord, alNotify:['Email','WhatsApp']})
+                : ()=>this.setState({...close, mAlloc:{batch:b.batch, bid:b.bid, course:cs.name, shift:b.mode, coord:b.coord, reassign:1, current:b.teacher}, alTeacher:b.teacher, alCoord:b.coord, alNotify:['Email','WhatsApp']});
+              const items = [
+                [un ? 'Assign Teacher' : 'Reassign Teacher', assign],
+                ['View Batch / Course', openFm('alView', {cid:cs.cid, health:cs.health, cStudents:cs.students, cTeachers:cs.teachers, cBatches:cs.batches.length, runs:(b.start&&b.end ? b.start+' → '+b.end : ''), status:b.status, alloc:b.alloc, pct:b.pct})],
+                ['Add Substitute', openFm('sub')],
+                ['View Schedule', openFm('alSched')],
+                ['View Students', openFm('alStudents', {pct:b.pct})],
+                ['Move Students', openFm('alMove')],
+                [b.coord && b.coord!=='—' ? 'Reassign Coordinator' : 'Assign Coordinator', openFm('alCoordFm')]];
+              return {kBg: on?'#EEF6F5':'#fff', kBd: on?'#BFE3DC':'#E5E3DC', menuDisplay: on?'block':'none',
+                mTop: on ? s.alMenu.y+'px' : '0', mLeft: on ? s.alMenu.x+'px' : '0',
+                menu: (e)=>{ const r = e.currentTarget.getBoundingClientRect(); const up = r.bottom + 300 > window.innerHeight;
+                  this.setState({alMenu: on ? null : {id:b.bid, x: Math.max(8, r.right-236), y: up ? r.top-300 : r.bottom+6}}); },
+                menuItems: items.map(([label,pick],i)=>({label, pick, bt: i===2||i===5 ? '1px solid #F2F0EA' : 'none', mt: i===2||i===5 ? '4px' : '0'}))}; })()
           }))};
       }),
       allocAlertsOpen: '6',

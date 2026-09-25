@@ -6995,6 +6995,150 @@ class Component extends DCLogic {
       const wrap = (o)=>({...base, ...o, open:true, cancel:close,
         err: s.fmErr||'', errDisplay: s.fmErr?'flex':'none'});
 
+      if (/^cp[A-Z]/.test(kind)) {
+        const who = ctx.who || 'Priya Sharma', first = who.split(' ')[0];
+        const v = (k,d)=> s[k]!==undefined ? s[k] : d;
+        const RO = (l,val)=>this.f(l,'ro_'+l,val,'readonly');
+        const nav = (last, done, check)=>({backDisplay: step>0 ? 'inline-flex' : 'none', back:()=>this.setState({fmStep:step-1, fmErr:null}),
+          primaryLabel: step<last ? 'Continue' : 'Save changes',
+          primary: ()=>{ const e = check && check(step); if (e) return this.setState({fmErr:e}); if (step<last) return this.setState({fmStep:step+1, fmErr:null}); close(); done(); }});
+        const REASON = (k)=>this.f('Reason for change *',k,'Correction','select',['Correction','Employee request','Promotion','Role change','Contract revision','Annual review']);
+        const EFF = (k)=>this.f('Effective from',k,'2026-10-01','date');
+
+        if (kind==='cpPersonal') {
+          const G = [
+            [{t:'Identity', fields:[
+              this.f('Full name *','cpName',who,'text'), this.f('Date of birth','cpDob','1994-03-12','date'),
+              this.f('Gender','cpGen','Female','select',['Female','Male','Prefer not to say']),
+              this.f('Marital status','cpMar','Single','select',['Single','Married','Prefer not to say']),
+              this.f('Languages','cpLang','English, Hindi, Marathi','text',null,{span:'span 2'})]}],
+            [{t:'Contact', fields:[
+              this.f('Primary mobile *','cpMob','+91 98200 44120','text'), this.f('Alternate mobile','cpMob2','','text'),
+              this.f('Personal email *','cpMail',first.toLowerCase()+'.sharma@gmail.com','text'),
+              this.f('Current address','cpAddr','Flat 12B, Lodha Amara, Thane West, Mumbai 400607','textarea',null,{span:'span 3'}),
+              this.fradio('Permanent address','cpSame','Same as current',['Same as current','Different'])]},
+             {t:'Emergency contact', fields:[
+              this.f('Name','cpEmN','Rakesh Sharma','text'), this.f('Relation','cpEmR','Father','select',['Father','Mother','Spouse','Sibling','Friend']),
+              this.f('Phone','cpEmP','+91 98200 11873','text')]}],
+            [{t:'Review', fields:[
+              this.fkv('',[['Name',v('cpName',who)],['Mobile',v('cpMob','+91 98200 44120')],['Email',v('cpMail',first.toLowerCase()+'.sharma@gmail.com')],['Emergency',v('cpEmN','Rakesh Sharma')+' · '+v('cpEmP','+91 98200 11873')]]),
+              this.fradio('Contact changes need re-verification','cpReV','Send OTP to new number',['Send OTP to new number','Skip — verified offline']),
+              this.f('Note','cpNote','','textarea',null,{span:'span 3',placeholder:'Optional — recorded in the audit trail.'})]}]];
+          return wrap({title:'Edit Personal Info', width:'760px', sub:who+' · identity, contact and emergency details',
+            stepDisplay:'flex', steps:mkSteps(['Identity','Contact','Review']), groups:G[step],
+            info:'Changes are versioned — the previous value stays in the audit trail.', infoDisplay:'flex',
+            ...nav(2, ()=>this.fire('Personal info updated — '+who,'Versioned · audit logged'),
+              (st)=> st===0 && !String(v('cpName',who)).trim() ? 'Full name is required.' : st===1 && !String(v('cpMob','x')).trim() ? 'Primary mobile is required.' : null)});
+        }
+
+        if (kind==='cpProf') {
+          const G = [
+            [{t:'Background', fields:[
+              this.f('Highest qualification','cpQual','MBA — Education Management','text',null,{span:'span 2'}),
+              this.f('Institution','cpInst','NMIMS Mumbai','text'),
+              this.f('Total experience','cpExp','6 years','select',['1–2 years','3–5 years','6 years','7–10 years','10+ years']),
+              this.f('Coordination experience','cpCoExp','3 years · 18 faculty','text',null,{span:'span 2'})]}],
+            [{t:'Skills & certifications', fields:[
+              this.fchips('Skills','cpSkills',['LMS management','Scheduling','Attendance','Reporting'],['LMS management','Scheduling','Attendance','Reporting','Conflict resolution','Student counselling','Teacher onboarding','Data analysis']),
+              this.fchips('Certifications','cpCert',['PMP Foundation','Google Workspace Admin'],['PMP Foundation','Google Workspace Admin','Moodle Admin','Six Sigma Yellow Belt']),
+              this.fchips('Domains','cpDom',['IC-38','Life Insurance'],['IC-38','Life Insurance','Health Insurance','General Insurance','Taxation'])]}],
+            [{t:'Review', fields:[
+              this.fkv('',[['Qualification',v('cpQual','MBA — Education Management')],['Experience',v('cpExp','6 years')],['Skills',(v('cpSkills',['LMS management','Scheduling','Attendance','Reporting'])).join(', ')],['Domains',(v('cpDom',['IC-38','Life Insurance'])).join(', ')]]),
+              this.f('Note','cpNote','','textarea',null,{span:'span 3',placeholder:'Optional'})]}]];
+          return wrap({title:'Edit Professional Info', width:'760px', sub:who+' · qualification, experience and skills',
+            stepDisplay:'flex', steps:mkSteps(['Background','Skills','Review']), groups:G[step],
+            info:'Domains decide which courses this coordinator can be assigned.', infoDisplay:'flex',
+            ...nav(2, ()=>this.fire('Professional info updated — '+who,(v('cpSkills',[1,2,3,4])).length+' skills · '+(v('cpDom',[1,2])).length+' domains'),
+              (st)=> st===1 && !(v('cpDom',['x'])).length ? 'Pick at least one domain.' : null)});
+        }
+
+        if (kind==='cpEmp') {
+          const role = v('cpRole','Senior Coordinator');
+          const G = [
+            [{t:'Role', fields:[
+              RO('Employee ID','EMP-C-1042'),
+              this.f('Designation *','cpRole',role,'select',['Coordinator','Senior Coordinator','Lead Coordinator','Coordinator Manager']),
+              this.f('Level','cpLvl','L2','select',['L1','L2','L3','L4']),
+              this.f('Department','cpDept','Academic Operations','select',['Academic Operations','Student Success','Exam Prep','Corporate Training']),
+              this.f('Reporting manager','cpMgr','Anjali Rao — Academic Head','select',['Anjali Rao — Academic Head','Vikas Menon — Ops Head','Deepa Nair — Program Director'])]}],
+            [{t:'Engagement', fields:[
+              this.fradio('Employment type','cpType','Full-time',['Full-time','Part-time','Contract']),
+              this.fradio('Work mode','cpMode','Hybrid',['On-site','Hybrid','Remote']),
+              this.f('Location','cpLoc','Mumbai','select',['Mumbai','Bengaluru','Delhi','Chennai','Remote']),
+              this.f('Shift','cpShift','Morning · 08:00–17:00','select',['Morning · 08:00–17:00','General · 10:00–19:00','Evening · 13:00–22:00']),
+              this.f('Batch capacity','cpCap','12 batches','select',['6 batches','8 batches','10 batches','12 batches','15 batches']),
+              this.f('Contract end','cpEnd','2027-03-31','date')]}],
+            [{t:'Confirm', fields:[
+              this.fkv('',[['Designation',role+' · '+v('cpLvl','L2')],['Manager',v('cpMgr','Anjali Rao — Academic Head')],['Type',v('cpType','Full-time')+' · '+v('cpMode','Hybrid')],['Capacity',v('cpCap','12 batches')]]),
+              REASON('cpWhy'), EFF('cpFrom'),
+              this.fchips('Notify','cpNotify',['Coordinator','HR'],['Coordinator','HR','Reporting manager','Payroll'])]}]];
+          return wrap({title:'Edit Employment', width:'760px', sub:who+' · role, reporting and engagement terms',
+            stepDisplay:'flex', steps:mkSteps(['Role','Engagement','Confirm']), groups:G[step],
+            info: role!=='Senior Coordinator' ? 'Designation change — HR will issue a revised letter and permissions follow the new role.' : 'Changes take effect from the date you set.', infoDisplay:'flex',
+            ...nav(2, ()=>this.fire('Employment updated — '+who, role+' · from '+v('cpFrom','2026-10-01')))});
+        }
+
+        if (kind==='cpComp') {
+          const n = (x)=>+String(x).replace(/[^0-9]/g,'')||0;
+          const basic = v('cpBasic','42000'), hra = v('cpHra','16800'), allow = v('cpAllow','8200'), bonus = v('cpBonus','10%');
+          const gross = n(basic)+n(hra)+n(allow), prev = 64000, delta = gross-prev;
+          const INR = (x)=>'₹'+x.toLocaleString('en-IN');
+          const G = [
+            [{t:'Monthly salary', fields:[
+              RO('Current gross', INR(prev)+' / month'),
+              this.f('Basic *','cpBasic',basic,'text'), this.f('HRA','cpHra',hra,'text'), this.f('Allowances','cpAllow',allow,'text'),
+              RO('New gross', INR(gross)+' / month · '+(delta>=0?'+':'−')+INR(Math.abs(delta))+' ('+(prev?Math.round(delta/prev*1000)/10:0)+'%)')]}],
+            [{t:'Variable & payout', fields:[
+              this.f('Performance bonus','cpBonus',bonus,'select',['0%','5%','10%','15%','20%']),
+              this.f('Incentive per batch','cpInc','₹1,500','select',['None','₹1,000','₹1,500','₹2,000']),
+              this.f('Pay cycle','cpCycle','Monthly · 1st','select',['Monthly · 1st','Monthly · 5th','Bi-weekly']),
+              this.f('Bank account','cpBank','HDFC •••• 4821','readonly')]}],
+            [{t:'Approval', fields:[
+              this.fkv('',[['Gross',INR(gross)+' / month'],['Change',(delta>=0?'+':'−')+INR(Math.abs(delta))],['Bonus',v('cpBonus',bonus)],['Annual CTC',INR(gross*12)]]),
+              REASON('cpWhy'), EFF('cpFrom'),
+              this.f('Approver','cpAppr','Finance + Academic head','select',['Finance','Academic head','Finance + Academic head'])]}]];
+          return wrap({title:'Edit Compensation', width:'760px', sub:who+' · confidential — visible to HR & Finance only',
+            stepDisplay:'flex', steps:mkSteps(['Salary','Variable','Approval']), groups:G[step],
+            info: Math.abs(delta)/prev > .15 ? 'Change above 15% — goes to Finance for approval before payroll.' : 'Applied from the next payroll cycle after approval.', infoDisplay:'flex',
+            ...nav(2, ()=>this.fire('Compensation change submitted — '+who, INR(gross)+' / month · pending '+v('cpAppr','Finance + Academic head')),
+              (st)=> st===0 && !n(basic) ? 'Basic salary is required.' : null), primaryLabel: step<2 ? 'Continue' : 'Submit for approval'});
+        }
+
+        if (kind==='cpDocs') {
+          const DOCS = [['Aadhaar Card','Identity','Verified','12 Feb 2025'],['PAN Card','Identity','Verified','12 Feb 2025'],['MBA Degree','Education','Verified','14 Feb 2025'],
+            ['Experience Letter','Employment','Verified','14 Feb 2025'],['Offer Letter','Employment','Signed','01 Mar 2025'],['Background Check','Compliance','Cleared','05 Mar 2025'],
+            ['Cancelled Cheque','Bank','Pending','—'],['Address Proof','Identity','Expiring 30 Oct','10 Oct 2023']];
+          const f = v('cpDocF','All');
+          const rows = DOCS.filter(d=>f==='All' || d[1]===f);
+          const act = v('cpDocAct','Download selected');
+          return wrap({title:'Documents', width:'780px', sub:who+' · '+DOCS.length+' documents · 1 pending · 1 expiring',
+            groups:[
+              {t:'Documents', fields:[
+                this.f('Category','cpDocF',f,'select',['All','Identity','Education','Employment','Compliance','Bank']),
+                {...this.flags('table'), isTable:true, label:'', span:'span 3',
+                  items:[{a:'Document',b:'Category',c:'Status',d:'Uploaded',e:'',bg:'#FCFBF7',fw:'700'}, ...rows.map((d,i)=>({a:d[0],b:d[1],c:d[2],d:d[3],e:'',bg:i%2?'#FAF9F4':'#fff',fw:'600'}))]}]},
+              {t:'Action', fields:[
+                this.fradio('Do','cpDocAct',act,['Download selected','Request re-upload','Upload new']),
+                this.fchips('Documents','cpDocSel',['Cancelled Cheque','Address Proof'],DOCS.map(d=>d[0])),
+                ...(act==='Request re-upload' ? [this.f('Due within','cpDocDue','7 days','select',['3 days','7 days','14 days'])] : [])]}],
+            info:'Downloads are watermarked and logged.', infoDisplay:'flex',
+            primaryLabel: act,
+            primary: ()=>{ const sel = v('cpDocSel',['Cancelled Cheque','Address Proof']); if (!sel.length) return this.setState({fmErr:'Select at least one document.'});
+              close(); this.fire(act+' — '+sel.length+' document'+(sel.length>1?'s':''), who+(act==='Request re-upload'?' · due in '+v('cpDocDue','7 days'):'')); }});
+        }
+
+        if (kind==='cpPdf') {
+          const secs = v('cpPdfS',['Personal','Professional','Employment','Batches']);
+          return wrap({title:'Download Profile PDF', width:'640px', sub:who+' · logged in the audit trail',
+            groups:[{t:'Export', fields:[
+              this.fchips('Sections *','cpPdfS',secs,['Personal','Professional','Employment','Compensation','Batches','Performance','Attendance','Documents']),
+              this.fradio('Layout','cpPdfL','Full profile',['Full profile','One-page summary']),
+              this.fchips('Mask','cpPdfM',['Salary','Bank details'],['Salary','Bank details','Personal phone','Home address'])]}],
+            primaryLabel:'Download PDF',
+            primary: ()=>{ if (!secs.length) return this.setState({fmErr:'Pick at least one section.'}); close(); this.fire('Profile PDF ready — '+who, secs.length+' sections · '+v('cpPdfL','Full profile')); }});
+        }
+      }
+
       if (kind==='addChoice') {
         return wrap({title:'Add Coordinator', width:'560px',
           sub:'Choose how this coordinator gets onboarded',
@@ -9622,8 +9766,10 @@ class Component extends DCLogic {
           open: ()=>this.setState({fm:'resolve', fmStep:0, fmErr:null, fmCtx:{title, sev, who:s.prof||'Priya Sharma', meta}})}));
         if (sec.kind==='actions') d.btns = sec.btns.map(b=>({label:b[0],
           border: b[1]?'#F0D2CF':'#E5E3DC', fg: b[1]?'#B42318':'#344054', hbg: b[1]?'#FEF7F6':'#F6F5F0',
-          pick: ()=>this.setState({fm:'act', fmStep:0, fmErr:null,
-            fmCtx:{label:b[0], danger:b[1]||0, who:s.prof||'Priya Sharma', tab:s.profTab||'Overview'}})}));
+          pick: ()=>{ const PF = {'Edit Personal Info':'cpPersonal','Edit Professional Info':'cpProf','Edit Employment':'cpEmp','Edit Compensation':'cpComp','View Documents':'cpDocs','Download Profile PDF':'cpPdf'}[b[0]];
+            const r = {}; if (PF) Object.keys(this.state).forEach(k=>{ if (/^cp[A-Z]/.test(k)) r[k]=undefined; });
+            this.setState({...r, fm: PF || 'act', fmStep:0, fmErr:null,
+              fmCtx:{label:b[0], danger:b[1]||0, who:s.prof||'Priya Sharma', tab:s.profTab||'Overview'}}); }}));
         if (sec.kind==='score') {
           d.scoreN = '91'; d.scoreBand = 'Excellent';
           d.scoreParts = [['Batch Management','94%'],['Student Management','89%'],['Teacher Coordination','92%'],

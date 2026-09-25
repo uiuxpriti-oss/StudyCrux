@@ -107,7 +107,7 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.2" stroke-linecap="round" style="flex:none"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" /></svg>
             <input value="{{ q }}" onChange="{{ setQ }}" placeholder="Search roles, users, permissions..." style="border:0;outline:0;flex:1;min-width:0;font-size:13px;color:#0F2A47;background:transparent;font-family:inherit" />
           </div>
-          <button onClick="{{ openExport }}" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Export</button>
+          <button onClick="{{ openExport }}" style="display:{{ hdrExportShow }};height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Export</button>
           <button onClick="{{ primaryCta }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>{{ primaryLabel }}
           </button>
@@ -1759,7 +1759,7 @@
               <th style="padding:11px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">DATE</th>
               <th style="padding:11px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EXPIRY</th>
               <th style="padding:11px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LAST USED</th>
-              <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
+              
             </tr>
           </thead>
           <tbody>
@@ -1779,9 +1779,7 @@
                 <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE;font-size:11.5px;color:#98A2B3;white-space:nowrap">{{ e.date }}</td>
                 <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE;font-size:11.5px;font-weight:600;color:{{ e.expFg }};white-space:nowrap">{{ e.expiry }}</td>
                 <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE;font-size:11.5px;color:{{ e.usedFg }};white-space:nowrap">{{ e.lastUsed }}</td>
-                <td style="padding:10px 20px 10px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
-                  <button onClick="{{ e.why }}" style="height:28px;padding:0 11px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:11.5px;font-weight:700;color:#0B7A6E;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#E2F1EE">Why?</button>
-                </td>
+                
               </tr>
             </sc-for>
           </tbody>
@@ -1875,6 +1873,278 @@
             <span style="font-size:11.5px;color:#98A2B3;white-space:nowrap">{{ h.meta }}</span>
           </div>
         </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mHierView }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:1160px;max-width:96vw;height:90vh;display:flex;flex-direction:column;background:#FAF9F5;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);overflow:hidden;animation:popIn .16s ease">
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:20px 24px 16px;background:#fff;border-bottom:1px solid #F0EEE7">
+        <div style="flex:1;min-width:0">
+          <h3 style="margin:0;font-size:17px;font-weight:800;color:#0F2A47">Role hierarchy</h3>
+          <p style="margin:5px 0 0;font-size:12.5px;color:#6B7C93">Who reports to whom — and which roles each role can manage and invite. Circular links are blocked.</p>
+        </div>
+        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg></button>
+      </div>
+        <div style="flex:1;overflow-y:auto;padding:18px 24px 24px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:13px;margin-bottom:18px">
+            <sc-for list="{{ hKpis }}" as="k" hint-placeholder-count="4">
+              <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 16px">
+                <div style="font-size:11.5px;font-weight:500;color:#6B7C93">{{ k.label }}</div>
+                <div style="font-size:23px;font-weight:800;letter-spacing:-.03em;color:{{ k.fg }};margin-top:5px">{{ k.n }}</div>
+                <div style="font-size:11px;color:#98A2B3;margin-top:4px">{{ k.note }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start">
+            <div style="flex:1 1 100%;min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+              <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #F0EEE7">
+                <div style="flex:1;min-width:160px">
+                  <div style="font-size:14px;font-weight:700;color:#0F2A47">Reporting &amp; access tree</div>
+                  <div style="font-size:12px;color:#7A8699;margin-top:3px">Drag a role onto another to change who it reports to. A role can manage only the roles below it.</div>
+                </div>
+                <button onClick="{{ hValidate }}" style="height:34px;padding:0 13px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Validate</button>
+                <button onClick="{{ hExport }}" style="height:34px;padding:0 13px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Export chart</button>
+                <button onClick="{{ hAddRel }}" style="display:flex;align-items:center;gap:6px;height:34px;padding:0 14px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit" style-hover="background:#0B7A6E"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Add relationship</button>
+              </div>
+              <div style="padding:14px 18px 18px;display:flex;flex-direction:column;gap:6px">
+                <sc-for list="{{ hNodes }}" as="n" hint-placeholder-count="8">
+                  <div style="display:flex;align-items:stretch">
+                    <div style="width:{{ n.indent }};flex:none;position:relative">
+                      <div style="display:{{ n.connShow }};position:absolute;right:8px;top:-8px;height:calc(50% + 8px);width:14px;border-left:1.5px solid #DDD9CF;border-bottom:1.5px solid #DDD9CF;border-bottom-left-radius:8px"></div>
+                    </div>
+                    <div onClick="{{ n.pick }}" draggable="{{ n.draggable }}" onDragStart="{{ n.dragStart }}" onDragEnd="{{ n.dragEnd }}" onDragOver="{{ n.dragOver }}" onDragLeave="{{ n.dragLeave }}" onDrop="{{ n.drop }}" style="flex:1;min-width:0;display:flex;align-items:center;gap:11px;padding:10px 12px;border:1.5px {{ n.bdStyle }} {{ n.bd }};border-radius:11px;background:{{ n.bg }};cursor:{{ n.cur }};opacity:{{ n.op }};transform:{{ n.tf }};transition:border-color .12s,box-shadow .12s,transform .12s,opacity .12s" style-hover="border-color:#0E9384;box-shadow:0 6px 16px rgba(11,31,62,.06)">
+                      <span title="Drag onto another role to change who it reports to" style="display:{{ n.gripShow }};flex:none;color:#B8BDC6;cursor:grab;margin-right:-3px"><svg width="12" height="16" viewBox="0 0 12 16" fill="currentColor"><circle cx="3" cy="3" r="1.4" /><circle cx="9" cy="3" r="1.4" /><circle cx="3" cy="8" r="1.4" /><circle cx="9" cy="8" r="1.4" /><circle cx="3" cy="13" r="1.4" /><circle cx="9" cy="13" r="1.4" /></svg></span>
+                      <span style="width:30px;height:30px;flex:none;border-radius:9px;background:{{ n.ibg }};color:{{ n.ifg }};display:grid;place-items:center;font-size:10.5px;font-weight:800">{{ n.lvl }}</span>
+                      <div style="min-width:0;flex:1">
+                        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                          <span style="font-size:13.5px;font-weight:700;color:#0F2A47">{{ n.name }}</span>
+                          <span style="font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ n.tBg }};color:{{ n.tFg }}">{{ n.tier }}</span>
+                          <span style="display:{{ n.dropShow }};font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ n.dropBg }};color:{{ n.dropFg }}">{{ n.dropTxt }}</span>
+                        </div>
+                        <div style="font-size:11.5px;color:#7A8699;margin-top:3px">{{ n.meta }}</div>
+                      </div>
+                      <button onClick="{{ n.addChild }}" title="Add a role under this one" style="width:28px;height:28px;flex:none;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14" /></svg></button>
+                      <button onClick="{{ n.edit }}" title="Edit relationship" style="width:28px;height:28px;flex:none;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" /></svg></button>
+                      <button onClick="{{ n.remove }}" title="Remove from hierarchy" style="display:{{ n.removeShow }};width:28px;height:28px;flex:none;border-radius:8px;border:1px solid #E5E3DC;background:#fff;place-items:center;cursor:pointer;color:#98A2B3" style-hover="background:#FEF7F6;color:#B42318;border-color:#F0D2CF"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" /></svg></button>
+                    </div>
+                  </div>
+                </sc-for>
+                <div onDragOver="{{ hRootOver }}" onDragLeave="{{ hRootLeave }}" onDrop="{{ hRootDrop }}" style="display:{{ hRootShow }};margin-top:6px;padding:12px;border:1.5px dashed {{ hRootBd }};border-radius:11px;background:{{ hRootBg }};text-align:center;font-size:12px;font-weight:600;color:#7A8699">Drop here to remove from hierarchy</div>
+                <div style="display:{{ hUnplacedShow }};margin-top:12px;padding:12px 14px;border:1.5px dashed #E5E3DC;border-radius:11px;background:#FCFBF7">
+                  <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699;margin-bottom:9px">NOT IN HIERARCHY</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px">
+                    <sc-for list="{{ hUnplaced }}" as="u" hint-placeholder-count="1">
+                      <button onClick="{{ u.place }}" draggable="true" onDragStart="{{ u.dragStart }}" onDragEnd="{{ u.dragEnd }}" style="cursor:grab;height:30px;padding:0 12px;border-radius:999px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="border-color:#0E9384;color:#0B7A6E">{{ u.name }} · Place</button>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ rfOn }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:{{ rfWidth }};max-width:95vw;max-height:92vh;display:flex;flex-direction:column;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);overflow:hidden;animation:popIn .16s ease">
+      <div style="padding:20px 24px 16px;border-bottom:1px solid #F0EEE7">
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <div style="flex:1;min-width:0">
+            <h3 style="margin:0;font-size:17px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">{{ rfTitle }}</h3>
+            <p style="margin:5px 0 0;font-size:12.5px;color:#6B7C93;text-wrap:pretty">{{ rfSub }}</p>
+          </div>
+          <button onClick="{{ rfClose }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg></button>
+        </div>
+        <div style="display:{{ rfStepShow }};gap:10px;margin-top:15px">
+          <sc-for list="{{ rfSteps }}" as="st" hint-placeholder-count="4">
+            <div onClick="{{ st.go }}" style="flex:1;min-width:0;cursor:pointer">
+              <div style="height:4px;border-radius:3px;background:{{ st.bar }};transition:background .2s"></div>
+              <div style="display:flex;align-items:center;gap:7px;margin-top:8px">
+                <span style="width:19px;height:19px;flex:none;border-radius:50%;background:{{ st.nBg }};color:{{ st.nFg }};display:grid;place-items:center;font-size:10.5px;font-weight:800">{{ st.n }}</span>
+                <span style="font-size:11.5px;font-weight:{{ st.fw }};color:{{ st.fg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ st.label }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:18px 24px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:{{ rfSuccessShow }};flex-direction:column;align-items:center;text-align:center;padding:14px 10px 4px">
+          <div style="width:56px;height:56px;border-radius:50%;background:#E7F7EE;display:grid;place-items:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.2 4.2L19 7" /></svg></div>
+          <div style="font-size:17px;font-weight:800;color:#0F2A47;margin-top:14px">{{ rfSuccessTitle }}</div>
+          <div style="font-size:12.5px;color:#6B7C93;margin-top:6px;max-width:440px;text-wrap:pretty">{{ rfSuccessSub }}</div>
+        </div>
+        <sc-for list="{{ rfGroups }}" as="g" hint-placeholder-count="2">
+          <div>
+            <div style="display:{{ g.tShow }};align-items:center;gap:9px;margin-bottom:12px">
+              <span style="width:3px;height:12px;border-radius:2px;background:#0E9384"></span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#475467">{{ g.t }}</span>
+              <span style="flex:1;height:1px;background:#F2F0EA"></span>
+              <span style="font-size:11.5px;font-weight:600;color:#7A8699">{{ g.right }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px 16px">
+              <sc-for list="{{ g.fields }}" as="f" hint-placeholder-count="4">
+                    <div style="grid-column:{{ f.span }};min-width:0">
+                      <label style="display:{{ f.labelShow }};font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">{{ f.label }}</label>
+                      <sc-if value="{{ f.isText }}" hint-placeholder-val="{{ true }}">
+                        <input value="{{ f.value }}" onChange="{{ f.set }}" placeholder="{{ f.ph }}" style="width:100%;height:40px;padding:0 12px;border:1px solid {{ f.bd }};border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit;background:#fff" style-focus="border-color:#0E9384;box-shadow:0 0 0 3px rgba(14,147,132,.14)" />
+                      </sc-if>
+                      <sc-if value="{{ f.isDate }}" hint-placeholder-val="{{ false }}">
+                        <input type="date" value="{{ f.value }}" onChange="{{ f.set }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit;background:#fff" style-focus="border-color:#0E9384;box-shadow:0 0 0 3px rgba(14,147,132,.14)" />
+                      </sc-if>
+                      <sc-if value="{{ f.isSelect }}" hint-placeholder-val="{{ false }}">
+                        <select value="{{ f.value }}" onChange="{{ f.set }}" style="width:100%;height:40px;padding:0 12px;border:1px solid {{ f.bd }};border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit;background:#fff" style-focus="border-color:#0E9384;box-shadow:0 0 0 3px rgba(14,147,132,.14)">
+                          <sc-for list="{{ f.opts }}" as="o" hint-placeholder-count="4"><option value="{{ o.o }}" selected="{{ o.sel }}">{{ o.o }}</option></sc-for>
+                        </select>
+                      </sc-if>
+                      <sc-if value="{{ f.isArea }}" hint-placeholder-val="{{ false }}">
+                        <textarea value="{{ f.value }}" onChange="{{ f.set }}" placeholder="{{ f.ph }}" style="width:100%;min-height:78px;padding:10px 12px;border:1px solid {{ f.bd }};line-height:1.5;resize:vertical;border-radius:9px;font-size:13.5px;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit;background:#fff" style-focus="border-color:#0E9384;box-shadow:0 0 0 3px rgba(14,147,132,.14)"></textarea>
+                      </sc-if>
+                      <sc-if value="{{ f.isRadio }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;flex-wrap:wrap;gap:8px">
+                          <sc-for list="{{ f.items }}" as="c" hint-placeholder-count="3">
+                            <div onClick="{{ c.pick }}" style="display:flex;align-items:center;gap:9px;min-width:0;border:1.5px solid {{ c.bd }};background:{{ c.bg }};border-radius:10px;padding:9px 13px;cursor:pointer;transition:border-color .12s" style-hover="border-color:#0E9384">
+                              <span style="width:15px;height:15px;flex:none;border-radius:50%;border:1.5px solid {{ c.bd }};display:grid;place-items:center"><span style="width:7px;height:7px;border-radius:50%;background:{{ c.dot }}"></span></span>
+                              <div style="min-width:0">
+                                <div style="font-size:12.5px;font-weight:600;color:{{ c.fg }}">{{ c.o }}</div>
+                                <div style="display:{{ c.subShow }};font-size:11px;color:#98A2B3;margin-top:2px">{{ c.sub }}</div>
+                              </div>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ f.isChips }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;flex-wrap:wrap;gap:7px">
+                          <sc-for list="{{ f.items }}" as="c" hint-placeholder-count="4">
+                            <button onClick="{{ c.pick }}" style="height:32px;padding:0 13px;border-radius:999px;border:1.5px solid {{ c.bd }};background:{{ c.bg }};font-size:12.5px;font-weight:{{ c.fw }};color:{{ c.fg }};cursor:pointer;font-family:inherit;white-space:nowrap;transition:border-color .12s,background .12s">{{ c.o }}</button>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ f.isToggle }}" hint-placeholder-val="{{ false }}">
+                        <div onClick="{{ f.tog }}" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border:1px solid #F0EEE7;border-radius:10px;background:#FCFBF7;cursor:pointer">
+                          <span style="width:36px;height:20px;flex:none;border-radius:999px;background:{{ f.tBg }};display:inline-flex;align-items:center;padding:2px;transition:background .14s"><span style="width:16px;height:16px;border-radius:50%;background:#fff;transform:{{ f.knob }};transition:transform .14s"></span></span>
+                          <div style="min-width:0;flex:1">
+                            <div style="font-size:13px;font-weight:600;color:#0F2A47">{{ f.text }}</div>
+                            <div style="display:{{ f.subShow }};font-size:11.5px;color:#98A2B3;margin-top:2px">{{ f.sub }}</div>
+                          </div>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ f.isKv }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                          <sc-for list="{{ f.items }}" as="kv" hint-placeholder-count="4">
+                            <div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;padding:10px 14px;background:{{ kv.bg }};border-bottom:1px solid #F7F5F0">
+                              <span style="font-size:12px;color:#7A8699">{{ kv.k }}</span>
+                              <span style="font-size:12.5px;font-weight:600;color:{{ kv.fg }};text-wrap:pretty">{{ kv.v }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ f.isRead }}" hint-placeholder-val="{{ false }}">
+                        <div style="min-height:40px;display:flex;align-items:center;padding:9px 12px;border:1px solid #EDEBE4;border-radius:9px;background:#FCFBF7;font-size:12.5px;font-weight:500;color:#475467;text-wrap:pretty">{{ f.value }}</div>
+                      </sc-if>
+                      <sc-if value="{{ f.isUsers }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid {{ f.bd }};border-radius:11px;overflow:hidden">
+                          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;background:#FCFBF7;border-bottom:1px solid #F0EEE7">
+                            <div style="flex:1;min-width:180px;display:flex;align-items:center;gap:8px;height:34px;padding:0 11px;border:1px solid #E5E3DC;border-radius:8px;background:#fff">
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+                              <input value="{{ f.q }}" onChange="{{ f.setQ }}" placeholder="Search name or email" style="flex:1;min-width:0;border:0;outline:0;font-size:12.5px;color:#0F2A47;background:transparent;font-family:inherit" />
+                            </div>
+                            <select value="{{ f.roleF }}" onChange="{{ f.setRoleF }}" style="height:34px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
+                              <sc-for list="{{ f.roleOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.o }}" selected="{{ o.sel }}">{{ o.o }}</option></sc-for>
+                            </select>
+                            <button onClick="{{ f.selAll }}" style="height:34px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">{{ f.selAllLabel }}</button>
+                          </div>
+                          <div style="max-height:260px;overflow-y:auto">
+                            <sc-for list="{{ f.items }}" as="u" hint-placeholder-count="6">
+                              <div onClick="{{ u.tog }}" style="display:flex;align-items:center;gap:11px;padding:9px 12px;border-bottom:1px solid #F7F5F0;cursor:pointer;background:{{ u.bg }}" style-hover="background:#F7FBFA">
+                                <span style="width:18px;height:18px;flex:none;border-radius:5px;border:1.5px solid {{ u.cbBd }};background:{{ u.cbBg }};color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800">{{ u.tick }}</span>
+                                <span style="width:30px;height:30px;flex:none;border-radius:50%;background:{{ u.av }};color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700">{{ u.init }}</span>
+                                <div style="min-width:0;flex:1">
+                                  <div style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ u.name }}</div>
+                                  <div style="font-size:11px;color:#98A2B3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ u.email }}</div>
+                                </div>
+                                <span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:#F1F3F5;color:#667085;white-space:nowrap">{{ u.role }}</span>
+                              </div>
+                            </sc-for>
+                            <div style="display:{{ f.emptyShow }};padding:22px;text-align:center;font-size:12.5px;color:#98A2B3">No users match.</div>
+                          </div>
+                          <div style="display:{{ f.chipsShow }};flex-wrap:wrap;gap:6px;padding:10px 12px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+                            <sc-for list="{{ f.selChips }}" as="c" hint-placeholder-count="3">
+                              <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 6px 0 10px;border-radius:999px;background:#EEF6F5;color:#0B7A6E;font-size:11.5px;font-weight:700">{{ c.name }}<button onClick="{{ c.rm }}" style="width:18px;height:18px;border-radius:50%;border:0;background:transparent;color:#0B7A6E;cursor:pointer;font-size:13px;line-height:1;padding:0">×</button></span>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ f.isPerms }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;flex-direction:column;gap:6px">
+                          <sc-for list="{{ f.items }}" as="p" hint-placeholder-count="4">
+                            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;border:1px solid #F0EEE7;border-radius:9px;background:#fff">
+                              <span style="font-size:12.5px;font-weight:600;color:#0F2A47;min-width:170px;flex:1">{{ p.mod }}</span>
+                              <div style="display:flex;flex-wrap:wrap;gap:5px">
+                                <sc-for list="{{ p.acts }}" as="a" hint-placeholder-count="2">
+                                  <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:{{ a.bg }};color:{{ a.fg }}">{{ a.a }}</span>
+                                </sc-for>
+                              </div>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                    </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+        <div style="display:{{ rfMatrixShow }};flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ rfMxSummary }}</span>
+            <span style="display:{{ rfMxChangedShow }};font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#FEF3E2;color:#B45309">{{ rfMxChanged }}</span>
+            <span style="flex:1"></span>
+            <button onClick="{{ rfMxReset }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Reset to defaults</button>
+          </div>
+          <div style="border:1px solid #ECEAE2;border-radius:12px;overflow:auto">
+            <div style="min-width:640px">
+              <div style="display:grid;grid-template-columns:minmax(190px,1.6fr) repeat(6,minmax(56px,1fr)) 54px;background:#FCFBF7;border-bottom:1px solid #F0EEE7">
+                <div style="padding:10px 14px;font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#7A8699">MODULE</div>
+                <sc-for list="{{ rfMxHead }}" as="h" hint-placeholder-count="6"><div style="padding:10px 4px;text-align:center;font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#7A8699">{{ h.h }}</div></sc-for>
+                <div style="padding:10px 4px;text-align:center;font-size:10.5px;font-weight:700;color:#7A8699">ROW</div>
+              </div>
+              <sc-for list="{{ rfMxRows }}" as="r" hint-placeholder-count="8">
+                <div style="display:grid;grid-template-columns:minmax(190px,1.6fr) repeat(6,minmax(56px,1fr)) 54px;align-items:center;border-bottom:1px solid #F7F5F0" style-hover="background:#FCFBF7">
+                  <div style="padding:9px 14px;min-width:0">
+                    <div style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ r.mod }}</div>
+                    <div style="font-size:11px;color:#98A2B3;margin-top:1px">{{ r.desc }}</div>
+                  </div>
+                  <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="6">
+                    <div style="display:grid;place-items:center;padding:6px 0">
+                      <button onClick="{{ c.tog }}" title="{{ c.tip }}" style="position:relative;width:26px;height:26px;border-radius:7px;border:1.5px solid {{ c.bd }};background:{{ c.bg }};color:#fff;display:grid;place-items:center;cursor:pointer;font-size:12px;font-weight:800;padding:0;transition:background .12s,border-color .12s">{{ c.mark }}<span style="display:{{ c.dot }};position:absolute;top:-4px;right:-4px;width:8px;height:8px;border-radius:50%;background:#F0A72A;border:1.5px solid #fff"></span></button>
+                    </div>
+                  </sc-for>
+                  <div style="display:grid;place-items:center"><button onClick="{{ r.all }}" style="height:24px;padding:0 8px;border-radius:6px;border:1px solid #E5E3DC;background:#fff;font-size:10.5px;font-weight:700;color:#475467;cursor:pointer;font-family:inherit" style-hover="border-color:#0E9384;color:#0B7A6E">{{ r.allLabel }}</button></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="font-size:11.5px;color:#98A2B3">Orange dot = changed from the designation default.</div>
+        </div>
+        <div style="display:{{ rfWarnShow }};align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;background:#FEF3E2">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2.1" stroke-linecap="round" style="flex:none;margin-top:1px"><path d="M12 3 2 20h20zM12 10v4M12 17h.01" /></svg>
+          <span style="font-size:12.5px;font-weight:600;color:#92400E;text-wrap:pretty">{{ rfWarn }}</span>
+        </div>
+        <div style="display:{{ rfInfoShow }};align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;background:#EEF6F5">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0B7A6E" stroke-width="2.1" stroke-linecap="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
+          <span style="font-size:12.5px;color:#0B7A6E;text-wrap:pretty">{{ rfInfo }}</span>
+        </div>
+        <div style="display:{{ rfErrShow }};align-items:center;gap:9px;padding:11px 14px;border-radius:10px;background:#FDE8E8">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.1" stroke-linecap="round" style="flex:none"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16h.01" /></svg>
+          <span style="font-size:12.5px;font-weight:600;color:#B42318">{{ rfErr }}</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:14px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+        <button onClick="{{ rfBack }}" style="display:{{ rfBackShow }};align-items:center;height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Back</button>
+        <span style="flex:1"></span>
+        <button onClick="{{ rfAlt }}" style="display:{{ rfAltShow }};align-items:center;height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">{{ rfAltLabel }}</button>
+        <button onClick="{{ rfClose }}" style="display:{{ rfCancelShow }};align-items:center;height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Cancel</button>
+        <button onClick="{{ rfPrimary }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:{{ rfPrimBg }};font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap;transition:filter .12s" style-hover="filter:brightness(.93)">{{ rfPrimaryLabel }}</button>
       </div>
     </div>
   </sc-if>
@@ -2165,8 +2435,380 @@ const AUDIT = [
 const initials = (n) => n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
 const avColor = (n) => AV[Math.abs(n.split('').reduce((a,c)=>a+c.charCodeAt(0),0)) % AV.length];
 
+const DESIG = {
+  'Super Admin':        {base:'Super Admin', tier:'Unrestricted', dept:'Platform', parent:null, scope:'All data', mfa:'Required', session:'15 minutes', approval:'Two approvers'},
+  'Academic Head':      {base:'Academic Head', tier:'Elevated', dept:'Academic Operations', parent:'Super Admin', scope:'All academic data', mfa:'Required', session:'30 minutes', approval:'Super Admin'},
+  'Program Manager':    {base:'Academic Head', tier:'Elevated', dept:'Academic Operations', parent:'Academic Head', scope:'Assigned courses', mfa:'Required', session:'30 minutes', approval:'Academic Head', drop:{'Finance & Payouts':[5],'Roles & Access':[0]}},
+  'Senior Coordinator': {base:'Coordinator', tier:'Standard', dept:'Academic Operations', parent:'Academic Head', scope:'Assigned batches', mfa:'Required', session:'60 minutes', approval:'Academic Head', add:{'Coordinator Management':[4],'Course & Batch Allocation':[4],'Teacher Management':[2]}},
+  'Coordinator':        {base:'Coordinator', tier:'Standard', dept:'Academic Operations', parent:'Academic Head', scope:'Assigned batches', mfa:'Optional', session:'60 minutes', approval:'Academic Head'},
+  'Teacher / Faculty':  {base:'Reviewer', tier:'Limited', dept:'Faculty', parent:'Coordinator', scope:'Own records', mfa:'Optional', session:'2 hours', approval:'Coordinator', add:{'Student Management':[2]}},
+  'Content Admin':      {base:'Content Admin', tier:'Elevated', dept:'Content', parent:'Academic Head', scope:'Content only', mfa:'Required', session:'60 minutes', approval:'Academic Head'},
+  'Finance Manager':    {base:'Finance', tier:'Elevated', dept:'Finance', parent:'Super Admin', scope:'Financial data', mfa:'Required', session:'30 minutes', approval:'Super Admin'},
+  'Accountant':         {base:'Finance', tier:'Standard', dept:'Finance', parent:'Finance', scope:'Financial data', mfa:'Required', session:'30 minutes', approval:'Finance Manager', drop:{'Finance & Payouts':[4]}},
+  'Support Executive':  {base:'Support', tier:'Standard', dept:'Support', parent:'Coordinator', scope:'Support queues', mfa:'Optional', session:'60 minutes', approval:'Coordinator'},
+  'Reviewer':           {base:'Reviewer', tier:'Limited', dept:'Academic Operations', parent:'Academic Head', scope:'Review queues', mfa:'Optional', session:'60 minutes', approval:'Academic Head'},
+  'Speaker (External)': {base:'Speaker', tier:'External', dept:'External', parent:'Coordinator', scope:'Own records', mfa:'Optional', session:'2 hours', approval:'Coordinator'}
+};
+const DESIG_ROLE = {'Super Admin':'Super Admin','Academic Head':'Academic Head','Program Manager':'Academic Head','Senior Coordinator':'Coordinator','Coordinator':'Coordinator','Teacher / Faculty':'Reviewer','Content Admin':'Content Admin','Finance Manager':'Finance','Accountant':'Finance','Support Executive':'Support','Reviewer':'Reviewer','Speaker (External)':'Speaker'};
+const HIER0 = {'Super Admin':null,'Academic Head':'Super Admin','Finance':'Super Admin','Content Admin':'Academic Head','Coordinator':'Academic Head','Reviewer':'Academic Head','Support':'Coordinator','Speaker':'Coordinator'};
+const TIERC = {Unrestricted:'red', Elevated:'violet', Standard:'blue', Limited:'grey', External:'amber'};
+const permsFor = (d)=>{ const D = DESIG[d] || DESIG['Coordinator']; const p = PROFILE[D.base] || {}; const out = {};
+  MODULES.forEach(([m])=>{ let a = (p.all || p[m] || []).slice();
+    ((D.add||{})[m]||[]).forEach(x=>{ if(!a.includes(x)) a.push(x); });
+    a = a.filter(x=>!((D.drop||{})[m]||[]).includes(x)); out[m] = a.sort(); }); return out; };
+
 class Component extends DCLogic {
-  state = { route:'dash', q:'', roleScope:'All', reqTab:'Pending', perms:{}, policy:{} };
+  state = { route:'dash', q:'', roleScope:'All', reqTab:'Pending', perms:{}, policy:{}, hier:{...HIER0}, hierSel:'Coordinator' };
+
+  // ---------- unified role flows ----------
+  rfReset = (prefix) => { const r = {}; Object.keys(this.state).forEach(k=>{ if (k.startsWith(prefix)) r[k]=undefined; }); return r; };
+  openRC = (desig, parent) => { const d = desig || 'Coordinator';
+    this.setState({...this.rfReset('rc'), modal:'rf', rfKind:'createRole', rfStep:0, rfErr:null, rcDesig:d, rcPerm:permsFor(d), rcParent: parent || undefined}); };
+  openInvite = (role) => this.setState({...this.rfReset('iv'), modal:'rf', rfKind:'invite', rfStep:0, rfErr:null, ivDone:false, ivDesig:'Coordinator', ivRole: role || undefined, ivPerm:permsFor('Coordinator')});
+  openHier = (kind, role, parent) => this.setState({...this.rfReset('he'), modal:'rf', rfKind:kind, rfStep:0, rfErr:null, heRole:role, heParent:parent});
+
+  rfF = (kind, label, key, def, opts, extra) => {
+    const s = this.state, val = key && s[key] !== undefined ? s[key] : def, ex = extra || {};
+    const base = {label, labelShow: label ? 'block' : 'none', span: ex.span || 'span 1', ph: ex.ph || '', bd: ex.bad ? '#F04438' : '#E5E3DC',
+      isText:kind==='text', isDate:kind==='date', isSelect:kind==='select', isArea:kind==='area', isRadio:kind==='radio', isChips:kind==='chips',
+      isToggle:kind==='toggle', isKv:kind==='kv', isRead:kind==='read', isPerms:kind==='perms', isUsers:kind==='users',
+      value: (kind==='read' ? val : (typeof val==='string' ? val : '')), opts:[], items:[], tog:()=>{}, set:(e)=>this.setState({[key]:e.target.value, rfErr:null, ...(ex.onSet ? ex.onSet(e.target.value) : {})})};
+    if (kind==='select') base.opts = (opts||[]).map(o=>({o, sel:o===val}));
+    if (kind==='radio') { base.span = ex.span || 'span 3'; base.items = (opts||[]).map(o=>{ const [lab,sub] = Array.isArray(o) ? o : [o,'']; const on = val===lab;
+      return {o:lab, sub, subShow: sub?'block':'none', bd:on?'#0E9384':'#E5E3DC', bg:on?'#F7FBFA':'#fff', dot:on?'#0E9384':'transparent', fg:on?'#0B7A6E':'#475467',
+        pick:()=>this.setState({[key]:lab, rfErr:null, ...(ex.onSet ? ex.onSet(lab) : {})})}; }); }
+    if (kind==='chips') { base.span = ex.span || 'span 3'; const cur = val || []; base.items = (opts||[]).map(o=>{ const on = cur.includes(o);
+      return {o, bd:on?'#0E9384':'#E5E3DC', bg:on?'#EEF6F5':'#fff', fg:on?'#0B7A6E':'#475467', fw:on?'700':'600',
+        pick:()=>this.setState({[key]: on ? cur.filter(x=>x!==o) : [...cur, o], rfErr:null})}; }); }
+    if (kind==='toggle') { base.span = ex.span || 'span 3'; base.labelShow='none'; const on = !!val;
+      Object.assign(base, {text:label, sub:ex.sub||'', subShow: ex.sub?'block':'none', tBg: on?'#0E9384':'#D0D5DD', knob: on?'translateX(16px)':'translateX(0)',
+        tog: ex.locked ? (()=>this.fire('Locked by policy', ex.locked, false)) : (()=>this.setState({[key]:!on}))}); }
+    if (kind==='kv') { base.span='span 3'; base.labelShow = label?'block':'none'; base.items = (opts||[]).map(([k,v,fg],i)=>({k, v:String(v), fg:fg||'#0F2A47', bg:i%2?'#FAF9F4':'#fff'})); }
+    if (kind==='users') { base.span='span 3'; const sel = val || [], q = (s[key+'Q']||'').toLowerCase(), rf = s[key+'R'] || 'All roles';
+      const list = USERS.filter(u=>(rf==='All roles' || u[2]===rf) && (!q || (u[0]+' '+u[1]).toLowerCase().includes(q)));
+      const allOn = list.length && list.every(u=>sel.includes(u[1]));
+      Object.assign(base, {q:s[key+'Q']||'', setQ:(e)=>this.setState({[key+'Q']:e.target.value}),
+        roleF:rf, roleOpts:['All roles', ...ROLES.map(r=>r[0])].map(o=>({o, sel:o===rf})), setRoleF:(e)=>this.setState({[key+'R']:e.target.value}),
+        selAllLabel: allOn ? 'Clear '+list.length : 'Select all '+list.length,
+        selAll:()=>this.setState({[key]: allOn ? sel.filter(x=>!list.some(u=>u[1]===x)) : [...new Set([...sel, ...list.map(u=>u[1])])], rfErr:null}),
+        emptyShow: list.length ? 'none' : 'block', chipsShow: sel.length ? 'flex' : 'none',
+        selChips: sel.slice(0,12).map(em=>{ const u = USERS.find(x=>x[1]===em)||[em]; return {name:u[0], rm:()=>this.setState({[key]:sel.filter(x=>x!==em)})}; }).concat(sel.length>12 ? [{name:'+'+(sel.length-12)+' more', rm:()=>{}}] : []),
+        items: list.map(u=>{ const on = sel.includes(u[1]); return {name:u[0], email:u[1], role:u[2], init:initials(u[0]), av:avColor(u[0]),
+          tick:on?'✓':'', cbBg:on?'#0E9384':'#fff', cbBd:on?'#0E9384':'#D0D5DD', bg:on?'#F7FBFA':'#fff',
+          tog:()=>this.setState({[key]: on ? sel.filter(x=>x!==u[1]) : [...sel, u[1]], rfErr:null})}; })}); }
+    if (kind==='perms') { base.span='span 3'; base.items = MODULES.map(([m])=>({mod:m, acts: ((opts||{})[m]||[]).length ? (opts[m]).map(ai=>({a:ACTIONS[ai], bg:'#EEF6F5', fg:'#0B7A6E'})) : [{a:'No access', bg:'#F1F3F5', fg:'#98A2B3'}]})); }
+    return base;
+  };
+
+  rfMatrix = (key, defs) => {
+    const s = this.state, cur = s[key] || defs;
+    let granted = 0, changed = 0;
+    const rows = MODULES.map(([m,desc])=>{ const a = cur[m]||[], d = defs[m]||[];
+      const cells = ACTIONS.map((act,ai)=>{ const on = a.includes(ai), diff = on !== d.includes(ai); if (on) granted++; if (diff) changed++;
+        return {mark:on?'✓':'', bg:on?'#0E9384':'#fff', bd:on?'#0E9384':'#D8D5CC', dot:diff?'block':'none', tip:act+(diff?' · changed from default':''),
+          tog:()=>this.setState(x=>{ const c = {...(x[key]||defs)}; const l = c[m]||[]; c[m] = l.includes(ai) ? l.filter(y=>y!==ai) : [...l, ai].sort(); return {[key]:c}; })}; });
+      const full = a.length===ACTIONS.length;
+      return {mod:m, desc, cells, allLabel: full?'None':'All', all:()=>this.setState(x=>({[key]:{...(x[key]||defs), [m]: full ? [] : ACTIONS.map((_,i)=>i)}}))}; });
+    return {rfMatrixShow:'flex', rfMxRows:rows, rfMxHead:ACTIONS.map(h=>({h:h.toUpperCase()})),
+      rfMxSummary: granted+' of '+(MODULES.length*ACTIONS.length)+' permissions granted',
+      rfMxChanged: changed+' changed from defaults', rfMxChangedShow: changed?'inline-flex':'none',
+      rfMxReset: ()=>this.setState({[key]:defs}), granted, changed, cur};
+  };
+
+  hierChain = (h, r) => { const out = []; let c = r, g = 0; while (c && g<20) { out.unshift(c); c = h[c]; g++; } return out; };
+  hierKids = (h, r) => Object.keys(h).filter(k=>h[k]===r && k in h);
+  hierDesc = (h, r) => { const out = []; const walk = (x)=>this.hierKids(h,x).forEach(k=>{ out.push(k); walk(k); }); walk(r); return out; };
+
+  rfVals() {
+    const s = this.state, k = s.rfKind, step = s.rfStep || 0;
+    const off = {rfOn:false};
+    if (s.modal!=='rf' || !k) return off;
+    const v = (key, d)=> s[key] !== undefined ? s[key] : d;
+    const F = this.rfF.bind(this);
+    const G = (t, fields, right)=>({t, tShow: t?'flex':'none', right:right||'', fields});
+    const steps = (labels)=>labels.map((l,i)=>({label:l, n: i<step ? '✓' : String(i+1),
+      bar: i<=step ? '#0E9384' : '#EFEDE6', nBg: i<step ? '#0E9384' : i===step ? '#0B1F3E' : '#F1F3F5', nFg: i<=step ? '#fff' : '#98A2B3',
+      fg: i===step ? '#0F2A47' : '#98A2B3', fw: i===step ? '700' : '500', go: i<step ? (()=>this.setState({rfStep:i, rfErr:null})) : (()=>{})}));
+    const toHier = ['hEdit','hAdd','hRemove'].includes(k);
+    const base = {rfOn:true, rfClose: toHier ? (()=>this.setState({modal:'hierView', rfErr:null})) : (()=>this.setState({modal:null})), rfWidth:'760px', rfTitle:'', rfSub:'', rfStepShow:'none', rfSteps:[], rfGroups:[], rfMatrixShow:'none', rfMxRows:[], rfMxHead:[],
+      rfMxSummary:'', rfMxChanged:'', rfMxChangedShow:'none', rfMxReset:()=>{}, rfSuccessShow:'none', rfSuccessTitle:'', rfSuccessSub:'',
+      rfWarn:'', rfWarnShow:'none', rfInfo:'', rfInfoShow:'none', rfErr:s.rfErr||'', rfErrShow:s.rfErr?'flex':'none',
+      rfBackShow: step>0 ? 'inline-flex' : 'none', rfBack:()=>this.setState({rfStep:Math.max(0,step-1), rfErr:null}),
+      rfAltShow:'none', rfAltLabel:'', rfAlt:()=>{}, rfCancelShow:'inline-flex', rfPrimBg:'#0E9384', rfPrimaryLabel:'Continue', rfPrimary:()=>{}};
+    const fail = (e)=>this.setState({rfErr:e});
+    const next = ()=>this.setState({rfStep:step+1, rfErr:null});
+    const DES = Object.keys(DESIG), ROLEN = ROLES.map(r=>r[0]);
+
+    if (k==='createRole') {
+      const desig = v('rcDesig','Coordinator'), D = DESIG[desig], defs = permsFor(desig);
+      const name = v('rcName',''), parent = v('rcParent', D.parent || 'Super Admin');
+      const mx = this.rfMatrix('rcPerm', defs);
+      const nameBad = !String(name).trim() || ROLEN.map(x=>x.toLowerCase()).includes(String(name).trim().toLowerCase());
+      const scope = v('rcScope', D.scope), mfa = v('rcMfa', D.mfa==='Required');
+      const elevated = D.tier==='Unrestricted' || D.tier==='Elevated' || mx.cur['Roles & Access']?.length > 1 || (mx.cur['Finance & Payouts']||[]).includes(4);
+      const labels = ['Designation','Permissions','Scope & hierarchy','Security','Review'];
+      const out = {...base, rfTitle:'Create Role', rfSub:'Pick a designation to load its default access, then fine-tune before creating.', rfStepShow:'flex', rfSteps:steps(labels), rfWidth: step===1 ? '900px' : '760px'};
+      const onDesig = (d)=>({rcPerm:permsFor(d), rcScope:undefined, rcMfa:undefined, rcSession:undefined, rcParent:undefined, rcApprover:undefined});
+      if (step===0) {
+        out.rfGroups = [
+          G('Designation', [
+            F('select','Designation *','rcDesig',desig,DES,{onSet:onDesig}),
+            F('read','Access tier','',D.tier+' · defaults from '+D.base),
+            F('read','Department','',D.dept),
+            F('perms','Default permissions for '+desig,'',null,defs)]),
+          G('Role details', [
+            F('text','Role name *','rcName',name,null,{ph:'e.g. '+desig+' — Mumbai', bad: s.rfErr && nameBad}),
+            F('text','Role code','rcCode',v('rcCode',''),null,{ph:'Auto: '+desig.toUpperCase().replace(/[^A-Z]+/g,'_').replace(/_$/,'')}),
+            F('select','Status','rcStatus',v('rcStatus','Active'),['Active','Draft']),
+            F('area','Description','rcDesc',v('rcDesc',''),null,{span:'span 3', ph:'What this role is for and who should hold it.'})])];
+        out.rfInfo = 'Changing the designation reloads default permissions, scope and security for that designation.'; out.rfInfoShow='flex';
+        out.rfPrimary = ()=> !String(name).trim() ? fail('Enter a role name.') : nameBad ? fail('A role with this name already exists.') : next();
+      }
+      if (step===1) {
+        Object.assign(out, mx);
+        out.rfGroups = [G('Permissions', [F('read','','', 'Defaults for '+desig+' are pre-selected. Click any cell to grant or revoke; use Row to toggle a whole module.',{})], mx.granted+' granted')];
+        out.rfGroups[0].fields[0].labelShow='none';
+        if ((mx.cur['Roles & Access']||[]).some(x=>x>0)) { out.rfWarn = 'This role can change roles or access — it will need Super Admin approval.'; out.rfWarnShow='flex'; }
+        out.rfPrimary = ()=> mx.granted===0 ? fail('Grant at least one permission.') : next();
+      }
+      if (step===2) {
+        const parents = ROLEN.filter(x=>x!==name);
+        out.rfGroups = [
+          G('Data scope', [F('radio','Data scope','rcScope',scope,[['All data','Every record platform-wide'],['All academic data','Courses, batches, students'],['Assigned courses','Courses mapped to the user'],['Assigned batches','Batches mapped to the user'],['Financial data','Finance module only'],['Content only','Library & recordings'],['Support queues','Tickets & doubts'],['Review queues','Queues assigned for review'],['Own records','User\u2019s own data only']])]),
+          G('Hierarchy', [
+            F('select','Reports to *','rcParent',parent,parents),
+            F('select','Approver for access changes','rcApprover',v('rcApprover',D.approval),['Super Admin','Two approvers','Academic Head','Finance Manager','Coordinator']),
+            F('radio','Permission inheritance','rcInherit',v('rcInherit','Independent'),[['Independent','Only the permissions set here'],['Inherit read from parent','Adds parent\u2019s View access']]),
+            F('chips','Can invite / assign these roles','rcManage',v('rcManage',[]),ROLEN.filter(x=>x!=='Super Admin'))])];
+        out.rfInfo = 'This role will sit under '+parent+'. Users with it can only manage roles you tick above.'; out.rfInfoShow='flex';
+        out.rfPrimary = next;
+      }
+      if (step===3) {
+        out.rfGroups = [G('Authentication', [
+            F('toggle','Require two-factor authentication','rcMfa',mfa,null,{sub: elevated ? 'Mandatory for elevated roles' : 'Recommended', locked: elevated ? 'Elevated roles always require 2FA' : ''}),
+            F('select','Session timeout','rcSession',v('rcSession',D.session),['15 minutes','30 minutes','60 minutes','2 hours','8 hours']),
+            F('select','Allowed login','rcLogin',v('rcLogin','Any network'),['Any network','Office IPs only','Office IPs + VPN']),
+            F('select','Concurrent sessions','rcConc',v('rcConc','2 devices'),['1 device','2 devices','3 devices','Unlimited'])]),
+          G('Lifecycle', [
+            F('radio','Access duration','rcExp',v('rcExp','Permanent'),['Permanent','Time-bound']),
+            ...(v('rcExp','Permanent')==='Time-bound' ? [F('date','Expires on','rcExpOn',v('rcExpOn','2026-12-31'))] : []),
+            F('select','Access review','rcReview',v('rcReview','Quarterly'),['Monthly','Quarterly','Half-yearly','Yearly'])])];
+        out.rfPrimary = next;
+      }
+      if (step===4) {
+        const diffs = []; MODULES.forEach(([m])=>{ const a = mx.cur[m]||[], d = defs[m]||[];
+          ACTIONS.forEach((act,ai)=>{ if (a.includes(ai) && !d.includes(ai)) diffs.push(['+ '+act, m, '#15803D']); if (!a.includes(ai) && d.includes(ai)) diffs.push(['− '+act, m, '#B42318']); }); });
+        out.rfGroups = [
+          G('Summary', [F('kv','','',null,[['Role',name],['Designation',desig+' · '+D.tier],['Reports to',parent],['Data scope',scope],['Permissions',mx.granted+' granted'],['2FA',(elevated||mfa)?'Required':'Optional'],['Session',v('rcSession',D.session)],['Approver',v('rcApprover',D.approval)]])]),
+          G('Changes from '+desig+' defaults', [diffs.length ? F('kv','','',null,diffs.map(([a,m,c])=>[m,a,c])) : F('read','','', 'None — using the designation defaults as-is.')], diffs.length+' changes')];
+        out.rfGroups[1].fields[0].labelShow='none';
+        out.rfWarn = elevated ? 'Elevated role — it goes to '+v('rcApprover',D.approval)+' for approval before it can be assigned.' : ''; out.rfWarnShow = elevated ? 'flex' : 'none';
+        out.rfPrimaryLabel = elevated ? 'Submit for approval' : 'Create Role';
+        out.rfAltShow = 'inline-flex'; out.rfAltLabel = 'Save as draft';
+        out.rfAlt = ()=>{ this.setState({modal:null}); this.fire('Draft saved — '+name, desig+' · '+mx.granted+' permissions', true); };
+        out.rfPrimary = ()=>{ this.setState(x=>({modal:null, hier:{...x.hier, [name]:parent}})); this.fire((elevated?'Sent for approval — ':'Role created — ')+name, desig+' · '+mx.granted+' permissions · reports to '+parent, true); };
+      } else out.rfPrimaryLabel = 'Continue';
+      return out;
+    }
+
+    if (k==='invite') {
+      if (s.ivDone) return {...base, rfTitle:'Invitation sent', rfSub:'', rfSuccessShow:'flex', rfSuccessTitle:'Invite sent to '+(s.ivName||'user'),
+        rfSuccessSub:(s.ivEmail||'')+' · link valid for '+v('ivExp','72 hours')+'. The user shows as Invited until they accept and set a password.',
+        rfGroups:[G('', [F('kv','','',null,[['Role',v('ivRole',DESIG_ROLE[v('ivDesig','Coordinator')])],['Designation',v('ivDesig','Coordinator')],['Reports to',v('ivMgr','Vikram Sethi')],['Status','Invited · pending acceptance','#B45309']])])],
+        rfBackShow:'none', rfCancelShow:'none', rfAltShow:'inline-flex', rfAltLabel:'Copy invite link',
+        rfAlt:()=>this.fire('Invite link copied','Share it over a secure channel only', true),
+        rfPrimaryLabel:'Invite another', rfPrimary:()=>this.openInvite()};
+      const desig = v('ivDesig','Coordinator'), D = DESIG[desig];
+      const role = v('ivRole', DESIG_ROLE[desig]), defs = permsFor(desig);
+      const name = v('ivName',''), email = v('ivEmail','');
+      const emailOk = /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(email), dup = USERS.some(u=>u[1].toLowerCase()===String(email).toLowerCase());
+      const custom = !!s.ivCustom, mx = this.rfMatrix('ivPerm', defs);
+      const elevated = ['Unrestricted','Elevated'].includes(D.tier);
+      const scope = v('ivScope', D.scope);
+      const labels = ['Person','Designation & role','Scope & access','Review & send'];
+      const out = {...base, rfTitle:'Invite User', rfSub:'They get an email invite, accept it and set their own password.', rfStepShow:'flex', rfSteps:steps(labels), rfWidth: step===1 && custom ? '900px' : '760px'};
+      if (step===0) {
+        out.rfGroups = [G('Person', [
+          F('text','Full name *','ivName',name,null,{ph:'e.g. Rohan Bhatia', bad: s.rfErr && !String(name).trim()}),
+          F('text','Work email *','ivEmail',email,null,{ph:'name@studycrux.io', bad: s.rfErr && (!emailOk || dup)}),
+          F('text','Mobile','ivMob',v('ivMob',''),null,{ph:'+91 98xxx xxxxx'}),
+          F('text','Employee ID','ivEmp',v('ivEmp',''),null,{ph:'Optional'}),
+          F('select','Department','ivDept',v('ivDept',D.dept),['Platform','Academic Operations','Faculty','Content','Finance','Support','External'])])];
+        if (dup) { out.rfWarn = email+' already has an account — assign a role from Users instead.'; out.rfWarnShow='flex'; }
+        out.rfPrimary = ()=> !String(name).trim() ? fail('Enter the full name.') : !emailOk ? fail('Enter a valid work email.') : dup ? fail('This email already has an account.') : next();
+      }
+      if (step===1) {
+        out.rfGroups = [G('Designation', [
+            F('select','Designation *','ivDesig',desig,Object.keys(DESIG),{onSet:(d)=>({ivRole:DESIG_ROLE[d], ivPerm:permsFor(d), ivScope:undefined, ivMgr:undefined})}),
+            F('select','Role *','ivRole',role,ROLES.map(r=>r[0])),
+            F('read','Tier','',D.tier+(role!==DESIG_ROLE[desig] ? ' · role differs from designation default' : ' · suggested for '+desig))]),
+          G('Access', [
+            custom ? F('read','','', 'Custom access — changes apply to this user only.') : F('perms','Default access for '+desig,'',null,defs),
+            F('toggle','Customise access for this user','ivCustom',custom,null,{sub:'Override the designation defaults for this person only'})])];
+        if (custom) { Object.assign(out, mx); out.rfGroups[1].fields[0].labelShow='none'; }
+        if (role!==DESIG_ROLE[desig]) { out.rfWarn = 'Role "'+role+'" isn\u2019t the default for '+desig+'. Double-check before sending.'; out.rfWarnShow='flex'; }
+        out.rfPrimary = next;
+      }
+      if (step===2) {
+        const needsList = /Assigned/.test(scope);
+        out.rfGroups = [G('Data scope', [
+            F('radio','Data scope','ivScope',scope,['All data','All academic data','Assigned courses','Assigned batches','Financial data','Content only','Support queues','Own records']),
+            ...(needsList ? [F('chips', scope==='Assigned courses' ? 'Courses *' : 'Batches *','ivList',v('ivList',[]), scope==='Assigned courses' ? ['IC-38 Full Prep','Life Insurance Elite','Health Crux Pro','Taxation Intensive','Exam Strategy'] : ['BT-101 · IC-38 Morning','BT-102 · IC-38 Evening','BT-103 · IC-38 Evening B','BT-204 · Life Elite','BT-310 · Health Crux','BT-512 · Exam Strategy'],{bad: s.rfErr})] : [])]),
+          G('Reporting & access window', [
+            F('select','Reports to *','ivMgr',v('ivMgr','Vikram Sethi'),USERS.filter(u=>u[2]!=='Speaker').map(u=>u[0])),
+            F('date','Access starts','ivFrom',v('ivFrom','2026-09-28')),
+            F('radio','Access ends','ivEnd',v('ivEnd','No end date'),['No end date','On a date'],{span:'span 1'}),
+            ...(v('ivEnd','No end date')==='On a date' ? [F('date','End date','ivEndOn',v('ivEndOn','2027-03-31'))] : [])]),
+          G('Security', [
+            F('toggle','Require two-factor authentication','ivTfa',v('ivTfa',true),null,{sub: elevated ? 'Mandatory for '+D.tier+' tier' : 'Enforced at first login', locked: elevated ? D.tier+' tier always requires 2FA' : ''}),
+            F('chips','Login methods','ivLogin',v('ivLogin',['Email + password']),['Email + password','Google SSO','Mobile OTP'])])];
+        out.rfPrimary = ()=> needsList && !(v('ivList',[])).length ? fail('Pick at least one '+(scope==='Assigned courses'?'course':'batch')+'.') : !(v('ivLogin',['x'])).length ? fail('Pick at least one login method.') : next();
+      }
+      if (step===3) {
+        const list = v('ivList',[]);
+        out.rfGroups = [
+          G('Review', [F('kv','','',null,[['Name',name],['Email',email],['Designation',desig],['Role',role+' · '+D.tier],['Access',custom ? mx.granted+' permissions · customised' : 'Designation defaults'],
+            ['Scope',scope+(list.length?' · '+list.join(', '):'')],['Reports to',v('ivMgr','Vikram Sethi')],['2FA',(elevated||v('ivTfa',true))?'Required':'Off'],['Access window',v('ivFrom','2026-09-28')+' → '+(v('ivEnd','No end date')==='On a date'?v('ivEndOn','2027-03-31'):'no end')]])]),
+          G('Invitation', [
+            F('chips','Send via','ivCh',v('ivCh',['Email']),['Email','WhatsApp','SMS']),
+            F('select','Link expires in','ivExp',v('ivExp','72 hours'),['24 hours','48 hours','72 hours','7 days']),
+            F('area','Personal note','ivNote',v('ivNote',''),null,{span:'span 3', ph:'Optional — added to the invite email.'})])];
+        if (elevated) { out.rfWarn = D.tier+' access — the invite is held until Super Admin approves it.'; out.rfWarnShow='flex'; }
+        out.rfPrimaryLabel = elevated ? 'Submit for approval' : 'Send invitation';
+        out.rfPrimary = ()=> !(v('ivCh',['Email'])).length ? fail('Pick at least one channel.') : this.setState({ivDone:true, rfErr:null});
+      }
+      return out;
+    }
+
+    if (k==='bulk') {
+      const sel = v('baUsers',[]), role = v('baRole2','Coordinator'), labels = ['Select users','Access','Review'];
+      const out = {...base, rfTitle:'Bulk access', rfSub:'Grant the same role and scope to many users at once.', rfStepShow:'flex', rfSteps:steps(labels)};
+      const sameRole = USERS.filter(u=>sel.includes(u[1]) && u[2]===role).map(u=>u[0]);
+      if (step===0) {
+        out.rfGroups = [G('Users', [F('users','','baUsers',sel,null,{bad: s.rfErr && !sel.length})], sel.length+' selected')];
+        out.rfPrimary = ()=> !sel.length ? fail('Select at least one user.') : next();
+      }
+      if (step===1) {
+        out.rfGroups = [G('Access to grant', [
+            F('radio','Action','baMode',v('baMode','Add role'),[['Add role','Keeps their current role'],['Replace role','Current role is removed']]),
+            F('select','Role *','baRole2',role,ROLES.map(r=>r[0]).filter(x=>x!=='Super Admin')),
+            F('select','Scope','baScope2',v('baScope2','Assigned batches'),['All data','All academic data','Assigned courses','Assigned batches','IC-01','IC-02','IC-11','Support queues','Own records']),
+            F('radio','Duration','baDur',v('baDur','Permanent'),['Permanent','Time-bound'],{span:'span 1'}),
+            ...(v('baDur','Permanent')==='Time-bound' ? [F('date','Expires on','baExp',v('baExp','2026-12-31'))] : []),
+            F('area','Reason *','baWhy',v('baWhy',''),null,{span:'span 3', ph:'Why these users need this access — recorded in the audit trail.', bad: s.rfErr && !String(v('baWhy','')).trim()})])];
+        if (sameRole.length) { out.rfWarn = sameRole.length+' selected user'+(sameRole.length>1?'s already have':' already has')+' '+role+' — they will be skipped.'; out.rfWarnShow='flex'; }
+        out.rfPrimary = ()=> !String(v('baWhy','')).trim() ? fail('A reason is required for a bulk grant.') : next();
+      }
+      if (step===2) {
+        const n = sel.length - sameRole.length;
+        out.rfGroups = [G('Review', [F('kv','','',null,[['Users',n+' will be updated'+(sameRole.length?' · '+sameRole.length+' skipped':'')],['Action',v('baMode','Add role')],['Role',role],['Scope',v('baScope2','Assigned batches')],['Duration',v('baDur','Permanent')==='Time-bound'?'Until '+v('baExp','2026-12-31'):'Permanent'],['Approval','Super Admin · required for bulk grants']]),
+          F('chips','Notify','baNotify',v('baNotify',['Users']),['Users','Their managers'])])];
+        out.rfInfo = 'Each user gets their own audit entry. Access applies once approved.'; out.rfInfoShow='flex';
+        out.rfPrimaryLabel = 'Submit '+n+' for approval';
+        out.rfPrimary = ()=>{ this.setState({modal:null}); this.fire('Bulk access queued — '+n+' users', role+' · '+v('baScope2','Assigned batches')+' · pending approval', true); };
+      }
+      return out;
+    }
+
+    if (k==='hEdit' || k==='hAdd') {
+      const h = s.hier || HIER0;
+      const role = v('heRole', s.heRole || ROLEN[0]);
+      const blocked = [role, ...this.hierDesc(h, role)];
+      const parents = ROLEN.filter(x=>!blocked.includes(x));
+      const parent = v('heParent', h[role] || s.heParent || 'Super Admin');
+      const isRoot = role==='Super Admin';
+      const choices = k==='hAdd' ? ROLEN.filter(x=>x!==(s.heParent||'') && !this.hierChain(h, s.heParent||'').includes(x)) : ROLEN;
+      const out = {...base, rfWidth:'640px', rfTitle: k==='hAdd' ? 'Add relationship' : 'Edit relationship — '+role,
+        rfSub: 'Circular and self-reporting links are blocked automatically.'};
+      out.rfGroups = [G('Relationship', [
+          k==='hAdd' ? F('select','Role *','heRole',role,choices) : F('read','Role','',role),
+          isRoot ? F('read','Reports to','','Top of hierarchy') : F('select','Reports to *','heParent',parent,parents),
+          F('read','Current chain','',this.hierChain({...h, [role]: isRoot?null:parent}, role).join(' › '))]),
+        G('Authority', [
+          F('radio','Permission inheritance','heInherit',v('heInherit','Independent'),[['Independent','Own permissions only'],['Inherit read from parent','Adds parent\u2019s View access']]),
+          F('chips','Can manage / invite','heManage',v('heManage',this.hierDesc(h, role)),ROLEN.filter(x=>x!==role && x!=='Super Admin')),
+          F('select','Approves access requests from','heApprove',v('heApprove','Direct reports'),['Direct reports','All roles below','None']),
+          F('select','Escalates to','heEsc',v('heEsc', isRoot ? 'None' : parent),['None', ...ROLEN.filter(x=>x!==role)])])];
+      const manage = v('heManage',this.hierDesc(h, role)), outside = manage.filter(x=>!this.hierDesc({...h, [role]:parent}, role).includes(x));
+      if (outside.length) { out.rfWarn = role+' would manage '+outside.join(', ')+' which '+(outside.length>1?'are':'is')+' not below it. Allowed, but flagged in audits.'; out.rfWarnShow='flex'; }
+      out.rfPrimaryLabel = 'Save relationship';
+      out.rfPrimary = ()=>{
+        if (!isRoot && blocked.includes(parent)) return fail('That would create a circular hierarchy.');
+        this.setState(x=>({modal:'hierView', hierSel:role, hier:{...x.hier, [role]: isRoot ? null : parent}}));
+        this.fire('Hierarchy updated — '+role, isRoot ? 'Top of hierarchy' : 'Now reports to '+parent, true); };
+      return out;
+    }
+
+    if (k==='hRemove') {
+      const h = s.hier || HIER0, role = s.heRole, par = h[role], kids = this.hierKids(h, role);
+      return {...base, rfWidth:'560px', rfTitle:'Remove '+role+' from hierarchy?', rfSub:'The role itself is not deleted.',
+        rfGroups:[G('', [F('kv','','',null,[['Direct reports',kids.length ? kids.join(', ') : 'None'],['They move under',par||'—'],['Users on this role','Keep their access · no reporting line'] ])])],
+        rfWarn: kids.length ? kids.length+' role'+(kids.length>1?'s':'')+' will be re-parented to '+par+'.' : '', rfWarnShow: kids.length?'flex':'none',
+        rfPrimBg:'#D92D20', rfPrimaryLabel:'Remove',
+        rfPrimary:()=>{ this.setState(x=>{ const n = {...x.hier}; this.hierKids(n, role).forEach(c=>n[c]=par); delete n[role]; return {modal:'hierView', hier:n, hierSel:par}; });
+          this.fire('Removed from hierarchy — '+role, kids.length ? kids.join(', ')+' now report to '+par : 'No direct reports', true); }};
+    }
+    return off;
+  }
+
+  hierVals() {
+    const s = this.state, h = s.hier || HIER0, sel = s.hierSel && (s.hierSel in h) ? s.hierSel : 'Super Admin';
+    const R = Object.fromEntries(ROLES.map(r=>[r[0], r]));
+    const nodes = [], seen = {};
+    const walk = (r, d)=>{ if (seen[r]) return; seen[r]=1; nodes.push([r,d]); this.hierKids(h, r).forEach(c=>walk(c, d+1)); };
+    Object.keys(h).filter(r=>!h[r] || !(h[r] in h)).forEach(r=>walk(r,0));
+    const maxD = nodes.reduce((m,[,d])=>Math.max(m,d),0);
+    const tierOf = (r)=> (R[r]||[])[1] || 'Standard';
+    const drag = s.hDrag, over = s.hOver;
+    const badTarget = (tgt)=> !drag || tgt===drag || this.hierDesc(h, drag).includes(tgt) || h[drag]===tgt;
+    const moveTo = (role, tgt)=>{
+      if (role===tgt) return;
+      if (this.hierDesc(h, role).includes(tgt)) { this.setState({hDrag:null, hOver:null}); return this.fire('Can\u2019t move '+role, tgt+' reports to '+role+' — that would create a loop', false); }
+      if (h[role]===tgt) { this.setState({hDrag:null, hOver:null}); return; }
+      const prev = h[role];
+      this.setState(x=>({hier:{...x.hier, [role]:tgt}, hierSel:role, hDrag:null, hOver:null, hUndo:{role, prev}}));
+      this.fire('Moved — '+role, (prev ? 'From '+prev+' → ' : 'Placed under ')+tgt, true); };
+    const nodeView = nodes.map(([r,d])=>{ const on = r===sel, tier = tierOf(r), c = BDG[TIERC[tier]||'blue'] || BDG.blue, kids = this.hierKids(h, r);
+      const isDrag = drag===r, isOver = over===r && !!drag, bad = isOver && badTarget(r), root = r==='Super Admin';
+      return {name:r, tier, lvl:'L'+(d+1), indent:(d*30)+'px', connShow: d>0 ? 'block' : 'none',
+        draggable: root ? 'false' : 'true', gripShow: root ? 'none' : 'block', cur: root ? 'pointer' : 'grab',
+        op: isDrag ? '.45' : '1', tf: isOver && !bad ? 'translateX(4px)' : 'none', bdStyle: isOver ? 'dashed' : 'solid',
+        dropShow: isOver ? 'inline-flex' : 'none', dropTxt: bad ? (r===drag ? 'Same role' : h[drag]===r ? 'Already here' : 'Would create a loop') : 'Drop to report here',
+        dropBg: bad ? '#FDE8E8' : '#E7F7EE', dropFg: bad ? '#B42318' : '#15803D',
+        dragStart:(e)=>{ if (root) return e.preventDefault(); e.dataTransfer.effectAllowed='move'; try{ e.dataTransfer.setData('text/plain', r); }catch(_){}; setTimeout(()=>this.setState({hDrag:r}),0); },
+        dragEnd:()=>this.setState({hDrag:null, hOver:null}),
+        dragOver:(e)=>{ if (!drag) return; e.preventDefault(); e.dataTransfer.dropEffect = badTarget(r) ? 'none' : 'move'; if (over!==r) this.setState({hOver:r}); },
+        dragLeave:()=>{ if (over===r) this.setState({hOver:null}); },
+        drop:(e)=>{ e.preventDefault(); if (drag) moveTo(drag, r); },
+        meta: (h[r] ? 'Reports to '+h[r]+' · ' : 'Top level · ')+((R[r]||[])[4]||0)+' users · '+(kids.length ? kids.length+' direct report'+(kids.length>1?'s':'') : 'no reports')+' · '+((R[r]||[])[5]||''),
+        bd: isOver ? (bad ? '#F04438' : '#0E9384') : on?'#0E9384':'#F0EEE7', bg: isOver ? (bad ? '#FEF7F6' : '#EEF6F5') : on?'#F7FBFA':'#fff', ibg:c[0], ifg:c[1], tBg:c[0], tFg:c[1],
+        pick:()=>this.setState({hierSel:r}),
+        addChild:(e)=>{ e.stopPropagation(); this.openHier('hAdd', ROLES.map(x=>x[0]).find(x=>!(x in h)) || ROLES.map(x=>x[0]).find(x=>x!==r && !this.hierChain(h,r).includes(x)), r); this.setState({heParent:r}); },
+        edit:(e)=>{ e.stopPropagation(); this.openHier('hEdit', r); },
+        removeShow: root ? 'none' : 'grid', remove:(e)=>{ e.stopPropagation(); this.openHier('hRemove', r); }}; });
+    const unplaced = ROLES.map(r=>r[0]).filter(r=>!(r in h));
+    const chain = this.hierChain(h, sel), kids = this.hierKids(h, sel), desc = this.hierDesc(h, sel), tier = tierOf(sel), c = BDG[TIERC[tier]||'blue'];
+    const dSel = nodes.find(n=>n[0]===sel);
+    return {
+      hKpis:[{label:'Levels',n:String(maxD+1),note:'deepest reporting chain',fg:'#0F2A47'},{label:'Roles placed',n:String(nodes.length),note:'of '+ROLES.length+' roles',fg:'#0B7A6E'},
+        {label:'Relationships',n:String(nodes.filter(([,d])=>d>0).length),note:'reports-to links',fg:'#1D4ED8'},{label:'Issues',n:String(unplaced.length),note: unplaced.length ? 'roles not placed' : 'hierarchy is valid',fg: unplaced.length?'#B45309':'#15803D'}],
+      hNodes: nodeView, hUnplaced: unplaced.map(n=>({name:n, place:()=>this.openHier('hEdit', n),
+        dragStart:(e)=>{ try{ e.dataTransfer.setData('text/plain', n); }catch(_){}; setTimeout(()=>this.setState({hDrag:n}),0); }, dragEnd:()=>this.setState({hDrag:null, hOver:null})})),
+      hRootShow: drag && drag in h ? 'block' : 'none', hRootBd: over==='__root' ? '#F04438' : '#D8D5CC', hRootBg: over==='__root' ? '#FEF7F6' : '#FCFBF7',
+      hRootOver:(e)=>{ e.preventDefault(); if (over!=='__root') this.setState({hOver:'__root'}); }, hRootLeave:()=>this.setState({hOver:null}),
+      hRootDrop:(e)=>{ e.preventDefault(); const r = drag; if (!r) return; this.setState({hDrag:null, hOver:null}); this.openHier('hRemove', r); }, hUnplacedShow: unplaced.length ? 'block' : 'none',
+      hsName: sel, hsLvl: 'L'+((dSel?dSel[1]:0)+1), hsIbg:c[0], hsIfg:c[1], hsSub: tier+' · '+((R[sel]||[])[4]||0)+' users',
+      hsChain: chain.map((n,i)=>({name:n, fw: i===chain.length-1?'800':'600', fg: i===chain.length-1?'#0B7A6E':'#475467', arrow: i<chain.length-1?'inline':'none'})),
+      hsRows:[['Reports to', h[sel] || 'Top of hierarchy'],['Direct reports', kids.join(', ') || 'None'],['Can manage', desc.join(', ') || 'No roles below'],
+        ['Approves', kids.length ? 'Access requests from direct reports' : '—'],['Escalates to', h[sel] || 'None'],['Data scope', (R[sel]||[])[5] || '—']].map(([k,v])=>({k,v})),
+      hsEdit: ()=>this.openHier('hEdit', sel),
+      hsAdd: ()=>{ this.openHier('hAdd', ROLES.map(x=>x[0]).find(x=>!(x in h)) || ROLES.map(x=>x[0]).find(x=>x!==sel && !this.hierChain(h,sel).includes(x)), sel); this.setState({heParent:sel}); },
+      hsRemove: ()=>this.openHier('hRemove', sel), hsRemoveShow: sel==='Super Admin' ? 'none' : 'block',
+      hAddRel: ()=>this.openHier('hAdd', unplaced[0] || 'Reviewer', 'Academic Head'),
+      hValidate: ()=> unplaced.length ? this.fire('Hierarchy has '+unplaced.length+' issue'+(unplaced.length>1?'s':''), unplaced.join(', ')+' not placed', false) : this.fire('Hierarchy is valid','No cycles · every role has one parent · '+(maxD+1)+' levels', true),
+      hExport: this.act('Hierarchy exported','Org chart · PDF + CSV of reporting lines', true)
+    };
+  }
 
   fire = (msg, sub, ok) => {
     clearTimeout(this._t);
@@ -2218,20 +2860,22 @@ class Component extends DCLogic {
       roleDetail:[(s.roleOpen||'Role')+' — permissions',"Toggle a cell to grant or revoke that action. Changes are audited."],
       users:['Users','Everyone with platform access, their role, scope and login state.'],
       requests:['Access Requests','Elevation and scope requests awaiting a decision.'],
+      hierarchy:['Role Hierarchy','Who reports to whom — and which roles each role can manage and invite.'],
       policy:['Login & Security Policy','Authentication, session, device and network rules applied platform-wide.'],
       audit:['Audit Log','Immutable record of every permission, role and policy change.']
     };
     const [pageTitle, pageSub] = titles[route] || titles.dash;
 
     const primary = {
-      dash:['Invite User', ()=>this.setState({modal:'invite', ivName:'', ivEmail:'', ivRole:'Coordinator', ivScope:'Assigned batches', ivTfa:true})],
-      roles:['Create Role', ()=>this.setState({modal:'createRole', crName:'', crDesc:'', crTemplate:'Nothing — start empty', crTier:'Standard', crModules:[]})],
-      roleDetail:['Create Role', ()=>this.setState({modal:'createRole', crName:'', crDesc:'', crTemplate:s.roleOpen, crTier:'Standard', crModules:[]})],
-      users:['Invite User', ()=>this.setState({modal:'invite', ivName:'', ivEmail:'', ivRole:'Coordinator', ivScope:'Assigned batches', ivTfa:true})],
-      requests:['Invite User', ()=>this.setState({modal:'invite', ivName:'', ivEmail:'', ivRole:'Coordinator', ivScope:'Assigned batches', ivTfa:true})],
-      policy:['Invite User', ()=>this.setState({modal:'invite', ivName:'', ivEmail:'', ivRole:'Coordinator', ivScope:'Assigned batches', ivTfa:true})],
-      audit:['Invite User', ()=>this.setState({modal:'invite', ivName:'', ivEmail:'', ivRole:'Coordinator', ivScope:'Assigned batches', ivTfa:true})]
-    }[route] || ['Invite User', ()=>this.setState({modal:'invite'})];
+      dash:['Invite User', ()=>this.openInvite()],
+      roles:['Create Role', ()=>this.openRC()],
+      roleDetail:['Create Role', ()=>this.openRC()],
+      users:['Invite User', ()=>this.openInvite()],
+      requests:['Invite User', ()=>this.openInvite()],
+      policy:['Invite User', ()=>this.openInvite()],
+      audit:['Invite User', ()=>this.openInvite()],
+      hierarchy:['Add relationship', ()=>this.openHier('hAdd', 'Reviewer', 'Academic Head')]
+    }[route] || ['Invite User', ()=>this.openInvite()];
 
     const pendingCount = REQUESTS.filter(r=>r[8]==='Pending').length;
     const navSpec = [
@@ -2294,6 +2938,7 @@ class Component extends DCLogic {
       pageTitle, pageSub,
       primaryLabel: primary[0], primaryCta: primary[1],
       q: s.q, setQ: (e)=>this.setState({q:e.target.value}),
+      hdrExportShow: ['users','requests','roles','audit'].includes(route) ? 'none' : 'inline-block',
       openExport: this.act('Preparing export', route==='audit' ? 'Audit trail · CSV' : 'Access matrix · XLSX', true),
 
       extNav: this.act('Opening module', 'That module lives in its own workspace — this build covers Role & Access', true),
@@ -2309,7 +2954,8 @@ class Component extends DCLogic {
       }),
 
       isDash: route==='dash', isRoles: route==='roles', isRoleDetail: route==='roleDetail',
-      isUsers: route==='users', isRequests: route==='requests', isPolicy: route==='policy', isAudit: route==='audit',
+      isUsers: route==='users', isRequests: route==='requests', isPolicy: route==='policy', isAudit: route==='audit', isHier: false, mHierView: s.modal==='hierView',
+      ...this.rfVals(), ...this.hierVals(),
       goRoles: ()=>this.nav('roles'), goAudit: ()=>this.nav('audit'),
 
       // ---------- Overview: filters ----------
@@ -2553,7 +3199,8 @@ class Component extends DCLogic {
         action, actor, when, from, to, reason, hasFrom: !!from, rowBg: i%2 ? '#FCFBF7' : '#fff'})),
 
       // ---------- Roles landing (BRD) ----------
-      rlCreate: ()=>this.setState({modal:'createRole', crStep:0, crErr:null,
+      rlCreate: ()=>this.openRC(),
+      rlCreateOld: ()=>this.setState({modal:'createRole', crStep:0, crErr:null,
         crName:'', crId:'', crDesc:'', crType:'Custom', crCategory:'Academic',
         crDept:[], crParent:'—', crOwner:'', crBackup:'', crTags:[], crStatus:'Active',
         crModule:'Recorded Course', crResource:'Course', crActions:['View'], crScope:'Assigned',
@@ -2564,7 +3211,7 @@ class Component extends DCLogic {
       ].map(([label,k])=>({label, border:'#E5E3DC', bg:'#fff', fg:'#344054',
         go: k==='export'
           ? ()=>this.fire('Roles exported','8 roles · XLSX with permissions and scope', true)
-          : ()=>this.setState({modal:k})})),
+          : k==='hierarchy' ? ()=>this.setState({modal:'hierView'}) : ()=>this.setState({modal:k})})),
 
       ...(()=>{
         const F = [
@@ -2745,8 +3392,7 @@ class Component extends DCLogic {
         ['Temporary Access', ()=>this.setState({modal:'tempAccess', taErr:null, taUser:'', taRole:'Academic Head',
           taResource:'All academic', taPermission:'Edit', taReason:'', taStart:'2026-09-04', taExpiry:'2026-09-18',
           taApproval:'Required', taTicket:''})],
-        ['Bulk Access', ()=>this.setState({modal:'bulkAccess', baErr:null, baCount:'25', baRole:'Course Coordinator',
-          baScope:'IC-01', baDuration:'Permanent', baReason:''})],
+        ['Bulk Access', ()=>this.setState({...this.rfReset('ba'), modal:'rf', rfKind:'bulk', rfStep:0, rfErr:null})],
         ['Effective Access', ()=>this.setState({modal:'effAccess'})],
         ['Export', ()=>this.fire('Users exported','221 users · roles, effective permissions and expiry', true)]
       ].map(([label,go])=>({label, go})),
