@@ -103,14 +103,18 @@
         <p style="margin:6px 0 0;font-size:13.5px;color:#6B7C93;text-wrap:pretty">{{ pageSub }}</p>
       </div>
       <div style="display:flex;align-items:center;gap:10px;padding-top:4px;flex:1 1 520px;min-width:0;flex-wrap:wrap;justify-content:flex-end">
-          <div style="display:flex;align-items:center;gap:9px;width:min(300px,100%);height:38px;padding:0 15px;border:1px solid #E5E3DC;background:#fff;border-radius:999px">
+          <div style="display:flex;align-items:center;gap:9px;width:min(290px,100%);min-width:170px;height:38px;padding:0 15px;border:1px solid #E5E3DC;background:#fff;border-radius:999px">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.2" stroke-linecap="round" style="flex:none"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" /></svg>
             <input value="{{ q }}" onChange="{{ setQ }}" placeholder="Search roles, users, permissions..." style="border:0;outline:0;flex:1;min-width:0;font-size:13px;color:#0F2A47;background:transparent;font-family:inherit" />
           </div>
-          <button onClick="{{ openExport }}" style="display:{{ hdrExportShow }};height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Export</button>
-          <button onClick="{{ primaryCta }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">
+          <button style="position:relative;width:38px;height:38px;flex:none;border-radius:50%;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 8-3 8h18s-3-1-3-8" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></svg>
+          <span style="position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:#E5484D;border:1.5px solid #fff"></span>
+        </button>
+        <button onClick="{{ primaryCta }}" style="display:{{ primaryShow }};align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>{{ primaryLabel }}
-          </button>
+        </button>
+        <button onClick="{{ openExport }}" style="display:{{ hdrExportShow }};height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Export</button>
       </div>
     </header>
 
@@ -118,12 +122,17 @@
 
       <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
         <div>
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:20px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p1.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p1.bd }};background:{{ fp.p1.bg }};font-size:13px;font-weight:600;color:{{ fp.p1.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p1.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:20px">
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
               <span style="font-size:13.5px;font-weight:800;color:#0F2A47">Filters</span>
               <span style="display:{{ ovFilterShow }};min-width:18px;height:18px;place-items:center;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700;padding:0 6px">{{ ovFilterCount }}</span>
               <span style="flex:1"></span>
-              <button onClick="{{ ovResetFilters }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Reset</button>
+              <button onClick="{{ ovResetFilters }}" style="display:{{ ovFilterShow }};height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Reset</button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px">
               <sc-for list="{{ ovFilters }}" as="p" hint-placeholder-count="7">
@@ -434,7 +443,12 @@
             <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">FILTERS</span>
             <span style="flex:1;height:1px;background:#F0EEE7"></span>
           </div>
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:14px 18px;margin-bottom:24px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p2.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p2.bd }};background:{{ fp.p2.bg }};font-size:13px;font-weight:600;color:{{ fp.p2.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p2.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:14px 18px;margin-bottom:24px">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px">
               <sc-for list="{{ rlFilters }}" as="p" hint-placeholder-count="5">
                 <div style="min-width:0">
@@ -642,7 +656,12 @@
             <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">FILTERS</span>
             <span style="flex:1;height:1px;background:#F0EEE7"></span>
           </div>
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:14px 18px;margin-bottom:24px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p3.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p3.bd }};background:{{ fp.p3.bg }};font-size:13px;font-weight:600;color:{{ fp.p3.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p3.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:14px 18px;margin-bottom:24px">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px">
               <sc-for list="{{ userFilters }}" as="p" hint-placeholder-count="10">
                 <div style="min-width:0">
@@ -904,7 +923,12 @@
             <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">FILTERS</span>
             <span style="flex:1;height:1px;background:#F0EEE7"></span>
           </div>
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:14px 18px;margin-bottom:24px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p4.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p4.bd }};background:{{ fp.p4.bg }};font-size:13px;font-weight:600;color:{{ fp.p4.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p4.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:14px 18px;margin-bottom:24px">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px">
               <sc-for list="{{ auditFilters }}" as="p" hint-placeholder-count="12">
                 <div style="min-width:0">
@@ -2849,7 +2873,11 @@ class Component extends DCLogic {
     this.setState({...base, ...seed});
   };
 
-  renderVals() {
+  fpVals() { const s = this.state; const o = {}; ["p4","p3","p2","p1"].forEach(id=>{ const on = !!(s.fpOpen||{})[id];
+    o[id] = {d: on ? 'block' : 'none', toggle: ()=>this.setState(x=>({fpOpen:{...(x.fpOpen||{}), [id]: !on}})), bd: on ? '#0E9384' : '#E5E3DC', bg: on ? '#EEF6F5' : '#fff', fg: on ? '#0B7A6E' : '#344054'}; }); return o; }
+
+  renderVals() { const v = this.renderVals1(); v.fp = this.fpVals(); return v; }
+  renderVals1() {
     const s = this.state;
     const q = (s.q||'').trim().toLowerCase();
     const route = s.route;
@@ -2936,7 +2964,7 @@ class Component extends DCLogic {
 
     return {
       pageTitle, pageSub,
-      primaryLabel: primary[0], primaryCta: primary[1],
+      primaryLabel: primary[0], primaryCta: primary[1], primaryShow: ['roles','users'].includes(route) ? 'flex' : 'none',
       q: s.q, setQ: (e)=>this.setState({q:e.target.value}),
       hdrExportShow: ['users','requests','roles','audit'].includes(route) ? 'none' : 'inline-block',
       openExport: this.act('Preparing export', route==='audit' ? 'Audit trail · CSV' : 'Access matrix · XLSX', true),

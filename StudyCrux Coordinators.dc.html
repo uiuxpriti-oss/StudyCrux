@@ -126,8 +126,13 @@
             </div>
           </div>
         </div>
-        <div style="position:relative;flex:none">
-          <button onClick="{{ openAdd }}" style="display:flex;align-items:center;gap:7px;flex:none;height:38px;padding:0 16px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
+        <button style="position:relative;width:38px;height:38px;flex:none;border-radius:50%;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 8-3 8h18s-3-1-3-8" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></svg>
+          <span style="position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:#E5484D;border:1.5px solid #fff"></span>
+        </button>
+          <sc-if value="{{ isAll }}" hint-placeholder-val="{{ false }}">
+          <div style="position:relative;flex:none">
+            <button onClick="{{ openAdd }}" style="display:flex;align-items:center;gap:7px;flex:none;height:38px;padding:0 16px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Add Coordinator
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
           </button>
@@ -140,9 +145,10 @@
             </sc-for>
           </div>
         </div>
-        <button onClick="{{ openExport }}" style="flex:none;height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export</button>
-        <div style="position:relative;flex:none">
-          <button onClick="{{ ovToggle }}" style="width:38px;height:38px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
+        <button onClick="{{ openExport }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Export</button>
+          </sc-if>
+        <div style="display:{{ ovShow }};position:relative;flex:none">
+            <button onClick="{{ ovToggle }}" style="width:38px;height:38px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7" /><circle cx="12" cy="12" r="1.7" /><circle cx="12" cy="19" r="1.7" /></svg>
           </button>
           <div style="display:{{ ovDisplay }};position:absolute;top:44px;right:0;width:220px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;z-index:50">
@@ -158,36 +164,35 @@
 
       <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
         <div>
-      <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:13px 18px;margin-bottom:16px;flex-wrap:wrap">
-        <sc-for list="{{ globalFilters }}" as="f" hint-placeholder-count="5">
-          <div style="min-width:0">
-            <label style="display:block;font-size:10px;font-weight:700;letter-spacing:.06em;color:#98A2B3;margin-bottom:5px">{{ f.label }}</label>
-            <select value="{{ f.value }}" onChange="{{ f.set }}" style="height:34px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0;max-width:190px">
-              <sc-for list="{{ f.opts }}" as="o" hint-placeholder-count="5">
-                <option>{{ o.o }}</option>
-              </sc-for>
-            </select>
-          </div>
-        </sc-for>
-        <span style="flex:1"></span>
-        <button onClick="{{ advToggle }}" style="display:flex;align-items:center;gap:7px;height:34px;padding:0 13px;margin-top:15px;border-radius:8px;border:1px solid {{ advBd }};background:{{ advBg }};font-size:12.5px;font-weight:600;color:{{ advFg }};cursor:pointer">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Advanced
-          <span style="display:{{ filterHas }};place-items:center;min-width:17px;height:17px;border-radius:999px;background:#0E9384;color:#fff;font-size:10px;font-weight:700">{{ filterCount }}</span>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+        <button onClick="{{ advToggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ advBd }};background:{{ advBg }};font-size:13px;font-weight:600;color:{{ advFg }};cursor:pointer;font-family:inherit">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+          <span style="display:{{ filterHas }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ filterCount }}</span>
         </button>
-        <button onClick="{{ saveFilter }}" style="height:34px;padding:0 13px;margin-top:15px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Save filter</button>
-        <button onClick="{{ resetFilters }}" style="height:34px;padding:0 13px;margin-top:15px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
-        <button onClick="{{ applyFilters }}" style="height:34px;padding:0 15px;margin-top:15px;border-radius:8px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Apply</button>
       </div>
 
-      <div style="display:{{ advDisplay }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
-          <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Advanced filters</span>
+      <div style="display:{{ advDisplay }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:15px;flex-wrap:wrap">
+          <span style="font-size:14.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filters</span>
           <span style="font-size:12px;color:#98A2B3">{{ savedFilterNote }}</span>
           <span style="flex:1"></span>
-          <button onClick="{{ manageFilters }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Manage saved filters</button>
+          <button onClick="{{ manageFilters }}" style="height:34px;padding:0 13px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Saved filters</button>
+          <button onClick="{{ saveFilter }}" style="height:34px;padding:0 13px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Save filter</button>
+          <button onClick="{{ resetFilters }}" style="display:{{ gfResetShow }};height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+          <button onClick="{{ applyFilters }}" style="height:34px;padding:0 15px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Apply</button>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
-          <sc-for list="{{ advFilters }}" as="f" hint-placeholder-count="8">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:13px">
+          <sc-for list="{{ globalFilters }}" as="f" hint-placeholder-count="5">
+            <div style="min-width:0">
+              <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ f.label }}</label>
+              <select value="{{ f.value }}" onChange="{{ f.set }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+                <sc-for list="{{ f.opts }}" as="o" hint-placeholder-count="4">
+                  <option>{{ o.o }}</option>
+                </sc-for>
+              </select>
+            </div>
+          </sc-for>
+          <sc-for list="{{ advFilters }}" as="f" hint-placeholder-count="5">
             <div style="min-width:0">
               <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ f.label }}</label>
               <select value="{{ f.value }}" onChange="{{ f.set }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
@@ -741,10 +746,15 @@
             </div>
             <button onClick="{{ atSaveFilter }}" style="flex:none;height:38px;padding:0 13px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Save filter</button>
             <button onClick="{{ atManageFilters }}" style="flex:none;height:38px;padding:0 13px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Saved</button>
-            <button onClick="{{ atReset }}" style="flex:none;height:38px;padding:0 13px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            <button onClick="{{ atReset }}" style="display:{{ atResetShow }};align-items:center;flex:none;height:38px;padding:0 13px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
           </div>
 
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p1.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p1.bd }};background:{{ fp.p1.bg }};font-size:13px;font-weight:600;color:{{ fp.p1.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p1.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
               <sc-for list="{{ atFilters }}" as="p" hint-placeholder-count="8">
                 <div style="min-width:0">
@@ -1281,11 +1291,16 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:13px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
               <input value="{{ pvQ }}" onChange="{{ setPvQ }}" placeholder="Search coordinator or ID…" style="width:100%;height:38px;padding:0 13px 0 35px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
             </div>
-            <button onClick="{{ pvReset }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            <button onClick="{{ pvReset }}" style="display:{{ pvResetShow }};align-items:center;flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
             <button onClick="{{ pvExport }}" style="flex:none;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">Export Report</button>
           </div>
 
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p2.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p2.bd }};background:{{ fp.p2.bg }};font-size:13px;font-weight:600;color:{{ fp.p2.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p2.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
               <sc-for list="{{ pvFilters }}" as="p" hint-placeholder-count="5">
                 <div style="min-width:0">
@@ -1830,13 +1845,18 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:13px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
               <input value="{{ scQ }}" onChange="{{ setScQ }}" placeholder="Search class, teacher, batch or topic…" style="width:100%;height:38px;padding:0 13px 0 35px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
             </div>
-            <button onClick="{{ scReset }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            <button onClick="{{ scReset }}" style="display:{{ scResetShow }};align-items:center;flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
             <button onClick="{{ scCreate }}" style="display:flex;align-items:center;gap:7px;flex:none;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Schedule Class
             </button>
           </div>
 
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p3.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p3.bd }};background:{{ fp.p3.bg }};font-size:13px;font-weight:600;color:{{ fp.p3.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p3.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
               <sc-for list="{{ scFilters }}" as="p" hint-placeholder-count="6">
                 <div style="min-width:0">
@@ -2359,7 +2379,7 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:13px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
               <input value="{{ rcQ }}" onChange="{{ setRcQ }}" placeholder="Search course or coordinator…" style="width:100%;height:38px;padding:0 13px 0 35px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
             </div>
-            <button onClick="{{ rcReset }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            <button onClick="{{ rcReset }}" style="display:{{ rcResetShow }};align-items:center;flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
             <button onClick="{{ rcBulk }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Bulk actions</button>
             <button onClick="{{ rcExport }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export</button>
           </div>
@@ -2400,7 +2420,12 @@
 
           <sc-if value="{{ rcIsCourses }}" hint-placeholder-val="{{ true }}">
             <div>
-              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+              <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p4.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p4.bd }};background:{{ fp.p4.bg }};font-size:13px;font-weight:600;color:{{ fp.p4.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p4.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
                   <sc-for list="{{ rcFilters }}" as="p" hint-placeholder-count="4">
                     <div style="min-width:0">
@@ -2679,7 +2704,7 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:13px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
               <input value="{{ alQ }}" onChange="{{ setAlQ }}" placeholder="Search course, batch, coordinator or teacher…" style="width:100%;height:38px;padding:0 13px 0 35px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
             </div>
-            <button onClick="{{ alReset }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            <button onClick="{{ alReset }}" style="display:{{ alResetShow }};align-items:center;flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
             <button onClick="{{ alBulk }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Bulk actions</button>
             <button onClick="{{ alExport }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export</button>
             <button onClick="{{ alCreate }}" style="display:flex;align-items:center;gap:7px;flex:none;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
@@ -2687,7 +2712,12 @@
             </button>
           </div>
 
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p5.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p5.bd }};background:{{ fp.p5.bg }};font-size:13px;font-weight:600;color:{{ fp.p5.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p5.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
               <sc-for list="{{ alFilters }}" as="p" hint-placeholder-count="6">
                 <div style="min-width:0">
@@ -3009,6 +3039,11 @@
                     <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
                     <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">{{ sec.t }}</span>
                     <span style="flex:1;height:1px;background:#F0EEE7"></span>
+                    <button onClick="{{ sec.kvEdit }}" style="display:{{ sec.kvEditShow }};align-items:center;height:30px;padding:0 14px;border-radius:9px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12.5px;font-weight:700;color:#0B7A6E;cursor:pointer;font-family:inherit;transition:background .12s,border-color .12s" style-hover="background:#E0F0EE;border-color:#8FD0C5">Edit</button>
+                    <div style="display:{{ sec.kvSaveShow }};align-items:center;gap:8px">
+                      <button onClick="{{ sec.kvCancel }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Cancel</button>
+                      <button onClick="{{ sec.kvSave }}" style="height:30px;padding:0 14px;border-radius:8px;border:0;background:#0E9384;font-size:12px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit" style-hover="background:#0B7A6E">Save changes</button>
+                    </div>
                   </div>
                   <div>
 
@@ -3077,9 +3112,10 @@
                     <sc-if value="{{ sec.isKv }}" hint-placeholder-val="{{ false }}">
                       <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
                         <sc-for list="{{ sec.kvRows }}" as="kv" hint-placeholder-count="8">
-                          <div style="display:grid;grid-template-columns:210px 1fr;gap:14px;padding:11px 15px;background:{{ kv.bg }};border-bottom:1px solid #F7F5F0">
+                          <div style="display:grid;grid-template-columns:210px 1fr;gap:14px;align-items:center;padding:{{ kv.pad }};background:{{ kv.bg }};border-bottom:1px solid #F7F5F0">
                             <span style="font-size:12px;color:#7A8699">{{ kv.k }}</span>
-                            <span style="font-size:12.5px;font-weight:600;color:#0F2A47;text-wrap:pretty">{{ kv.v }}</span>
+                            <span style="display:{{ kv.viewShow }};font-size:12.5px;font-weight:600;color:#0F2A47;text-wrap:pretty">{{ kv.v }}</span>
+                            <input value="{{ kv.draft }}" onChange="{{ kv.set }}" style="display:{{ kv.editShow }};width:100%;height:36px;padding:0 11px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;font-weight:600;color:#0F2A47;outline:0;box-sizing:border-box;font-family:inherit;background:#fff" style-focus="border-color:#0E9384;box-shadow:0 0 0 3px rgba(14,147,132,.14)" />
                           </div>
                         </sc-for>
                       </div>
@@ -3429,69 +3465,66 @@
 
       <sc-if value="{{ isAll }}" hint-placeholder-val="{{ false }}">
         <div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px;margin-bottom:16px">
-            <sc-for list="{{ dirKpis }}" as="k" hint-placeholder-count="6">
-              <div onClick="{{ k.go }}" style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:15px 17px;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.06)">
-                <div style="font-size:11.5px;font-weight:500;color:#6B7C93;text-wrap:pretty">{{ k.label }}</div>
-                <div style="font-size:25px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:5px">{{ k.n }}</div>
-                <div style="font-size:11px;font-weight:600;color:{{ k.fg }};margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px">
+            <sc-for list="{{ dirKpis }}" as="k" hint-placeholder-count="8">
+              <div onClick="{{ k.go }}" style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.06)">
+                <div style="min-width:0">
+                  <div style="font-size:12px;font-weight:500;color:#6B7C93;line-height:1.3">{{ k.label }}</div>
+                  <div style="font-size:26px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:6px">{{ k.n }}</div>
+                  <div style="font-size:11.5px;font-weight:600;color:{{ k.fg }};margin-top:4px">{{ k.note }}</div>
+                </div>
+                <div style="width:40px;height:40px;flex:none;border-radius:11px;background:{{ k.ibg }};display:grid;place-items:center">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{ k.ifg }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ k.path }}" /></svg>
+                </div>
               </div>
             </sc-for>
           </div>
 
-          <div style="display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:15px 20px;margin-bottom:16px;flex-wrap:wrap">
-            <div style="min-width:0;flex:none">
-              <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#7A8699">WORKLOAD DISTRIBUTION</div>
-              <div style="font-size:11.5px;color:#98A2B3;margin-top:4px">Click a band to filter the directory</div>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:9px;flex:1;min-width:0">
-              <sc-for list="{{ dirLoadDist }}" as="w" hint-placeholder-count="4">
-                <button onClick="{{ w.pick }}" style="display:flex;align-items:center;gap:9px;height:36px;padding:0 14px;border-radius:999px;border:1px solid #E5E3DC;background:#fff;cursor:pointer" style-hover="background:#F6F5F0">
-                  <span style="width:8px;height:8px;border-radius:50%;background:{{ w.color }}"></span>
-                  <span style="font-size:12.5px;color:#475467">{{ w.label }}</span>
-                  <span style="font-size:12.5px;font-weight:800;color:#0F2A47">{{ w.n }}</span>
-                </button>
-              </sc-for>
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:15px;flex-wrap:wrap">
-            <div style="position:relative;flex:1 1 280px;min-width:0">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:13px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
-              <input value="{{ dirQ }}" onChange="{{ setDirQ }}" placeholder="Search coordinator, ID, batch or course…" style="width:100%;height:38px;padding:0 13px 0 35px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
-            </div>
-            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:10px;padding:3px;flex:none">
-              <sc-for list="{{ dirViews }}" as="v" hint-placeholder-count="3">
-                <button onClick="{{ v.pick }}" style="height:32px;padding:0 14px;border:0;border-radius:7px;font-size:12.5px;cursor:pointer;background:{{ v.bg }};color:{{ v.fg }};font-weight:{{ v.weight }}">{{ v.label }}</button>
-              </sc-for>
-            </div>
-            <button onClick="{{ dirReset }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
-            <button onClick="{{ dirImport }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Import</button>
-            <button onClick="{{ dirExport }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export</button>
-            <div style="position:relative;flex:none">
-              <button onClick="{{ openAdd }}" style="display:flex;align-items:center;gap:7px;flex:none;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Add Coordinator
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:15px">
+            <div style="position:relative">
+              <button onClick="{{ dStatusToggle }}" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer">
+                {{ dStatusLabel }} ({{ dirCount }})
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
               </button>
-              <div style="display:{{ addDdDisplay }};position:absolute;top:44px;right:0;width:230px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;z-index:40">
-                <sc-for list="{{ addDdOptions }}" as="o" hint-placeholder-count="2">
-                  <div onClick="{{ o.pick }}" style="padding:9px 12px;border-radius:8px;cursor:pointer" style-hover="background:#F6F5F0">
-                    <div style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ o.label }}</div>
-                    <div style="font-size:11px;color:#98A2B3;margin-top:2px">{{ o.sub }}</div>
-                  </div>
+              <div style="display:{{ dStatusDisplay }};position:absolute;top:44px;left:0;width:210px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;box-shadow:0 16px 40px rgba(11,31,62,.14);padding:6px;z-index:20">
+                <sc-for list="{{ dStatusTabs }}" as="t" hint-placeholder-count="6">
+                  <div onClick="{{ t.pick }}" style="padding:9px 11px;border-radius:8px;font-size:13px;font-weight:{{ t.weight }};color:#344054;cursor:pointer" style-hover="background:#F7FBFA">{{ t.label }}</div>
                 </sc-for>
               </div>
             </div>
+            <span style="flex:1"></span>
+            <button onClick="{{ dfToggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ dfBtnBd }};background:{{ dfBtnBg }};font-size:13px;font-weight:600;color:{{ dfBtnFg }};cursor:pointer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+              <span style="display:{{ dfHas }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ dfCount }}</span>
+            </button>
+            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:10px;padding:3px">
+              <button onClick="{{ dSetGrid }}" title="Grid view" style="width:34px;height:32px;border:0;border-radius:7px;display:grid;place-items:center;cursor:pointer;background:{{ dGridBg }};color:{{ dGridFg }}">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></svg>
+              </button>
+              <button onClick="{{ dSetList }}" title="List view" style="width:34px;height:32px;border:0;border-radius:7px;display:grid;place-items:center;cursor:pointer;background:{{ dListBg }};color:{{ dListFg }}">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+              </button>
+            </div>
           </div>
 
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
-              <sc-for list="{{ dirFilters }}" as="p" hint-placeholder-count="7">
+          <div style="display:{{ dfDisplay }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px;margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:15px;flex-wrap:wrap">
+              <span style="font-size:14.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter coordinators</span>
+              <span style="font-size:12px;color:#98A2B3">{{ dirCount }} match</span>
+              <span style="flex:1"></span>
+              <div style="position:relative;width:260px;max-width:100%">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:11px;top:10px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
+                <input value="{{ dirQ }}" onChange="{{ setDirQ }}" placeholder="ID, batch or course…" style="width:100%;height:34px;padding:0 11px 0 31px;border:1px solid #E5E3DC;border-radius:9px;font-size:12.5px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box;font-family:inherit" />
+              </div>
+              <button onClick="{{ dirReset }}" style="display:{{ dirResetShow }};height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:13px">
+              <sc-for list="{{ dirFilters }}" as="p" hint-placeholder-count="6">
                 <div style="min-width:0">
                   <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ p.label }}</label>
                   <select value="{{ p.value }}" onChange="{{ p.set }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
                     <sc-for list="{{ p.opts }}" as="o" hint-placeholder-count="5">
-                      <option>{{ o.o }}</option>
+                      <option value="{{ o.o }}" selected="{{ o.sel }}">{{ o.o }}</option>
                     </sc-for>
                   </select>
                 </div>
@@ -3512,8 +3545,8 @@
                         <span style="font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ c.sBg }};color:{{ c.sFg }}">{{ c.status }}</span>
                       </div>
                     </div>
-                    <button onClick="{{ c.menu }}" style="width:26px;height:26px;flex:none;border-radius:7px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#98A2B3" style-hover="background:#F6F5F0">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg>
+                    <button onClick="{{ c.menu }}" style="width:28px;height:28px;flex:none;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg>
                     </button>
                   </div>
                   <div style="display:{{ c.menuDisplay }};position:absolute;top:52px;right:16px;width:216px;max-height:330px;overflow-y:auto;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;z-index:40">
@@ -3626,8 +3659,15 @@
                         <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ c.attendance }}</td>
                         <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ c.resp }}</td>
                         <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#98A2B3;white-space:nowrap">{{ c.lastActive }}</td>
-                        <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
-                          <button onClick="{{ c.open }}" style="height:29px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">View Profile</button>
+                        <td onClick="{{ c.stopRow }}" style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right;cursor:default">
+                          <div style="position:relative;display:inline-block">
+                            <button onClick="{{ c.menu }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg></button>
+                            <div style="display:{{ c.menuDisplay }};position:absolute;top:36px;right:0;z-index:40;width:216px;max-height:330px;overflow-y:auto;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;text-align:left">
+                              <sc-for list="{{ c.menuItems }}" as="m" hint-placeholder-count="8">
+                                <div onClick="{{ m.pick }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:{{ m.fg }};cursor:pointer;border-top:{{ m.bt }};margin-top:{{ m.mt }};padding-top:{{ m.pt }};white-space:nowrap" style-hover="background:{{ m.hbg }}">{{ m.label }}</div>
+                              </sc-for>
+                            </div>
+                          </div>
                         </td>
                       </tr>
                     </sc-for>
@@ -3641,76 +3681,65 @@
 
             <sc-if value="{{ isAlerts }}" hint-placeholder-val="{{ false }}">
         <div>
-          <div style="display:flex;align-items:flex-start;gap:11px;background:#EEF6F5;border:1px solid #D5E9E5;border-radius:12px;padding:13px 16px;margin-bottom:16px">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6E" stroke-width="2.1" stroke-linecap="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
-            <span style="font-size:12.5px;color:#0B7A6E;text-wrap:pretty">{{ alPurpose }}</span>
-          </div>
-
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px">
-            <sc-for list="{{ alKpis }}" as="k" hint-placeholder-count="8">
-              <div onClick="{{ k.pick }}" style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:14px 16px;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.06)">
-                <div style="font-size:11.5px;font-weight:500;color:#6B7C93;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.label }}</div>
-                <div style="font-size:23px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:5px">{{ k.n }}</div>
-                <div style="font-size:11px;font-weight:600;color:{{ k.fg }};margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.note }}</div>
-              </div>
-            </sc-for>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:15px 20px;margin-bottom:16px;flex-wrap:wrap">
-            <div style="flex:none">
-              <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#7A8699">ALERT HEALTH</div>
-              <div style="display:flex;align-items:center;gap:9px;margin-top:7px">
-                <span style="width:9px;height:9px;border-radius:50%;background:#F0A72A"></span>
-                <span style="font-size:15px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">{{ alHealthVerdict }}</span>
-              </div>
-            </div>
-            <div style="width:1px;height:44px;background:#F0EEE7;flex:none"></div>
-            <div style="display:flex;flex-wrap:wrap;gap:9px;flex:1;min-width:0">
-              <sc-for list="{{ alHealth }}" as="h" hint-placeholder-count="8">
-                <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:{{ h.bg }}">
-                  <span style="font-size:11.5px;color:#475467">{{ h.k }}</span>
-                  <span style="font-size:12px;font-weight:800;color:{{ h.fg }}">{{ h.v }}</span>
-                </span>
-              </sc-for>
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:15px;flex-wrap:wrap">
-            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;overflow-x:auto;max-width:100%">
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;flex-wrap:wrap">
+            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;flex-wrap:wrap">
               <sc-for list="{{ alSegs }}" as="t" hint-placeholder-count="9">
-                <button onClick="{{ t.pick }}" style="height:32px;padding:0 13px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;flex:none">{{ t.label }}</button>
+                <button onClick="{{ t.pick }}" style="height:32px;padding:0 15px;border:0;border-radius:8px;font-size:13px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap">{{ t.label }}</button>
               </sc-for>
             </div>
             <span style="flex:1"></span>
-            <button onClick="{{ alHistExport }}" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Export history</button>
-            <button onClick="{{ alSendReminder }}" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:13px;font-weight:700;color:#0B7A6E;cursor:pointer;white-space:nowrap" style-hover="background:#E2F1EE">Send Reminder</button>
-            <button onClick="{{ alNewRule }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Create Alert Rule
-            </button>
+            <button onClick="{{ alSendReminder }}" style="height:38px;padding:0 15px;border-radius:10px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:13px;font-weight:700;color:#0B7A6E;cursor:pointer;white-space:nowrap" style-hover="background:#E2F1EE">Send Reminder</button>
+            <button onClick="{{ alNewRule }}" style="height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">+ Create Alert Rule</button>
           </div>
 
           <sc-if value="{{ alIsOver }}" hint-placeholder-val="{{ true }}">
             <div style="display:flex;flex-direction:column;gap:16px">
-              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
-                <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA;flex-wrap:wrap">
-                  <div style="min-width:0;flex:1 1 240px">
-                    <div style="font-size:14.5px;font-weight:700;color:#0F2A47">My attention required</div>
-                    <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Unresolved operational exceptions across every managed batch — not a notification feed</div>
-                  </div>
-                  <span style="flex:none;font-size:12px;font-weight:700;color:#B42318">7 items</span>
-                </div>
-                <sc-for list="{{ alAttn }}" as="a" hint-placeholder-count="7">
-                  <div style="display:flex;align-items:center;gap:13px;padding:13px 20px;border-bottom:1px solid #F5F3EE;flex-wrap:wrap">
-                    <span style="width:9px;height:9px;flex:none;border-radius:50%;background:{{ a.dot }}"></span>
-                    <div style="min-width:0;flex:1 1 220px">
-                      <div style="font-size:13px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ a.title }}</div>
-                      <div style="font-size:11.5px;color:#98A2B3;margin-top:3px;text-wrap:pretty">{{ a.meta }} · {{ a.coord }}</div>
-                    </div>
-                    <span style="flex:none;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ a.sBg }};color:{{ a.sFg }};white-space:nowrap">{{ a.sev }}</span>
-                    <button onClick="{{ a.view }}" style="flex:none;height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">View</button>
-                    <button onClick="{{ a.resolve }}" style="flex:none;height:30px;padding:0 13px;border-radius:8px;border:0;background:#0E9384;font-size:12px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Resolve</button>
+              <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px">
+                <sc-for list="{{ alKpis }}" as="k" hint-placeholder-count="8">
+                  <div onClick="{{ k.pick }}" style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:15px 17px;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.06)">
+                    <div style="font-size:11.5px;font-weight:500;color:#6B7C93;line-height:1.3">{{ k.label }}</div>
+                    <div style="font-size:24px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:5px">{{ k.n }}</div>
+                    <div style="font-size:11px;font-weight:600;color:{{ k.fg }};margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.note }}</div>
                   </div>
                 </sc-for>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1.35fr;gap:16px;align-items:start">
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                    <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Alert health</div>
+                    <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Tells you whether a failure is the rule or the delivery infrastructure</div>
+                  </div>
+                  <sc-for list="{{ alHealth }}" as="h" hint-placeholder-count="8">
+                    <div style="display:flex;align-items:center;gap:12px;padding:11px 20px;border-bottom:1px solid #F5F3EE">
+                      <span style="font-size:12.5px;color:#475467;flex:1">{{ h.k }}</span>
+                      <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ h.bg }};color:{{ h.fg }};white-space:nowrap">{{ h.v }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                  <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA;flex-wrap:wrap">
+                    <div style="min-width:0;flex:1 1 240px">
+                      <div style="font-size:14.5px;font-weight:700;color:#0F2A47">My attention required</div>
+                      <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Unresolved operational exceptions across every managed batch — not a notification feed</div>
+                    </div>
+                    <span style="flex:none;font-size:12px;font-weight:700;color:#B42318">7 items</span>
+                  </div>
+                  <sc-for list="{{ alAttn }}" as="a" hint-placeholder-count="7">
+                    <div style="display:flex;align-items:center;gap:13px;padding:13px 20px;border-bottom:1px solid #F5F3EE;flex-wrap:wrap">
+                      <span style="width:9px;height:9px;flex:none;border-radius:50%;background:{{ a.dot }}"></span>
+                      <div style="min-width:0;flex:1 1 220px">
+                        <div style="font-size:13px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ a.title }}</div>
+                        <div style="font-size:11.5px;color:#98A2B3;margin-top:3px;text-wrap:pretty">{{ a.meta }} · {{ a.coord }}</div>
+                      </div>
+                      <span style="flex:none;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ a.sBg }};color:{{ a.sFg }};white-space:nowrap">{{ a.sev }}</span>
+                      <button onClick="{{ a.view }}" style="flex:none;height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">View</button>
+                      <button onClick="{{ a.resolve }}" style="flex:none;height:30px;padding:0 13px;border-radius:8px;border:0;background:#0E9384;font-size:12px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Resolve</button>
+                    </div>
+                  </sc-for>
+                </div>
+
               </div>
 
               <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
@@ -3733,12 +3762,17 @@
 
           <sc-if value="{{ alIsRules }}" hint-placeholder-val="{{ false }}">
             <div>
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p6.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p6.bd }};background:{{ fp.p6.bg }};font-size:13px;font-weight:600;color:{{ fp.p6.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p6.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px;flex-wrap:wrap">
               <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter rules</span>
               <span style="display:{{ alRuleBar.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ alRuleBar.count }}</span>
               <span style="flex:1"></span>
-              <button onClick="{{ alRuleBar.reset }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+              <button onClick="{{ alRuleBar.reset }}" style="display:{{ alRuleBar.resetShow }};height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
               <sc-for list="{{ alRuleBar.selects }}" as="p" hint-placeholder-count="6">
@@ -3767,44 +3801,52 @@
                 </div>
                 <div style="padding:16px 20px;display:flex;flex-direction:column;gap:11px">
                   <sc-for list="{{ alRules }}" as="r" hint-placeholder-count="10">
-                    <div style="border:1px solid #F0EEE7;border-radius:12px;padding:15px 17px;background:#FCFBF7">
-                      <div style="display:flex;align-items:flex-start;gap:13px;flex-wrap:wrap">
-                        <div onClick="{{ r.toggle }}" style="width:40px;height:22px;flex:none;border-radius:999px;background:{{ r.tBg }};position:relative;cursor:pointer;margin-top:2px">
-                          <span style="position:absolute;top:3px;left:{{ r.knob }};width:16px;height:16px;border-radius:50%;background:#fff;transition:left .16s"></span>
+                  <div style="background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:15px 18px">
+                    <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap">
+                      <div onClick="{{ r.toggle }}" style="width:40px;height:22px;flex:none;border-radius:999px;background:{{ r.tBg }};position:relative;cursor:pointer;margin-top:2px">
+                        <span style="position:absolute;top:3px;left:{{ r.knob }};width:16px;height:16px;border-radius:50%;background:#fff;transition:left .16s"></span>
+                      </div>
+                      <div style="min-width:260px;flex:1">
+                        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                          <span style="font-size:14px;font-weight:700;color:#0F2A47">{{ r.name }}</span>
+                          <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }}">{{ r.stateLabel }}</span>
+                          <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.pBg }};color:{{ r.pFg }}">{{ r.pri }}</span>
+                          <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.kBg }};color:{{ r.kFg }}">{{ r.kind }}</span>
+                          <span style="font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:7px;background:#F1F3F5;color:#667085">{{ r.cat }}</span>
                         </div>
-                        <div style="min-width:0;flex:1 1 260px">
-                          <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
-                            <span style="font-size:13.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ r.name }}</span>
-                            <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }}">{{ r.stateLabel }}</span>
-                            <span style="font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.pBg }};color:{{ r.pFg }}">{{ r.priority }}</span>
-                            <span style="font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:7px;background:#F3F4F6;color:#4B5563">{{ r.cat }}</span>
+                        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px">
+                          <div style="min-width:0">
+                            <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:#98A2B3">TRIGGER</div>
+                            <div style="font-size:12px;color:#475467;margin-top:4px;text-wrap:pretty">{{ r.trigger }}</div>
                           </div>
-                          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px 18px;margin-top:10px">
-                            <span style="font-size:11.5px;color:#7A8699;text-wrap:pretty"><strong style="font-weight:700;color:#475467">Trigger:</strong> {{ r.trigger }}</span>
-                            <span style="font-size:11.5px;color:#7A8699;text-wrap:pretty"><strong style="font-weight:700;color:#475467">Condition:</strong> {{ r.condition }}</span>
-                            <span style="font-size:11.5px;color:#7A8699;text-wrap:pretty"><strong style="font-weight:700;color:#475467">Scope:</strong> {{ r.scope }}</span>
-                            <span style="font-size:11.5px;color:#7A8699;text-wrap:pretty"><strong style="font-weight:700;color:#475467">Audience:</strong> {{ r.audience }}</span>
-                            <span style="font-size:11.5px;color:#7A8699;text-wrap:pretty"><strong style="font-weight:700;color:#475467">Escalation:</strong> {{ r.escalation }}</span>
-                            <span style="font-size:11.5px;color:#7A8699;text-wrap:pretty"><strong style="font-weight:700;color:#475467">Volume:</strong> {{ r.freq }}</span>
+                          <div style="min-width:0">
+                            <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:#98A2B3">AUDIENCE</div>
+                            <div style="font-size:12px;color:#475467;margin-top:4px;text-wrap:pretty">{{ r.audience }}</div>
                           </div>
-                          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:11px">
-                            <sc-for list="{{ r.channels }}" as="c" hint-placeholder-count="2">
-                              <span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:7px;background:#EEF6F5;color:#0B7A6E">{{ c.c }}</span>
-                            </sc-for>
+                          <div style="min-width:0">
+                            <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:#98A2B3">ESCALATION</div>
+                            <div style="font-size:12px;color:#475467;margin-top:4px;text-wrap:pretty">{{ r.esc }}</div>
                           </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap">
+                          <sc-for list="{{ r.chips }}" as="c" hint-placeholder-count="2">
+                            <span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:7px;background:#EEF6F5;color:#0B7A6E">{{ c.c }}</span>
+                          </sc-for>
+                          <span style="font-size:11.5px;font-weight:700;color:#0F2A47;margin-left:4px">{{ r.sent }}</span>
+                          <span style="font-size:11.5px;color:#98A2B3">· {{ r.rate }}</span>
                         </div>
                       </div>
-                      <div style="display:flex;gap:7px;margin-top:13px;flex-wrap:wrap">
+                      <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:flex-start">
                         <button onClick="{{ r.test }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Test</button>
                         <button onClick="{{ r.dup }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Duplicate</button>
-                        <button onClick="{{ r.hist }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Version history</button>
-                        <button onClick="{{ r.logs }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Delivery logs</button>
-                        <span style="flex:1"></span>
+                        <button onClick="{{ r.history }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">History</button>
+                        <button onClick="{{ r.logs }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Logs</button>
+                        <button onClick="{{ r.edit }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:11.5px;font-weight:600;color:#0B7A6E;cursor:pointer" style-hover="background:#E2F1EE">Edit</button>
                         <button onClick="{{ r.archive }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #F0D2CF;background:#fff;font-size:11.5px;font-weight:600;color:#B42318;cursor:pointer" style-hover="background:#FEF7F6">Archive</button>
-                        <button onClick="{{ r.edit }}" style="height:30px;padding:0 13px;border-radius:8px;border:0;background:#0E9384;font-size:11.5px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Edit</button>
                       </div>
                     </div>
-                  </sc-for>
+                  </div>
+                </sc-for>
                 </div>
               </div>
             </div>
@@ -3850,12 +3892,17 @@
 
           <sc-if value="{{ alIsHistory }}" hint-placeholder-val="{{ false }}">
             <div>
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p7.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p7.bd }};background:{{ fp.p7.bg }};font-size:13px;font-weight:600;color:{{ fp.p7.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p7.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px;flex-wrap:wrap">
               <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter delivery history</span>
               <span style="display:{{ alHistBar.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ alHistBar.count }}</span>
               <span style="flex:1"></span>
-              <button onClick="{{ alHistBar.reset }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+              <button onClick="{{ alHistBar.reset }}" style="display:{{ alHistBar.resetShow }};height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
               <sc-for list="{{ alHistBar.selects }}" as="p" hint-placeholder-count="6">
@@ -4250,46 +4297,132 @@
         </div>
       </sc-if>
 
-      <sc-if value="{{ isPayroll }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ isRpt }}" hint-placeholder-val="{{ false }}">
         <div>
-          <div style="display:flex;align-items:flex-start;gap:11px;background:#EEF6F5;border:1px solid #D5E9E5;border-radius:12px;padding:13px 16px;margin-bottom:16px">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6E" stroke-width="2.1" stroke-linecap="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
-            <span style="font-size:12.5px;color:#0B7A6E;text-wrap:pretty">{{ payRule }}</span>
+          <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;flex-wrap:wrap">
+            <div style="position:relative;flex:1;min-width:220px">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:12px;top:11px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
+              <input value="{{ rptQ }}" onChange="{{ setRptQ }}" placeholder="Search report types…" style="width:100%;height:37px;padding:0 13px 0 34px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box;font-family:inherit" />
+            </div>
+            <select value="{{ rptCat }}" onChange="{{ setRptCat }}" style="height:37px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+              <sc-for list="{{ rptCatOpts }}" as="o" hint-placeholder-count="5"><option value="{{ o.o }}" selected="{{ o.sel }}">{{ o.label }}</option></sc-for>
+            </select>
+            <select value="{{ rptRange }}" onChange="{{ setRptRange }}" style="height:37px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+              <sc-for list="{{ rptRangeOpts }}" as="o" hint-placeholder-count="5"><option value="{{ o.o }}" selected="{{ o.sel }}">{{ o.o }}</option></sc-for>
+            </select>
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:16px">
-            <sc-for list="{{ payKpis }}" as="k" hint-placeholder-count="12">
-              <div onClick="{{ k.pick }}" style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:14px 16px;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.06)">
-                <div style="font-size:11.5px;font-weight:500;color:#6B7C93;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.label }}</div>
-                <div style="font-size:23px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:5px">{{ k.n }}</div>
-                <div style="font-size:11px;font-weight:600;color:{{ k.fg }};margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.note }}</div>
-              </div>
+          <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:4px;margin-bottom:16px;overflow-x:auto">
+            <sc-for list="{{ rptTabs }}" as="t" hint-placeholder-count="8">
+              <button onClick="{{ t.go }}" style="height:33px;padding:0 13px;border:0;border-radius:8px;font-size:12px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;flex:none">{{ t.label }}</button>
             </sc-for>
           </div>
 
-          <div style="display:flex;align-items:center;gap:11px;margin-bottom:15px;flex-wrap:wrap">
-            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;overflow-x:auto;max-width:100%">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+            <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+            <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">{{ rptHead }}</span>
+            <span style="flex:1;height:1px;background:#F0EEE7"></span>
+            <span style="font-size:11.5px;color:#98A2B3">{{ rptCount }} of {{ rptTotal }} report types</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px">
+            <sc-for list="{{ rptCards }}" as="r" hint-placeholder-count="9">
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.05)">
+                <div style="display:flex;align-items:flex-start;gap:12px">
+                  <div style="width:40px;height:40px;flex:none;border-radius:11px;background:{{ r.ibg }};color:{{ r.ifg }};display:grid;place-items:center;font-size:13px;font-weight:800;letter-spacing:.02em">{{ r.code }}</div>
+                  <span style="flex:1"></span>
+                  <span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.cBg }};color:{{ r.cFg }}">{{ r.cat }}</span>
+                  <button onClick="{{ r.star }}" title="Save report" style="width:28px;height:28px;flex:none;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:{{ r.starFg }};font-size:13px;padding:0" style-hover="background:#FEF7E6">{{ r.starIcon }}</button>
+                </div>
+                <div style="font-size:15px;font-weight:800;color:#0F2A47;margin-top:14px;letter-spacing:-.01em">{{ r.title }}</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:6px;line-height:1.55;text-wrap:pretty;flex:1">{{ r.desc }}</div>
+                <div style="font-size:11px;color:#98A2B3;margin-top:14px">{{ r.formats }}  ·  Last run {{ r.last }}</div>
+                <button onClick="{{ r.download }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:40px;margin-top:14px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit" style-hover="background:#0B7A6E">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M4.5 19h15" /></svg>Download Report
+                </button>
+                <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:9px">
+                  <button onClick="{{ r.gen }}" style="height:35px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Generate</button>
+                  <button onClick="{{ r.sched }}" style="height:35px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">{{ r.schedLabel }}</button>
+                  <button onClick="{{ r.preview }}" style="height:35px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Preview</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:{{ rptEmpty }};padding:40px 20px;text-align:center;background:#fff;border:1px solid #ECEAE2;border-radius:14px">
+            <div style="font-size:14px;font-weight:700;color:#475467">{{ rptEmptyTitle }}</div>
+            <div style="font-size:12px;color:#98A2B3;margin-top:5px">{{ rptEmptySub }}</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isPayroll }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;flex-wrap:wrap">
+            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;flex-wrap:wrap">
               <sc-for list="{{ paySegs }}" as="t" hint-placeholder-count="12">
-                <button onClick="{{ t.pick }}" style="height:32px;padding:0 13px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;flex:none">{{ t.label }}</button>
+                <button onClick="{{ t.pick }}" style="height:32px;padding:0 13px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap">{{ t.label }}</button>
               </sc-for>
             </div>
             <span style="flex:1"></span>
-            <div style="position:relative">
+            <button onClick="{{ openExport }}" style="height:38px;padding:0 15px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Export register</button>
+            <button onClick="{{ payGenerate }}" style="height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">Generate payroll</button>
+          </div>
+
+          <sc-if value="{{ payIsOver }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:16px">
+                <sc-for list="{{ payKpis }}" as="k" hint-placeholder-count="12">
+                  <div onClick="{{ k.pick }}" style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:15px 17px;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.06)">
+                    <div style="font-size:11.5px;font-weight:500;color:#6B7C93;line-height:1.3">{{ k.label }}</div>
+                    <div style="font-size:23px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:5px">{{ k.n }}</div>
+                    <div style="font-size:11px;font-weight:600;color:{{ k.fg }};margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.note }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;margin-bottom:16px">
+                <div style="margin-bottom:18px">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Payout lifecycle</div>
+                  <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">August 2026 · closes 31 Aug · disbursed 5 Sep — the August batch is currently Scheduled</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:18px">
+                  <sc-for list="{{ payFlow }}" as="s" hint-placeholder-count="7">
+                    <div style="flex:1;min-width:0">
+                      <div style="height:5px;border-radius:3px;background:{{ s.bg }}"></div>
+                      <div style="display:flex;align-items:center;gap:6px;margin-top:9px">
+                        <span style="font-size:10px;font-weight:800;color:#98A2B3">{{ s.n }}</span>
+                        <span style="font-size:11.5px;font-weight:600;color:{{ s.fg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ s.st }}</span>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding-top:16px;border-top:1px solid #F2F0EA">
+                  <span style="font-size:11.5px;font-weight:700;color:#7A8699;margin-right:4px">EXCEPTION STATES</span>
+                  <sc-for list="{{ payExceptions }}" as="e" hint-placeholder-count="5">
+                    <span style="font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:{{ e.bg }};color:{{ e.fg }}">{{ e.st }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ payNotOver }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+              <div style="position:relative">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:12px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
               <input value="{{ payQ }}" onChange="{{ setPayQ }}" placeholder="Search transaction, coordinator, UTR…" style="width:280px;max-width:100%;height:38px;padding:0 13px 0 34px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
             </div>
-            <button onClick="{{ paySettingsEdit }}" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Settings</button>
-            <button onClick="{{ payGenerate }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Generate Payroll
+              <button onClick="{{ paySettingsEdit }}" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Payroll settings</button>
+            </div>
+  <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p8.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p8.bd }};background:{{ fp.p8.bg }};font-size:13px;font-weight:600;color:{{ fp.p8.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
             </button>
           </div>
-
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+          <div style="display:{{ fp.p8.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px;flex-wrap:wrap">
               <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filters</span>
               <span style="display:{{ payBar.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ payBar.count }}</span>
               <span style="flex:1"></span>
-              <button onClick="{{ payBar.reset }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+              <button onClick="{{ payBar.reset }}" style="display:{{ payBar.resetShow }};height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
               <sc-for list="{{ payBar.selects }}" as="p" hint-placeholder-count="6">
@@ -4304,6 +4437,7 @@
               </sc-for>
             </div>
           </div>
+          </sc-if>
 
           <sc-if value="{{ payIsOver }}" hint-placeholder-val="{{ true }}">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px">
@@ -6779,6 +6913,7 @@ class Component extends DCLogic {
         set:(e)=>this.setState({[key]:e.target.value})})),
       count: String(resetKeys.filter(k=>(s[k]||'All')!=='All').length),
       has: resetKeys.filter(k=>(s[k]||'All')!=='All').length ? 'grid' : 'none',
+      resetShow: resetKeys.filter(k=>(s[k]||'All')!=='All').length ? 'inline-flex' : 'none',
       reset: ()=>{ const p={}; resetKeys.forEach(k=>p[k]='All'); this.setState(p); this.fire('Filters reset', label); }
     };
   };
@@ -6933,7 +7068,60 @@ class Component extends DCLogic {
   sortBy = (k) => () => this.setState(x=>({sort:{key:k, dir: x.sort.key===k ? -x.sort.dir : 1}}));
   ind = (k) => this.state.sort.key===k ? (this.state.sort.dir>0 ? '▲' : '▼') : '⇅';
 
-  renderVals() {
+  fpVals() { const s = this.state; const o = {}; ["p8","p7","p6","p5","p4","p3","p2","p1"].forEach(id=>{ const on = !!(s.fpOpen||{})[id];
+    o[id] = {d: on ? 'block' : 'none', toggle: ()=>this.setState(x=>({fpOpen:{...(x.fpOpen||{}), [id]: !on}})), bd: on ? '#0E9384' : '#E5E3DC', bg: on ? '#EEF6F5' : '#fff', fg: on ? '#0B7A6E' : '#344054'}; }); return o; }
+
+  frShow(v, prefixes) { this._frBase = this._frBase || {};
+    prefixes.forEach(p=>{ const list = v[p+'Filters'] || v[p+'Selects']; let sig;
+      if (Array.isArray(list)) sig = JSON.stringify([list.map(f=>f && f.value), v[p+'Q']||'']);
+      else sig = JSON.stringify(Object.keys(v).filter(k=>k.startsWith(p) && k.length>p.length && /[A-Z]/.test(k[p.length]) && !/Opts$|Reset$|Kpis$|Rows$|Count$|Display$|Btn/.test(k) && (typeof v[k]==='string' || typeof v[k]==='boolean')).sort().map(k=>[k,v[k]]));
+      if (this._frBase[p]===undefined) this._frBase[p] = sig;
+      v[p+'ResetShow'] = sig===this._frBase[p] ? 'none' : 'inline-flex'; });
+    return v; }
+
+  rptVals() { const s = this.state, LIB = [
+  ['IC','People','Individual Coordinator Report','One coordinator, one document — pick the sections you need: batches, students, attendance, payroll.','PDF · XLSX','2 days ago'],
+  ['CM','People','Coordinator Master','Full coordinator roster with contact details, courses, workload and status. Filterable before export.','CSV · XLSX','Yesterday'],
+  ['BA','Operations','Course & Batch Allocation','Every batch assignment with coordinator, teacher, capacity and mode.','CSV · XLSX','3 days ago'],
+  ['WL','Operations','Workload Distribution','Batches, students and tasks per coordinator with overload flags.','PDF · XLSX','Today'],
+  ['CP','Performance','Coordinator Performance','Performance score, SLA, retention and satisfaction per coordinator.','PDF · XLSX','Today'],
+  ['SS','Performance','Student Support SLA','Doubts, tickets and response times handled per coordinator.','PDF · CSV','Yesterday'],
+  ['AA','Attendance','Attendance & Activity','Login hours, live class supervision, leave and activity log.','XLSX · CSV','Today'],
+  ['LC','Attendance','Live Class Monitoring','Class starts, teacher join delays and escalations per batch.','XLSX · PDF','2 days ago'],
+  ['PR','Finance','Payroll Register','Monthly salary, deductions, TDS, net pay and payment status.','XLSX · PDF','Today'],
+  ['RC','Content','Recorded Course Monitoring','Recording uploads, pending reviews and student watch progress.','PDF · XLSX','4 days ago'],
+  ['AL','Compliance','Alerts & Escalations','Operational alerts raised, resolved and escalated per coordinator.','CSV · XLSX','2 days ago']
+];
+    const CC = {People:['#E9F1FD','#1D4ED8'],Academic:['#E6F4F1','#0B7A6E'],Performance:['#F0EAFD','#6D28D9'],Attendance:['#E7F7EE','#15803D'],Finance:['#FEF3E2','#B45309'],Compliance:['#F1F3F5','#667085'],Operations:['#E6F4F1','#0B7A6E'],Content:['#F0EAFD','#6D28D9']};
+    const cats = Array.from(new Set(LIB.map(r=>r[1])));
+    const tab = s.rptTab || 'overview', cat = s.rptCat || 'All', q = (s.rptQ||'').trim().toLowerCase();
+    const star = s.rptStar || {}, sch = s.rptSched || {}, dl = s.rptDl || {};
+    const tabs = [['overview','Overview'], ...cats.map(c=>['c:'+c, c]), ['saved','Saved Reports'], ['scheduled','Scheduled'], ['export','Export Center']];
+    const list = LIB.filter(r => (tab==='overview' || (tab.startsWith('c:') ? r[1]===tab.slice(2) : tab==='saved' ? star[r[2]] : tab==='scheduled' ? sch[r[2]] : dl[r[2]]))
+      && (cat==='All' || r[1]===cat) && (!q || (r[2]+' '+r[3]).toLowerCase().includes(q)));
+    const range = s.rptRange || 'This month';
+    const done = (label, sub)=>this.fire(label, sub, true);
+    return { isRpt: s.route==='reports', rptCat: cat, rptRange: range, rptQ: s.rptQ||'', setRptQ:(e)=>this.setState({rptQ:e.target.value}),
+      rptCatOpts: [{o:'All',label:'All categories',sel:cat==='All'}, ...cats.map(c=>({o:c,label:c,sel:cat===c}))], setRptCat:(e)=>this.setState({rptCat:e.target.value}),
+      rptRangeOpts: ['Today','This week','This month','Last 3 months','This year','Custom'].map(o=>({o, sel:o===range})), setRptRange:(e)=>this.setState({rptRange:e.target.value}),
+      rptTabs: tabs.map(([k,label])=>({label, bg: tab===k?'#0E9384':'transparent', fg: tab===k?'#fff':'#6B7C93', weight: tab===k?'700':'500', go:()=>this.setState({rptTab:k})})),
+      rptHead: tab==='saved' ? 'SAVED REPORTS' : tab==='scheduled' ? 'SCHEDULED REPORTS' : tab==='export' ? 'EXPORT CENTER' : tab.startsWith('c:') ? tab.slice(2).toUpperCase()+' REPORTS' : 'REPORT LIBRARY',
+      rptCount: String(list.length), rptTotal: String(LIB.length), rptEmpty: list.length ? 'none' : 'block',
+      rptEmptyTitle: tab==='saved' ? 'No saved reports yet' : tab==='scheduled' ? 'Nothing scheduled yet' : tab==='export' ? 'No exports yet' : 'No report types match',
+      rptEmptySub: tab==='saved' ? 'Star a report to keep it here.' : tab==='scheduled' ? 'Use Schedule on any report to send it automatically.' : tab==='export' ? 'Downloaded reports appear here.' : 'Try another search or category.',
+      rptCards: list.map(([code,c,title,desc,formats,last])=>{ const col = CC[c] || CC.Operations, on = !!star[title];
+        return {code, cat:c, title, desc, formats, last: dl[title] ? 'just now' : last, ibg:col[0], ifg:col[1], cBg:col[0], cFg:col[1],
+          starIcon: on ? '★' : '☆', starFg: on ? '#D97706' : '#98A2B3',
+          star:()=>{ this.setState(x=>({rptStar:{...(x.rptStar||{}), [title]:!on}})); done(on ? 'Removed from saved' : 'Saved to your reports', title); },
+          download:()=>{ this.setState(x=>({rptDl:{...(x.rptDl||{}), [title]:true}})); done('Report downloaded — '+title, formats.split(' · ')[0]+' · '+range); },
+          gen:()=>done('Report generated — '+title, range+' · ready to download'),
+          sched:()=>{ this.setState(x=>({rptSched:{...(x.rptSched||{}), [title]:true}})); done('Report scheduled — '+title, 'Every Monday 09:00 · Email'); },
+          schedLabel: sch[title] ? 'Scheduled' : 'Schedule',
+          preview:()=>done('Preview — '+title, range+' · first 50 rows')}; }) };
+  }
+
+  renderVals() { const v = this.renderVals0(); Object.assign(v, this.rptVals()); v.fp = this.fpVals(); this._gfBase = this._gfBase || JSON.stringify((v.globalFilters||[]).map(f=>f.value)); v.gfResetShow = (v.filterHas!=='none' || JSON.stringify((v.globalFilters||[]).map(f=>f.value))!==this._gfBase) ? 'inline-flex' : 'none'; this.frShow(v, ["at","pv","sc","rc","al","dir"]); v.dirCount = String((v.dirCards||[]).length); return v; }
+  renderVals0() {
     const s = this.state;
     const q = (s.q||'').trim().toLowerCase();
     const rcQv = (s.rcQ||'').trim().toLowerCase();
@@ -8981,16 +9169,16 @@ class Component extends DCLogic {
       searchResults: searchable.map(r=>({...r, open: r.kind==='Coordinator' ? (()=>this.setState({route:'all', prof:r.name, profTab:'Overview', q:''})) : this.drill(r.kind, r.name)})),
       searchEmptyDisplay: (q && !searchable.length) ? 'block' : 'none',
 
-      subNav: [['dash','Dashboard'],['all','All Coordinators'],['onboarding','Onboarding'],['allocation','Course & Batch Allocation'],['rc','Recorded Course Monitoring'],['performance','Performance'],['schedules','Live Class Schedule'],['attendance','Attendance & Activity'],['payroll','Payroll & Payouts'],['recorded','Recorded Course Monitoring'],['alerts','Reminders & Alerts']].map(([k,label])=>{
+      subNav: [['dash','Dashboard'],['all','All Coordinators'],['onboarding','Onboarding'],['allocation','Course & Batch Allocation'],['rc','Recorded Course Monitoring'],['performance','Performance'],['schedules','Live Class Schedule'],['attendance','Attendance & Activity'],['payroll','Payroll & Payouts'],['recorded','Recorded Course Monitoring'],['alerts','Reminders & Alerts'],['reports','Reports']].map(([k,label])=>{
         const on = s.route===k;
         return {label, bg:on?'#14335C':'transparent', fg:on?'#fff':'#9FB2CC', weight:on?'600':'500',
           bar:on?'#0E9384':'transparent',
-          go: (k==='dash'||k==='onboarding'||k==='all'||k==='allocation'||k==='rc'||k==='schedules'||k==='performance'||k==='attendance'||k==='payroll'||k==='alerts') ? (()=>this.setState({route:k, cand:null, prof:null, perfWho:null})) : this.drill(label)};
+          go: (k==='dash'||k==='onboarding'||k==='all'||k==='allocation'||k==='rc'||k==='schedules'||k==='performance'||k==='attendance'||k==='payroll'||k==='alerts'||k==='reports') ? (()=>this.setState({route:k, cand:null, prof:null, perfWho:null})) : this.drill(label)};
       }),
       isDash: s.route==='dash', isOnboarding: s.route==='onboarding', isPayroll: s.route==='payroll', isAlerts: s.route==='alerts',
       payLifecycle: [['Draft','Payroll generated, not yet reviewed'],['Calculated','Salary, attendance and deductions applied'],['Pending Review','Awaiting Finance Admin verification'],['Approved','Verified and cleared for payment'],['Scheduled','Payment date locked in'],['Processing','Bank transfer initiated'],['Paid','Settled with a UTR reference'],['Exceptions','Failed · On Hold · Disputed · Reversed']].map(([label,note],i)=>({label,note,n:String(i+1),
         bg: i<7 ? '#EEF6F5' : '#FDE8E8', fg: i<7 ? '#0B7A6E' : '#B42318'})),
-      isAll: s.route==='all' && !s.prof, isProf: s.route==='all' && !!s.prof,
+      ovShow: (s.route==='all' && !s.prof) ? 'block' : 'none', isAll: s.route==='all' && !s.prof, isProf: s.route==='all' && !!s.prof,
       isAlloc: s.route==='allocation',
       isRc: s.route==='rc',
       isSched: s.route==='schedules',
@@ -9752,7 +9940,20 @@ class Component extends DCLogic {
               ? {isPill:true, isPlain:false, v:v[0], pBg:BDG[v[1]][0], pFg:BDG[v[1]][1]}
               : {isPill:false, isPlain:true, v})}));
         }
-        if (sec.kind==='kv') d.kvRows = sec.rows.map(([k,v],i)=>({k,v,bg: i%2 ? '#FAF9F4' : '#fff'}));
+        d.kvEditShow='none'; d.kvSaveShow='none';
+        if (sec.kind==='kv') {
+          const tab = s.profTab||'Overview', sk = tab+'|'+sec.t, ov = s.kvOver||{}, editing = s.kvEditing===sk, dr = s.kvDraft||{};
+          const cur = sec.rows.map(([k,v])=>[k, ov[sk+'|'+k] !== undefined ? ov[sk+'|'+k] : v]);
+          d.kvEditShow = editing ? 'none' : 'inline-flex'; d.kvSaveShow = editing ? 'flex' : 'none';
+          d.kvEdit = ()=>this.setState({kvEditing:sk, kvDraft:Object.fromEntries(cur)});
+          d.kvCancel = ()=>this.setState({kvEditing:null, kvDraft:null});
+          d.kvSave = ()=>{ const n = {...ov}; let c = 0; cur.forEach(([k,v])=>{ const nv = (dr[k] ?? v); if (nv!==v) { n[sk+'|'+k] = nv; c++; } });
+            this.setState({kvOver:n, kvEditing:null, kvDraft:null});
+            this.fire ? this.fire(c ? sec.t.charAt(0)+sec.t.slice(1).toLowerCase()+' details updated' : 'No changes to save', c ? c+' field'+(c>1?'s':'')+' changed · logged to audit trail' : '', true) : null; };
+          d.kvRows = cur.map(([k,v],i)=>({k, v, bg: i%2 ? '#FAF9F4' : '#fff', pad: editing ? '7px 15px' : '11px 15px',
+            viewShow: editing ? 'none' : 'block', editShow: editing ? 'block' : 'none', draft: dr[k] ?? v,
+            set: (e)=>{ const val = e.target.value; this.setState(x=>({kvDraft:{...(x.kvDraft||{}), [k]:val}})); }}));
+        }
         if (sec.kind==='cards') d.cards = sec.rows.map(([label,n,note,fg])=>({label,n,note,fg}));
         if (sec.kind==='bars') d.bars = sec.rows.map(([label,pct,color,sub])=>({label,pct,color,sub,w:pct}));
         if (sec.kind==='alerts') d.alerts = sec.rows.map(([title,desc,sev,c])=>({title,desc,sev,
@@ -9832,20 +10033,33 @@ class Component extends DCLogic {
         ['Joining date','dJoined',['All','This month','Last 3 months','Last 6 months','Custom']],
         ['Issues','dIssues',['All','No issues','Pending tasks','Attendance issues','Student complaints','Schedule conflicts']],
         ['Sort by','dSort',['Name','Recently joined','Number of batches','Number of students','Workload','Performance','Last activity']]
-      ].map(([label,key,opts])=>({label, value:s[key]||(key==='dSort'?'Name':'All'), opts:opts.map(o=>({o})),
-        set:(e)=>this.setState({[key]:e.target.value})})),
+      ].filter(([,key])=>key!=='dStatus').map(([label,key,opts])=>{ const val = s[key]||(key==='dSort'?'Name':'All'); return {label, value:val, opts:opts.map(o=>({o, sel:o===val})),
+        set:(e)=>this.setState({[key]:e.target.value})}; }),
+      ...(()=>{ const keys=['dCourse','dWorkload','dPerf','dJoined','dIssues']; const n = keys.filter(k=>(s[k]||'All')!=='All').length + ((s.dirQ||'').trim()?1:0); const open = !!s.dfOpen;
+        const st = s.dStatus||'All', view = (s.dirView||'cards')==='cards';
+        const STS = ['All','Active','Inactive','On Leave','Suspended','Pending Onboarding'];
+        return {dfToggle:()=>this.setState({dfOpen:!open, dStatusOpen:false}), dfDisplay: open?'block':'none', dfCount:String(n), dfHas: n?'grid':'none',
+          dfBtnBd: open||n ? '#0E9384' : '#E5E3DC', dfBtnBg: open||n ? '#EEF6F5' : '#fff', dfBtnFg: open||n ? '#0B7A6E' : '#344054',
+          dStatusLabel: st==='All' ? 'All Coordinators' : st, dStatusDisplay: s.dStatusOpen ? 'block' : 'none',
+          dStatusToggle: ()=>this.setState({dStatusOpen:!s.dStatusOpen}),
+          dStatusTabs: STS.map(x=>({label: x==='All' ? 'All Coordinators ('+DIR.length+')' : x+' ('+DIR.filter(c=>c[3]===x).length+')', weight: x===st?'700':'500',
+            pick:()=>this.setState({dStatus:x, dStatusOpen:false})})),
+          dSetGrid:()=>this.setState({dirView:'cards'}), dSetList:()=>this.setState({dirView:'table'}),
+          dGridBg: view?'#0E9384':'transparent', dGridFg: view?'#fff':'#6B7C93', dListBg: view?'transparent':'#0E9384', dListFg: view?'#6B7C93':'#fff'}; })(),
       dirReset: ()=>{ this.setState({dStatus:'All',dCourse:'All',dWorkload:'All',dPerf:'All',dJoined:'All',dIssues:'All',dSort:'Name',dirQ:''});
         this.fire('Filters reset','Showing all coordinators'); },
       dirImport: this.act('Import coordinators','CSV or Excel · columns validated before creation'),
       dirExport: ()=>this.setState({fm:'export', fmCtx:{}, fmStep:0, fmErr:null}),
 
       dirKpis: [
-        {label:'Total Coordinators',n:'24',note:'+2 this month',fg:'#15803D',go:()=>this.setState({dStatus:'All'})},
-        {label:'Active',n:'21',note:'87.5% of total',fg:'#15803D',go:()=>this.setState({dStatus:'Active'})},
-        {label:'On Leave',n:'2',note:'returning 18 Aug',fg:'#1D4ED8',go:()=>this.setState({dStatus:'On Leave'})},
-        {label:'Total Batches',n:'48',note:'under coordination',fg:'#6B7C93',go:this.drill('Course & Batch Management')},
-        {label:'Students Managed',n:'1,284',note:'54 per coordinator',fg:'#6B7C93',go:this.drill('Student coverage')},
-        {label:'Attention Required',n:'5',note:'2 critical · 3 watch',fg:'#B42318',go:()=>this.setState({dIssues:'Pending tasks'})}
+        {label:'Total Coordinators',n:'24',note:'View directory →',fg:'#0B7A6E',ibg:'#E6F4F1',ifg:'#0B7A6E',path:'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M19 8v6M22 11h-6',go:()=>this.setState({dStatus:'All'})},
+        {label:'Active',n:'21',note:'87.5% of total',fg:'#15803D',ibg:'#E7F7EE',ifg:'#15803D',path:'M12 3a9 9 0 1 0 .01 0M8.5 12l2.3 2.3 4.7-4.8',go:()=>this.setState({dStatus:'Active'})},
+        {label:'Pending Onboarding',n:String(DIR.filter(c=>c[3]==='Pending Onboarding').length),note:'Open onboarding →',fg:'#B45309',ibg:'#FEF3E2',ifg:'#B45309',path:'M12 3a9 9 0 1 0 .01 0M12 7v5l3 2',go:()=>this.setState({dStatus:'Pending Onboarding'})},
+        {label:'On Leave',n:'2',note:'Returning 18 Aug',fg:'#1D4ED8',ibg:'#E9F1FD',ifg:'#1D4ED8',path:'M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z',go:()=>this.setState({dStatus:'On Leave'})},
+        {label:'Total Batches',n:'48',note:'View allocation →',fg:'#0B7A6E',ibg:'#E6F4F1',ifg:'#0B7A6E',path:'M12 2 2 7l10 5 10-5zM2 17l10 5 10-5M2 12l10 5 10-5',go:this.drill('Course & Batch Management')},
+        {label:'Students Managed',n:'1,284',note:'54 per coordinator',fg:'#6D28D9',ibg:'#F0EAFD',ifg:'#6D28D9',path:'M2 8.5 12 4l10 4.5-10 4.5zM6 11v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5',go:this.drill('Student coverage')},
+        {label:'Overloaded',n:'2',note:'Rebalance workload →',fg:'#B45309',ibg:'#FEF3E2',ifg:'#B45309',path:'M3 12h4l3-8 4 16 3-8h4',go:()=>this.setState({dWorkload:'Overloaded', dfOpen:true})},
+        {label:'Attention Required',n:'5',note:'2 critical · 3 watch →',fg:'#B42318',ibg:'#FDE8E8',ifg:'#B42318',path:'M12 3a9 9 0 1 0 .01 0M12 8v5M12 16h.01',go:()=>this.setState({dIssues:'Pending tasks', dfOpen:true})}
       ],
       dirLoadDist: [
         ['Overloaded','2','#E88B78'],['High','4','#F0A72A'],['Normal','3','#0E9384'],['Low','3','#98A2B3']
@@ -9891,7 +10105,7 @@ class Component extends DCLogic {
             availDot: c[3]==='Active' ? '#22C55E' : c[3]==='On Leave' ? '#3B82F6' : '#E5484D',
             open: ()=>this.setState({prof:c[0], profTab:'Overview'}),
             menu: ()=>this.setState({dirMenu: s.dirMenu===c[1] ? null : c[1]}),
-            menuDisplay: s.dirMenu===c[1] ? 'block' : 'none',
+            menuDisplay: s.dirMenu===c[1] ? 'block' : 'none', stopRow: (e)=>e.stopPropagation(),
             schedule: this.drill('Schedule', c[0]),
             message: ()=>this.setState({fm:'message', fmCtx:{who:c[0]}, fmStep:0, fmErr:null}),
             menuItems: [
@@ -9918,8 +10132,8 @@ class Component extends DCLogic {
         });
       })(),
       dirCount: '',
-      pageTitle: s.route==='onboarding' ? 'Coordinator Onboarding' : s.route==='all' ? 'Class Coordinators' : s.route==='allocation' ? 'Course & Batch Allocation' : s.route==='rc' ? 'Recorded Course Monitoring' : s.route==='schedules' ? 'Live Class Schedule' : s.route==='performance' ? 'Coordinator Performance' : s.route==='attendance' ? 'Attendance & Activity' : 'Coordinator Management',
-      pageSub: s.route==='onboarding'
+      pageTitle: s.route==='reports' ? 'Coordinator Reports' : s.route==='onboarding' ? 'Coordinator Onboarding' : s.route==='all' ? 'Class Coordinators' : s.route==='allocation' ? 'Course & Batch Allocation' : s.route==='rc' ? 'Recorded Course Monitoring' : s.route==='schedules' ? 'Live Class Schedule' : s.route==='performance' ? 'Coordinator Performance' : s.route==='attendance' ? 'Attendance & Activity' : 'Coordinator Management',
+      pageSub: s.route==='reports' ? 'Generate, schedule and download reports across the coordinator domain.' : s.route==='onboarding'
         ? 'Three-stage recruitment, access setup and academic assignment — no coordinator becomes Active until every stage is complete.'
         : s.route==='all'
         ? 'Manage, monitor and review all class coordinators and their assigned batches.'
@@ -10126,7 +10340,9 @@ class Component extends DCLogic {
             dup: this.act('Rule duplicated — '+r[0],'Created as a draft copy'),
             hist: ()=>this.setState({fm:'alhist', fmStep:0, fmErr:null, fmCtx:{rule:r[0]}}),
             logs: ()=>this.setState({alTab:'history', alfRule:r[0]}),
-            archive: ()=>this.setState({fm:'act', fmStep:0, fmErr:null, fmCtx:{label:'Archive Alert Rule', danger:1, who:r[0], detail:'The rule stops evaluating · history is retained'}})};
+            archive: ()=>this.setState({fm:'act', fmStep:0, fmErr:null, fmCtx:{label:'Archive Alert Rule', danger:1, who:r[0], detail:'The rule stops evaluating · history is retained'}}),
+            pri:r[7], pBg:({Informational:['#F1F3F5','#667085'],Low:['#E9F1FD','#1D4ED8'],Medium:['#FEF3E2','#B45309'],High:['#FDF3D6','#8A5A0B'],Critical:['#FDE8E8','#B42318']})[r[7]][0], pFg:({Informational:['#F1F3F5','#667085'],Low:['#E9F1FD','#1D4ED8'],Medium:['#FEF3E2','#B45309'],High:['#FDF3D6','#8A5A0B'],Critical:['#FDE8E8','#B42318']})[r[7]][1], esc:r[8], chips:r[6].split(' · ').map(x=>({c:x})), sent:r[9], rate: r[10] ? 'live' : 'paused', history:()=>this.setState({fm:'alhist', fmStep:0, fmErr:null, fmCtx:{rule:r[0]}}),
+            kind: /remind|due|upcoming|starting|published/i.test(r[0]) ? 'Reminder' : 'Alert', kBg: /remind|due|upcoming|starting|published/i.test(r[0]) ? '#EEF6F5' : '#FDE8E8', kFg: /remind|due|upcoming|starting|published/i.test(r[0]) ? '#0B7A6E' : '#B42318'};
         });
       })(),
       alNewRule: ()=>this.setState({fm:'alrule', fmCtx:{}, fmStep:0, fmErr:null}),
@@ -10355,6 +10571,9 @@ class Component extends DCLogic {
         {label:'Total Coordinator Cost',n:'₹8.94L',note:'this period',fg:'#6B7C93',pick:()=>this.setState({payTab:'reports'})},
         {label:'Outstanding',n:'₹54,000',note:'not yet settled',fg:'#B42318',pick:()=>this.setState({payTab:'recon'})}
       ],
+      payNotOver: (s.payTab||'over')!=='over',
+      payFlow: ['Draft','Calculated','Pending Approval','Approved','Scheduled','Processing','Paid'].map((st,i)=>({st, n:String(i+1), bg: i<4 ? '#0E9384' : i===4 ? '#F0A72A' : '#E5E3DC', fg: i<=4 ? '#0F2A47' : '#98A2B3'})),
+      payExceptions: [['Failed','#FDE8E8','#B42318'],['On Hold','#FEF3E2','#B45309'],['Disputed','#FEF3E2','#B45309'],['Reversed','#F0EAFD','#6D28D9'],['Cancelled','#F1F3F5','#667085']].map(([st,bg,fg])=>({st,bg,fg})),
       payRule: 'Coordinators are salaried employees — one fixed monthly salary each. No lecture-wise payout, no revenue share, no percentage-based compensation.',
 
       paySegs: [['Overview','over'],['Transactions','txn'],['Coordinators','coords'],['Batches','batches'],['Adjustments','adjust'],['Payslips','payslips'],['Failed','failed'],['Disputes','disputes'],['Reconciliation','recon'],['Reports','reports'],['Audit','audit'],['Settings','settings']].map(([label,k])=>{

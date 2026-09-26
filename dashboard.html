@@ -71,17 +71,21 @@
         <p style="margin:6px 0 0;font-size:13.5px;color:#6B7C93;text-wrap:pretty">{{ pageSub }}</p>
       </div>
       <div style="display:flex;align-items:center;gap:10px;padding-top:4px;flex:1 1 520px;min-width:0;flex-wrap:wrap;justify-content:flex-end">
-        <div style="display:flex;align-items:center;gap:9px;width:min(300px,100%);height:38px;padding:0 15px;border:1px solid #E5E3DC;background:#fff;border-radius:999px">
+        <div style="display:flex;align-items:center;gap:9px;width:min(290px,100%);min-width:170px;height:38px;padding:0 15px;border:1px solid #E5E3DC;background:#fff;border-radius:999px">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.2" stroke-linecap="round" style="flex:none"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" /></svg>
           <input value="{{ q }}" onChange="{{ setQ }}" placeholder="Search students, teachers, batches..." style="border:0;outline:0;flex:1;min-width:0;font-size:13px;color:#0F2A47;background:transparent;font-family:inherit" />
         </div>
+        <button style="position:relative;width:38px;height:38px;flex:none;border-radius:50%;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 8-3 8h18s-3-1-3-8" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></svg>
+          <span style="position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:#E5484D;border:1.5px solid #fff"></span>
+        </button>
         <select value="{{ period }}" onChange="{{ setPeriod }}" style="height:38px;padding:0 12px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;font-weight:600;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
           <sc-for list="{{ periodOpts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
         </select>
-        <button onClick="{{ openExport }}" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Export</button>
-        <button onClick="{{ openQuick }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">
+        <button onClick="{{ openQuick }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#0B7A6E">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z" /></svg>Quick Actions
         </button>
+        <button onClick="{{ openExport }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:#F6F5F0">Export</button>
       </div>
     </header>
 

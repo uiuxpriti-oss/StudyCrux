@@ -272,7 +272,7 @@
               <span style="font-size:14.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter teachers</span>
               <span style="font-size:12px;color:#98A2B3">{{ teacherCount }} match</span>
               <span style="flex:1"></span>
-              <button onClick="{{ tfReset }}" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+              <button onClick="{{ tfReset }}" style="display:{{ tfResetShow }};height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:13px">
               <sc-for list="{{ tfSelects }}" as="p" hint-placeholder-count="5">
@@ -378,15 +378,12 @@
                         <td style="padding:12px 14px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ t.payout }}</td>
                         <td style="padding:12px 14px;border-bottom:1px solid #F5F3EE"><span style="font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px;background:{{ t.sBg }};color:{{ t.sFg }};white-space:nowrap">{{ t.status }}</span></td>
                         <td style="padding:12px 20px 12px 8px;border-bottom:1px solid #F5F3EE;text-align:right;position:relative;white-space:nowrap">
-                          <button onClick="{{ t.menu }}" style="width:28px;height:28px;margin-right:6px;border-radius:7px;border:1px solid {{ t.kBd }};background:{{ t.kBg }};display:inline-grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg></button>
+                          <button onClick="{{ t.menu }}" style="width:28px;height:28px;border-radius:7px;border:1px solid {{ t.kBd }};background:{{ t.kBg }};display:inline-grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg></button>
                           <div onClick="{{ t.stop }}" style="display:{{ t.menuDisplay }};position:absolute;top:44px;right:20px;z-index:40;width:216px;max-height:340px;overflow-y:auto;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;text-align:left;cursor:default">
                     <sc-for list="{{ t.menuItems }}" as="m" hint-placeholder-count="8">
                       <div onClick="{{ m.pick }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:{{ m.fg }};cursor:pointer;border-top:{{ m.bt }};margin-top:{{ m.mt }};padding-top:{{ m.pt }};white-space:nowrap" style-hover="background:{{ m.hbg }}">{{ m.label }}</div>
                     </sc-for>
                   </div>
-                          <button onClick="{{ t.open }}" style="width:28px;height:28px;border-radius:7px;border:1px solid #E5E3DC;background:#fff;display:inline-grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
-                          </button>
                         </td>
                       </tr>
                     </sc-for>
@@ -402,106 +399,141 @@
         <div>
           <sc-if value="{{ wizListView }}" hint-placeholder-val="{{ true }}">
             <div>
-              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:16px">
-                <sc-for list="{{ obStageCards }}" as="st" hint-placeholder-count="3">
-                  <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
-                    <div style="height:4px;background:{{ st.color }}"></div>
-                    <div style="padding:18px 20px">
-                      <div style="display:flex;align-items:center;gap:11px">
-                        <span style="width:28px;height:28px;flex:none;border-radius:9px;background:{{ st.bg }};color:{{ st.color }};display:grid;place-items:center;font-size:13px;font-weight:800">{{ st.n }}</span>
-                        <span style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#7A8699">STAGE {{ st.n }}</span>
-                        <span style="flex:1"></span>
-                        <span style="font-size:20px;font-weight:800;color:#0F2A47;letter-spacing:-.02em">{{ st.count }}</span>
-                      </div>
-                      <div style="font-size:15px;font-weight:700;color:#0F2A47;margin-top:12px;text-wrap:pretty">{{ st.title }}</div>
-                      <div style="font-size:12px;color:#98A2B3;margin-top:5px">Owner: {{ st.owner }} · {{ st.goal }}</div>
-                      <div style="display:flex;flex-direction:column;gap:6px;margin-top:13px">
-                        <sc-for list="{{ st.chips }}" as="c" hint-placeholder-count="3">
-                          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#475467">
-                            <span style="width:5px;height:5px;flex:none;border-radius:50%;background:{{ st.color }}"></span>{{ c.c }}
-                          </div>
-                        </sc-for>
-                      </div>
-                    </div>
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;margin-bottom:16px">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+                  <div style="min-width:0;flex:1 1 240px">
+                    <div style="font-size:15px;font-weight:700;color:#0F2A47">Recruitment pipeline</div>
+                    <div style="font-size:12.5px;color:#6B7C93;margin-top:3px;text-wrap:pretty">Draft → Submitted → Under Review → Changes Required → Approved → Active → Suspended → Deactivated</div>
                   </div>
-                </sc-for>
-              </div>
-
-              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
-                <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
-                  <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter pipeline</span>
-                  <span style="display:{{ obPipeBar.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ obPipeBar.count }}</span>
-                  <span style="flex:1"></span>
-                  <button onClick="{{ obPipeBar.reset }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
                 </div>
-                <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px">
-                  <sc-for list="{{ obPipeBar.selects }}" as="p" hint-placeholder-count="5">
-                    <div style="min-width:0">
-                      <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ p.label }}</label>
-                      <select value="{{ p.value }}" onChange="{{ p.set }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
-                        <sc-for list="{{ p.opts }}" as="o" hint-placeholder-count="4">
-                          <option>{{ o.o }}</option>
-                        </sc-for>
-                      </select>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px">
+                  <sc-for list="{{ tobPipeline }}" as="p" hint-placeholder-count="6">
+                    <div onClick="{{ p.pick }}" style="min-width:0;border:1px solid #F0EEE7;border-radius:12px;padding:14px 16px;background:#FCFBF7;cursor:pointer" style-hover="border-color:#BFE3DC">
+                      <div style="height:4px;border-radius:3px;background:{{ p.color }}"></div>
+                      <div style="font-size:24px;font-weight:800;color:#0F2A47;letter-spacing:-.03em;margin-top:11px">{{ p.n }}</div>
+                      <div style="font-size:11.5px;font-weight:600;color:#7A8699;margin-top:4px;text-wrap:pretty">{{ p.label }}</div>
                     </div>
                   </sc-for>
                 </div>
               </div>
 
-              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
-                <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA">
-                  <div>
-                    <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Recruitment &amp; onboarding pipeline</div>
-                    <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Nobody becomes Active until all mandatory items across the three stages are complete</div>
+              <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:4px;margin-bottom:16px;width:fit-content">
+                <sc-for list="{{ tobSectionTabs }}" as="t" hint-placeholder-count="2">
+                  <button onClick="{{ t.pick }}" style="height:34px;padding:0 16px;border:0;border-radius:8px;font-size:13px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap">{{ t.label }}</button>
+                </sc-for>
+              </div>
+
+              <div style="display:{{ tobLinksDisplay }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden;margin-bottom:16px">
+                <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA;flex-wrap:wrap">
+                  <div style="min-width:0;flex:1 1 300px">
+                    <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Onboarding links</div>
+                    <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Unique, secure, time-bound links sent to the teacher's registered email · resend or regenerate any time</div>
                   </div>
-                  <span style="flex:1"></span>
-                  <button onClick="{{ addTeacher }}" style="height:36px;padding:0 15px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">New Application</button>
+                  <div style="display:flex;gap:2px;background:#FCFBF7;border:1px solid #ECEAE2;border-radius:10px;padding:3px;flex:none">
+                    <sc-for list="{{ tobLinkTabs }}" as="t" hint-placeholder-count="7">
+                      <button onClick="{{ t.pick }}" style="height:30px;padding:0 12px;border:0;border-radius:7px;font-size:12px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap">{{ t.label }}</button>
+                    </sc-for>
+                  </div>
                 </div>
                 <div style="overflow-x:auto">
-                  <table style="width:100%;min-width:1180px;border-collapse:collapse">
+                  <table style="width:100%;min-width:1120px;border-collapse:collapse">
                     <thead>
                       <tr style="background:#FCFBF7">
-                        <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7">CANDIDATE</th>
-                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SUBJECT AREA</th>
-                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STAGE</th>
-                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">CURRENT STEP</th>
-                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">OWNER</th>
-                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PROGRESS</th>
-                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SLA</th>
-                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">UPDATED</th>
+                        <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">REFERENCE</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHER</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">MOBILE</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EMAIL</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SENT</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">OPENED</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EXPIRES</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">FORM PROGRESS</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LINK STATUS</th>
                         <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <sc-for list="{{ obPipeRows }}" as="r" hint-placeholder-count="8">
+                      <sc-for list="{{ tobLinkRows }}" as="l" hint-placeholder-count="6">
+                        <tr style-hover="background:#FCFBF7">
+                          <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE;font-size:12px;font-weight:700;font-family:ui-monospace,monospace;color:#0F2A47">{{ l.ref }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;white-space:nowrap">
+                            <button onClick="{{ l.openFile }}" style="border:0;background:transparent;padding:0;font-size:12.5px;font-weight:700;color:#0B7A6E;cursor:pointer;text-decoration:underline;text-decoration-color:#BFE3DC;text-underline-offset:3px;font-family:inherit" style-hover="color:#08594F;text-decoration-color:#0B7A6E">{{ l.name }}</button>
+                          </td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ l.mobile }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ l.email }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ l.sent }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ l.opened }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:{{ l.expFg }};white-space:nowrap">{{ l.expires }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE">
+                            <div style="display:flex;align-items:center;gap:9px">
+                              <div style="width:54px;height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ l.progress }};border-radius:4px;background:{{ l.barColor }}"></div></div>
+                              <span style="font-size:12px;font-weight:700;color:#0F2A47">{{ l.progress }}</span>
+                            </div>
+                          </td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ l.sBg }};color:{{ l.sFg }};white-space:nowrap">{{ l.status }}</span></td>
+                          <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right;white-space:nowrap;position:relative">
+                            <button onClick="{{ l.menu }}" style="width:28px;height:28px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:inline-grid;place-items:center;cursor:pointer;color:#475467;vertical-align:middle" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg>
+                            </button>
+                            <div style="display:{{ l.menuDisplay }};position:absolute;top:38px;right:20px;width:210px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;z-index:40;text-align:left">
+                              <sc-for list="{{ l.menuItems }}" as="mi" hint-placeholder-count="5">
+                                <div onClick="{{ mi.pick }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:{{ mi.fg }};cursor:pointer;border-top:{{ mi.bt }};margin-top:{{ mi.mt }};padding-top:{{ mi.pt }}" style-hover="background:{{ mi.hbg }}">{{ mi.label }}</div>
+                              </sc-for>
+                            </div>
+                          </td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+                <div style="display:{{ tobLinkEmpty }};padding:28px 20px;text-align:center">
+                  <div style="font-size:13px;font-weight:700;color:#475467">No onboarding links with this status</div>
+                  <div style="font-size:11.5px;color:#98A2B3;margin-top:5px">Pick another status, or onboard a teacher to generate a link.</div>
+                </div>
+              </div>
+
+              <div style="display:{{ tobCandDisplay }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                  <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Candidates in progress</div>
+                  <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Click a candidate to open their three-stage onboarding record</div>
+                </div>
+                <div style="overflow-x:auto">
+                  <table style="width:100%;min-width:1060px;border-collapse:collapse">
+                    <thead>
+                      <tr style="background:#FCFBF7">
+                        <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">CANDIDATE</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SUBJECT AREA</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">APPLIED</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RECRUITER</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STAGE</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PROGRESS</th>
+                        <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">CURRENT STEP</th>
+                        <th style="padding:11px 20px 11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <sc-for list="{{ obPipeRows }}" as="r" hint-placeholder-count="6">
                         <tr onClick="{{ r.open }}" style="cursor:pointer" style-hover="background:#FCFBF7">
-                          <td style="padding:12px 20px;border-bottom:1px solid #F5F3EE">
-                            <div style="display:flex;align-items:center;gap:11px">
+                          <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE">
+                            <div style="display:flex;align-items:center;gap:10px">
                               <div style="width:32px;height:32px;flex:none;border-radius:50%;background:{{ r.avBg }};display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700">{{ r.init }}</div>
                               <div>
-                                <div style="font-size:13px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.name }}</div>
-                                <div style="font-size:10.5px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.id }}</div>
+                                <div style="font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.name }}</div>
+                                <div style="font-size:10px;color:#98A2B3;margin-top:2px;font-family:ui-monospace,monospace">{{ r.id }}</div>
                               </div>
                             </div>
                           </td>
-                          <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.subject }}</td>
-                          <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE">
-                            <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.stBg }};color:{{ r.stFg }};white-space:nowrap">{{ r.stage }}</span>
-                            <div style="font-size:10.5px;color:#98A2B3;margin-top:4px;white-space:nowrap">{{ r.stageLabel }}</div>
-                          </td>
-                          <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#344054;white-space:nowrap">{{ r.step }}</td>
-                          <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.owner }}</td>
-                          <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE">
-                            <div style="display:flex;align-items:center;gap:8px">
-                              <div style="width:66px;height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ r.pct }};border-radius:4px;background:{{ r.barBg }}"></div></div>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.subject }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.updated }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.owner }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:600;color:#0F2A47;white-space:nowrap">{{ r.stage }} · {{ r.stageLabel }}</td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE">
+                            <div style="display:flex;align-items:center;gap:9px">
+                              <div style="width:70px;height:6px;border-radius:4px;background:#F2F0EA;overflow:hidden"><div style="height:100%;width:{{ r.pct }};border-radius:4px;background:{{ r.barBg }}"></div></div>
                               <span style="font-size:11.5px;font-weight:700;color:#0F2A47">{{ r.pct }}</span>
                             </div>
                           </td>
-                          <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.slaBg }};color:{{ r.slaFg }};white-space:nowrap">{{ r.sla }}</span></td>
-                          <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#98A2B3;white-space:nowrap">{{ r.updated }}</td>
-                          <td style="padding:12px 20px 12px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
-                            <button onClick="{{ r.open }}" style="height:30px;padding:0 13px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;cursor:pointer;white-space:nowrap" style-hover="background:#E2F1EE">Open File</button>
-                          </td>
+                          <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467">{{ r.step }}</td>
+                          <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.slaBg }};color:{{ r.slaFg }};white-space:nowrap">{{ r.sla }}</span></td>
                         </tr>
                       </sc-for>
                     </tbody>
@@ -718,7 +750,7 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:12px;top:11px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
               <input value="{{ allocSearch }}" onChange="{{ setAllocSearch }}" placeholder="Search course, batch or teacher…" style="width:100%;height:38px;padding:0 13px 0 34px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
             </div>
-            <button onClick="{{ allocBar.reset }}" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            <button onClick="{{ allocBar.reset }}" style="display:{{ allocBar.resetShow }};height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
             <button onClick="{{ allocBulk }}" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Bulk actions</button>
             <button onClick="{{ allocExport }}" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export</button>
             <button onClick="{{ allocCreateBatch }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">
@@ -726,7 +758,12 @@
             </button>
           </div>
 
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p1.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p1.bd }};background:{{ fp.p1.bg }};font-size:13px;font-weight:600;color:{{ fp.p1.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p1.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
             <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px">
               <sc-for list="{{ allocBar.selects }}" as="p" hint-placeholder-count="6">
                 <div style="min-width:0">
@@ -1025,12 +1062,17 @@
             </button>
           </div>
 
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p2.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p2.bd }};background:{{ fp.p2.bg }};font-size:13px;font-weight:600;color:{{ fp.p2.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p2.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
               <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filters</span>
               <span style="display:{{ schBar.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ schBar.count }}</span>
               <span style="flex:1"></span>
-              <button onClick="{{ schBar.reset }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+              <button onClick="{{ schBar.reset }}" style="display:{{ schBar.resetShow }};height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px">
               <sc-for list="{{ schBar.selects }}" as="p" hint-placeholder-count="5">
@@ -1654,12 +1696,17 @@
                 </div>
               </div>
 
-              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+              <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p3.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p3.bd }};background:{{ fp.p3.bg }};font-size:13px;font-weight:600;color:{{ fp.p3.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p3.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
                 <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
                   <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter rules</span>
                   <span style="display:{{ remBar.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ remBar.count }}</span>
                   <span style="flex:1"></span>
-                  <button onClick="{{ remBar.reset }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+                  <button onClick="{{ remBar.reset }}" style="display:{{ remBar.resetShow }};height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
                   <sc-for list="{{ remBar.selects }}" as="p" hint-placeholder-count="4">
@@ -1805,13 +1852,18 @@
 
           <sc-if value="{{ remIsHist }}" hint-placeholder-val="{{ false }}">
             <div>
-              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+              <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p4.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p4.bd }};background:{{ fp.p4.bg }};font-size:13px;font-weight:600;color:{{ fp.p4.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p4.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
                 <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
                   <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter delivery history</span>
                   <span style="display:{{ remBar2.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ remBar2.count }}</span>
                   <span style="flex:1"></span>
                   <button onClick="{{ exportAct }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export</button>
-                  <button onClick="{{ remBar2.reset }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+                  <button onClick="{{ remBar2.reset }}" style="display:{{ remBar2.resetShow }};height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
                   <sc-for list="{{ remBar2.selects }}" as="p" hint-placeholder-count="8">
@@ -1981,6 +2033,63 @@
         </div>
       </sc-if>
 
+      <sc-if value="{{ isRpt }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;flex-wrap:wrap">
+            <div style="position:relative;flex:1;min-width:220px">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:12px;top:11px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
+              <input value="{{ rptQ }}" onChange="{{ setRptQ }}" placeholder="Search report types…" style="width:100%;height:37px;padding:0 13px 0 34px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box;font-family:inherit" />
+            </div>
+            <select value="{{ rptCat }}" onChange="{{ setRptCat }}" style="height:37px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+              <sc-for list="{{ rptCatOpts }}" as="o" hint-placeholder-count="5"><option value="{{ o.o }}" selected="{{ o.sel }}">{{ o.label }}</option></sc-for>
+            </select>
+            <select value="{{ rptRange }}" onChange="{{ setRptRange }}" style="height:37px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+              <sc-for list="{{ rptRangeOpts }}" as="o" hint-placeholder-count="5"><option value="{{ o.o }}" selected="{{ o.sel }}">{{ o.o }}</option></sc-for>
+            </select>
+          </div>
+
+          <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:4px;margin-bottom:16px;overflow-x:auto">
+            <sc-for list="{{ rptTabs }}" as="t" hint-placeholder-count="8">
+              <button onClick="{{ t.go }}" style="height:33px;padding:0 13px;border:0;border-radius:8px;font-size:12px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;flex:none">{{ t.label }}</button>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+            <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+            <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">{{ rptHead }}</span>
+            <span style="flex:1;height:1px;background:#F0EEE7"></span>
+            <span style="font-size:11.5px;color:#98A2B3">{{ rptCount }} of {{ rptTotal }} report types</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px">
+            <sc-for list="{{ rptCards }}" as="r" hint-placeholder-count="9">
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.05)">
+                <div style="display:flex;align-items:flex-start;gap:12px">
+                  <div style="width:40px;height:40px;flex:none;border-radius:11px;background:{{ r.ibg }};color:{{ r.ifg }};display:grid;place-items:center;font-size:13px;font-weight:800;letter-spacing:.02em">{{ r.code }}</div>
+                  <span style="flex:1"></span>
+                  <span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.cBg }};color:{{ r.cFg }}">{{ r.cat }}</span>
+                  <button onClick="{{ r.star }}" title="Save report" style="width:28px;height:28px;flex:none;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:{{ r.starFg }};font-size:13px;padding:0" style-hover="background:#FEF7E6">{{ r.starIcon }}</button>
+                </div>
+                <div style="font-size:15px;font-weight:800;color:#0F2A47;margin-top:14px;letter-spacing:-.01em">{{ r.title }}</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:6px;line-height:1.55;text-wrap:pretty;flex:1">{{ r.desc }}</div>
+                <div style="font-size:11px;color:#98A2B3;margin-top:14px">{{ r.formats }}  ·  Last run {{ r.last }}</div>
+                <button onClick="{{ r.download }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:40px;margin-top:14px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit" style-hover="background:#0B7A6E">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M4.5 19h15" /></svg>Download Report
+                </button>
+                <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:9px">
+                  <button onClick="{{ r.gen }}" style="height:35px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Generate</button>
+                  <button onClick="{{ r.sched }}" style="height:35px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">{{ r.schedLabel }}</button>
+                  <button onClick="{{ r.preview }}" style="height:35px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Preview</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:{{ rptEmpty }};padding:40px 20px;text-align:center;background:#fff;border:1px solid #ECEAE2;border-radius:14px">
+            <div style="font-size:14px;font-weight:700;color:#475467">{{ rptEmptyTitle }}</div>
+            <div style="font-size:12px;color:#98A2B3;margin-top:5px">{{ rptEmptySub }}</div>
+          </div>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isPayouts }}" hint-placeholder-val="{{ false }}">
         <div>
           <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;flex-wrap:wrap">
@@ -2035,12 +2144,17 @@
 
           <sc-if value="{{ poIsTxn }}" hint-placeholder-val="{{ false }}">
             <div>
-              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+              <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p5.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p5.bd }};background:{{ fp.p5.bg }};font-size:13px;font-weight:600;color:{{ fp.p5.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p5.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
                 <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
                   <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter transactions</span>
                   <span style="display:{{ poTxnBar.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ poTxnBar.count }}</span>
                   <span style="flex:1"></span>
-                  <button onClick="{{ poTxnBar.reset }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+                  <button onClick="{{ poTxnBar.reset }}" style="display:{{ poTxnBar.resetShow }};height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
                   <sc-for list="{{ poTxnBar.selects }}" as="p" hint-placeholder-count="4">
@@ -2917,11 +3031,16 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:13px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
               <input value="{{ pvQ }}" onChange="{{ setPvQ }}" placeholder="Search teacher or ID…" style="width:100%;height:38px;padding:0 13px 0 35px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
             </div>
-            <button onClick="{{ pvReset }}" style="flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            <button onClick="{{ pvReset }}" style="display:{{ pvResetShow }};align-items:center;flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
             <button onClick="{{ pvExport }}" style="flex:none;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">Export Report</button>
           </div>
 
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button onClick="{{ fp.p6.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p6.bd }};background:{{ fp.p6.bg }};font-size:13px;font-weight:600;color:{{ fp.p6.fg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+            </button>
+          </div>
+          <div style="display:{{ fp.p6.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
               <sc-for list="{{ pvFilters }}" as="p" hint-placeholder-count="5">
                 <div style="min-width:0">
@@ -5383,6 +5502,15 @@ const PIPE = [
   ['APP-3990','Tarun Bhatia','IC-38 · Claims',3,'First Teaching Assignment','Academic Ops',94,'On track','green','2026-08-11']
 ];
 
+const TOBLINKS = [
+  ['TOL-4021','Dr. Kavya Iyer','+91 98400 21188','kavya.iyer@gmail.com','Submitted','green','05 Aug 2026','05 Aug 2026','12 Aug 2026','100%'],
+  ['TOL-4018','Imran Sheikh','+91 98450 33210','imran.sheikh@gmail.com','In Progress','amber','02 Aug 2026','02 Aug 2026','09 Aug 2026','64%'],
+  ['TOL-4015','Sanjana Patel','+91 99870 44120','sanjana.patel@gmail.com','Opened','blue','28 Jul 2026','29 Jul 2026','04 Aug 2026','8%'],
+  ['TOL-4012','Nikhil Rao','+91 98330 55401','nikhil.rao@gmail.com','Sent','teal','24 Aug 2026','—','31 Aug 2026','0%'],
+  ['TOL-4009','Farah Qureshi','+91 97410 66332','farah.qureshi@gmail.com','Expired','red','12 Jul 2026','13 Jul 2026','19 Jul 2026','22%'],
+  ['TOL-4006','Meghna Pillai','+91 96540 77219','meghna.pillai@gmail.com','Not Sent','grey','—','—','—','0%']
+];
+
 const WIZ = [
   {n:1, title:'Candidate Application & Recruitment', owner:'HR & Recruitment', goal:'Evaluate and hire the best faculty candidate',
    question:'Who is the candidate, are they qualified, and should we hire them?', pct:72,
@@ -5641,6 +5769,7 @@ class Component extends DCLogic {
         set:(e)=>this.setState({[key]:e.target.value})})),
       count: String(resetKeys.filter(k=>(s[k]||'All')!=='All').length),
       has: resetKeys.filter(k=>(s[k]||'All')!=='All').length ? 'grid' : 'none',
+      resetShow: resetKeys.filter(k=>(s[k]||'All')!=='All').length ? 'inline-flex' : 'none',
       reset: ()=>{ const p={}; resetKeys.forEach(k=>p[k]='All'); this.setState(p); this.fire('Filters reset', label); }
     };
   };
@@ -5962,7 +6091,60 @@ class Component extends DCLogic {
     return d;
   };
 
-  renderVals() {
+  fpVals() { const s = this.state; const o = {}; ["p6","p5","p4","p3","p2","p1"].forEach(id=>{ const on = !!(s.fpOpen||{})[id];
+    o[id] = {d: on ? 'block' : 'none', toggle: ()=>this.setState(x=>({fpOpen:{...(x.fpOpen||{}), [id]: !on}})), bd: on ? '#0E9384' : '#E5E3DC', bg: on ? '#EEF6F5' : '#fff', fg: on ? '#0B7A6E' : '#344054'}; }); return o; }
+
+  frShow(v, prefixes) { this._frBase = this._frBase || {};
+    prefixes.forEach(p=>{ const list = v[p+'Filters'] || v[p+'Selects']; let sig;
+      if (Array.isArray(list)) sig = JSON.stringify([list.map(f=>f && f.value), v[p+'Q']||'']);
+      else sig = JSON.stringify(Object.keys(v).filter(k=>k.startsWith(p) && k.length>p.length && /[A-Z]/.test(k[p.length]) && !/Opts$|Reset$|Kpis$|Rows$|Count$|Display$|Btn/.test(k) && (typeof v[k]==='string' || typeof v[k]==='boolean')).sort().map(k=>[k,v[k]]));
+      if (this._frBase[p]===undefined) this._frBase[p] = sig;
+      v[p+'ResetShow'] = sig===this._frBase[p] ? 'none' : 'inline-flex'; });
+    return v; }
+
+  rptVals() { const s = this.state, LIB = [
+  ['IT','People','Individual Teacher Report','One teacher, one document — pick the sections you need: batches, ratings, attendance, payouts.','PDF · XLSX','2 days ago'],
+  ['TM','People','Teacher Master','Full faculty roster with contact details, subjects, engagement type and status. Filterable before export.','CSV · XLSX','Yesterday'],
+  ['CA','Academic','Course Allocation','Every course and batch assignment with teacher, coordinator and delivery mode.','CSV · XLSX','3 days ago'],
+  ['SS','Academic','Schedule & Sessions','Planned vs delivered sessions, reschedules and cancellations per teacher.','PDF · XLSX','Today'],
+  ['TP','Performance','Teaching Performance','Performance score, ratings, engagement and outcome metrics per teacher.','PDF · XLSX','Today'],
+  ['FR','Performance','Feedback & Ratings','Student ratings by teacher, course and dimension with comment export.','PDF · CSV','Yesterday'],
+  ['AT','Attendance','Teacher Attendance','Join times, late starts, no-shows and leave across the period.','XLSX · CSV','Today'],
+  ['PY','Finance','Payout Report','Session and salary earnings, deductions, TDS, net payable and UTR per cycle.','XLSX · PDF','Today'],
+  ['RS','Finance','Revenue Share','Course revenue, share percentage and payable amount per teacher.','XLSX · PDF','4 days ago'],
+  ['ON','Compliance','Onboarding & Documents','Onboarding stage, verification status and expiring documents.','PDF · XLSX','1 week ago'],
+  ['AL','Compliance','Alerts & Escalations','Alert rules fired, deliveries and escalations raised for teachers.','CSV · XLSX','2 days ago']
+];
+    const CC = {People:['#E9F1FD','#1D4ED8'],Academic:['#E6F4F1','#0B7A6E'],Performance:['#F0EAFD','#6D28D9'],Attendance:['#E7F7EE','#15803D'],Finance:['#FEF3E2','#B45309'],Compliance:['#F1F3F5','#667085'],Operations:['#E6F4F1','#0B7A6E'],Content:['#F0EAFD','#6D28D9']};
+    const cats = Array.from(new Set(LIB.map(r=>r[1])));
+    const tab = s.rptTab || 'overview', cat = s.rptCat || 'All', q = (s.rptQ||'').trim().toLowerCase();
+    const star = s.rptStar || {}, sch = s.rptSched || {}, dl = s.rptDl || {};
+    const tabs = [['overview','Overview'], ...cats.map(c=>['c:'+c, c]), ['saved','Saved Reports'], ['scheduled','Scheduled'], ['export','Export Center']];
+    const list = LIB.filter(r => (tab==='overview' || (tab.startsWith('c:') ? r[1]===tab.slice(2) : tab==='saved' ? star[r[2]] : tab==='scheduled' ? sch[r[2]] : dl[r[2]]))
+      && (cat==='All' || r[1]===cat) && (!q || (r[2]+' '+r[3]).toLowerCase().includes(q)));
+    const range = s.rptRange || 'This month';
+    const done = (label, sub)=>this.fire(label, sub, true);
+    return { isRpt: s.route==='reports', rptCat: cat, rptRange: range, rptQ: s.rptQ||'', setRptQ:(e)=>this.setState({rptQ:e.target.value}),
+      rptCatOpts: [{o:'All',label:'All categories',sel:cat==='All'}, ...cats.map(c=>({o:c,label:c,sel:cat===c}))], setRptCat:(e)=>this.setState({rptCat:e.target.value}),
+      rptRangeOpts: ['Today','This week','This month','Last 3 months','This year','Custom'].map(o=>({o, sel:o===range})), setRptRange:(e)=>this.setState({rptRange:e.target.value}),
+      rptTabs: tabs.map(([k,label])=>({label, bg: tab===k?'#0E9384':'transparent', fg: tab===k?'#fff':'#6B7C93', weight: tab===k?'700':'500', go:()=>this.setState({rptTab:k})})),
+      rptHead: tab==='saved' ? 'SAVED REPORTS' : tab==='scheduled' ? 'SCHEDULED REPORTS' : tab==='export' ? 'EXPORT CENTER' : tab.startsWith('c:') ? tab.slice(2).toUpperCase()+' REPORTS' : 'REPORT LIBRARY',
+      rptCount: String(list.length), rptTotal: String(LIB.length), rptEmpty: list.length ? 'none' : 'block',
+      rptEmptyTitle: tab==='saved' ? 'No saved reports yet' : tab==='scheduled' ? 'Nothing scheduled yet' : tab==='export' ? 'No exports yet' : 'No report types match',
+      rptEmptySub: tab==='saved' ? 'Star a report to keep it here.' : tab==='scheduled' ? 'Use Schedule on any report to send it automatically.' : tab==='export' ? 'Downloaded reports appear here.' : 'Try another search or category.',
+      rptCards: list.map(([code,c,title,desc,formats,last])=>{ const col = CC[c] || CC.Operations, on = !!star[title];
+        return {code, cat:c, title, desc, formats, last: dl[title] ? 'just now' : last, ibg:col[0], ifg:col[1], cBg:col[0], cFg:col[1],
+          starIcon: on ? '★' : '☆', starFg: on ? '#D97706' : '#98A2B3',
+          star:()=>{ this.setState(x=>({rptStar:{...(x.rptStar||{}), [title]:!on}})); done(on ? 'Removed from saved' : 'Saved to your reports', title); },
+          download:()=>{ this.setState(x=>({rptDl:{...(x.rptDl||{}), [title]:true}})); done('Report downloaded — '+title, formats.split(' · ')[0]+' · '+range); },
+          gen:()=>done('Report generated — '+title, range+' · ready to download'),
+          sched:()=>{ this.setState(x=>({rptSched:{...(x.rptSched||{}), [title]:true}})); done('Report scheduled — '+title, 'Every Monday 09:00 · Email'); },
+          schedLabel: sch[title] ? 'Scheduled' : 'Schedule',
+          preview:()=>done('Preview — '+title, range+' · first 50 rows')}; }) };
+  }
+
+  renderVals() { const v = this.renderVals1(); Object.assign(v, this.rptVals()); v.fp = this.fpVals(); this.frShow(v, ["pv","tf"]); return v; }
+  renderVals1() {
     const s = this.state;
     const TITLES = {
       dash:['Teacher Dashboard','Faculty capacity, sessions delivered, ratings and payout health at a glance.'],
@@ -5973,7 +6155,8 @@ class Component extends DCLogic {
       schedules:['Schedules','Class scheduling, session tracking and attendance for faculty.'],
       reminders:['Reminders & Alerts','Automated nudges for classes, documents, ratings and payouts.'],
       payouts:['Payouts','Payout cycles, session-wise earnings, deductions and settlements.'],
-      performance:['Performance Report','Ratings, feedback, session quality and outcome metrics.']
+      performance:['Performance Report','Ratings, feedback, session quality and outcome metrics.'],
+      reports:['Teacher Reports','Generate, schedule and download reports across the teacher domain.']
     };
     const [pageTitle, pageSub] = TITLES[s.route] || TITLES.dash;
     const q = (s.q||'').trim().toLowerCase();
@@ -6251,7 +6434,7 @@ class Component extends DCLogic {
       pfSchedule: ()=>this.setState({fm:'schedule', fmCtx:{teacher:(TEACHERS.find(x=>x[1]===s.teacher)||TEACHERS[0])[0]}, fmStep:0, fmErr:null}),
       pfReport: ()=>this.setState({fm:'report', fmCtx:{type:'Faculty Performance Scorecard'}, fmStep:0, fmErr:null}),
 
-      subNav: [['dash','Dashboard'],['onboarding','Onboarding & Recruitment'],['list','All Teachers'],['allocation','Course Allocation'],['schedules','Schedules'],['reminders','Reminders & Alerts'],['payouts','Payouts'],['performance','Performance Report']].map(([k,label])=>{
+      subNav: [['dash','Dashboard'],['onboarding','Onboarding & Recruitment'],['list','All Teachers'],['allocation','Course Allocation'],['schedules','Schedules'],['reminders','Reminders & Alerts'],['payouts','Payouts'],['reports','Reports']].map(([k,label])=>{
         const on = s.route===k || (k==='list' && (s.route==='profile' || s.route==='onboarding'));
         return {label, bg:on?'#14335C':'transparent', fg:on?'#fff':'#9FB2CC', weight:on?'600':'500',
           bar:on?'#0E9384':'transparent', go:()=>this.setState({route:k})};
@@ -7904,6 +8087,38 @@ class Component extends DCLogic {
         this.fire('Application status updated','Now '+e.target.value+' · audit-logged'); },
       wizSchedInterview: ()=>this.setState({fm:'interview', fmStep:0, fmErr:null,
         fmCtx:{candidate:(PIPE.find(p=>p[0]===s.wizCand)||[])[1]||'Candidate', appId:s.wizCand||'APP-4021'}}),
+      tobPipeline: [
+        ['Submitted','1','#1D4ED8'],['Under Review','3','#B45309'],['Changes Required','1','#B42318'],
+        ['Approved','1','#15803D'],['Active','104','#0B7A6E'],['Suspended','0','#667085']
+      ].map(([label,n,color])=>({label,n,color, pick:()=>this.setState({tobSection:'candidates'})})),
+      tobSectionTabs: [['links','Onboarding Links'],['candidates','Candidates in Progress']].map(([k,label])=>{
+        const on = (s.tobSection||'links')===k;
+        return {label, bg: on?'#0E9384':'transparent', fg: on?'#fff':'#6B7C93', weight: on?'700':'500', pick:()=>this.setState({tobSection:k})}; }),
+      tobLinksDisplay: (s.tobSection||'links')==='links' ? 'block' : 'none',
+      tobCandDisplay: s.tobSection==='candidates' ? 'block' : 'none',
+      tobLinkTabs: ['All','Not Sent','Sent','Opened','In Progress','Submitted','Expired'].map(x=>{
+        const on = (s.tobLinkF||'All')===x;
+        return {label:x, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'700':'500', pick:()=>this.setState({tobLinkF:x})}; }),
+      tobLinkEmpty: TOBLINKS.some(l=>(s.tobLinkF||'All')==='All' || l[4]===s.tobLinkF) ? 'none' : 'block',
+      tobLinkRows: TOBLINKS.filter(l=>(s.tobLinkF||'All')==='All' || l[4]===s.tobLinkF).map(([ref,name,mobile,email,status,c,sent,opened,expires,progress])=>{
+        const openFile = ()=>{ const p = PIPE.find(x=>x[1]===name);
+          if (!p) return this.fire('Onboarding file not available — '+name, 'The teacher has not submitted the onboarding form yet · link status: '+status);
+          this.setState({wizCand:p[0], wizStage:p[3], wizPart:0, tobRowMenu:null}); };
+        const link = 'https://onboard.studycrux.io/'+ref.toLowerCase();
+        return {ref,name,mobile,email,status,sent,opened,expires,progress, openFile,
+          sBg:BDG[c][0], sFg:BDG[c][1], expFg: status==='Expired' ? '#B42318' : '#475467',
+          barColor: status==='Submitted' ? '#0E9384' : status==='Expired' ? '#E88B78' : parseInt(progress) ? '#F0A72A' : '#DDD9CF',
+          menuDisplay: s.tobRowMenu===ref ? 'block' : 'none',
+          menu: ()=>this.setState({tobRowMenu: s.tobRowMenu===ref ? null : ref}),
+          menuItems: [
+            ['Open Onboarding File', openFile],
+            ['Resend Link', ()=>this.fire('Link resent — '+ref, email+' · valid for 7 days')],
+            ['Regenerate Link', ()=>this.fire('New link generated — '+ref, 'Previous link revoked · sent to '+email)],
+            ['Copy Link', ()=>{ if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(()=>this.fire('Link copied', link), ()=>this.fire('Copy failed', link)); else this.fire('Copy failed', link); }],
+            ['Cancel Link', ()=>this.fire('Link cancelled — '+ref, name+' can no longer use this link'), 1]
+          ].map(([label, pick, danger])=>({label, pick: ()=>{ this.setState({tobRowMenu:null}); pick(); },
+            fg: danger ? '#B42318' : '#344054', hbg: danger ? '#FEF7F6' : '#F6F5F0',
+            bt: danger ? '1px solid #F5F3EE' : '0', mt: danger ? '4px' : '0', pt: danger ? '8px' : '0'}))}; }),
       obPipeRows: PIPE.filter(p=>
         ((s.obStage2||'All')==='All' || String(p[3])===s.obStage2.slice(6,7)) &&
         ((s.obSla||'All')==='All' || (s.obSla==='On track' ? p[8]!=='red' : p[8]==='red')) &&

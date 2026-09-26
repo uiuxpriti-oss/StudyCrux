@@ -88,8 +88,8 @@
   </aside>
 
   <main style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0">
-    <header style="flex:none;display:flex;align-items:flex-start;gap:20px;padding:24px 32px 16px">
-      <div style="flex:1;min-width:0">
+    <header style="flex:none;display:flex;align-items:flex-start;gap:20px;padding:24px 32px 16px;flex-wrap:wrap">
+      <div style="flex:1 1 300px;min-width:0">
         <div style="display:flex;align-items:center;gap:10px">
           <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
             <button onClick="{{ goList }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
@@ -100,14 +100,11 @@
         </div>
         <p style="margin:6px 0 0;font-size:13.5px;color:#6B7C93">{{ pageSub }}</p>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;padding-top:4px">
-        <div style="display:flex;align-items:center;gap:9px;width:300px;height:38px;padding:0 15px;border:1px solid #E5E3DC;background:#fff;border-radius:999px">
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding-top:4px;flex:1 1 520px;min-width:0;justify-content:flex-end">
+        <div style="display:flex;align-items:center;gap:9px;width:min(290px,100%);min-width:170px;height:38px;padding:0 15px;border:1px solid #E5E3DC;background:#fff;border-radius:999px">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" /></svg>
-          <input placeholder="Search Students, Classes, Resources..." style="border:0;outline:0;flex:1;font-size:13px;color:#0F2A47;background:transparent" />
+          <input placeholder="Search students, courses, batches..." style="min-width:0;border:0;outline:0;flex:1;font-size:13px;color:#0F2A47;background:transparent" />
         </div>
-        <button style="width:38px;height:38px;border-radius:50%;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4L3 21l1.1-4.6A8.4 8.4 0 1 1 21 11.5z" /></svg>
-        </button>
         <button style="position:relative;width:38px;height:38px;border-radius:50%;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#F6F5F0">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 8-3 8h18s-3-1-3-8" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></svg>
           <span style="position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:#E5484D;border:1.5px solid #fff"></span>
@@ -116,7 +113,7 @@
           <button onClick="{{ addStudent }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Add Student
           </button>
-          <button onClick="{{ importAct }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:13px;font-weight:600;color:#0B7A6E;cursor:pointer">Import</button>
+          <button onClick="{{ importAct }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Import</button>
           <button onClick="{{ exportAct }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export</button>
         </sc-if>
         <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
@@ -165,7 +162,7 @@
               <span style="font-size:12px;color:#98A2B3">{{ filterCount }} active · {{ rowCount }} students match</span>
               <span style="flex:1"></span>
               <button onClick="{{ saveView }}" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12.5px;font-weight:700;color:#0B7A6E;cursor:pointer" style-hover="background:#E2F1EE">★ Save Filter View</button>
-              <button onClick="{{ resetFilters }}" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset Filters</button>
+              <button onClick="{{ resetFilters }}" style="display:{{ filterBadgeDisplay }};height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset Filters</button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px 26px">
               <div>
@@ -639,7 +636,7 @@
               </div>
               <div style="display:flex;align-items:center;gap:10px;margin-top:13px">
                 <span style="font-size:12px;color:#98A2B3;flex:1">{{ attCount }} records match · filters combine</span>
-                <button onClick="{{ afReset }}" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+                <button onClick="{{ afReset }}" style="display:{{ afResetShow }};align-items:center;height:34px;padding:0 14px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
               </div>
             </div>
             <sc-if value="{{ attHasSel }}" hint-placeholder-val="{{ false }}">
@@ -1117,7 +1114,7 @@
               <span style="font-size:14.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Advanced Filter Matrix</span>
               <span style="font-size:12px;color:#98A2B3">{{ pfCount }} facets active · all conditions combine with AND</span>
               <span style="flex:1"></span>
-              <button onClick="{{ pfReset }}" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset all</button>
+              <button onClick="{{ pfReset }}" style="display:{{ pfResetShow }};height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset all</button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:13px">
               <sc-for list="{{ pfSelects }}" as="p" hint-placeholder-count="13">
@@ -1355,37 +1352,59 @@
         </div>
       </sc-if>
 
-      <sc-if value="{{ isReports }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ isRpt }}" hint-placeholder-val="{{ false }}">
         <div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:18px">
-            <sc-for list="{{ reportCards }}" as="r" hint-placeholder-count="6">
-              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column">
-                <div style="width:36px;height:36px;border-radius:10px;background:{{ r.ibg }};display:grid;place-items:center;font-size:14px;font-weight:800;color:{{ r.ifg }};margin-bottom:13px">{{ r.ic }}</div>
-                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">{{ r.title }}</div>
-                <p style="margin:6px 0 16px;font-size:12.5px;color:#6B7C93;line-height:1.6;flex:1;text-wrap:pretty">{{ r.desc }}</p>
-                <div style="display:flex;gap:8px">
-                  <button onClick="{{ r.gen }}" style="height:32px;padding:0 14px;border-radius:8px;border:0;background:#0E9384;font-size:12px;font-weight:600;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Generate</button>
-                  <button onClick="{{ r.sched }}" style="height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Schedule</button>
+          <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;flex-wrap:wrap">
+            <div style="position:relative;flex:1;min-width:220px">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:12px;top:11px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
+              <input value="{{ rptQ }}" onChange="{{ setRptQ }}" placeholder="Search report types…" style="width:100%;height:37px;padding:0 13px 0 34px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box;font-family:inherit" />
+            </div>
+            <select value="{{ rptCat }}" onChange="{{ setRptCat }}" style="height:37px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+              <sc-for list="{{ rptCatOpts }}" as="o" hint-placeholder-count="5"><option value="{{ o.o }}" selected="{{ o.sel }}">{{ o.label }}</option></sc-for>
+            </select>
+            <select value="{{ rptRange }}" onChange="{{ setRptRange }}" style="height:37px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+              <sc-for list="{{ rptRangeOpts }}" as="o" hint-placeholder-count="5"><option value="{{ o.o }}" selected="{{ o.sel }}">{{ o.o }}</option></sc-for>
+            </select>
+          </div>
+
+          <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:4px;margin-bottom:16px;overflow-x:auto">
+            <sc-for list="{{ rptTabs }}" as="t" hint-placeholder-count="8">
+              <button onClick="{{ t.go }}" style="height:33px;padding:0 13px;border:0;border-radius:8px;font-size:12px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;flex:none">{{ t.label }}</button>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+            <span style="width:3px;height:14px;border-radius:2px;background:#0E9384"></span>
+            <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#475467">{{ rptHead }}</span>
+            <span style="flex:1;height:1px;background:#F0EEE7"></span>
+            <span style="font-size:11.5px;color:#98A2B3">{{ rptCount }} of {{ rptTotal }} report types</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px">
+            <sc-for list="{{ rptCards }}" as="r" hint-placeholder-count="9">
+              <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.05)">
+                <div style="display:flex;align-items:flex-start;gap:12px">
+                  <div style="width:40px;height:40px;flex:none;border-radius:11px;background:{{ r.ibg }};color:{{ r.ifg }};display:grid;place-items:center;font-size:13px;font-weight:800;letter-spacing:.02em">{{ r.code }}</div>
+                  <span style="flex:1"></span>
+                  <span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.cBg }};color:{{ r.cFg }}">{{ r.cat }}</span>
+                  <button onClick="{{ r.star }}" title="Save report" style="width:28px;height:28px;flex:none;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:{{ r.starFg }};font-size:13px;padding:0" style-hover="background:#FEF7E6">{{ r.starIcon }}</button>
+                </div>
+                <div style="font-size:15px;font-weight:800;color:#0F2A47;margin-top:14px;letter-spacing:-.01em">{{ r.title }}</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:6px;line-height:1.55;text-wrap:pretty;flex:1">{{ r.desc }}</div>
+                <div style="font-size:11px;color:#98A2B3;margin-top:14px">{{ r.formats }}  ·  Last run {{ r.last }}</div>
+                <button onClick="{{ r.download }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:40px;margin-top:14px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit" style-hover="background:#0B7A6E">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M4.5 19h15" /></svg>Download Report
+                </button>
+                <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:9px">
+                  <button onClick="{{ r.gen }}" style="height:35px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Generate</button>
+                  <button onClick="{{ r.sched }}" style="height:35px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">{{ r.schedLabel }}</button>
+                  <button onClick="{{ r.preview }}" style="height:35px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Preview</button>
                 </div>
               </div>
             </sc-for>
           </div>
-          <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
-            <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
-              <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Recent exports</div>
-            </div>
-            <sc-for list="{{ recentExports }}" as="r" hint-placeholder-count="3">
-              <div style="display:flex;align-items:center;gap:13px;padding:13px 20px;border-bottom:1px solid #F5F3EE">
-                <span style="width:32px;height:32px;flex:none;border-radius:8px;background:{{ r.ibg }};color:{{ r.ifg }};font-size:10px;font-weight:800;display:grid;place-items:center">{{ r.ext }}</span>
-                <div style="flex:1;min-width:0">
-                  <div style="font-size:13px;font-weight:600;color:#0F2A47">{{ r.name }}</div>
-                  <div style="font-size:11.5px;color:#98A2B3;margin-top:2px">{{ r.meta }}</div>
-                </div>
-                <span style="display:{{ r.pendDisplay }};align-items:center;gap:7px;height:30px;padding:0 12px;border-radius:999px;background:#FEF3E2;font-size:11.5px;font-weight:700;color:#B45309"><span style="width:6px;height:6px;border-radius:50%;background:#F0A72A"></span>Generating…</span>
-                <button onClick="{{ r.view }}" style="display:{{ r.readyDisplay }};align-items:center;height:30px;padding:0 13px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:12px;font-weight:600;color:#0B7A6E;cursor:pointer" style-hover="background:#E2F1EE">View</button>
-                <button onClick="{{ r.dl }}" style="display:{{ r.readyDisplay }};align-items:center;height:30px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Download</button>
-              </div>
-            </sc-for>
+          <div style="display:{{ rptEmpty }};padding:40px 20px;text-align:center;background:#fff;border:1px solid #ECEAE2;border-radius:14px">
+            <div style="font-size:14px;font-weight:700;color:#475467">{{ rptEmptyTitle }}</div>
+            <div style="font-size:12px;color:#98A2B3;margin-top:5px">{{ rptEmptySub }}</div>
           </div>
         </div>
       </sc-if>
@@ -5652,7 +5671,48 @@ class Component extends DCLogic {
     return d;
   }
 
-  renderVals() {
+  fpVals() { const s = this.state; const o = {}; ["p1"].forEach(id=>{ const on = !!(s.fpOpen||{})[id];
+    o[id] = {d: on ? 'block' : 'none', toggle: ()=>this.setState(x=>({fpOpen:{...(x.fpOpen||{}), [id]: !on}})), bd: on ? '#0E9384' : '#E5E3DC', bg: on ? '#EEF6F5' : '#fff', fg: on ? '#0B7A6E' : '#344054'}; }); return o; }
+
+  frShow(v, prefixes) { this._frBase = this._frBase || {};
+    prefixes.forEach(p=>{ const list = v[p+'Filters'] || v[p+'Selects']; let sig;
+      if (Array.isArray(list)) sig = JSON.stringify([list.map(f=>f && f.value), v[p+'Q']||'']);
+      else sig = JSON.stringify(Object.keys(v).filter(k=>k.startsWith(p) && k.length>p.length && /[A-Z]/.test(k[p.length]) && !/Opts$|Reset$|Kpis$|Rows$|Count$|Display$|Btn/.test(k) && (typeof v[k]==='string' || typeof v[k]==='boolean')).sort().map(k=>[k,v[k]]));
+      if (this._frBase[p]===undefined) this._frBase[p] = sig;
+      v[p+'ResetShow'] = sig===this._frBase[p] ? 'none' : 'inline-flex'; });
+    return v; }
+
+  rptVals() { const s = this.state, LIB = REPORTS.map(([ic,ibg,ifg,title,desc],i)=>[ic, /Master|Individual|Enroll/.test(title) ? 'People' : /Attendance|Live/.test(title) ? 'Attendance' : /Pay|Fee|Revenue|Refund|Subscri/.test(title) ? 'Finance' : /Mock|Progress|Completion|Assignment|Performance/.test(title) ? 'Performance' : /Certif|Log|Audit/.test(title) ? 'Compliance' : 'Academic', title, desc, ['PDF · XLSX','CSV · XLSX','XLSX · PDF','PDF · CSV'][i%4], ['2 days ago','Yesterday','Today','3 days ago','1 week ago'][i%5]]);
+    const CC = {People:['#E9F1FD','#1D4ED8'],Academic:['#E6F4F1','#0B7A6E'],Performance:['#F0EAFD','#6D28D9'],Attendance:['#E7F7EE','#15803D'],Finance:['#FEF3E2','#B45309'],Compliance:['#F1F3F5','#667085'],Operations:['#E6F4F1','#0B7A6E'],Content:['#F0EAFD','#6D28D9']};
+    const cats = Array.from(new Set(LIB.map(r=>r[1])));
+    const tab = s.rptTab || 'overview', cat = s.rptCat || 'All', q = (s.rptQ||'').trim().toLowerCase();
+    const star = s.rptStar || {}, sch = s.rptSched || {}, dl = s.rptDl || {};
+    const tabs = [['overview','Overview'], ...cats.map(c=>['c:'+c, c]), ['saved','Saved Reports'], ['scheduled','Scheduled'], ['export','Export Center']];
+    const list = LIB.filter(r => (tab==='overview' || (tab.startsWith('c:') ? r[1]===tab.slice(2) : tab==='saved' ? star[r[2]] : tab==='scheduled' ? sch[r[2]] : dl[r[2]]))
+      && (cat==='All' || r[1]===cat) && (!q || (r[2]+' '+r[3]).toLowerCase().includes(q)));
+    const range = s.rptRange || 'This month';
+    const done = (label, sub)=>this.fire(label, sub, true);
+    return { isRpt: s.route==='reports', rptCat: cat, rptRange: range, rptQ: s.rptQ||'', setRptQ:(e)=>this.setState({rptQ:e.target.value}),
+      rptCatOpts: [{o:'All',label:'All categories',sel:cat==='All'}, ...cats.map(c=>({o:c,label:c,sel:cat===c}))], setRptCat:(e)=>this.setState({rptCat:e.target.value}),
+      rptRangeOpts: ['Today','This week','This month','Last 3 months','This year','Custom'].map(o=>({o, sel:o===range})), setRptRange:(e)=>this.setState({rptRange:e.target.value}),
+      rptTabs: tabs.map(([k,label])=>({label, bg: tab===k?'#0E9384':'transparent', fg: tab===k?'#fff':'#6B7C93', weight: tab===k?'700':'500', go:()=>this.setState({rptTab:k})})),
+      rptHead: tab==='saved' ? 'SAVED REPORTS' : tab==='scheduled' ? 'SCHEDULED REPORTS' : tab==='export' ? 'EXPORT CENTER' : tab.startsWith('c:') ? tab.slice(2).toUpperCase()+' REPORTS' : 'REPORT LIBRARY',
+      rptCount: String(list.length), rptTotal: String(LIB.length), rptEmpty: list.length ? 'none' : 'block',
+      rptEmptyTitle: tab==='saved' ? 'No saved reports yet' : tab==='scheduled' ? 'Nothing scheduled yet' : tab==='export' ? 'No exports yet' : 'No report types match',
+      rptEmptySub: tab==='saved' ? 'Star a report to keep it here.' : tab==='scheduled' ? 'Use Schedule on any report to send it automatically.' : tab==='export' ? 'Downloaded reports appear here.' : 'Try another search or category.',
+      rptCards: list.map(([code,c,title,desc,formats,last])=>{ const col = CC[c] || CC.Operations, on = !!star[title];
+        return {code, cat:c, title, desc, formats, last: dl[title] ? 'just now' : last, ibg:col[0], ifg:col[1], cBg:col[0], cFg:col[1],
+          starIcon: on ? '★' : '☆', starFg: on ? '#D97706' : '#98A2B3',
+          star:()=>{ this.setState(x=>({rptStar:{...(x.rptStar||{}), [title]:!on}})); done(on ? 'Removed from saved' : 'Saved to your reports', title); },
+          download:()=>{ this.setState(x=>({rptDl:{...(x.rptDl||{}), [title]:true}})); done('Report downloaded — '+title, formats.split(' · ')[0]+' · '+range); },
+          gen:()=>{ const R = REPORTS.find(x=>x[3]===title)||[]; this.setState({mRep:{title, cols:R[5], fields:R[6], mode:'generate'}}); },
+          sched:()=>{ const R = REPORTS.find(x=>x[3]===title)||[]; this.setState(x=>({mRep:{title, cols:R[5], fields:R[6], mode:'schedule'}, rptSched:{...(x.rptSched||{}), [title]:true}})); },
+          schedLabel: sch[title] ? 'Scheduled' : 'Schedule',
+          preview:()=>done('Preview — '+title, range+' · first 50 rows')}; }) };
+  }
+
+  renderVals() { const v = this.renderVals1(); Object.assign(v, this.rptVals()); v.fp = this.fpVals(); this.frShow(v, ["af","pf"]); return v; }
+  renderVals1() {
     const s = this.state;
     const q = s.q.toLowerCase();
     const barCol = (p) => p>=70?'#0E9384':p>=40?'#B45309':'#B42318';
