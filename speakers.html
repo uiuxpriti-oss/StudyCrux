@@ -2413,11 +2413,9 @@
                       </div>
 
                       <div style="display:flex;align-items:center;gap:11px;margin-bottom:14px;flex-wrap:wrap">
-                        <div style="display:flex;gap:2px;background:#FCFBF7;border:1px solid #F0EEE7;border-radius:10px;padding:3px">
+                        <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:10px;padding:3px;flex:none">
                           <sc-for list="{{ spk_schViewTabs }}" as="t" hint-placeholder-count="2">
-                            <button onClick="{{ t.pick }}" style="display:flex;align-items:center;gap:7px;height:32px;padding:0 14px;border:0;border-radius:7px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};font-family:inherit;white-space:nowrap">
-                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.path }}" /></svg>{{ t.label }}
-                            </button>
+                            <button onClick="{{ t.pick }}" title="{{ t.label }}" style="width:34px;height:32px;border:0;border-radius:7px;display:grid;place-items:center;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.ic }}" /></svg></button>
                           </sc-for>
                         </div>
                         <select value="{{ spk_schFilter }}" onChange="{{ spk_setSchFilter }}" style="height:34px;padding:0 11px;border:1px solid #E5E3DC;border-radius:9px;font-size:12.5px;font-weight:600;background:#fff;color:#0F2A47;outline:0;font-family:inherit">
@@ -3983,9 +3981,9 @@
           </div>
 
           <div style="display:flex;align-items:center;gap:11px;margin-bottom:14px;flex-wrap:wrap">
-            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;flex:none">
+            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:10px;padding:3px;flex:none">
               <sc-for list="{{ wwViewTabs }}" as="v" hint-placeholder-count="3">
-                <button onClick="{{ v.go }}" style="height:32px;padding:0 15px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ v.bg }};color:{{ v.fg }};font-weight:{{ v.weight }};font-family:inherit">{{ v.label }}</button>
+                <button onClick="{{ v.go }}" title="{{ v.label }}" style="width:34px;height:32px;border:0;border-radius:7px;display:grid;place-items:center;cursor:pointer;background:{{ v.bg }};color:{{ v.fg }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ v.ic }}" /></svg></button>
               </sc-for>
             </div>
             <div style="position:relative;flex:1;min-width:220px">
@@ -4298,19 +4296,46 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:12px;top:11px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
               <input value="{{ pfQ }}" onChange="{{ setPfQ }}" placeholder="Search speaker…" style="width:100%;height:38px;padding:0 13px 0 34px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
             </div>
-            <select value="{{ pfRange }}" onChange="{{ setPfRange }}" style="height:38px;padding:0 12px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;background:#fff;color:#0F2A47;outline:0">
-              <option>All</option><option>This Week</option><option>This Month</option><option>Last Month</option><option>Last 3 Months</option><option>Custom</option>
-            </select>
-            <select value="{{ pfEventType }}" onChange="{{ setPfEventType }}" style="height:38px;padding:0 12px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;background:#fff;color:#0F2A47;outline:0">
-              <option>All</option><option>Webinar</option><option>Workshop</option>
-            </select>
-            <select value="{{ pfStatus }}" onChange="{{ setPfStatus }}" style="height:38px;padding:0 12px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;background:#fff;color:#0F2A47;outline:0">
-              <option>All</option><option>Excellent</option><option>Good</option><option>Needs Attention</option><option>Critical</option>
-            </select>
-            <select value="{{ pfSort }}" onChange="{{ setPfSort }}" style="height:38px;padding:0 12px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;background:#fff;color:#0F2A47;outline:0">
-              <option>Performance</option><option>Rating</option><option>Events</option><option>Name</option>
-            </select>
+            <button onClick="{{ pffToggle }}" style="flex:none;display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ pffBd }};background:{{ pffBg }};font-size:13px;font-weight:600;color:{{ pffFg }};cursor:pointer;font-family:inherit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+              <span style="display:{{ pffHas }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ pffCount }}</span>
+            </button>
             <button onClick="{{ pfExport }}" style="height:38px;padding:0 15px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Export Report</button>
+          </div>
+
+          <div style="display:{{ pffDisplay }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px;margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:15px">
+              <span style="font-size:14.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter speakers</span>
+              <span style="font-size:12px;color:#98A2B3">{{ pffMatch }} match</span>
+              <span style="flex:1"></span>
+              <button onClick="{{ pffReset }}" style="display:{{ pffResetShow }};align-items:center;height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px">
+              <div style="min-width:0">
+                  <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">Date</label>
+                  <select value="{{ pfRange }}" onChange="{{ setPfRange }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+                    <option>All</option><option>This Week</option><option>This Month</option><option>Last Month</option><option>Last 3 Months</option><option>Custom</option>
+                  </select>
+                </div>
+              <div style="min-width:0">
+                  <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">Event type</label>
+                  <select value="{{ pfEventType }}" onChange="{{ setPfEventType }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+                    <option>All</option><option>Webinar</option><option>Workshop</option>
+                  </select>
+                </div>
+              <div style="min-width:0">
+                  <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">Performance</label>
+                  <select value="{{ pfStatus }}" onChange="{{ setPfStatus }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+                    <option>All</option><option>Excellent</option><option>Good</option><option>Needs Attention</option><option>Critical</option>
+                  </select>
+                </div>
+              <div style="min-width:0">
+                  <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">Sort by</label>
+                  <select value="{{ pfSort }}" onChange="{{ setPfSort }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+                    <option>Performance</option><option>Rating</option><option>Events</option><option>Name</option>
+                  </select>
+                </div>
+            </div>
           </div>
 
           <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
@@ -5992,9 +6017,9 @@
             <button onClick="{{ schCreate }}" style="height:37px;padding:0 15px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap">+ Schedule Webinar / Workshop</button>
           </div>
 
-          <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;margin-bottom:16px;width:fit-content">
+          <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:10px;padding:3px;flex:none">
             <sc-for list="{{ schViewTabs }}" as="t" hint-placeholder-count="4">
-              <button onClick="{{ t.pick }}" style="height:32px;padding:0 15px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }}">{{ t.label }}</button>
+              <button onClick="{{ t.pick }}" title="{{ t.label }}" style="width:34px;height:32px;border:0;border-radius:7px;display:grid;place-items:center;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.ic }}" /></svg></button>
             </sc-for>
           </div>
 
@@ -6311,20 +6336,27 @@
               </div>
 
               <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA;flex-wrap:wrap">
+                  <div style="min-width:0;flex:1 1 240px">
+                    <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Payout transactions</div>
+                    <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Every speaker payout line — approve, pay or retry from here</div>
+                  </div>
+                </div>
+                
                 <div style="overflow-x:auto">
                   <table style="width:100%;min-width:1400px;border-collapse:collapse">
                     <thead><tr style="background:#FCFBF7">
-                      <th style="padding:10px 20px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">PAYOUT ID</th>
-                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">SPEAKER</th>
-                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">EVENT</th>
-                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">MODEL</th>
-                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">RATE</th>
-                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">%</th>
-                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">GROSS</th>
-                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">DEDUCTIONS</th>
-                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">NET PAYABLE</th>
-                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">UTR</th>
-                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">STATUS</th>
+                      <th style="padding:10px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PAYOUT ID</th>
+                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKER</th>
+                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EVENT</th>
+                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">MODEL</th>
+                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RATE</th>
+                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">%</th>
+                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">GROSS</th>
+                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">DEDUCTIONS</th>
+                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">NET PAYABLE</th>
+                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">UTR</th>
+                      <th style="padding:10px 12px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th>
                       <th style="padding:10px 20px 10px 12px;border-bottom:1px solid #F0EEE7"></th>
                     </tr></thead>
                     <tbody>
@@ -6565,17 +6597,24 @@
 
           <sc-if value="{{ poTabIs.batches }}" hint-placeholder-val="{{ false }}">
             <div>
-              <button onClick="{{ poCreateBatch }}" style="height:37px;padding:0 14px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;margin-bottom:14px">+ Create Payout Batch</button>
               <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA;flex-wrap:wrap">
+                  <div style="min-width:0;flex:1 1 240px">
+                    <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Payout batches</div>
+                    <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Group processing — approve and disburse a whole cycle at once</div>
+                  </div>
+                  <button onClick="{{ poCreateBatch }}" style="flex:none;height:36px;padding:0 15px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">+ Create payout batch</button>
+                </div>
+                
                 <table style="width:100%;border-collapse:collapse">
                   <thead><tr style="background:#FCFBF7">
-                    <th style="padding:10px 20px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">BATCH ID</th>
-                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">PERIOD</th>
-                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">SPEAKERS</th>
-                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">EVENTS</th>
-                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">GROSS</th>
-                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">NET</th>
-                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">STATUS</th>
+                    <th style="padding:10px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCH ID</th>
+                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PERIOD</th>
+                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKERS</th>
+                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EVENTS</th>
+                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">GROSS</th>
+                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">NET</th>
+                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th>
                     <th style="padding:10px 20px 10px 13px;border-bottom:1px solid #F0EEE7"></th>
                   </tr></thead>
                   <tbody>
@@ -6620,13 +6659,20 @@
 
           <sc-if value="{{ poTabIs.invoices }}" hint-placeholder-val="{{ false }}">
             <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
+                <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA;flex-wrap:wrap">
+                  <div style="min-width:0;flex:1 1 240px">
+                    <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Speaker invoices</div>
+                    <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Invoices raised by speakers against completed events</div>
+                  </div>
+                </div>
+                
               <table style="width:100%;border-collapse:collapse">
                 <thead><tr style="background:#FCFBF7">
-                  <th style="padding:10px 20px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">INVOICE</th>
-                  <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">SPEAKER</th>
-                  <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">EVENT</th>
-                  <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">AMOUNT</th>
-                  <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;color:#7A8699;border-bottom:1px solid #F0EEE7">STATUS</th>
+                  <th style="padding:10px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">INVOICE</th>
+                  <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKER</th>
+                  <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EVENT</th>
+                  <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">AMOUNT</th>
+                  <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th>
                   <th style="padding:10px 20px 10px 13px;border-bottom:1px solid #F0EEE7"></th>
                 </tr></thead>
                 <tbody>
@@ -6887,33 +6933,36 @@
       </sc-if>
 
       <sc-if value="{{ mCalEvent }}" hint-placeholder-val="{{ false }}">
-    <div style="position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(11,31,62,.22);animation:popIn .16s ease">
-      <div style="padding:22px 24px 18px;border-bottom:1px solid #F0EEE7;display:flex;align-items:flex-start;gap:12px">
-        <span style="width:44px;height:44px;flex:none;border-radius:11px;background:#EEF6F5;color:#0B7A6E;display:grid;place-items:center;font-size:13px;font-weight:800">{{ ceInit }}</span>
-        <div style="flex:1;min-width:0">
-          <h3 style="margin:0;font-size:16.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ ceTitle }}</h3>
-          <p style="margin:5px 0 0;font-size:12.5px;color:#6B7C93">{{ ceSpeaker }} · {{ ceStatus }}</p>
+    <div style="position:fixed;top:0;right:0;bottom:0;width:540px;max-width:94vw;z-index:61;background:#FAF9F5;box-shadow:-16px 0 44px rgba(11,31,62,.22);display:flex;flex-direction:column">
+      <div style="padding:18px 22px;background:#0B1F3E;color:#fff">
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="width:40px;height:40px;flex:none;border-radius:11px;background:#14335C;color:#fff;display:grid;place-items:center;font-size:13px;font-weight:800">{{ ceInit }}</span>
+          <div style="min-width:0;flex:1">
+            <div style="font-size:16px;font-weight:700;letter-spacing:-.01em;text-wrap:pretty">{{ ceTitle }}</div>
+            <div style="font-size:11.5px;color:#9FB2CC;margin-top:5px">{{ ceSpeaker }} · {{ ceStatus }}</div>
+          </div>
+          <span style="font-size:10.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:{{ ceStatusBg }};color:{{ ceStatusFg }};white-space:nowrap;flex:none">{{ ceStatus }}</span>
+          <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #28456C;background:transparent;display:grid;place-items:center;cursor:pointer;color:#fff;font-family:inherit">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+          </button>
         </div>
-        <span style="font-size:10.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:{{ ceStatusBg }};color:{{ ceStatusFg }};white-space:nowrap;flex:none">{{ ceStatus }}</span>
-        <button onClick="{{ closeModal }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#7A8699;font-family:inherit" style-hover="background:#F6F5F0">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
-        </button>
       </div>
-      <div style="padding:20px 24px">
+      <div style="flex:1;overflow-y:auto;padding:18px 22px">
         <div style="display:{{ ceAlertShow }};align-items:center;gap:10px;padding:12px 14px;border-radius:10px;background:{{ ceAlertBg }};margin-bottom:16px">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ ceAlertFg }}" stroke-width="2.1" stroke-linecap="round" style="flex:none"><path d="M12 3 2.5 20h19z" /><path d="M12 9v5M12 17h.01" /></svg>
           <span style="font-size:12.5px;font-weight:600;color:{{ ceAlertFg }};text-wrap:pretty">{{ ceAlert }}</span>
         </div>
-        <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#7A8699;margin-bottom:9px">SESSION DETAILS</div>
+        <div style="background:#fff;border:1px solid #ECEAE2;border-radius:12px;overflow:hidden">
           <sc-for list="{{ ceFields }}" as="f" hint-placeholder-count="10">
-            <div style="display:grid;grid-template-columns:180px 1fr;gap:14px;padding:11px 16px;background:{{ f.bg }};border-bottom:1px solid #F7F5F0">
+            <div style="display:grid;grid-template-columns:160px 1fr;gap:14px;padding:11px 16px;background:{{ f.bg }};border-bottom:1px solid #F7F5F0">
               <span style="font-size:12.5px;color:#7A8699">{{ f.k }}</span>
               <span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ f.v }}</span>
             </div>
           </sc-for>
         </div>
       </div>
-      <div style="display:flex;gap:9px;padding:16px 24px;border-top:1px solid #F0EEE7;background:#FCFBF7;flex-wrap:wrap">
+      <div style="display:flex;gap:9px;padding:14px 22px;border-top:1px solid #ECEAE2;background:#fff;flex-wrap:wrap">
         <sc-for list="{{ ceActions }}" as="a" hint-placeholder-count="6">
           <button onClick="{{ a.go }}" style="height:38px;padding:0 15px;border-radius:9px;border:1px solid {{ a.border }};background:{{ a.bg }};font-size:12.5px;font-weight:{{ a.weight }};color:{{ a.fg }};cursor:pointer;font-family:inherit;white-space:nowrap" style-hover="background:{{ a.hbg }}">{{ a.label }}</button>
         </sc-for>
@@ -10666,7 +10715,12 @@ class Component extends DCLogic {
       v[p+'ResetShow'] = sig===this._frBase[p] ? 'none' : 'inline-flex'; });
     return v; }
 
-  renderVals() { const v = this.renderVals1(); v.fp = this.fpVals(); this.frShow(v, ["sch","po","sf"]); return v; }
+  renderVals() { const v = this.renderVals1(); { const IC=(l)=>/cal/i.test(l)?'M8 3v4M16 3v4M3 10h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z':/agenda/i.test(l)?'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01':/table|list/i.test(l)?'M4 6h16M4 12h16M4 18h16':'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z'; if (Array.isArray(v.spk_schViewTabs)) v.spk_schViewTabs = v.spk_schViewTabs.map(x=>({...x, ic: IC(x.label||x.key||'')})); if (Array.isArray(v.wwViewTabs)) v.wwViewTabs = v.wwViewTabs.map(x=>({...x, ic: IC(x.label||x.key||'')})); if (Array.isArray(v.schViewTabs)) v.schViewTabs = v.schViewTabs.map(x=>({...x, ic: IC(x.label||x.key||'')})); } { const s = this.state, on = !!s.pffOpen, D = {pfRange:'All', pfEventType:'All', pfStatus:'All', pfSort:'Performance'};
+      const n = Object.keys(D).filter(k=>(v[k]||D[k])!==D[k]).length;
+      Object.assign(v, {pffToggle:()=>this.setState({pffOpen:!on}), pffDisplay: on?'block':'none', pffCount:String(n), pffHas: n?'grid':'none', pffResetShow: n?'inline-flex':'none',
+        pffBd: on||n?'#0E9384':'#E5E3DC', pffBg: on||n?'#EEF6F5':'#fff', pffFg: on||n?'#0B7A6E':'#344054',
+        pffReset:()=>{ this.setState({...D}); this.fire('Filters reset','Showing all speakers', true); },
+        pffMatch: String(Array.isArray(v.perfRows) ? v.perfRows.length : '')}); } v.fp = this.fpVals(); this.frShow(v, ["sch","po","sf"]); return v; }
   renderVals1() {
    try {
     return this._renderVals();
@@ -10701,7 +10755,7 @@ class Component extends DCLogic {
       perf360:['Performance · '+((PERF_SPEAKERS.find(sp=>sp.id===s.perfWho)||PERF_SPEAKERS[0]).name), (PERF_SPEAKERS.find(sp=>sp.id===s.perfWho)||PERF_SPEAKERS[0]).spec],
       ralerts:['Reminders & Alerts','Automated and manual speaker notifications, delivery tracking, escalations and event readiness.'],
       schedule:['Speaker Schedule','When and where all speakers are conducting events — calendar, conflicts, readiness and rescheduling.'],
-      payouts:['Speaker Payouts','Event-based speaker compensation from agreement through payment and reconciliation.'],
+      payouts:['Payouts','Event-based speaker compensation from agreement through payment and reconciliation.'],
       payout360:['Payout · '+(s.poWho||'SPK-PO-00121'),'Full contract → event → calculation → approval → payment trail.'],
       spkFinance:['Speaker Finance 360°',(s.finWho||'Dr. Ankit Sharma')+' · lifetime earnings, compensation, payments and disputes.']
     };

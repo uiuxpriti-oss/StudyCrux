@@ -2404,9 +2404,9 @@
                         <span style="font-size:14px;font-weight:700;color:#0F2A47">July 2026</span>
                         <button style="width:28px;height:28px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;cursor:pointer;color:#475467;font-size:13px">›</button>
                         <span style="flex:1"></span>
-                        <div style="display:flex;gap:3px;padding:3px;border-radius:9px;background:#F4F2EC">
+                        <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:10px;padding:3px;flex:none">
                           <sc-for list="{{ attViews }}" as="v" hint-placeholder-count="2">
-                            <button onClick="{{ v.pick }}" style="height:26px;padding:0 12px;border-radius:7px;border:0;background:{{ v.bg }};font-size:12px;font-weight:{{ v.fw }};color:{{ v.fg }};cursor:pointer">{{ v.label }}</button>
+                            <button onClick="{{ v.pick }}" title="{{ v.label }}" style="width:34px;height:32px;border:0;border-radius:7px;display:grid;place-items:center;cursor:pointer;background:{{ v.bg }};color:{{ v.fg }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ v.ic }}" /></svg></button>
                           </sc-for>
                         </div>
                         <button onClick="{{ csvAct }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer">↓ CSV</button>
@@ -5711,7 +5711,7 @@ class Component extends DCLogic {
           preview:()=>done('Preview — '+title, range+' · first 50 rows')}; }) };
   }
 
-  renderVals() { const v = this.renderVals1(); Object.assign(v, this.rptVals()); v.fp = this.fpVals(); this.frShow(v, ["af","pf"]); return v; }
+  renderVals() { const v = this.renderVals1(); { const IC=(l)=>/cal/i.test(l)?'M8 3v4M16 3v4M3 10h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z':/agenda/i.test(l)?'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01':/table|list/i.test(l)?'M4 6h16M4 12h16M4 18h16':'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z'; if (Array.isArray(v.attViews)) v.attViews = v.attViews.map(x=>({...x, ic: IC(x.label||x.key||'')})); } Object.assign(v, this.rptVals()); v.fp = this.fpVals(); this.frShow(v, ["af","pf"]); return v; }
   renderVals1() {
     const s = this.state;
     const q = s.q.toLowerCase();

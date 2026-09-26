@@ -756,13 +756,11 @@
             <button onClick="{{ allocCreateBatch }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Create Batch
             </button>
-          </div>
-
-          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
-            <button onClick="{{ fp.p1.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p1.bd }};background:{{ fp.p1.bg }};font-size:13px;font-weight:600;color:{{ fp.p1.fg }};cursor:pointer;font-family:inherit">
+            <button onClick="{{ fp.p1.toggle }}" style="flex:none;display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p1.bd }};background:{{ fp.p1.bg }};font-size:13px;font-weight:600;color:{{ fp.p1.fg }};cursor:pointer;font-family:inherit">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
             </button>
           </div>
+
           <div style="display:{{ fp.p1.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
             <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px">
               <sc-for list="{{ allocBar.selects }}" as="p" hint-placeholder-count="6">
@@ -1044,8 +1042,13 @@
           </div>
 
           <div style="display:flex;align-items:center;gap:11px;margin-bottom:15px;flex-wrap:wrap">
+            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:10px;padding:3px;flex:none">
+              <sc-for list="{{ schSegsView }}" as="t" hint-placeholder-count="3">
+                <button onClick="{{ t.pick }}" title="{{ t.label }}" style="width:34px;height:32px;border:0;border-radius:7px;display:grid;place-items:center;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.ic }}" /></svg></button>
+              </sc-for>
+            </div>
             <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;overflow-x:auto">
-              <sc-for list="{{ schSegs }}" as="t" hint-placeholder-count="8">
+              <sc-for list="{{ schSegsTabs }}" as="t" hint-placeholder-count="8">
                 <button onClick="{{ t.pick }}" style="height:32px;padding:0 14px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;flex:none">{{ t.label }}</button>
               </sc-for>
             </div>
@@ -1060,13 +1063,11 @@
             <button onClick="{{ openSchedule }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Schedule Class
             </button>
-          </div>
-
-          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
-            <button onClick="{{ fp.p2.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p2.bd }};background:{{ fp.p2.bg }};font-size:13px;font-weight:600;color:{{ fp.p2.fg }};cursor:pointer;font-family:inherit">
+            <button onClick="{{ fp.p2.toggle }}" style="flex:none;display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p2.bd }};background:{{ fp.p2.bg }};font-size:13px;font-weight:600;color:{{ fp.p2.fg }};cursor:pointer;font-family:inherit">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
             </button>
           </div>
+
           <div style="display:{{ fp.p2.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
               <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filters</span>
@@ -3018,10 +3019,10 @@
         <div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:13px;margin-bottom:16px">
             <sc-for list="{{ pvKpis }}" as="k" hint-placeholder-count="5">
-              <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:15px 17px">
-                <div style="font-size:11.5px;font-weight:500;color:#6B7C93;text-wrap:pretty">{{ k.label }}</div>
-                <div style="font-size:25px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:5px">{{ k.n }}</div>
-                <div style="font-size:11px;font-weight:600;color:{{ k.fg }};margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
+              <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:16px 18px">
+                <div style="font-size:25px;font-weight:800;letter-spacing:-.03em;color:{{ k.fg }}">{{ k.n }}</div>
+                <div style="font-size:13px;font-weight:700;color:#0F2A47;margin-top:6px;text-wrap:pretty">{{ k.label }}</div>
+                <div style="font-size:11.5px;color:#98A2B3;margin-top:3px;text-wrap:pretty">{{ k.note }}</div>
               </div>
             </sc-for>
           </div>
@@ -3031,22 +3032,28 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:13px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
               <input value="{{ pvQ }}" onChange="{{ setPvQ }}" placeholder="Search teacher or ID…" style="width:100%;height:38px;padding:0 13px 0 35px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
             </div>
-            <button onClick="{{ pvReset }}" style="display:{{ pvResetShow }};align-items:center;flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            <div style="position:relative;flex:none">
+              <button onClick="{{ pvfToggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ pvfBd }};background:{{ pvfBg }};font-size:13px;font-weight:600;color:{{ pvfFg }};cursor:pointer;font-family:inherit">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+                <span style="display:{{ pvfHas }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ pvfCount }}</span>
+              </button>
+              </div>
             <button onClick="{{ pvExport }}" style="flex:none;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">Export Report</button>
-          </div>
+            </div>
 
-          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
-            <button onClick="{{ fp.p6.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p6.bd }};background:{{ fp.p6.bg }};font-size:13px;font-weight:600;color:{{ fp.p6.fg }};cursor:pointer;font-family:inherit">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
-            </button>
-          </div>
-          <div style="display:{{ fp.p6.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+          <div style="display:{{ pvfDisplay }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:18px 20px;margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:15px">
+              <span style="font-size:14.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter teachers</span>
+              <span style="font-size:12px;color:#98A2B3">{{ pvfMatch }} match</span>
+              <span style="flex:1"></span>
+              <button onClick="{{ pvReset }}" style="display:{{ pvResetShow }};align-items:center;height:34px;padding:0 14px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px">
               <sc-for list="{{ pvFilters }}" as="p" hint-placeholder-count="5">
                 <div style="min-width:0">
                   <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ p.label }}</label>
                   <select value="{{ p.value }}" onChange="{{ p.set }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
-                    <sc-for list="{{ p.opts }}" as="o" hint-placeholder-count="5">
+                    <sc-for list="{{ p.opts }}" as="o" hint-placeholder-count="4">
                       <option>{{ o.o }}</option>
                     </sc-for>
                   </select>
@@ -3060,7 +3067,7 @@
               <table style="width:100%;min-width:1320px;border-collapse:collapse">
                 <thead>
                   <tr style="background:#FCFBF7">
-                    <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COORDINATOR</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STUDENTS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCHES</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ATTENDANCE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ENGAGEMENT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SUPPORT SLA</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RETENTION</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SATISFACTION</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PERFORMANCE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LAST ACTIVE</th>
+                    <th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHER</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STUDENTS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCHES</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ATTENDANCE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ENGAGEMENT</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SUPPORT SLA</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">RETENTION</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SATISFACTION</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PERFORMANCE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LAST ACTIVE</th>
                     <th style="padding:11px 20px 11px 13px;border-bottom:1px solid #F0EEE7"></th>
                   </tr>
                 </thead>
@@ -3092,7 +3099,14 @@
                       <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.status }}</span></td>
                       <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#98A2B3;white-space:nowrap">{{ r.lastActive }}</td>
                       <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
-                        <button onClick="{{ r.open }}" style="height:29px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">View</button>
+                        <div style="position:relative;display:inline-block">
+                            <button onClick="{{ r.menu }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg></button>
+                            <div style="display:{{ r.menuDisplay }};position:absolute;top:{{ r.menuTop }};bottom:{{ r.menuBottom }};right:0;z-index:40;width:210px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;text-align:left">
+                              <sc-for list="{{ r.menuItems }}" as="m" hint-placeholder-count="6">
+                                <div onClick="{{ m.pick }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F7FBFA">{{ m.label }}</div>
+                              </sc-for>
+                            </div>
+                          </div>
                       </td>
                     </tr>
                   </sc-for>
@@ -6143,7 +6157,11 @@ class Component extends DCLogic {
           preview:()=>done('Preview — '+title, range+' · first 50 rows')}; }) };
   }
 
-  renderVals() { const v = this.renderVals1(); Object.assign(v, this.rptVals()); v.fp = this.fpVals(); this.frShow(v, ["pv","tf"]); return v; }
+  renderVals() { const v = this.renderVals1(); { const IC=(l)=>/cal/i.test(l)?'M8 3v4M16 3v4M3 10h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z':/agenda/i.test(l)?'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01':/table|list/i.test(l)?'M4 6h16M4 12h16M4 18h16':'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z'; if (Array.isArray(v.schSegs)) { v.schSegsView = v.schSegs.filter(x=>/^(Calendar|Table|Cards)$/.test(x.label)).map(x=>({...x, ic: IC(x.label)})); v.schSegsTabs = v.schSegs.filter(x=>!/^(Calendar|Table|Cards)$/.test(x.label)); } } { const on = !!this.state.pvfOpen; const base = this._pvfBase = this._pvfBase || JSON.stringify((v.pvFilters||[]).map(f=>f.value)); const cur = (v.pvFilters||[]).map(f=>f.value); const b = JSON.parse(base); const n = cur.filter((x,i)=>x!==b[i]).length;
+      Object.assign(v, {pvfToggle:()=>this.setState({pvfOpen:!on}), pvfClose:()=>this.setState({pvfOpen:false}), pvfMatch: String((v.pvRows||[]).length), pvfDisplay: on?'block':'none', pvfCount:String(n), pvfHas: n?'grid':'none', pvfBd: on||n?'#0E9384':'#E5E3DC', pvfBg: on||n?'#EEF6F5':'#fff', pvfFg: on||n?'#0B7A6E':'#344054'}); } if (Array.isArray(v.pvRows)) v.pvRows = v.pvRows.map((r,i)=>{ const on = this.state.pvMenu===i, close=(fn)=>()=>{ this.setState({pvMenu:null}); fn(); }, nm = r.name||'teacher';
+      const up = i >= v.pvRows.length-3 && v.pvRows.length>4; return {...r, menuTop: up ? 'auto' : '36px', menuBottom: up ? '36px' : 'auto', menuDisplay: on ? 'block' : 'none', menu: ()=>this.setState({pvMenu: on ? null : i}),
+        menuItems: [['View Performance', r.open||(()=>{})], ['View Classes', ()=>this.fire('View Classes — '+nm, 'Opened from Performance')], ['Compare Performance', ()=>this.fire('Compare — '+nm, 'Pick up to 3 teachers to compare')],
+          ['Export Report', v.pvExport||(()=>{})], ['Set Goals', ()=>this.fire('Set goals — '+nm, 'Targets for attendance, engagement and satisfaction')], ['View Activity', ()=>this.fire('Activity — '+nm, 'Last 30 days')]].map(([label,fn])=>({label, pick: close(fn)}))}; }); Object.assign(v, this.rptVals()); v.fp = this.fpVals(); this.frShow(v, ["pv","tf"]); return v; }
   renderVals1() {
     const s = this.state;
     const TITLES = {
@@ -6155,7 +6173,7 @@ class Component extends DCLogic {
       schedules:['Schedules','Class scheduling, session tracking and attendance for faculty.'],
       reminders:['Reminders & Alerts','Automated nudges for classes, documents, ratings and payouts.'],
       payouts:['Payouts','Payout cycles, session-wise earnings, deductions and settlements.'],
-      performance:['Performance Report','Ratings, feedback, session quality and outcome metrics.'],
+      performance:['Teacher Performance','Compare teachers on delivery, engagement, satisfaction and outcomes — not attendance or ratings alone.'],
       reports:['Teacher Reports','Generate, schedule and download reports across the teacher domain.']
     };
     const [pageTitle, pageSub] = TITLES[s.route] || TITLES.dash;
@@ -6434,7 +6452,7 @@ class Component extends DCLogic {
       pfSchedule: ()=>this.setState({fm:'schedule', fmCtx:{teacher:(TEACHERS.find(x=>x[1]===s.teacher)||TEACHERS[0])[0]}, fmStep:0, fmErr:null}),
       pfReport: ()=>this.setState({fm:'report', fmCtx:{type:'Faculty Performance Scorecard'}, fmStep:0, fmErr:null}),
 
-      subNav: [['dash','Dashboard'],['onboarding','Onboarding & Recruitment'],['list','All Teachers'],['allocation','Course Allocation'],['schedules','Schedules'],['reminders','Reminders & Alerts'],['payouts','Payouts'],['reports','Reports']].map(([k,label])=>{
+      subNav: [['dash','Dashboard'],['onboarding','Onboarding & Recruitment'],['list','All Teachers'],['allocation','Course Allocation'],['schedules','Schedules'],['reminders','Reminders & Alerts'],['payouts','Payouts'],['performance','Performance'],['reports','Reports']].map(([k,label])=>{
         const on = s.route===k || (k==='list' && (s.route==='profile' || s.route==='onboarding'));
         return {label, bg:on?'#14335C':'transparent', fg:on?'#fff':'#9FB2CC', weight:on?'600':'500',
           bar:on?'#0E9384':'transparent', go:()=>this.setState({route:k})};
