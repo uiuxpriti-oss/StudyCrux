@@ -2664,28 +2664,28 @@ class Component extends DCLogic {
       const labels = ['Designation','Permissions','Scope & hierarchy','Security','Review'];
       const out = {...base, rfTitle:'Create Role', rfSub:'Pick a designation to load its default access, then fine-tune before creating.', rfStepShow:'flex', rfSteps:steps(labels), rfWidth: step===1 ? '900px' : '760px'};
       const onDesig = (d)=>({rcPerm:permsFor(d), rcMenu:menuFor(d), rcMenuOpen:undefined, rcScope:undefined, rcMfa:undefined, rcSession:undefined, rcParent:undefined, rcApprover:undefined});
-      if (step===0) {
-        out.rfGroups = [
-          G('Designation', [
-            F('select','Designation *','rcDesig',desig,DES,{onSet:onDesig}),
-            F('read','Access tier','',D.tier+' · defaults from '+D.base),
-            F('read','Department','',D.dept),
-            F('perms','Default permissions for '+desig,'',null,defs)]),
-          G('Role details', [
-            F('text','Role name *','rcName',name,null,{ph:'e.g. '+desig+' — Mumbai', bad: s.rfErr && nameBad}),
-            F('text','Role code','rcCode',v('rcCode',''),null,{ph:'Auto: '+desig.toUpperCase().replace(/[^A-Z]+/g,'_').replace(/_$/,'')}),
-            F('select','Status','rcStatus',v('rcStatus','Active'),['Active','Draft']),
-            F('area','Description','rcDesc',v('rcDesc',''),null,{span:'span 3', ph:'What this role is for and who should hold it.'})])];
-        out.rfInfo = 'Changing the designation reloads default permissions, scope and security for that designation.'; out.rfInfoShow='flex';
-        out.rfPrimary = ()=> !String(name).trim() ? fail('Enter a role name.') : nameBad ? fail('A role with this name already exists.') : next();
-      }
-      if (step===1) {
-        Object.assign(out, mn); out.rfWidth = '940px';
-        out.rfGroups = [G('Menu access', [F('read','','', 'Screens are listed in the same order as the sidebar. Defaults for '+desig+' are pre-ticked — set View / Add / Edit / Delete per screen, or use the dark row to toggle a whole column for that section. Ticking Add, Edit or Delete also grants View.',{})], mn.granted+' granted')];
-        out.rfGroups[0].fields[0].labelShow='none';
-        if (raEdit) { out.rfWarn = 'This role can change roles or users — it will need Super Admin approval.'; out.rfWarnShow='flex'; }
-        out.rfPrimary = ()=> mn.granted===0 ? fail('Grant access to at least one screen.') : next();
-      }
+      out.rfStepShow = 'none'; out.rfWidth = '940px';
+      out.rfSub = 'Pick a designation — its default menu access is pre-ticked. Adjust any screen, then save.';
+      Object.assign(out, mn);
+      out.rfGroups = [G('Role details', [
+          F('select','Designation *','rcDesig',desig,DES,{onSet:onDesig}),
+          F('text','Role name *','rcName',name,null,{ph:'e.g. '+desig+' — Mumbai', bad: s.rfErr && nameBad}),
+          F('select','Status','rcStatus',v('rcStatus','Active'),['Active','Draft']),
+          F('area','Description','rcDesc',v('rcDesc',''),null,{span:'span 3', ph:'Optional — what this role is for.'})]),
+        G('Menu access', [F('read','','', 'Screens follow the sidebar order. Tick View / Add / Edit / Delete per screen; the dark row toggles a whole column for that section.',{})], mn.granted+' granted')];
+      out.rfGroups[1].fields[0].labelShow='none';
+      if (elevated) { out.rfWarn = 'This role has elevated access — it goes to '+D.approval+' for approval before it can be assigned.'; out.rfWarnShow='flex'; }
+      out.rfCancelShow = 'inline-flex';
+      out.rfAltShow = 'inline-flex'; out.rfAltLabel = 'Save as draft';
+      out.rfAlt = ()=> !String(name).trim() ? fail('Enter a role name.') : (this.setState({modal:null}), this.fire('Draft saved — '+name, desig+' · '+mn.granted+' permissions', true));
+      out.rfPrimaryLabel = elevated ? 'Submit for approval' : 'Create Role';
+      out.rfPrimary = ()=>{
+        if (!String(name).trim()) return fail('Enter a role name.');
+        if (nameBad) return fail('A role with this name already exists.');
+        if (mn.granted===0) return fail('Grant access to at least one screen.');
+        this.setState(x=>({modal:null, hier:{...x.hier, [name]:parent}}));
+        this.fire((elevated?'Sent for approval — ':'Role created — ')+name, desig+' · '+mn.granted+' permissions · reports to '+parent, true); };
+      return out;
       if (step===2) {
         const parents = ROLEN.filter(x=>x!==name);
         out.rfGroups = [

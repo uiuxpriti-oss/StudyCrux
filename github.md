@@ -2,12 +2,13 @@ repo: uiuxpriti-oss/StudyCrux
 branch: claude/zealous-lovelace-o9hpsg
 
 ## Last sync
-date: 2026-09-27T09:10:00Z
+date: 2026-09-27T10:05:00Z
 
 ### Updated in this project
 - Coordinators: Live Class Schedule matches Teacher Schedules; class drawer matches Teacher drawer; 6 new Quick Action flows.
 - Teachers: week-cell Copy/Join hover; Course & Batch Allocation matches Coordinator page.
-- Roles & Access: Create Role permissions step is a Lead Becho–style screen-level Menu access matrix with designation defaults.
+- Roles & Access: Create Role is a single-page Lead Becho–style form — designation, name, status + screen-level Menu access matrix.
+- Schedules (Teacher + Coordinator): identical Day/Week/Month/Agenda views with Copy/Join hover; By Batch/By Teacher moved into Filters as "View by".
 - Not yet pushed — download the project and commit to the branch.
 
 ## Screen map

@@ -1065,7 +1065,7 @@
               <span style="flex:1"></span>
               <button onClick="{{ schBar.reset }}" style="display:{{ schBar.resetShow }};height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
             </div>
-            <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
               <sc-for list="{{ schBar.selects }}" as="p" hint-placeholder-count="5">
                 <div style="min-width:0">
                   <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ p.label }}</label>
@@ -1144,17 +1144,24 @@
               <sc-if value="{{ calIsDay }}" hint-placeholder-val="{{ false }}">
                 <div style="padding:18px 20px;display:flex;flex-direction:column;gap:8px">
                   <sc-for list="{{ calDayRows }}" as="r" hint-placeholder-count="9">
-                    <div style="display:grid;grid-template-columns:76px 1fr;gap:14px;align-items:stretch">
+                    <div style="display:grid;grid-template-columns:88px 1fr;gap:14px;align-items:stretch">
                       <div style="font-size:12px;font-weight:600;color:#7A8699;padding-top:12px">{{ r.time }}</div>
                       <div style="display:{{ r.empty }};align-items:center;min-height:34px;border-top:1px dashed #EFEDE6"></div>
-                      <div style="display:{{ r.filled }};border:1px solid {{ r.bd }};border-left:4px solid {{ r.sFg }};border-radius:11px;padding:13px 16px;background:#FCFBF7;cursor:pointer" onClick="{{ r.open }}">
+                      <div class="sc-hover-host" style="display:{{ r.filled }};border:1px solid {{ r.bd }};border-left:4px solid {{ r.sFg }};border-radius:11px;padding:13px 16px;background:#FCFBF7;cursor:pointer" onClick="{{ r.open }}">
                         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-                          <span style="font-size:13.5px;font-weight:700;color:#0F2A47">{{ r.title }}</span>
+                          <span style="font-size:13.5px;font-weight:700;color:#0F2A47;text-wrap:pretty">{{ r.title }}</span>
                           <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }}">{{ r.state }}</span>
                           <span style="flex:1"></span>
-                          <span style="font-size:12px;color:#7A8699">{{ r.slot }}</span>
+                          <span style="font-size:12px;color:#7A8699;white-space:nowrap">{{ r.slot }}</span>
                         </div>
-                        <div style="font-size:12px;color:#7A8699;margin-top:6px">{{ r.teacher }} · {{ r.batch }} · {{ r.students }}</div>
+                        <div style="font-size:12px;color:#7A8699;margin-top:6px">{{ r.batch }} · {{ r.teacher }} · {{ r.students }}</div>
+                        <div style="display:flex;align-items:center;gap:8px;margin-top:3px">
+                          <span style="font-size:11.5px;color:#98A2B3;flex:1;min-width:0">{{ r.topic }}</span>
+                          <div class="sc-hover-acts" style="display:flex;gap:6px;flex:none">
+                            <button onClick="{{ r.link }}" style="height:27px;padding:0 10px;border-radius:7px;border:1px solid #E5E3DC;background:#fff;font-size:11px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Copy Link</button>
+                            <button onClick="{{ r.join }}" style="height:27px;padding:0 10px;border-radius:7px;border:0;background:#0E9384;font-size:11px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">Join Class</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </sc-for>
@@ -1170,10 +1177,16 @@
                   </div>
                   <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px">
                     <sc-for list="{{ calMonthCells }}" as="c" hint-placeholder-count="35">
-                      <div onClick="{{ c.open }}" style="min-width:0;min-height:86px;border:1px solid {{ c.bd }};border-radius:10px;background:{{ c.bg }};padding:9px 10px;cursor:pointer" style-hover="border-color:#BFE3DC">
+                      <div onClick="{{ c.open }}" class="sc-hover-host" style="min-width:0;min-height:84px;border:1px solid {{ c.bd }};border-radius:10px;background:{{ c.bg }};padding:9px 10px;cursor:pointer" style-hover="border-color:#BFE3DC">
                         <div style="font-size:12.5px;font-weight:700;color:{{ c.fg }}">{{ c.d }}</div>
                         <div style="font-size:11px;color:#98A2B3;margin-top:6px">{{ c.n }}</div>
                         <span style="display:{{ c.flagDisplay }};align-items:center;margin-top:7px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;background:{{ c.fBg }};color:{{ c.fFg }}">{{ c.flag }}</span>
+                        <sc-if value="{{ c.hasClasses }}" hint-placeholder-val="{{ false }}">
+                          <div class="sc-hover-acts" style="display:flex;gap:5px;margin-top:8px">
+                            <button onClick="{{ c.link }}" style="flex:1;height:24px;padding:0;border-radius:6px;border:1px solid #E5E3DC;background:#fff;font-size:10px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Copy</button>
+                            <button onClick="{{ c.join }}" style="flex:1;height:24px;padding:0;border-radius:6px;border:0;background:#0E9384;font-size:10px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Join</button>
+                          </div>
+                        </sc-if>
                       </div>
                     </sc-for>
                   </div>
@@ -1183,7 +1196,7 @@
               <sc-if value="{{ calIsAgenda }}" hint-placeholder-val="{{ false }}">
                 <div>
                   <sc-for list="{{ schRows }}" as="r" hint-placeholder-count="10">
-                    <div onClick="{{ r.open }}" style="display:flex;align-items:center;gap:14px;padding:13px 20px;border-bottom:1px solid #F5F3EE;cursor:pointer" style-hover="background:#FCFBF7">
+                    <div onClick="{{ r.open }}" class="sc-hover-host" style="display:flex;align-items:center;gap:14px;padding:13px 20px;border-bottom:1px solid #F5F3EE;cursor:pointer;flex-wrap:wrap" style-hover="background:#FCFBF7">
                       <div style="width:96px;flex:none">
                         <div style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ r.date }}</div>
                         <div style="font-size:11px;color:#98A2B3;margin-top:2px">{{ r.start }} – {{ r.end }}</div>
@@ -1193,7 +1206,11 @@
                         <div style="font-size:13.5px;font-weight:600;color:#0F2A47">{{ r.course }} · {{ r.topic }}</div>
                         <div style="font-size:11.5px;color:#98A2B3;margin-top:3px">{{ r.teacher }} · {{ r.batch }} · {{ r.students }} students</div>
                       </div>
-                      <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.state }}</span>
+                      <div class="sc-hover-acts" style="display:flex;gap:6px;flex:none">
+                        <button onClick="{{ r.link }}" style="height:28px;padding:0 10px;border-radius:7px;border:1px solid #E5E3DC;background:#fff;font-size:11px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Copy Link</button>
+                        <button onClick="{{ r.join }}" style="height:28px;padding:0 10px;border-radius:7px;border:0;background:#0E9384;font-size:11px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">Join Class</button>
+                      </div>
+                      <span style="flex:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.state }}</span>
                     </div>
                   </sc-for>
                 </div>
@@ -5774,6 +5791,12 @@ class Component extends DCLogic {
     bg: i<idx ? '#0E9384' : i===idx ? '#F0A72A' : '#E5E3DC',
     fg: i<=idx ? '#0F2A47' : '#98A2B3', weight: i===idx ? '700' : '500'}));
 
+  lnk = (label, meta) => { const link = 'https://meet.studycrux.io/'+String(label).replace(/[^A-Za-z0-9]+/g,'-').toLowerCase();
+    return {link:(e)=>{ if (e && e.stopPropagation) e.stopPropagation();
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(()=>this.fire('Link copied', label+(meta?' · '+meta:'')), ()=>this.fire('Link copied', link));
+        else this.fire('Link copied', link); },
+      join:(e)=>{ if (e && e.stopPropagation) e.stopPropagation(); window.open(link,'_blank'); this.fire('Joining class', label+' — opening live session in a new tab'); }}; };
+
   bar = (specs, resetKeys, label) => {
     const s = this.state;
     return {
@@ -8394,7 +8417,8 @@ class Component extends DCLogic {
         ['Batch','scfBatch',['All','Batch A — Morning (BT-101)','Batch A — Evening (BT-102)','Batch B — Evening (BT-103)','Batch B1 — Morning (BT-204)','Batch C — Afternoon (BT-310)']],
         ['Teacher','scfTeacher',['All','Dr. Vikram Verma','Neha Kulkarni','Prof. Arun Mehta','Ritu Bansal','Ayesha Khan','Shalini Nair']],
         ['Status','scfStatus',['All','Draft','Scheduled','Published','Live','Completed','Cancelled','Rescheduled','Pending Substitute','Substitute Assigned']],
-        ['Class type','scfType',['All','Regular Class','Revision','Doubt Session','Workshop','Webinar','Guest Lecture','Make-up Class','Emergency Class']]
+        ['Class type','scfType',['All','Regular Class','Revision','Doubt Session','Workshop','Webinar','Guest Lecture','Make-up Class','Emergency Class']],
+        ['View by','scfView',['By Batch','By Teacher']]
       ], ['scfCourse','scfBatch','scfTeacher','scfStatus','scfType'], 'Showing the full schedule'),
       schQ: s.schQ||'', setSchQ:(e)=>this.setState({schQ:e.target.value}),
 
@@ -8455,15 +8479,17 @@ class Component extends DCLogic {
         ['19:00','IC-01 · Revision Session','Scheduled']
       ].map(([time,title,state])=>{
         const meta = {
-          'IC-01 · Principles of Insurance':['Dr. Vikram Verma','Batch A — Morning (BT-101)','09:00 – 10:30','48 students'],
-          'IC-02 · Practice of Life Insurance':['Neha Kulkarni','Batch B1 — Morning (BT-204)','11:00 – 12:30','54 students'],
-          'IC-11 · General Insurance':['Prof. Arun Mehta','Batch C — Afternoon (BT-310)','14:00 – 16:00','31 students'],
-          'IC-02 · Doubt Session':['Neha Kulkarni','Batch B — Evening (BT-103)','17:00 – 18:00','38 students'],
-          'IC-01 · Revision Session':['Ritu Bansal','Batch A — Evening (BT-102)','19:00 – 20:30','42 students']
-        }[title] || ['','','',''];
+          'IC-01 · Principles of Insurance':['Dr. Vikram Verma','Batch A — Morning (BT-101)','09:00 AM – 10:30 AM','48 students','Principles of Risk'],
+          'IC-02 · Practice of Life Insurance':['Neha Kulkarni','Batch B1 — Morning (BT-204)','11:00 AM – 12:30 PM','54 students','Underwriting Basics'],
+          'IC-11 · General Insurance':['Prof. Arun Mehta','Batch C — Afternoon (BT-310)','02:00 PM – 04:00 PM','31 students','Claims Management'],
+          'IC-02 · Doubt Session':['Neha Kulkarni','Batch B — Evening (BT-103)','05:00 PM – 06:00 PM','38 students','Doubt Clinic'],
+          'IC-01 · Revision Session':['Ritu Bansal','Batch A — Evening (BT-102)','07:00 PM – 08:30 PM','42 students','Chapter 1–4 Revision']
+        }[title] || ['','','','',''];
+        const [hh,mm] = time.split(':').map(Number); time = String(((hh+11)%12)+1).padStart(2,'0')+':'+String(mm).padStart(2,'0')+(hh<12?' AM':' PM');
         const S = {Published:['#E9F1FD','#1D4ED8'],Live:['#E7F7EE','#15803D'],Scheduled:['#F1F3F5','#667085'],'Substitute required':['#FDF3D6','#8A5A0B']}[state] || ['#fff','#98A2B3'];
         return {time, title, state, empty: title ? 'none':'flex', filled: title ? 'block':'none',
-          teacher:meta[0], batch:meta[1], slot:meta[2], students:meta[3],
+          teacher:meta[0], batch:meta[1], slot:meta[2], students:meta[3], topic:meta[4],
+          ...(title ? this.lnk(title, meta[2]) : {link:()=>{}, join:()=>{}}),
           sBg:S[0], sFg:S[1], bd: state==='Live' ? '#0E9384' : '#ECEAE2',
           open: title ? (()=>this.setState({classQV:{title, teacher:meta[0], batch:meta[1], slot:meta[2], students:meta[3], state}})) : (()=>{})};
       }),
@@ -8503,8 +8529,9 @@ class Component extends DCLogic {
             fBg: flag==='Live today' ? '#E7F7EE' : flag==='Holiday' ? '#F1F3F5' : flag==='1 cancelled' ? '#FDE8E8' : '#FEF3E2',
             fFg: flag==='Live today' ? '#15803D' : flag==='Holiday' ? '#667085' : flag==='1 cancelled' ? '#B42318' : '#B45309',
             bg: day===12 ? '#F7FBFA' : '#fff', bd: day===12 ? '#0E9384' : '#F0EEE7',
-            fg: inMonth ? '#0F2A47' : '#C8CDD4',
-            open: inMonth ? (()=>this.setState({schTab:'table'})) : (()=>{})});
+            fg: inMonth ? '#0F2A47' : '#C8CDD4', hasClasses: !!(inMonth && load),
+            ...((inMonth && load) ? this.lnk('Day '+day+' classes', load+' classes') : {link:()=>{}, join:()=>{}}),
+            open: inMonth ? (()=>this.setState({calMode:'day'})) : (()=>{})});
         }
         return out;
       })(),
@@ -8523,6 +8550,7 @@ class Component extends DCLogic {
         ['LC-90420','2026-08-13','10:00','11:00','Taxation Intensive','Guest Lecture — GST','Fast-Track Weekend (BT-408)','Prof. Arun Mehta','—','Guest Lecture','Live Online','26','Draft','—','Admin User','Not published','grey']
       ].map(([id,date,start,end,course,topic,batch,teacher,sub,type,mode,students,state,att,by,note,c])=>({
         id,date,start,end,course,topic,batch,teacher,sub,type,mode,students,state,att,by,note,
+        ...this.lnk(course+' · '+topic, date+' '+start),
         init:this.initials(teacher), avBg:AVc(teacher), sBg:BDG[c][0], sFg:BDG[c][1],
         subFg: sub==='—' ? '#98A2B3' : '#6D28D9',
         open: ()=>this.setState({classQV:{title:course+' · '+topic, teacher, batch, slot:start+' – '+end, students:students+' students', state}}),

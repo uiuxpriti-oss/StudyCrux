@@ -1915,11 +1915,6 @@
                     <button onClick="{{ m.pick }}" style="height:28px;padding:0 13px;border:0;border-radius:7px;font-size:12px;cursor:pointer;background:{{ m.bg }};color:{{ m.fg }};font-weight:{{ m.weight }}">{{ m.label }}</button>
                   </sc-for>
                 </div>
-                <div style="display:flex;gap:2px;background:#FCFBF7;border:1px solid #ECEAE2;border-radius:10px;padding:3px;flex:none">
-                  <sc-for list="{{ calByModes }}" as="m" hint-placeholder-count="2">
-                    <button onClick="{{ m.pick }}" style="height:28px;padding:0 13px;border:0;border-radius:7px;font-size:12px;cursor:pointer;background:{{ m.bg }};color:{{ m.fg }};font-weight:{{ m.weight }};white-space:nowrap">{{ m.label }}</button>
-                  </sc-for>
-                </div>
                 <div style="display:flex;align-items:center;gap:7px;flex:none">
                   <button onClick="{{ calPrev }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6" /></svg></button>
                   <button onClick="{{ calToday }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer">Today</button>
@@ -9806,10 +9801,11 @@ class Component extends DCLogic {
         ['Course','scCourse',['All','IC-01 — Principles of Insurance','IC-02 — Practice of Life Insurance','IC-11 — General Insurance']],
         ['Teacher','scTeacher',['All','Rahul Sharma','Priya Mehta','Amit Jain','Neha Singh']],
         ['Status','scStatus',['All','Draft','Scheduled','Published','Live','Completed','Cancelled','Rescheduled','Substitute Required','Substitute Assigned']],
-        ['Class type','scType',['All','Regular Class','Revision','Doubt Session','Workshop','Special Session','Make-up Class']]
-      ].map(([label,key,opts])=>({label, value:s[key]||(key==='scDate'?'Today':'All'), opts:opts.map(o=>({o})),
+        ['Class type','scType',['All','Regular Class','Revision','Doubt Session','Workshop','Special Session','Make-up Class']],
+        ['View by','scViewBy',['By Batch','By Teacher']]
+      ].map(([label,key,opts])=>({label, value:s[key]||(key==='scDate'?'Today':key==='scViewBy'?'By Batch':'All'), opts:opts.map(o=>({o})),
         set:(e)=>this.setState({[key]:e.target.value})})),
-      scReset: ()=>{ this.setState({scBatch:'All',scCourse:'All',scTeacher:'All',scStatus:'All',scType:'All',scDate:'Today',scQ:''});
+      scReset: ()=>{ this.setState({scBatch:'All',scCourse:'All',scTeacher:'All',scStatus:'All',scType:'All',scDate:'Today',scViewBy:'By Batch',scQ:''});
         this.fire('Filters reset','Showing every class in your scope'); },
       scCreate: ()=>this.setState({fm:'schedClass', fmCtx:{}, fmStep:0, fmErr:null}),
 
@@ -9838,7 +9834,7 @@ class Component extends DCLogic {
         return {label, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'600':'500',
           pick:()=>this.setState({calBy:k})};
       }),
-      calByBatch: (s.calBy||'batch')==='batch',
+      calByBatch: (s.scViewBy||'By Batch')==='By Batch',
       calRange: (s.calMode==='month') ? 'August 2026' : (s.calMode==='day') ? 'Sunday, 16 August 2026' : 'Week 33 · 16 – 22 August 2026',
       calPrev: this.act('Previous period','Schedule reloaded'),
       calNext: this.act('Next period','Schedule reloaded'),
