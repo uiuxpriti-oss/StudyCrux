@@ -1831,19 +1831,33 @@
 
       <sc-if value="{{ isSched }}" hint-placeholder-val="{{ false }}">
         <div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:13px;margin-bottom:14px">
-            <sc-for list="{{ scKpis }}" as="k" hint-placeholder-count="7">
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:16px">
+            <sc-for list="{{ scKpis }}" as="k" hint-placeholder-count="8">
               <div onClick="{{ k.go }}" style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:13px;padding:15px 17px;cursor:pointer" style-hover="border-color:#BFE3DC;box-shadow:0 8px 22px rgba(11,31,62,.06)">
-                <div style="font-size:11.5px;font-weight:500;color:#6B7C93;text-wrap:pretty">{{ k.label }}</div>
+                <div style="font-size:11.5px;font-weight:500;color:#6B7C93;line-height:1.3">{{ k.label }}</div>
                 <div style="font-size:25px;font-weight:800;letter-spacing:-.03em;color:#0F2A47;margin-top:5px">{{ k.n }}</div>
-                <div style="font-size:11px;font-weight:600;color:{{ k.fg }};margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
+                <div style="font-size:11px;font-weight:600;color:{{ k.fg }};margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.note }}</div>
               </div>
             </sc-for>
           </div>
 
-          <div style="display:flex;align-items:center;gap:10px;background:#EEF6F5;border:1px solid #DCEDEA;border-radius:11px;padding:11px 16px;margin-bottom:16px">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0B7A6E" stroke-width="2.1" stroke-linecap="round" style="flex:none"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
-            <span style="font-size:12.5px;color:#0B7A6E;text-wrap:pretty">{{ scScope }} — you can only manage classes inside this scope.</span>
+          <div style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:15px 20px;margin-bottom:16px;flex-wrap:wrap">
+            <div>
+              <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#7A8699">SCHEDULE HEALTH</div>
+              <div style="display:flex;align-items:center;gap:9px;margin-top:7px">
+                <span style="width:9px;height:9px;border-radius:50%;background:#F0A72A"></span>
+                <span style="font-size:15px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">{{ scHealthVerdict }}</span>
+              </div>
+            </div>
+            <div style="width:1px;height:44px;background:#F0EEE7"></div>
+            <div style="display:flex;flex-wrap:wrap;gap:9px;flex:1;min-width:0">
+              <sc-for list="{{ scHealth }}" as="h" hint-placeholder-count="8">
+                <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:{{ h.bg }}">
+                  <span style="font-size:11.5px;color:#475467">{{ h.k }}</span>
+                  <span style="font-size:12px;font-weight:800;color:{{ h.fg }}">{{ h.v }}</span>
+                </span>
+              </sc-for>
+            </div>
           </div>
 
           <div style="display:flex;align-items:center;gap:11px;margin-bottom:15px;flex-wrap:wrap">
@@ -1852,17 +1866,19 @@
                 <button onClick="{{ t.pick }}" title="{{ t.label }}" style="width:34px;height:32px;border:0;border-radius:7px;display:grid;place-items:center;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.ic }}" /></svg></button>
               </sc-for>
             </div>
-            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;overflow-x:auto;flex:none">
-              <sc-for list="{{ scSegsTabs }}" as="t" hint-placeholder-count="7">
+            <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;padding:4px;overflow-x:auto">
+              <sc-for list="{{ scSegsTabs }}" as="t" hint-placeholder-count="4">
                 <button onClick="{{ t.pick }}" style="height:32px;padding:0 14px;border:0;border-radius:8px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-weight:{{ t.weight }};white-space:nowrap;flex:none">{{ t.label }}</button>
               </sc-for>
             </div>
-            <div style="position:relative;flex:1 1 240px;min-width:0">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:13px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
-              <input value="{{ scQ }}" onChange="{{ setScQ }}" placeholder="Search class, teacher, batch or topic…" style="width:100%;height:38px;padding:0 13px 0 35px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
+            <span style="flex:1"></span>
+            <div style="position:relative">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2.1" stroke-linecap="round" style="position:absolute;left:12px;top:12px"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
+              <input value="{{ scQ }}" onChange="{{ setScQ }}" placeholder="Search class, batch, teacher, course…" style="width:290px;height:38px;padding:0 13px 0 34px;border:1px solid #E5E3DC;border-radius:10px;font-size:13px;color:#0F2A47;background:#fff;outline:0;box-sizing:border-box" />
             </div>
-            <button onClick="{{ scReset }}" style="display:{{ scResetShow }};align-items:center;flex:none;height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
-            <button onClick="{{ scCreate }}" style="display:flex;align-items:center;gap:7px;flex:none;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
+            <button onClick="{{ scExport }}" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export</button>
+            <button onClick="{{ scEmergency }}" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid #F0D2CF;background:#fff;font-size:13px;font-weight:600;color:#B42318;cursor:pointer" style-hover="background:#FEF7F6">Emergency class</button>
+            <button onClick="{{ scCreate }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Schedule Class
             </button>
             <button onClick="{{ fp.p3.toggle }}" style="flex:none;display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p3.bd }};background:{{ fp.p3.bg }};font-size:13px;font-weight:600;color:{{ fp.p3.fg }};cursor:pointer;font-family:inherit">
@@ -1871,6 +1887,12 @@
           </div>
 
           <div style="display:{{ fp.p3.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
+              <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filters</span>
+              <span style="display:{{ scFilterHas }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ scFilterCount }}</span>
+              <span style="flex:1"></span>
+              <button onClick="{{ scReset }}" style="display:{{ scResetShow }};height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+            </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
               <sc-for list="{{ scFilters }}" as="p" hint-placeholder-count="6">
                 <div style="min-width:0">
@@ -1918,7 +1940,7 @@
                 </sc-for>
               </div>
 
-              <sc-if value="{{ calIsDay }}" hint-placeholder-val="{{ true }}">
+              <sc-if value="{{ calIsDay }}" hint-placeholder-val="{{ false }}">
                 <div style="padding:18px 20px;display:flex;flex-direction:column;gap:8px">
                   <sc-for list="{{ calDayRows }}" as="r" hint-placeholder-count="8">
                     <div style="display:grid;grid-template-columns:88px 1fr;gap:14px;align-items:stretch">
@@ -1945,7 +1967,7 @@
                 </div>
               </sc-if>
 
-              <sc-if value="{{ calIsWeek }}" hint-placeholder-val="{{ false }}">
+              <sc-if value="{{ calIsWeek }}" hint-placeholder-val="{{ true }}">
                 <div style="padding:18px 20px;overflow-x:auto">
                   <div style="min-width:820px">
                     <div style="display:grid;grid-template-columns:130px repeat(6,minmax(0,1fr));gap:8px;margin-bottom:8px">
@@ -2335,41 +2357,62 @@
 
       <sc-if value="{{ qvOpen }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ closeQV }}" style="position:fixed;inset:0;background:rgba(11,31,62,.42);z-index:74"></div>
-        <div style="position:fixed;top:0;right:0;bottom:0;width:520px;max-width:94vw;z-index:75;background:#FAF9F5;box-shadow:-16px 0 44px rgba(11,31,62,.22);display:flex;flex-direction:column">
+        <div style="position:fixed;top:0;right:0;bottom:0;width:540px;max-width:94vw;z-index:75;background:#FAF9F5;box-shadow:-16px 0 44px rgba(11,31,62,.22);display:flex;flex-direction:column">
           <div style="padding:18px 22px;background:#0B1F3E;color:#fff">
             <div style="display:flex;align-items:flex-start;gap:12px">
               <div style="min-width:0;flex:1">
                 <div style="font-size:16px;font-weight:700;letter-spacing:-.01em;text-wrap:pretty">{{ qvData.title }}</div>
-                <div style="font-size:11.5px;color:#9FB2CC;margin-top:5px">{{ qvData.slot }}</div>
+                <div style="font-size:11.5px;color:#9FB2CC;margin-top:5px">{{ qvData.slot }} · {{ qvData.status }}</div>
               </div>
               <button onClick="{{ closeQV }}" style="width:32px;height:32px;flex:none;border-radius:9px;border:1px solid #28456C;background:transparent;display:grid;place-items:center;cursor:pointer;color:#fff">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
               </button>
             </div>
-            <span style="display:inline-block;margin-top:12px;font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:{{ qvData.sBg }};color:{{ qvData.sFg }}">{{ qvData.status }}</span>
+          </div>
+          <div style="display:flex;gap:9px;padding:14px 22px;background:#fff;border-bottom:1px solid #ECEAE2">
+            <button onClick="{{ qvJoin }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:40px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z" /><rect x="1" y="5" width="15" height="14" rx="2" /></svg>Join Class
+            </button>
+            <button onClick="{{ qvCopyLink }}" style="height:40px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;display:flex;align-items:center;gap:7px" style-hover="background:#F6F5F0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>Copy Link
+            </button>
+            <button onClick="{{ qvShareLink }}" style="height:40px;padding:0 15px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12.5px;font-weight:600;color:#344054;cursor:pointer;display:flex;align-items:center;gap:7px" style-hover="background:#F6F5F0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><path d="M8.6 10.6l6.8-3.9M8.6 13.4l6.8 3.9" /></svg>Share
+            </button>
           </div>
           <div style="flex:1;overflow-y:auto;padding:18px 22px">
             <div style="font-size:11.5px;font-weight:700;letter-spacing:.07em;color:#7A8699;margin-bottom:10px">CLASS DETAILS</div>
             <div style="background:#fff;border:1px solid #ECEAE2;border-radius:12px;overflow:hidden">
               <sc-for list="{{ qvData.rows }}" as="d" hint-placeholder-count="11">
-                <div style="display:grid;grid-template-columns:140px 1fr;gap:12px;padding:10px 15px;background:{{ d.bg }};border-bottom:1px solid #F5F3EE">
+                <div style="display:grid;grid-template-columns:150px 1fr;gap:12px;padding:10px 15px;background:{{ d.bg }};border-bottom:1px solid #F5F3EE">
                   <span style="font-size:12px;color:#7A8699">{{ d.k }}</span>
                   <span style="font-size:12.5px;font-weight:600;color:#0F2A47;text-wrap:pretty">{{ d.v }}</span>
                 </div>
               </sc-for>
             </div>
             <div style="font-size:11.5px;font-weight:700;letter-spacing:.07em;color:#7A8699;margin:20px 0 10px">NOTIFICATION STATUS</div>
-            <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
               <sc-for list="{{ qvNotify }}" as="n" hint-placeholder-count="3">
-                <div style="display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:10px;background:{{ n.sBg }}">
-                  <span style="width:7px;height:7px;flex:none;border-radius:50%;background:{{ n.sFg }}"></span>
-                  <span style="font-size:12px;font-weight:600;color:{{ n.sFg }};flex:1;min-width:0">{{ n.who }}</span>
-                  <span style="font-size:11.5px;color:{{ n.sFg }};text-wrap:pretty">{{ n.state }}</span>
+                <span style="display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;background:{{ n.sBg }};color:{{ n.sFg }};font-size:12px;font-weight:700">
+                  <span style="width:6px;height:6px;border-radius:50%;background:{{ n.sFg }}"></span>{{ n.who }} {{ n.state }}
+                </span>
+              </sc-for>
+            </div>
+
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.07em;color:#7A8699;margin:20px 0 10px">CLASS TIMELINE</div>
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:15px 17px">
+              <sc-for list="{{ qvTimeline }}" as="t" hint-placeholder-count="6">
+                <div style="display:flex;gap:11px;padding:7px 0">
+                  <span style="width:7px;height:7px;flex:none;border-radius:50%;background:#0E9384;margin-top:6px"></span>
+                  <div>
+                    <div style="font-size:12px;font-weight:700;color:#0F2A47">{{ t.t }}</div>
+                    <div style="font-size:11.5px;color:#7A8699;margin-top:2px">{{ t.m }}</div>
+                  </div>
                 </div>
               </sc-for>
-              <button onClick="{{ qvRetry }}" style="height:32px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer">Retry failed notifications</button>
             </div>
-            <div style="font-size:11.5px;font-weight:700;letter-spacing:.07em;color:#7A8699;margin:20px 0 10px">ACTIONS</div>
+
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.07em;color:#7A8699;margin:20px 0 10px">QUICK ACTIONS</div>
             <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px">
               <sc-for list="{{ qvActions }}" as="a" hint-placeholder-count="9">
                 <button onClick="{{ a.pick }}" style="height:38px;border-radius:9px;border:1px solid {{ a.border }};background:#fff;font-size:12.5px;font-weight:600;color:{{ a.fg }};cursor:pointer" style-hover="background:{{ a.hbg }}">{{ a.label }}</button>
@@ -7700,6 +7743,135 @@ class Component extends DCLogic {
             this.fire('Class cancelled — '+(ctx.cls||'IC-02'), (s.ccReason||'Teacher unavailable')+' · '+(s.ccNext||'make-up planned')); }});
       }
 
+      if (kind==='qvView') {
+        const live = ctx.status==='Live';
+        return wrap({title:ctx.title||'Class', width:'720px',
+          sub:(ctx.date||'')+' · '+(ctx.slot||'')+' · '+(ctx.status||''),
+          groups:[
+            {t:'Class', fields:[this.fkv('', [['Course', ctx.title],['Topic', ctx.topic],['Class type', ctx.type],['Class ID', ctx.id]])]},
+            {t:'People', fields:[this.fkv('', [['Batch', ctx.batch],['Teacher', ctx.teacher],['Substitute', ctx.sub||'—'],['Students', ctx.students+' enrolled']])]},
+            {t:'Delivery', fields:[this.fkv('', [['Platform', ctx.platform],['Meeting link', this.classLink(ctx.id)],['Recording', 'Auto-record and publish'],['Attendance', ctx.att||'—']])]},
+            {t:'Readiness', fields:[this.fchecks('', [['Teacher confirmed', ctx.sub==='—' && ctx.status==='Substitute Required' ? 0 : 1],['Materials uploaded', 1],['Students notified', 1],['Reminder 15 min before', live?1:0]])]}],
+          info: ctx.status==='Substitute Required' ? '⚠ No teacher is confirmed for this class — assign a substitute before it starts.' : 'Everything on this class is inside your coordinator scope.',
+          infoDisplay:'flex',
+          primaryLabel: live ? 'Join Class' : 'Close',
+          primary: ()=>{ close(); if (live) { window.open(this.classLink(ctx.id),'_blank'); this.fire('Joining class', ctx.title+' — opening live session'); } }});
+      }
+
+      if (kind==='qvRemind') {
+        const aud = s.qrAud || ['Students'];
+        const n = (aud.includes('Students') ? +ctx.students||0 : 0) + (aud.includes('Teacher') ? 1 : 0);
+        const TPL = {'Class starting soon':'Your class '+(ctx.cls||'')+' starts at '+String(ctx.slot||'').split(' – ')[0]+'. Join on time using the link in your dashboard.',
+          'Join link':'Here is your join link for '+(ctx.cls||'')+': '+this.classLink(ctx.id),
+          'Prepare materials':'Please review the shared materials for '+(ctx.cls||'')+' before the session.',
+          'Custom':''};
+        const tpl = s.qrTpl || 'Class starting soon';
+        return wrap({title:'Send Reminder', width:'700px',
+          sub:(ctx.cls||'')+' · '+(ctx.batch||'')+' · '+(ctx.date||'')+' '+String(ctx.slot||'').split(' – ')[0],
+          groups:[
+            {t:'Audience', fields:[
+              this.fchips('Send to','qrAud',['Students'],['Students','Teacher','Substitute','Parents']),
+              this.f('Recipients','qrCount',n+' people','readonly')]},
+            {t:'Message', fields:[
+              this.fchips('Channels','qrCh',['In-app','WhatsApp'],['In-app','WhatsApp','SMS','Email']),
+              this.f('Template','qrTpl',tpl,'select',Object.keys(TPL)),
+              this.f('Message *','qrBody',TPL[tpl],'textarea',null,{span:'span 3',placeholder:'Write the reminder…'})]},
+            {t:'Timing', fields:[
+              this.fradio('Send','qrWhen','Now',['Now','15 min before','1 hour before','Custom time'])]}],
+          info:'Reminders to students who already joined are skipped automatically.', infoDisplay:'flex',
+          primaryLabel:(s.qrWhen||'Now')==='Now' ? 'Send Reminder' : 'Schedule Reminder',
+          primary: ()=>{
+            if (!aud.length) return this.setState({fmErr:'Pick at least one audience.'});
+            const body = s.qrBody!==undefined ? s.qrBody : TPL[tpl];
+            if (!String(body||'').trim()) return this.setState({fmErr:'The message cannot be empty.'});
+            close();
+            this.fire((s.qrWhen||'Now')==='Now' ? 'Reminder sent — '+n+' recipients' : 'Reminder scheduled · '+s.qrWhen, (ctx.cls||'')+' · '+((s.qrCh||['In-app','WhatsApp']).join(', '))); }});
+      }
+
+      if (kind==='qvAtt') {
+        const ROWS = [['Aarav Sharma','SC-10001','Present','07:58 PM','92 min'],['Ananya Iyer','SC-10006','Present','08:01 PM','88 min'],
+          ['Kabir Mehta','SC-10011','Late','08:14 PM','76 min'],['Divya Krishnan','SC-10014','Absent','—','—'],
+          ['Aditya Rao','SC-10009','Present','07:59 PM','90 min'],['Riya Kapoor','SC-10021','Left early','08:02 PM','41 min']];
+        const f = s.qaF || 'All';
+        const rows = ROWS.filter(r=>f==='All' || r[2]===f);
+        return wrap({title:'Class Attendance', width:'780px',
+          sub:(ctx.cls||'')+' · '+(ctx.batch||'')+' · '+(ctx.date||''),
+          groups:[
+            {t:'Summary', fields:[this.fkv('', [['Enrolled', ctx.students+' students'],['Attended', ctx.att && ctx.att!=='—' ? ctx.att : 'Not started yet'],['Late joins','1'],['Absent','1 · follow-up suggested']])]},
+            {t:'Students', fields:[
+              this.f('Show','qaF','All','select',['All','Present','Late','Left early','Absent']),
+              this.ftable('', [['Student','ID','Status','Joined','Duration'], ...rows])]},
+            {t:'Correction', fields:[
+              this.f('Mark student','qaWho','Divya Krishnan','select',ROWS.map(r=>r[0])),
+              this.f('New status','qaStatus','Present','select',['Present','Late','Excused','Absent']),
+              this.f('Reason','qaReason','','text',null,{placeholder:'Network failure verified with faculty'})]}],
+          info:'Corrections are audit-logged with your name and reason.', infoDisplay:'flex',
+          primaryLabel: (s.qaReason||'').trim() ? 'Save Correction' : 'Export Attendance',
+          primary: ()=>{ close();
+            if ((s.qaReason||'').trim()) this.fire('Attendance corrected — '+(s.qaWho||'Divya Krishnan'), (s.qaStatus||'Present')+' · '+s.qaReason);
+            else this.fire('Attendance exported', (ctx.cls||'')+' · '+ctx.students+' students · XLSX'); }});
+      }
+
+      if (kind==='qvLink') {
+        const type = s.qlType || 'Student join link';
+        const base = this.classLink(ctx.id);
+        const link = type==='Teacher host link' ? base+'?role=host' : type==='Guest link (view only)' ? base+'?guest=1' : base;
+        return wrap({title:'Copy Meeting Link', width:'640px',
+          sub:(ctx.cls||'')+' · '+(ctx.platform||''),
+          groups:[
+            {t:'Link type', fields:[this.fradio('','qlType','Student join link',['Student join link','Teacher host link','Guest link (view only)'])]},
+            {t:'Link', fields:[this.fkv('', [['URL', link],['Meeting ID','SCX-'+String(ctx.id||'').slice(3)],['Valid','15 min before start → end of class'],['Access', type==='Teacher host link' ? 'Host controls · do not share with students' : 'Batch members only · sign-in required']])]}],
+          info: type==='Teacher host link' ? '⚠ Host links give full control of the session — share only with the assigned teacher.' : 'Links are personal — each student is signed in with their own account.',
+          infoDisplay:'flex',
+          primaryLabel:'Copy Link',
+          primary: ()=>{ close();
+            if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(()=>this.fire('Link copied', link), ()=>this.fire('Link ready', link));
+            else this.fire('Link ready', link); }});
+      }
+
+      if (kind==='qvDup') {
+        const time = s.qdTime || '05:00 PM';
+        const clash = time==='07:00 PM';
+        return wrap({title:'Duplicate Class', width:'700px',
+          sub:'Copies '+(ctx.cls||'this class')+' — attendance and recordings are never copied',
+          groups:[
+            {t:'Source', fields:[this.fkv('', [['Class', ctx.cls],['Batch', ctx.batch],['Teacher', ctx.teacher],['Original', (ctx.date||'')+' · '+(ctx.slot||'')]])]},
+            {t:'New class', fields:[
+              this.f('Date *','qdDate','2026-08-23','date'),
+              this.f('Start time *','qdTime',time,'select',['10:00 AM','11:45 AM','02:00 PM','05:00 PM','07:00 PM']),
+              this.f('Batch','qdBatch',ctx.batch||'Batch A','select',['Batch A','Batch B','Batch C']),
+              this.fradio('Repeat','qdRepeat','Once',['Once','Weekly × 4','Weekly until batch ends']),
+              this.fchips('Copy','qdCopy',['Teacher','Materials','Reminders'],['Teacher','Materials','Reminders','Topic & notes']),
+              this.fradio('Save as','qdSave','Draft',['Draft','Scheduled & publish'])]},
+            {t:'Availability check', fields:[this.fchecks('', [['Teacher free at the new slot', clash?0:1],['Batch has no other class', 1],['Not a holiday or blackout', 1]])]}],
+          info: clash ? '⚠ '+(ctx.teacher||'The teacher')+' already teaches at 07:00 PM that day — pick another time.' : 'The copy gets a new class ID and its own meeting link.',
+          infoDisplay:'flex',
+          primaryLabel:'Duplicate Class',
+          primary: ()=>{
+            if (clash) return this.setState({fmErr:'Teacher conflict at 07:00 PM — choose another time.'});
+            close();
+            this.fire('Class duplicated — '+(ctx.cls||''), (s.qdDate||'2026-08-23')+' · '+time+' · '+(s.qdRepeat||'Once')+' · '+(s.qdSave||'Draft')); }});
+      }
+
+      if (kind==='qvHist') {
+        const H = [['16 Aug, 04:55 PM','Reminder sent','System','15 min before · 42 of 43 delivered'],
+          ['16 Aug, 03:20 PM','Teacher marked unavailable','Priya Mehta','Medical leave · substitute requested'],
+          ['15 Aug, 06:10 PM','Materials uploaded','Priya Mehta','2 PDFs · 1 presentation'],
+          ['12 Aug, 11:00 AM','Rescheduled','Coordinator','14 Aug 05:00 PM → 16 Aug 05:00 PM · student request'],
+          ['10 Aug, 04:10 PM','Teacher assigned','Coordinator','Priya Mehta · notified'],
+          ['10 Aug, 04:00 PM','Class created','Coordinator','Doubt Session · Batch B']];
+        const f = s.qhF || 'All changes';
+        const rows = H.filter(r=>f==='All changes' || (f==='Schedule changes' ? /Resched|created/i.test(r[1]) : f==='Teacher changes' ? /Teacher/i.test(r[1]) : /Reminder|Materials/i.test(r[1])));
+        return wrap({title:'Class History', width:'780px',
+          sub:(ctx.cls||'')+' · '+(ctx.id||'')+' · every change with author and reason',
+          groups:[
+            {t:'Filter', fields:[this.f('Show','qhF','All changes','select',['All changes','Schedule changes','Teacher changes','Notifications & materials'])]},
+            {t:'Timeline', fields:[this.ftable('', [['When','Change','By','Detail',''], ...rows.map(r=>[r[0],r[1],r[2],r[3],''])])]}],
+          info:'History is read-only — the original values are always preserved.', infoDisplay:'flex',
+          primaryLabel:'Export History',
+          primary: ()=>{ close(); this.fire('History exported', (ctx.cls||'')+' · '+rows.length+' entries · CSV'); }});
+      }
+
       if (kind==='findSub') {
         const pick = s.fsWho || 'Rahul Sharma';
         const row = SUBCAND.find(x=>x[0]===pick) || SUBCAND[0];
@@ -9606,8 +9778,19 @@ class Component extends DCLogic {
         {label:'Substitute Required',n:'1',note:'IC-02 · 5:00 PM today',fg:'#B42318',go:()=>this.setState({scTab:'subs'})},
         {label:'Pending Requests',n:'3',note:'from assigned teachers',fg:'#B45309',go:()=>this.setState({scTab:'reqs'})},
         {label:'Conflicts',n:'2',note:'unresolved',fg:'#B42318',go:()=>this.setState({scTab:'conf'})},
-        {label:'Rescheduled',n:'1',note:'this week',fg:'#B45309',go:()=>this.setState({scTab:'table', scStatus:'Rescheduled'})}
+        {label:'Rescheduled',n:'1',note:'this week',fg:'#B45309',go:()=>this.setState({scTab:'table', scStatus:'Rescheduled'})},
+        {label:'Cancelled',n:'0',note:'no make-ups needed',fg:'#15803D',go:()=>this.setState({scTab:'table', scStatus:'Cancelled'})}
       ],
+      scHealth: [
+        ['Classes this week','14','green'],['Conflicts','2','red'],['Unassigned','0','green'],
+        ['Substitutes required','1','amber'],['Cancelled','0','green'],['Rescheduled','1','amber'],
+        ['Pending requests','3','amber'],['Recordings pending','1','amber']
+      ].map(([k,v,c])=>({k,v, bg:BDG[c][0], fg:BDG[c][1]})),
+      scHealthVerdict: 'Attention needed',
+      scFilterCount: String(['scBatch','scCourse','scTeacher','scStatus','scType'].filter(k=>s[k]&&s[k]!=='All').length + (s.scDate&&s.scDate!=='Today'?1:0)),
+      scFilterHas: (['scBatch','scCourse','scTeacher','scStatus','scType'].some(k=>s[k]&&s[k]!=='All') || (s.scDate&&s.scDate!=='Today')) ? 'grid' : 'none',
+      scExport: this.act('Exporting schedule','Classes in your scope · XLSX'),
+      scEmergency: ()=>this.setState({fm:'schedClass', fmCtx:{emergency:true}, fmStep:0, fmErr:null}),
       scScope: 'Scope: 3 assigned batches · 4 assigned teachers · 131 students',
       scSegs: [['Calendar','cal'],['Table','table'],['Cards','cards'],['Substitutions','subs'],['Conflicts','conf'],['Requests','reqs'],['Teachers','teach']].map(([label,k])=>{
         const on = (s.scTab||'cal')===k;
@@ -9645,18 +9828,18 @@ class Component extends DCLogic {
       calGroup: s.calGroup || 'Status',
       setCalGroup: (e)=>this.setState({calGroup:e.target.value}),
       calModes: [['Day','day'],['Week','week'],['Month','month'],['Agenda','agenda']].map(([label,k])=>{
-        const on = (s.calMode||'day')===k;
+        const on = (s.calMode||'week')===k;
         return {label, bg:on?'#0B1F3E':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'600':'500',
           pick:()=>this.setState({calMode:k})};
       }),
-      calIsDay: (s.calMode||'day')==='day', calIsWeek: s.calMode==='week', calIsMonth: s.calMode==='month', calIsAgenda: s.calMode==='agenda',
+      calIsDay: (s.calMode||'week')==='day', calIsWeek: (s.calMode||'week')==='week', calIsMonth: s.calMode==='month', calIsAgenda: s.calMode==='agenda',
       calByModes: [['By Batch','batch'],['By Teacher','teacher']].map(([label,k])=>{
         const on = (s.calBy||'batch')===k;
         return {label, bg:on?'#0E9384':'transparent', fg:on?'#fff':'#6B7C93', weight:on?'600':'500',
           pick:()=>this.setState({calBy:k})};
       }),
       calByBatch: (s.calBy||'batch')==='batch',
-      calRange: (s.calMode==='month') ? 'August 2026' : (s.calMode==='week') ? 'Week 33 · 16 – 22 August 2026' : 'Sunday, 16 August 2026',
+      calRange: (s.calMode==='month') ? 'August 2026' : (s.calMode==='day') ? 'Sunday, 16 August 2026' : 'Week 33 · 16 – 22 August 2026',
       calPrev: this.act('Previous period','Schedule reloaded'),
       calNext: this.act('Next period','Schedule reloaded'),
       calToday: this.act('Jumped to today','16 August 2026'),
@@ -9774,15 +9957,30 @@ class Component extends DCLogic {
       qvNotify: [['Teacher','Notified','green'],['Students','42 notified · 1 failed','amber'],['Coordinator','Notified','green']]
         .map(([who,state,c])=>({who,state, sBg:BDG[c][0], sFg:BDG[c][1]})),
       qvRetry: this.act('Retrying failed notifications','1 student · falling back to SMS'),
+      qvTimeline: [
+        ['04:00 PM','Class created by coordinator'],
+        ['04:10 PM','Teacher assigned · notification sent'],
+        ['04:15 PM','Students notified · 42 of 43 delivered'],
+        ['04:40 PM','Reminder sent · 1 h before'],
+        ['04:55 PM','Reminder sent · 15 min before']
+      ].map(([t,m])=>({t,m})),
+      qvJoin: (()=>{ const id = s.scQV || 'LC-4104'; return this.joinClass(id, (CLASSES.find(x=>x[0]===id)||[])[4] || 'Session'); })(),
+      qvCopyLink: (()=>{ const id = s.scQV || 'LC-4104'; return this.copyClassLink(id, (CLASSES.find(x=>x[0]===id)||[])[4] || 'Session'); })(),
+      qvShareLink: this.act('Share class link','Link ready to send to students and teacher'),
       qvActions: [
         ['View Class',0],['Reschedule',0],['Assign Substitute',0],['Send Reminder',0],
         ['View Attendance',0],['Copy Meeting Link',0],['Duplicate',0],['View History',0],['Cancel Class',1]
       ].map(([label,danger])=>({label,
         border: danger?'#F0D2CF':'#E5E3DC', fg: danger?'#B42318':'#344054', hbg: danger?'#FEF7F6':'#F6F5F0',
-        pick: label==='Reschedule' ? (()=>this.setState({scQV:null, fm:'resched', fmCtx:{cls:'IC-02 · Doubt Clinic'}, fmStep:0, fmErr:null}))
-          : label==='Assign Substitute' ? (()=>this.setState({scQV:null, fm:'findSub', fmCtx:{cls:'IC-02 · Doubt Clinic', batch:'Batch B', orig:'Priya Mehta', date:'16 Aug 2026', slot:'05:00 – 06:30 PM'}, fmStep:0, fmErr:null}))
-          : label==='Cancel Class' ? (()=>this.setState({scQV:null, fm:'cancelClass', fmCtx:{cls:'IC-02 · Doubt Clinic', batch:'Batch B', teacher:'Priya Mehta', students:'38'}, fmStep:0, fmErr:null}))
-          : (()=>{ this.setState({scQV:null}); this.fire(label,'Action recorded against this class'); })})),
+        pick: (()=>{
+          const q = CLASSES.find(x=>x[0]===s.scQV) || CLASSES[3];
+          const ctx = {id:q[0], cls:q[4].split(' — ')[0]+' · '+q[6], title:q[4], topic:q[6], batch:q[5], teacher:q[7], orig:q[7], sub:q[8],
+            students:String(q[9]), type:q[10], status:q[11], att:q[13], platform:q[14], date:q[1], slot:q[2]+' – '+q[3]};
+          const KIND = {'View Class':'qvView','Reschedule':'resched','Assign Substitute':'findSub','Send Reminder':'qvRemind',
+            'View Attendance':'qvAtt','Copy Meeting Link':'qvLink','Duplicate':'qvDup','View History':'qvHist','Cancel Class':'cancelClass'}[label];
+          return ()=>{ const r={}; Object.keys(this.state).forEach(k=>{ if(/^(qr|qa|ql|qd|qh)[A-Z]/.test(k)) r[k]=undefined; });
+            this.setState({...r, scQV:null, fm:KIND, fmCtx:ctx, fmStep:0, fmErr:null}); };
+        })()})),
 
       acKpis: [
         {label:'Total Courses',n:'5',note:'across 3 tracks',fg:'#6B7C93',go:()=>this.setState({alView:'courses'})},
@@ -10156,7 +10354,7 @@ class Component extends DCLogic {
         : s.route==='performance'
         ? 'Identify who needs attention, then drill into why — score, students, support, outcomes and interventions.'
         : s.route==='schedules'
-        ? 'Day-to-day teaching schedule for your assigned batches, teachers and students.'
+        ? 'Day-to-day teaching schedule for your 3 assigned batches, 4 teachers and 131 students.'
         : s.route==='allocation'
         ? 'One course, many batches — assign coordinators and teachers, track workload and capacity.'
         : s.route==='alerts'

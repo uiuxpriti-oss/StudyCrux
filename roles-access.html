@@ -2144,6 +2144,55 @@
           </div>
           <div style="font-size:11.5px;color:#98A2B3">Orange dot = changed from the designation default.</div>
         </div>
+        <div style="display:{{ rfMenuShow }};flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ rfMenuSummary }}</span>
+            <span style="display:{{ rfMenuChangedShow }};font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#FEF3E2;color:#B45309">{{ rfMenuChanged }}</span>
+            <span style="flex:1"></span>
+            <button onClick="{{ rfMenuExpand }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">{{ rfMenuExpandLabel }}</button>
+            <button onClick="{{ rfMenuReset }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Reset to defaults</button>
+          </div>
+          <div style="border:1px solid #ECEAE2;border-radius:12px;overflow:auto;max-height:52vh">
+            <div style="min-width:520px">
+              <div style="position:sticky;top:0;z-index:2;display:grid;grid-template-columns:minmax(220px,1fr) repeat(4,64px);background:#FCFBF7;border-bottom:1px solid #F0EEE7">
+                <div style="padding:10px 14px;font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#7A8699">MODULE / SCREEN</div>
+                <div style="padding:10px 4px;text-align:center;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">VIEW</div><div style="padding:10px 4px;text-align:center;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">ADD</div><div style="padding:10px 4px;text-align:center;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">EDIT</div><div style="padding:10px 4px;text-align:center;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">DELETE</div>
+              </div>
+              <sc-for list="{{ rfMenuSections }}" as="g" hint-placeholder-count="7">
+                <div>
+                  <div style="display:grid;grid-template-columns:minmax(220px,1fr) repeat(4,64px);align-items:center;background:#F4F2EC;border-bottom:1px solid #ECEAE2">
+                    <div onClick="{{ g.toggle }}" style="display:flex;align-items:center;gap:9px;padding:9px 14px;cursor:pointer;min-width:0">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#475467" stroke-width="2.6" stroke-linecap="round" style="flex:none;transform:{{ g.chev }};transition:transform .15s"><path d="M6 9l6 6 6-6" /></svg>
+                      <span style="font-size:12.5px;font-weight:800;color:#0F2A47;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ g.sec }}</span>
+                      <span style="font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ g.cntBg }};color:{{ g.cntFg }};white-space:nowrap">{{ g.count }}</span>
+                      <span style="display:{{ g.chgShow }};font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:#FEF3E2;color:#B45309;white-space:nowrap">{{ g.chg }}</span>
+                    </div>
+                    <sc-for list="{{ g.colAll }}" as="c" hint-placeholder-count="4">
+                      <div style="display:grid;place-items:center;padding:5px 0">
+                          <span style="display:{{ c.na }};font-size:12px;color:#C8CDD4">—</span>
+                          <button onClick="{{ c.tog }}" style="display:{{ c.cb }};position:relative;width:20px;height:20px;border-radius:5px;border:1.5px solid {{ c.bd }};background:{{ c.bg }};color:#fff;place-items:center;cursor:pointer;font-size:11px;font-weight:800;padding:0">{{ c.mark }}<span style="display:none;position:absolute;top:-4px;right:-4px;width:7px;height:7px;border-radius:50%;background:#F0A72A;border:1.5px solid #fff"></span></button>
+                        </div>
+                    </sc-for>
+                  </div>
+                  <div style="display:{{ g.rowsShow }}">
+                    <sc-for list="{{ g.items }}" as="r" hint-placeholder-count="5">
+                      <div style="display:grid;grid-template-columns:minmax(220px,1fr) repeat(4,64px);align-items:center;border-bottom:1px solid #F5F3EE" style-hover="background:#FCFBF7">
+                        <div style="padding:8px 14px 8px 35px;font-size:12px;color:#344054;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.label }}</div>
+                        <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="4">
+                        <div style="display:grid;place-items:center;padding:5px 0">
+                          <span style="display:{{ c.na }};font-size:12px;color:#C8CDD4">—</span>
+                          <button onClick="{{ c.tog }}" style="display:{{ c.cb }};position:relative;width:20px;height:20px;border-radius:5px;border:1.5px solid {{ c.bd }};background:{{ c.bg }};color:#fff;place-items:center;cursor:pointer;font-size:11px;font-weight:800;padding:0">{{ c.mark }}<span style="display:{{ c.dot }};position:absolute;top:-4px;right:-4px;width:7px;height:7px;border-radius:50%;background:#F0A72A;border:1.5px solid #fff"></span></button>
+                        </div>
+                        </sc-for>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="font-size:11.5px;color:#98A2B3">— = not applicable to that screen · orange dot = changed from the designation default.</div>
+        </div>
         <div style="display:{{ rfWarnShow }};align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;background:#FEF3E2">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2.1" stroke-linecap="round" style="flex:none;margin-top:1px"><path d="M12 3 2 20h20zM12 10v4M12 17h.01" /></svg>
           <span style="font-size:12.5px;font-weight:600;color:#92400E;text-wrap:pretty">{{ rfWarn }}</span>
@@ -2362,6 +2411,20 @@ const MODULES = [
   ['Roles & Access','Roles, users, policies','admin']
 ];
 const ACTIONS = ['View','Create','Edit','Delete','Approve','Export'];
+const MENU = [
+  ['Dashboard','*',[['Platform overview','V']]],
+  ['Student','Student Management',[['Dashboard','V'],['All Students','VAED'],['Student 360°','VE'],['Attendance & Activity','VE'],['Payments & Wallet','VAE','Finance & Payouts'],['Reports','V','Reports & Analytics']]],
+  ['Teachers','Teacher Management',[['Dashboard','V'],['Onboarding & Recruitment','VAED'],['All Teachers','VAED'],['Course & Batch Allocation','VAED','Course & Batch Allocation'],['Schedules','VAED'],['Reminders & Alerts','VAED'],['Payouts','VAE','Finance & Payouts'],['Performance','V'],['Reports','V','Reports & Analytics']]],
+  ['Coordinator','Coordinator Management',[['Dashboard','V'],['All Coordinators','VAED'],['Onboarding','VAED'],['Course & Batch Allocation','VAED','Course & Batch Allocation'],['Recorded Course Monitoring','VE'],['Performance','V'],['Live Class Schedule','VAED'],['Attendance & Activity','VE'],['Payouts','VAE','Finance & Payouts'],['Reminders & Alerts','VAED'],['Reports','V','Reports & Analytics']]],
+  ['Become a Speaker','Speaker Management',[['Applications','VAED'],['Verification Centre','VE'],['Speaker Dashboard','V'],['Onboarding','VAED'],['Events','VAED']]],
+  ['Role & Access','Roles & Access',[['Dashboard','V'],['Roles','VAED'],['Users','VAED'],['Access Requests','VE'],['Sessions','VD'],['Audit Log','V']]],
+  ['Additional permissions','',[['Export data','V','Reports & Analytics',5],['Approve payouts','V','Finance & Payouts',4],['Approve access requests','V','Roles & Access',4],['Change password','V','*'],['Menu personalize (names & order)','VE','*']]]
+];
+const LETTER = ['V','A','E','D'];
+const menuFor = (d)=>{ const p = permsFor(d), out = {};
+  MENU.forEach(([sec,mod,rows])=>rows.forEach(([n,ap,mo,mi])=>{ const m = mo||mod, key = sec+' › '+n;
+    out[key] = [0,1,2,3].filter(i=>ap.includes(LETTER[i]) && (m==='*' ? (i===0 || i===2) : (mi!==undefined ? (p[m]||[]).includes(mi) : (p[m]||[]).includes(i)))); }));
+  return out; };
 
 // name, tier, tierColor, desc, users, scope, iconColor
 const ROLES = [
@@ -2481,7 +2544,7 @@ class Component extends DCLogic {
   // ---------- unified role flows ----------
   rfReset = (prefix) => { const r = {}; Object.keys(this.state).forEach(k=>{ if (k.startsWith(prefix)) r[k]=undefined; }); return r; };
   openRC = (desig, parent) => { const d = desig || 'Coordinator';
-    this.setState({...this.rfReset('rc'), modal:'rf', rfKind:'createRole', rfStep:0, rfErr:null, rcDesig:d, rcPerm:permsFor(d), rcParent: parent || undefined}); };
+    this.setState({...this.rfReset('rc'), modal:'rf', rfKind:'createRole', rfStep:0, rfErr:null, rcDesig:d, rcPerm:permsFor(d), rcMenu:menuFor(d), rcParent: parent || undefined}); };
   openInvite = (role) => this.setState({...this.rfReset('iv'), modal:'rf', rfKind:'invite', rfStep:0, rfErr:null, ivDone:false, ivDesig:'Coordinator', ivRole: role || undefined, ivPerm:permsFor('Coordinator')});
   openHier = (kind, role, parent) => this.setState({...this.rfReset('he'), modal:'rf', rfKind:kind, rfStep:0, rfErr:null, heRole:role, heParent:parent});
 
@@ -2518,6 +2581,37 @@ class Component extends DCLogic {
     return base;
   };
 
+  rfMenu = (key, defs) => {
+    const s = this.state, cur = s[key] || defs, openKey = key+'Open', open = s[openKey] || {};
+    let granted = 0, changed = 0, total = 0;
+    const setCell = (c,k,i,on)=>{ const l = c[k]||[]; c[k] = on ? [...new Set([...l,i])].sort() : l.filter(y=>y!==i); };
+    const sections = MENU.map(([sec,mod,rows],si)=>{
+      const isOpen = open[sec]!==undefined ? open[sec] : si<2;
+      let sg = 0, st = 0, sc = 0;
+      const items = rows.map(([n,ap])=>{ const k = sec+' › '+n, a = cur[k]||[], d = defs[k]||[];
+        const cells = [0,1,2,3].map(i=>{
+          if (!ap.includes(LETTER[i])) return {na:'block', cb:'none', mark:'', bg:'#fff', bd:'#fff', dot:'none', tog:()=>{}};
+          const on = a.includes(i), diff = on!==d.includes(i); st++; total++; if (on) { sg++; granted++; } if (diff) { sc++; changed++; }
+          return {na:'none', cb:'grid', mark:on?'✓':'', bg:on?'#0E9384':'#fff', bd:on?'#0E9384':'#D0D5DD', dot:diff?'block':'none',
+            tog:()=>this.setState(x=>{ const c = {...(x[key]||defs)}; if (on && i===0) c[k]=[]; else { setCell(c,k,i,!on); if (!on && i>0 && ap.includes('V')) setCell(c,k,0,true); } return {[key]:c}; })}; });
+        return {label: sec==='Additional permissions' ? n : sec+' › '+n, cells}; });
+      const colAll = [0,1,2,3].map(i=>{ const app = rows.filter(r=>r[1].includes(LETTER[i]));
+        if (!app.length) return {na:'block', cb:'none', mark:'', bg:'#fff', bd:'#fff', tog:()=>{}};
+        const allOn = app.every(([n])=>(cur[sec+' › '+n]||[]).includes(i));
+        return {na:'none', cb:'grid', mark:allOn?'✓':'', bg:allOn?'#0B1F3E':'#fff', bd:allOn?'#0B1F3E':'#B8BFCA',
+          tog:()=>this.setState(x=>{ const c = {...(x[key]||defs)}; app.forEach(([n,ap])=>{ const k=sec+' › '+n; setCell(c,k,i,!allOn); if (!allOn && i>0 && ap.includes('V')) setCell(c,k,0,true); }); return {[key]:c}; })}; });
+      return {sec, isOpen, rowsShow:isOpen?'block':'none', chev:isOpen?'rotate(0deg)':'rotate(-90deg)', count: sg+' / '+st, cntBg: sg?'#E6F4F1':'#F1F3F5', cntFg: sg?'#0B7A6E':'#98A2B3',
+        chg: sc ? sc+' changed' : '', chgShow: sc?'inline-flex':'none', items, colAll,
+        toggle:()=>this.setState(x=>({[openKey]:{...(x[openKey]||{}), [sec]:!isOpen}}))}; });
+    const allOpen = sections.every(x=>x.isOpen);
+    return {rfMenuShow:'flex', rfMenuSections:sections,
+      rfMenuSummary: granted+' of '+total+' permissions granted',
+      rfMenuChanged: changed+' changed from defaults', rfMenuChangedShow: changed?'inline-flex':'none',
+      rfMenuExpandLabel: allOpen ? 'Collapse all' : 'Expand all',
+      rfMenuExpand: ()=>this.setState({[openKey]: Object.fromEntries(MENU.map(([sec])=>[sec, !allOpen]))}),
+      rfMenuReset: ()=>this.setState({[key]:defs}), granted, changed, total, cur};
+  };
+
   rfMatrix = (key, defs) => {
     const s = this.state, cur = s[key] || defs;
     let granted = 0, changed = 0;
@@ -2549,7 +2643,8 @@ class Component extends DCLogic {
       fg: i===step ? '#0F2A47' : '#98A2B3', fw: i===step ? '700' : '500', go: i<step ? (()=>this.setState({rfStep:i, rfErr:null})) : (()=>{})}));
     const toHier = ['hEdit','hAdd','hRemove'].includes(k);
     const base = {rfOn:true, rfClose: toHier ? (()=>this.setState({modal:'hierView', rfErr:null})) : (()=>this.setState({modal:null})), rfWidth:'760px', rfTitle:'', rfSub:'', rfStepShow:'none', rfSteps:[], rfGroups:[], rfMatrixShow:'none', rfMxRows:[], rfMxHead:[],
-      rfMxSummary:'', rfMxChanged:'', rfMxChangedShow:'none', rfMxReset:()=>{}, rfSuccessShow:'none', rfSuccessTitle:'', rfSuccessSub:'',
+      rfMxSummary:'', rfMxChanged:'', rfMxChangedShow:'none', rfMxReset:()=>{},
+      rfMenuShow:'none', rfMenuSections:[], rfMenuSummary:'', rfMenuChanged:'', rfMenuChangedShow:'none', rfMenuExpandLabel:'', rfMenuExpand:()=>{}, rfMenuReset:()=>{}, rfSuccessShow:'none', rfSuccessTitle:'', rfSuccessSub:'',
       rfWarn:'', rfWarnShow:'none', rfInfo:'', rfInfoShow:'none', rfErr:s.rfErr||'', rfErrShow:s.rfErr?'flex':'none',
       rfBackShow: step>0 ? 'inline-flex' : 'none', rfBack:()=>this.setState({rfStep:Math.max(0,step-1), rfErr:null}),
       rfAltShow:'none', rfAltLabel:'', rfAlt:()=>{}, rfCancelShow:'inline-flex', rfPrimBg:'#0E9384', rfPrimaryLabel:'Continue', rfPrimary:()=>{}};
@@ -2561,12 +2656,14 @@ class Component extends DCLogic {
       const desig = v('rcDesig','Coordinator'), D = DESIG[desig], defs = permsFor(desig);
       const name = v('rcName',''), parent = v('rcParent', D.parent || 'Super Admin');
       const mx = this.rfMatrix('rcPerm', defs);
+      const mdefs = menuFor(desig), mn = this.rfMenu('rcMenu', mdefs);
+      const raEdit = ['Role & Access › Roles','Role & Access › Users'].some(k=>(mn.cur[k]||[]).some(i=>i>0));
       const nameBad = !String(name).trim() || ROLEN.map(x=>x.toLowerCase()).includes(String(name).trim().toLowerCase());
       const scope = v('rcScope', D.scope), mfa = v('rcMfa', D.mfa==='Required');
-      const elevated = D.tier==='Unrestricted' || D.tier==='Elevated' || mx.cur['Roles & Access']?.length > 1 || (mx.cur['Finance & Payouts']||[]).includes(4);
+      const elevated = D.tier==='Unrestricted' || D.tier==='Elevated' || raEdit || (mn.cur['Additional permissions › Approve payouts']||[]).includes(0);
       const labels = ['Designation','Permissions','Scope & hierarchy','Security','Review'];
       const out = {...base, rfTitle:'Create Role', rfSub:'Pick a designation to load its default access, then fine-tune before creating.', rfStepShow:'flex', rfSteps:steps(labels), rfWidth: step===1 ? '900px' : '760px'};
-      const onDesig = (d)=>({rcPerm:permsFor(d), rcScope:undefined, rcMfa:undefined, rcSession:undefined, rcParent:undefined, rcApprover:undefined});
+      const onDesig = (d)=>({rcPerm:permsFor(d), rcMenu:menuFor(d), rcMenuOpen:undefined, rcScope:undefined, rcMfa:undefined, rcSession:undefined, rcParent:undefined, rcApprover:undefined});
       if (step===0) {
         out.rfGroups = [
           G('Designation', [
@@ -2583,11 +2680,11 @@ class Component extends DCLogic {
         out.rfPrimary = ()=> !String(name).trim() ? fail('Enter a role name.') : nameBad ? fail('A role with this name already exists.') : next();
       }
       if (step===1) {
-        Object.assign(out, mx);
-        out.rfGroups = [G('Permissions', [F('read','','', 'Defaults for '+desig+' are pre-selected. Click any cell to grant or revoke; use Row to toggle a whole module.',{})], mx.granted+' granted')];
+        Object.assign(out, mn); out.rfWidth = '940px';
+        out.rfGroups = [G('Menu access', [F('read','','', 'Screens are listed in the same order as the sidebar. Defaults for '+desig+' are pre-ticked — set View / Add / Edit / Delete per screen, or use the dark row to toggle a whole column for that section. Ticking Add, Edit or Delete also grants View.',{})], mn.granted+' granted')];
         out.rfGroups[0].fields[0].labelShow='none';
-        if ((mx.cur['Roles & Access']||[]).some(x=>x>0)) { out.rfWarn = 'This role can change roles or access — it will need Super Admin approval.'; out.rfWarnShow='flex'; }
-        out.rfPrimary = ()=> mx.granted===0 ? fail('Grant at least one permission.') : next();
+        if (raEdit) { out.rfWarn = 'This role can change roles or users — it will need Super Admin approval.'; out.rfWarnShow='flex'; }
+        out.rfPrimary = ()=> mn.granted===0 ? fail('Grant access to at least one screen.') : next();
       }
       if (step===2) {
         const parents = ROLEN.filter(x=>x!==name);
@@ -2614,17 +2711,17 @@ class Component extends DCLogic {
         out.rfPrimary = next;
       }
       if (step===4) {
-        const diffs = []; MODULES.forEach(([m])=>{ const a = mx.cur[m]||[], d = defs[m]||[];
-          ACTIONS.forEach((act,ai)=>{ if (a.includes(ai) && !d.includes(ai)) diffs.push(['+ '+act, m, '#15803D']); if (!a.includes(ai) && d.includes(ai)) diffs.push(['− '+act, m, '#B42318']); }); });
+        const diffs = []; Object.keys(mdefs).forEach(k=>{ const a = mn.cur[k]||[], d = mdefs[k]||[];
+          [0,1,2,3].forEach(i=>{ const act = ['View','Add','Edit','Delete'][i]; if (a.includes(i) && !d.includes(i)) diffs.push(['+ '+act, k, '#15803D']); if (!a.includes(i) && d.includes(i)) diffs.push(['− '+act, k, '#B42318']); }); });
         out.rfGroups = [
-          G('Summary', [F('kv','','',null,[['Role',name],['Designation',desig+' · '+D.tier],['Reports to',parent],['Data scope',scope],['Permissions',mx.granted+' granted'],['2FA',(elevated||mfa)?'Required':'Optional'],['Session',v('rcSession',D.session)],['Approver',v('rcApprover',D.approval)]])]),
+          G('Summary', [F('kv','','',null,[['Role',name],['Designation',desig+' · '+D.tier],['Reports to',parent],['Data scope',scope],['Menu access',mn.granted+' of '+mn.total+' permissions'],['2FA',(elevated||mfa)?'Required':'Optional'],['Session',v('rcSession',D.session)],['Approver',v('rcApprover',D.approval)]])]),
           G('Changes from '+desig+' defaults', [diffs.length ? F('kv','','',null,diffs.map(([a,m,c])=>[m,a,c])) : F('read','','', 'None — using the designation defaults as-is.')], diffs.length+' changes')];
         out.rfGroups[1].fields[0].labelShow='none';
         out.rfWarn = elevated ? 'Elevated role — it goes to '+v('rcApprover',D.approval)+' for approval before it can be assigned.' : ''; out.rfWarnShow = elevated ? 'flex' : 'none';
         out.rfPrimaryLabel = elevated ? 'Submit for approval' : 'Create Role';
         out.rfAltShow = 'inline-flex'; out.rfAltLabel = 'Save as draft';
-        out.rfAlt = ()=>{ this.setState({modal:null}); this.fire('Draft saved — '+name, desig+' · '+mx.granted+' permissions', true); };
-        out.rfPrimary = ()=>{ this.setState(x=>({modal:null, hier:{...x.hier, [name]:parent}})); this.fire((elevated?'Sent for approval — ':'Role created — ')+name, desig+' · '+mx.granted+' permissions · reports to '+parent, true); };
+        out.rfAlt = ()=>{ this.setState({modal:null}); this.fire('Draft saved — '+name, desig+' · '+mn.granted+' permissions', true); };
+        out.rfPrimary = ()=>{ this.setState(x=>({modal:null, hier:{...x.hier, [name]:parent}})); this.fire((elevated?'Sent for approval — ':'Role created — ')+name, desig+' · '+mn.granted+' permissions · reports to '+parent, true); };
       } else out.rfPrimaryLabel = 'Continue';
       return out;
     }
