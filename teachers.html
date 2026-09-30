@@ -2115,6 +2115,18 @@
               </sc-for>
             </div>
             <span style="flex:1"></span>
+            <sc-if value="{{ poIsLec }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ fp.p8.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p8.bd }};background:{{ fp.p8.bg }};font-size:13px;font-weight:600;color:{{ fp.p8.fg }};cursor:pointer;font-family:inherit">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+                <span style="display:{{ poLecF.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ poLecF.count }}</span>
+              </button>
+            </sc-if>
+            <sc-if value="{{ poIsTchAny }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ fp.p7.toggle }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid {{ fp.p7.bd }};background:{{ fp.p7.bg }};font-size:13px;font-weight:600;color:{{ fp.p7.fg }};cursor:pointer;font-family:inherit">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>Filters
+                <span style="display:{{ poTchBar.has }};place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ poTchBar.count }}</span>
+              </button>
+            </sc-if>
             <button onClick="{{ poExport }}" style="height:38px;padding:0 15px;border-radius:10px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export register</button>
             <button onClick="{{ poRunBatch }}" style="height:38px;padding:0 16px;border-radius:10px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Run disbursement</button>
           </div>
@@ -2230,6 +2242,33 @@
           </sc-if>
 
           <sc-if value="{{ poIsTch }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:16px">
+              <sc-for list="{{ poTchKpis }}" as="k" hint-placeholder-count="4">
+                <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 18px">
+                  <div style="font-size:11px;font-weight:700;letter-spacing:.05em;color:#6B7C93">{{ k.label }}</div>
+                  <div style="font-size:24px;font-weight:800;letter-spacing:-.02em;color:{{ k.fg }};margin-top:6px">{{ k.n }}</div>
+                  <div style="font-size:12px;color:#98A2B3;margin-top:4px">{{ k.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:{{ fp.p7.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
+                <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter teachers</span>
+                <span style="font-size:12px;color:#98A2B3">{{ poTchCount }} match</span>
+                <span style="flex:1"></span>
+                <button onClick="{{ poTchBar.reset }}" style="display:{{ poTchBar.resetShow }};height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+                <sc-for list="{{ poTchBar.selects }}" as="p" hint-placeholder-count="4">
+                  <div style="min-width:0">
+                    <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ p.label }}</label>
+                    <select value="{{ p.value }}" onChange="{{ p.set }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+                      <sc-for list="{{ p.opts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+                    </select>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
             <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
                 <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA">
                   <div>
@@ -2314,6 +2353,32 @@
           </sc-if>
 
           <sc-if value="{{ poIsLec }}" hint-placeholder-val="{{ false }}">
+            <div style="display:{{ fp.p8.d }};background:#fff;border:1px solid #ECEAE2;border-radius:14px;padding:16px 20px;margin-bottom:16px">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
+                <span style="font-size:13.5px;font-weight:800;color:#0F2A47;letter-spacing:-.01em">Filter lectures</span>
+                <span style="font-size:12px;color:#98A2B3">{{ poLecF.match }} match</span>
+                <span style="flex:1"></span>
+                <button onClick="{{ poLecF.reset }}" style="display:{{ poLecF.resetShow }};height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Reset</button>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
+                <sc-for list="{{ poLecF.selects }}" as="p" hint-placeholder-count="3">
+                  <div style="min-width:0">
+                    <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">{{ p.label }}</label>
+                    <select value="{{ p.value }}" onChange="{{ p.set }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0">
+                      <sc-for list="{{ p.opts }}" as="o" hint-placeholder-count="4"><option>{{ o.o }}</option></sc-for>
+                    </select>
+                  </div>
+                </sc-for>
+                <div style="min-width:0">
+                  <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">From date</label>
+                  <input type="date" value="{{ poLecF.from }}" onChange="{{ poLecF.setFrom }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit" />
+                </div>
+                <div style="min-width:0">
+                  <label style="display:block;font-size:11px;font-weight:600;color:#475467;margin-bottom:6px">To date</label>
+                  <input type="date" value="{{ poLecF.to }}" onChange="{{ poLecF.setTo }}" style="width:100%;height:36px;padding:0 10px;border:1px solid #E5E3DC;border-radius:8px;font-size:12.5px;background:#fff;color:#0F2A47;outline:0;font-family:inherit" />
+                </div>
+              </div>
+            </div>
             <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
                 <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA">
                   <div>
@@ -2330,7 +2395,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <sc-for list="{{ poLecRows }}" as="r" hint-placeholder-count="8">
+                    <sc-for list="{{ poLecView }}" as="r" hint-placeholder-count="8">
                       <tr style-hover="background:#FCFBF7">
                         <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap;font-weight:600;font-family:ui-monospace,monospace;color:#0F2A47">{{ r.id }}</td>
                         <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.date }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.course }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap;font-family:ui-monospace,monospace;font-size:11.5px">{{ r.batch }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap;font-weight:600;color:#344054">{{ r.topic }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.teacher }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.dur }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.att }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.status }}</td>
@@ -2346,6 +2411,44 @@
           </sc-if>
 
           <sc-if value="{{ poIsRev }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-bottom:16px">
+              <sc-for list="{{ poRsKpis }}" as="k" hint-placeholder-count="6">
+                <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 16px">
+                  <div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">{{ k.label }}</div>
+                  <div style="font-size:22px;font-weight:800;letter-spacing:-.03em;color:{{ k.fg }};margin-top:6px">{{ k.v }}</div>
+                  <div style="font-size:11px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden;margin-bottom:16px">
+              <div style="padding:16px 20px;border-bottom:1px solid #F2F0EA">
+                <div style="font-size:14.5px;font-weight:700;color:#0F2A47">Revenue share</div>
+                <div style="font-size:12.5px;color:#6B7C93;margin-top:2px">Course revenue attributed to a teacher, and the share earned against it</div>
+              </div>
+              <div style="overflow-x:auto">
+                <table style="width:100%;min-width:1180px;border-collapse:collapse">
+                  <thead><tr style="background:#FCFBF7"><th style="padding:11px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SHARE ID</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TEACHER</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COURSE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SHARE RATE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">LEARNERS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COURSE REVENUE</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SHARE EARNED</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TDS</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">NET</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PERIOD</th><th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:11px 20px 11px 13px;text-align:right;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap"></th></tr></thead>
+                  <tbody>
+                    <sc-for list="{{ poRsRows }}" as="r" hint-placeholder-count="6">
+                      <tr onClick="{{ r.open }}" style="background:{{ r.rowBg }};cursor:pointer" style-hover="background:#F7FBFA">
+                        <td style="padding:11px 20px;border-bottom:1px solid #F5F3EE;font-size:11px;font-weight:700;color:#0F2A47;white-space:nowrap;font-family:ui-monospace,monospace">{{ r.id }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#475467">{{ r.teacher }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;font-weight:600;color:#0F2A47">{{ r.course }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#F0EAFD;color:#6D28D9;white-space:nowrap">{{ r.rate }}</span></td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;font-weight:700;color:#0F2A47">{{ r.learners }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#475467">{{ r.revenue }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;font-weight:700;color:#0F2A47">{{ r.share }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#475467">{{ r.tds }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;font-weight:700;color:#0F2A47">{{ r.net }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#475467">{{ r.period }}</td>
+                        <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.status }}</span></td>
+                        <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right"><span style="font-size:11.5px;font-weight:700;color:#0B7A6E;white-space:nowrap">Open →</span></td>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+            </div>
             <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
                 <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA">
                   <div>
@@ -2441,7 +2544,11 @@
                         <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap;font-family:ui-monospace,monospace;font-size:11.5px">{{ r.payout }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.date }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.by }}</td><td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467;white-space:nowrap">{{ r.appr }}</td>
                         <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ r.sBg }};color:{{ r.sFg }};white-space:nowrap">{{ r.state }}</span></td>
                         <td style="padding:11px 20px 11px 13px;border-bottom:1px solid #F5F3EE;text-align:right">
-                          <button onClick="{{ r.doc }}" style="height:29px;padding:0 11px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Document</button>
+                          <div style="display:inline-flex;gap:6px;justify-content:flex-end">
+                            <button onClick="{{ r.doc }}" style="height:29px;padding:0 11px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;white-space:nowrap" style-hover="background:#F6F5F0">Document</button>
+                            <button onClick="{{ r.reject }}" style="display:{{ r.actDisplay }};align-items:center;height:29px;padding:0 11px;border-radius:8px;border:1px solid #F0D2CF;background:#fff;font-size:11.5px;font-weight:600;color:#B42318;cursor:pointer;white-space:nowrap" style-hover="background:#FEF7F6">Reject</button>
+                            <button onClick="{{ r.approve }}" style="display:{{ r.actDisplay }};align-items:center;height:29px;padding:0 11px;border-radius:8px;border:0;background:#0E9384;font-size:11.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">Approve</button>
+                          </div>
                         </td>
                       </tr>
                     </sc-for>
@@ -2452,6 +2559,15 @@
           </sc-if>
 
           <sc-if value="{{ poIsSlip }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-bottom:16px">
+              <sc-for list="{{ poPsKpis }}" as="k" hint-placeholder-count="4">
+                <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 16px">
+                  <div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">{{ k.label }}</div>
+                  <div style="font-size:22px;font-weight:800;letter-spacing:-.03em;color:{{ k.fg }};margin-top:6px">{{ k.v }}</div>
+                  <div style="font-size:11px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
+                </div>
+              </sc-for>
+            </div>
             <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
                 <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA">
                   <div>
@@ -2577,6 +2693,7 @@
                         <div style="font-size:12.5px;color:#475467;margin-top:4px;text-wrap:pretty">{{ d.response }}</div>
                       </div>
                       <div style="display:flex;gap:8px;margin-top:14px">
+                        <button onClick="{{ d.evidence }}" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 13px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5M9 13h6M9 17h4" /></svg>View Evidence</button>
                         <span style="flex:1"></span>
                         <button onClick="{{ d.reject }}" style="display:{{ d.resolveDisplay }};align-items:center;height:32px;padding:0 13px;border-radius:8px;border:1px solid #F0D2CF;background:#fff;font-size:12px;font-weight:600;color:#B42318;cursor:pointer" style-hover="background:#FEF7F6">Reject</button>
                         <button onClick="{{ d.resolve }}" style="display:{{ d.resolveDisplay }};align-items:center;height:32px;padding:0 14px;border-radius:8px;border:0;background:#0E9384;font-size:12px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Resolve</button>
@@ -2589,6 +2706,15 @@
           </sc-if>
 
           <sc-if value="{{ poIsRec }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-bottom:16px">
+              <sc-for list="{{ poRecKpis }}" as="k" hint-placeholder-count="4">
+                <div style="min-width:0;background:#fff;border:1px solid #ECEAE2;border-radius:12px;padding:14px 16px">
+                  <div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699">{{ k.label }}</div>
+                  <div style="font-size:22px;font-weight:800;letter-spacing:-.03em;color:{{ k.fg }};margin-top:6px">{{ k.v }}</div>
+                  <div style="font-size:11px;color:#98A2B3;margin-top:4px;text-wrap:pretty">{{ k.note }}</div>
+                </div>
+              </sc-for>
+            </div>
             <div style="background:#fff;border:1px solid #ECEAE2;border-radius:14px;overflow:hidden">
                 <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #F2F0EA">
                   <div>
@@ -4304,6 +4430,7 @@
                                 <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ENROLLMENT STATUS</th>
                                 <th style="padding:11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">COURSE STATUS</th>
                                 <th style="padding:11px 16px 11px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ACTIVITY</th>
+                                <th style="width:52px;padding:11px 16px 11px 8px;border-bottom:1px solid #F0EEE7"></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -4318,6 +4445,14 @@
                                   <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ x.eBg }};color:{{ x.eFg }};white-space:nowrap">{{ x.enroll }}</span></td>
                                   <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ x.cBg }};color:{{ x.cFg }};white-space:nowrap">{{ x.cState }}</span></td>
                                   <td style="padding:11px 16px 11px 13px;border-bottom:1px solid #F5F3EE;font-size:12px;color:#475467;white-space:nowrap">{{ x.att }} attendance · {{ x.mock }} mock avg · last {{ x.last }}</td>
+                                  <td style="padding:11px 16px 11px 8px;border-bottom:1px solid #F5F3EE;text-align:right;position:relative;white-space:nowrap">
+                                    <button onClick="{{ x.menu }}" title="More" style="width:28px;height:28px;border-radius:7px;border:1px solid {{ x.kBd }};background:{{ x.kBg }};display:inline-grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg></button>
+                                    <div style="display:{{ x.menuDisplay }};position:fixed;left:{{ x.menuX }};top:{{ x.menuY }};z-index:80;width:190px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;text-align:left">
+                                      <div onClick="{{ x.viewStu }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">View Student</div>
+                                      <div onClick="{{ x.transferStu }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">Transfer Student</div>
+                                      <div onClick="{{ x.removeStu }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:#B42318;cursor:pointer;border-top:1px solid #F2F0EA;margin-top:4px" style-hover="background:#FEF7F6">Remove Student</div>
+                                    </div>
+                                  </td>
                                 </tr>
                               </sc-for>
                             </tbody>
@@ -4328,14 +4463,15 @@
                   </sc-if>
 
                   <sc-if value="{{ sec.isTable }}" hint-placeholder-val="{{ false }}">
-                    <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
-                      <div style="overflow-x:auto">
+                    <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:{{ sec.tblOverflow }}">
+                      <div style="overflow-x:{{ sec.tblScroll }}">
                         <table style="width:100%;border-collapse:collapse">
                           <thead>
                             <tr style="background:#FCFBF7">
                               <sc-for list="{{ sec.cols }}" as="c" hint-placeholder-count="6">
                                 <th style="padding:11px 14px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">{{ c.c }}</th>
                               </sc-for>
+                              <sc-if value="{{ sec.hasRowMenu }}" hint-placeholder-val="{{ false }}"><th style="width:52px;border-bottom:1px solid #F0EEE7"></th></sc-if>
                             </tr>
                           </thead>
                           <tbody>
@@ -4349,6 +4485,16 @@
                                     <sc-if value="{{ cl.isPlain }}" hint-placeholder-val="{{ true }}">{{ cl.v }}</sc-if>
                                   </td>
                                 </sc-for>
+                                <sc-if value="{{ sec.hasRowMenu }}" hint-placeholder-val="{{ false }}">
+                                  <td style="padding:8px 14px 8px 6px;border-bottom:1px solid #F5F3EE;text-align:right;position:relative;white-space:nowrap">
+                                    <button onClick="{{ tr.menu }}" title="More" style="width:28px;height:28px;border-radius:7px;border:1px solid {{ tr.kBd }};background:{{ tr.kBg }};display:inline-grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg></button>
+                                    <div style="display:{{ tr.menuDisplay }};position:fixed;left:{{ tr.menuX }};top:{{ tr.menuY }};z-index:80;width:170px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;text-align:left">
+                                      <sc-for list="{{ tr.menuItems }}" as="m" hint-placeholder-count="4">
+                                        <div onClick="{{ m.pick }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:{{ m.fg }};cursor:pointer;border-top:{{ m.bt }};margin-top:{{ m.mt }}" style-hover="background:{{ m.hbg }}">{{ m.label }}</div>
+                                      </sc-for>
+                                    </div>
+                                  </td>
+                                </sc-if>
                               </tr>
                             </sc-for>
                           </tbody>
@@ -5213,7 +5359,7 @@ const SEC = {
       card('LATE ARRIVALS','4','last 90 days',CL.a),card('EARLY EXITS','1','last 90 days',CL.a),
       card('LEAVE BALANCE','8 days','of 18 annual',CL.t),card('LEAVE TAKEN','10 days','this year',CL.d),
       card('PENDING REQUESTS','1','awaiting approval',CL.a),card('UNAVAILABLE SLOTS','2','declared this week',CL.p)]},
-    {t:'DAILY ATTENDANCE',right:'Last 8 working days',type:'table',
+    {t:'DAILY ATTENDANCE',right:'Last 8 working days',type:'table',rowMenu:1,
       cols:['Date','Scheduled','First Login','Last Logout','Classes Held','Late','Work Hours','Status'],
       trs:[
         ['2026-08-10','2 classes','06:52','20:04','2','0','5 h 40 m',['Present','green']],
@@ -5224,7 +5370,7 @@ const SEC = {
         ['2026-08-05','2 classes','—','—','0','—','—',['Approved leave','blue']],
         ['2026-08-04','2 classes','06:58','20:02','2','0','5 h 45 m',['Present','green']],
         ['2026-08-03','1 class','07:02','10:41','1','0','2 h 40 m',['Early exit','amber']]]},
-    {t:'LEAVE HISTORY',type:'table',
+    {t:'LEAVE HISTORY',type:'table',rowMenu:1,
       cols:['Leave ID','Type','From','To','Days','Reason','Approved By','Status'],
       trs:[
         ['LV-2214','Casual leave','2026-08-14','2026-08-14','1','Family function','Pending',['Pending','amber']],
@@ -5797,6 +5943,10 @@ class Component extends DCLogic {
         else this.fire('Link copied', link); },
       join:(e)=>{ if (e && e.stopPropagation) e.stopPropagation(); window.open(link,'_blank'); this.fire('Joining class', label+' — opening live session in a new tab'); }}; };
 
+  pcOk = (r) => { const s = this.state, f = (k)=>s[k]||'All';
+    return (f('pcMethod')==='All' || r[4]===f('pcMethod') || r[6]===f('pcMethod')) && (f('pcState')==='All' || r[3]===f('pcState'))
+      && (f('pcDept')==='All' || r[2]===f('pcDept')) && (f('pcTeacher')==='All' || r[0]===f('pcTeacher')); };
+
   bar = (specs, resetKeys, label) => {
     const s = this.state;
     return {
@@ -6050,7 +6200,13 @@ class Component extends DCLogic {
         eBg:BDG[x.enroll==='Active'?'green':x.enroll==='Paused'?'amber':'grey'][0],
         eFg:BDG[x.enroll==='Active'?'green':x.enroll==='Paused'?'amber':'grey'][1],
         cBg:BDG[x.cState==='Active'?'green':x.cState==='Upcoming'?'blue':'grey'][0],
-        cFg:BDG[x.cState==='Active'?'green':x.cState==='Upcoming'?'blue':'grey'][1]}));
+        cFg:BDG[x.cState==='Active'?'green':x.cState==='Upcoming'?'blue':'grey'][1],
+        menuDisplay: st.stuMenu===x.sid ? 'block' : 'none', kBg: st.stuMenu===x.sid ? '#EEF6F5' : '#fff', kBd: st.stuMenu===x.sid ? '#BFE3DC' : '#E5E3DC',
+        menuX: (st.stuMenuPos||{}).x || 0, menuY: (st.stuMenuPos||{}).y || 0,
+        menu:(e)=>{ e && e.stopPropagation && e.stopPropagation(); const r = e.currentTarget.getBoundingClientRect(); this.setState({stuMenu: st.stuMenu===x.sid ? null : x.sid, stuMenuPos:{x: Math.max(8, r.right-190)+'px', y: (r.bottom+6)+'px'}}); },
+        viewStu:()=>{ this.setState({stuMenu:null}); window.location.href = 'students.html'; },
+        transferStu:()=>this.setState({stuMenu:null, fm:'act', fmStep:0, fmErr:null, fmCtx:{label:'Transfer Student', danger:0, stu:x}}),
+        removeStu:()=>this.setState({stuMenu:null, fm:'act', fmStep:0, fmErr:null, fmCtx:{label:'Remove Student', danger:1, stu:x}})}));
     }
     if (d.isCourseBatch) d.cbRows = sec.rows.map(r=>({...r,
       cBg:BDG[r.cC][0], cFg:BDG[r.cC][1], bBg:BDG[r.bC][0], bFg:BDG[r.bC][1],
@@ -6084,7 +6240,16 @@ class Component extends DCLogic {
     if (d.isChart) d.bars = sec.bars;
     if (d.isTable) {
       d.cols = sec.cols.map(c=>({c}));
+      const RM = !!sec.rowMenu, openK = this.state.tblMenu;
+      d.hasRowMenu = RM; d.tblOverflow = 'hidden'; d.tblScroll = 'auto';
       d.trs = sec.trs.map((row,i)=>({bg: i%2 ? '#FCFBF7' : '#fff',
+        ...(RM ? (()=>{ const k = sec.t+'|'+i, open = openK===k, ref = row[0];
+          return {menuDisplay: open?'block':'none', kBg: open?'#EEF6F5':'#fff', kBd: open?'#BFE3DC':'#E5E3DC',
+            menuX: (this.state.tblMenuPos||{}).x || 0, menuY: (this.state.tblMenuPos||{}).y || 0,
+            menu:(e)=>{ e && e.stopPropagation && e.stopPropagation(); const r = e.currentTarget.getBoundingClientRect(); this.setState({tblMenu: open ? null : k, tblMenuPos:{x: Math.max(8, r.right-170)+'px', y: (r.bottom+6)+'px'}}); },
+            menuItems:[['Approve',0],['Reject',1],['Revoke',1],['Cancel',1]].map(([a,dg],j)=>({label:a, fg: dg?'#B42318':'#344054', hbg: dg?'#FEF7F6':'#F7FBFA',
+              bt: j===1?'1px solid #F2F0EA':'none', mt: j===1?'4px':'0',
+              pick:()=>this.setState({tblMenu:null, fm:'act', fmStep:0, fmErr:null, fmCtx:{label:a+(sec.t==='LEAVE HISTORY'?' Leave':' Attendance'), danger:dg, ref}})}))}; })() : {}),
         cells: row.map(v=>{
           if (Array.isArray(v)) return {isPill:true, isPlain:false, v:v[0], pBg:BDG[v[1]][0], pFg:BDG[v[1]][1]};
           return {isPill:false, isPlain:true, v};
@@ -6126,7 +6291,7 @@ class Component extends DCLogic {
     return d;
   };
 
-  fpVals() { const s = this.state; const o = {}; ["p6","p5","p4","p3","p2","p1"].forEach(id=>{ const on = !!(s.fpOpen||{})[id];
+  fpVals() { const s = this.state; const o = {}; ["p8","p7","p6","p5","p4","p3","p2","p1"].forEach(id=>{ const on = !!(s.fpOpen||{})[id];
     o[id] = {d: on ? 'block' : 'none', toggle: ()=>this.setState(x=>({fpOpen:{...(x.fpOpen||{}), [id]: !on}})), bd: on ? '#0E9384' : '#E5E3DC', bg: on ? '#EEF6F5' : '#fff', fg: on ? '#0B7A6E' : '#344054'}; }); return o; }
 
   frShow(v, prefixes) { this._frBase = this._frBase || {};
@@ -7302,8 +7467,66 @@ class Component extends DCLogic {
               R('Final settlement','dcFnf','Process full & final',['Process full & final','Hold for review']),
               NOTIFY(), NOTE('Exit notes — recorded permanently.')]]
           });
-          const spec = SPEC[L] || [L, 'Confirm this action against '+who,
+          const stu = ctx.stu;
+          if (stu) Object.assign(SPEC, {
+            'Transfer Student': ['Transfer Student', stu.name+' ('+stu.sid+') · currently '+stu.batch+' · '+stu.course, [
+              F('Transfer to','trTo','Another teacher — same batch','select',['Another teacher — same batch','Another batch — same course']),
+              F('New teacher','trTeacher',(TEACHERS.find(x=>x[1]!==s.teacher)||TEACHERS[0])[0],'select',TEACHERS.filter(x=>x[1]!==s.teacher).map(x=>x[0])),
+              F('New batch','trBatch',stu.batch,'select',['BT-101','BT-102','BT-103','BT-204','BT-310','BT-512']),
+              F('Effective from','trFrom','2026-10-01','date'),
+              R('Progress & attendance','trKeep','Carry over',['Carry over','Start fresh']),
+              NOTIFY(), NOTE('Why this student is being transferred.')]],
+            'Remove Student': ['Remove Student', stu.name+' ('+stu.sid+') · '+stu.batch+' · '+stu.course, [
+              F('Reason','rmWhy','Requested by student','select',['Requested by student','Moved to another teacher','Entitlement expired','Duplicate enrollment','Disciplinary']),
+              R('Student entitlement','rmEnt','Keep entitlement active',['Keep entitlement active','Pause entitlement']),
+              NOTIFY(), NOTE('Removal notes — recorded permanently.')]]
+          });
+          const spec = SPEC[L] || [L, (ctx.ref ? ctx.ref+' · ' : '')+'Confirm this action against '+who,
             [NOTE('Reason — recorded in the teacher audit log.'), NOTIFY()]];
+          if (ctx.dsp) {
+            const d = ctx.dsp, sum = this.fkv('', [['Dispute',d.id],['Teacher',d.name+' ('+d.tid+')'],['Transaction',d.txn],['Type',d.kind],['Claimed',d.claimed],['Calculated',d.calc],['Difference',d.diff]]);
+            const EV = [['Teacher claim statement','PDF · 180 KB · uploaded by teacher'],['Lecture attendance log — Aug 2026','CSV · system export'],['Payout calculation sheet · '+d.txn,'XLSX · generated by payroll'],['Coordinator email thread','EML · 3 messages']];
+            if (L==='View Evidence') return wrap({title:'Dispute Evidence', width:'720px', sub:d.id+' · '+d.name+' · '+d.kind,
+              groups:[{t:'Dispute', fields:[sum]}, {t:'Teacher comment', fields:[this.f('','ev_c',d.comment,'readonly',null,{span:'span 3'})]},
+                {t:'Attached evidence', fields:[this.fkv('', EV)]}],
+              info:'Evidence is read-only. Download files to review them offline.', infoDisplay:'flex',
+              primaryLabel:'Download all', primary:()=>{ this.setState({fm:null}); this.fire('Downloading evidence — '+d.id, EV.length+' files · ZIP'); }});
+            const ok = L==='Resolve Dispute';
+            const MSG = F(ok ? 'Message to teacher' : 'Message to teacher *','dsMsg','','textarea',null,{span:'span 3',placeholder:'Sent to the teacher by email and in-app with the decision.'});
+            const ATT = this.fuploads('Attach documents',[['Supporting document',0,'Not uploaded','grey'],['Revised calculation',0,'Not uploaded','grey']]);
+            if (ok) return wrap({title:'Resolve Dispute', width:'720px', sub:d.id+' · '+d.name+' · permanently recorded in the faculty audit trail',
+              groups:[{t:'Dispute', fields:[sum]},
+                {t:'Resolution', fields:[
+                  F('Decision *','dsDecision','Accept teacher claim','select',['Accept teacher claim','Partially accept','Reject claim — calculation upheld']),
+                  F('Resolution note *','dsNote','','textarea',null,{span:'span 3',placeholder:'How the dispute was resolved — recorded in the audit trail.'}),
+                  MSG, ATT]}],
+              info: (s.ac_dsDecision||'Accept teacher claim')==='Reject claim — calculation upheld' ? 'No adjustment is raised — the teacher receives the calculation breakdown.' : 'An adjustment for the accepted amount is raised in the next payout cycle.', infoDisplay:'flex',
+              primaryLabel:'Resolve Dispute',
+              primary:()=>{ if (!(s.ac_dsNote||'').trim()) return this.setState({fmErr:'Add a resolution note.'});
+                this.setState({fm:null}); this.fire('Dispute resolved — '+d.id, (s.ac_dsDecision||'Accept teacher claim')+' · '+d.name+' notified'); }});
+            return wrap({title:'Reject Dispute', width:'720px', sub:d.id+' · '+d.name+' · permanently recorded in the faculty audit trail',
+              groups:[{t:'Dispute', fields:[sum]},
+                {t:'Rejection', fields:[
+                  F('Reason *','dsReason','Calculation verified as correct','select',['Calculation verified as correct','Insufficient evidence','Outside dispute window','Duplicate dispute','Policy not applicable']),
+                  MSG, ATT]}],
+              warn:'The teacher is notified with the calculation breakdown. This cannot be silently reversed.', warnDisplay:'flex',
+              primaryLabel:'Reject Dispute',
+              primary:()=>{ if (!(s.ac_dsMsg||'').trim()) return this.setState({fmErr:'Write a message to the teacher explaining the rejection.'});
+                this.setState({fm:null}); this.fire('Dispute rejected — '+d.id, (s.ac_dsReason||'Calculation verified as correct')+' · '+d.name+' notified'); }});
+          }
+          if (L==='Approve Adjustment' || L==='Reject Adjustment') {
+            const ok = L==='Approve Adjustment';
+            return wrap({title:L, width:'680px', sub:(ctx.who||who)+' · Confirm this action against the teacher record'+(ctx.detail ? ' · '+ctx.detail : ''),
+              groups:[{t:'Details', fields:[
+                F('Reason','adjReason','Operational requirement','select',['Operational requirement','Administrative decision','Student request','Teacher request','Correction','Other']),
+                F(ok ? 'Note' : 'Note *','adjNote','','textarea',null,{span:'span 3',placeholder:'Context recorded in the audit trail.'})]}],
+              warn: ok ? '' : 'Rejected adjustments are not applied to the payout cycle.', warnDisplay: ok ? 'none' : 'flex',
+              info:'Recorded in the teacher activity log · affected people are notified through the selected channels.', infoDisplay:'flex',
+              primaryLabel:L,
+              primary: ()=>{ if (!ok && !(s.ac_adjNote||'').trim()) return this.setState({fmErr:'Add a note explaining the rejection.'});
+                this.setState(x=>({fm:null, adjSt:{...(x.adjSt||{}), [ctx.id]: ok ? 'Approved' : 'Rejected'}}));
+                this.fire((ok?'Adjustment approved — ':'Adjustment rejected — ')+(ctx.id||''), (ctx.who||'')+' · '+(s.ac_adjReason||'Operational requirement')); }});
+          }
           return wrap({title:spec[0], width:'740px',
             sub:spec[1]+' · '+who+' ('+wid+')',
             groups:[{t: ctx.danger ? 'This action is recorded permanently' : 'Details', fields:spec[2]}],
@@ -9049,7 +9272,7 @@ class Component extends DCLogic {
       poIsOv:(s.poTab||'ov')==='ov', poIsTxn:s.poTab==='txn', poIsTch:s.poTab==='tch' && !s.poFin,
       poIsSal:s.poTab==='sal', poIsLec:s.poTab==='lec', poIsRev:s.poTab==='rev', poIsBat:s.poTab==='bat',
       poIsAdj:s.poTab==='adj', poIsSlip:s.poTab==='slip', poIsFail:s.poTab==='fail', poIsRec:s.poTab==='rec', poIsSet:s.poTab==='set',
-      poIsFin: s.poTab==='tch' && !!s.poFin,
+      poIsFin: s.poTab==='tch' && !!s.poFin, poIsTchAny: s.poTab==='tch' && !s.poFin,
 
       poKpis: [
         {label:'Total Payable',n:'₹18.4L',note:'96 teachers · Aug 2026',fg:'#6B7C93'},
@@ -9094,7 +9317,25 @@ class Component extends DCLogic {
         ['Teacher','ptTeacher',['All','Dr. Vikram Verma','Neha Kulkarni','Prof. Arun Mehta','Ritu Bansal','Ayesha Khan','Shalini Nair','Rahul Kumar','Mahesh Gowda']]
       ], ['ptMethod','ptState','ptPeriod','ptTeacher'], 'Showing every payout transaction'),
 
-      poTeachers: FIN.map(t=>{
+      ...(()=>{
+        const num = (x)=>{ const v = String(x||''), n = Number(v.replace(/[^0-9.]/g,''))||0; return Math.round(/L/i.test(v) ? n*100000 : /Cr/i.test(v) ? n*10000000 : n); };
+        const paid = FIN.reduce((a,r)=>a+num(r[9]),0), tds = Math.round(paid*0.1/0.9);
+        const hold = FIN.filter(r=>!/active/i.test(r[3])).length;
+        const inr = (n)=> n>=100000 ? '₹'+(n/100000).toFixed(2)+'L' : '₹'+n.toLocaleString('en-IN');
+        return {
+          poTchKpis:[['PAYABLE TEACHERS',String(FIN.length),'on the payout register','#0F2A47'],['LIFETIME PAID',inr(paid),'net of TDS','#15803D'],
+            ['TDS WITHHELD',inr(tds),'10% u/s 194J','#0F2A47'],['ON HOLD',String(hold),'blocked from disbursement','#B45309']].map(([label,n,note,fg])=>({label,n,note,fg})),
+          poTchExport: this.act('Exporting teacher payout register', FIN.length+' teachers · XLSX'),
+          poTchRun: this.guard('Run Disbursement',[['Teachers',String(FIN.length - hold)],['On hold (skipped)',String(hold)],['Mode','NEFT via HDFC corporate'],['Period','Aug 2026']])};
+      })(),
+      poTchBar: this.bar([
+        ['Payment method','pcMethod',['All','Fixed Salary','Lecture-wise','Revenue Share']],
+        ['Status','pcState',['All', ...new Set(FIN.map(r=>r[3]))]],
+        ['Department','pcDept',['All', ...new Set(FIN.map(r=>r[2]))]],
+        ['Teacher','pcTeacher',['All', ...FIN.map(r=>r[0])]]
+      ], ['pcMethod','pcState','pcDept','pcTeacher'], 'Showing every teacher'),
+      poTchCount: String(FIN.filter(r=>this.pcOk(r)).length),
+      poTeachers: FIN.filter(r=>this.pcOk(r)).map(t=>{
         const [name,tid,dept,status,m1,m1c,m2,m2c,life,paidA,pend,cur,last,next] = t;
         return {name,tid,dept,status,m1,m1c,m2,m2c,life,paid:paidA,pend,cur,last,next,
           init:this.initials(name), avBg:AVc(name),
@@ -9128,8 +9369,47 @@ class Component extends DCLogic {
       ].map(([id,date,course,batch,topic,teacher,dur,att,status,elig,rate,adj,amt,c])=>({
         id,date,course,batch,topic,teacher,dur,att,status,elig,rate,adj,amt,
         eBg:BDG[c][0], eFg:BDG[c][1],
-        amtFg: amt==='₹0' ? '#98A2B3' : '#0F2A47'})),
+        amtFg: amt==='₹0' ? '#98A2B3' : '#0F2A47'})).map((r,i,a)=>{ if (i===0) this._lecAll = a; return r; }),
 
+      ...(()=>{
+        const all = this._lecAll || [], f = (k)=>s[k]||'All', from = s.plFrom||'', to = s.plTo||'';
+        const base = (x)=>x.teacher.replace(' (sub)','');
+        const view = all.filter(r=>(f('plTeacher')==='All' || base(r)===f('plTeacher')) && (f('plCourse')==='All' || r.course===f('plCourse'))
+          && (f('plBatch')==='All' || r.batch===f('plBatch')) && (!from || r.date>=from) && (!to || r.date<=to));
+        const b = this.bar([
+          ['Teacher','plTeacher',['All', ...new Set(all.map(base))]],
+          ['Course','plCourse',['All', ...new Set(all.map(r=>r.course))]],
+          ['Batch','plBatch',['All', ...new Set(all.map(r=>r.batch))]]], ['plTeacher','plCourse','plBatch'], 'Showing every lecture');
+        const n = Number(b.count) + (from?1:0) + (to?1:0);
+        return {poLecView: view, poLecF: {...b, count:String(n), has: n?'grid':'none', resetShow: n?'inline-flex':'none', match:String(view.length),
+          from, to, setFrom:(e)=>this.setState({plFrom:e.target.value}), setTo:(e)=>this.setState({plTo:e.target.value}),
+          reset:()=>{ this.setState({plTeacher:'All', plCourse:'All', plBatch:'All', plFrom:'', plTo:''}); this.fire('Filters reset','Showing every lecture'); }}};
+      })(),
+      ...(()=>{
+        const RS = [
+          ['RS-3041','Prof. Arun Mehta','Taxation Intensive','22%',168,412000,90640,9064,81576,'Aug 2026','Paid','green'],
+          ['RS-3038','Neha Kulkarni','Life Insurance Elite','30%',142,356000,106800,10680,96120,'Aug 2026','Approved','blue'],
+          ['RS-3035','Ayesha Khan','Health Crux Pro','18%',96,228000,41040,4104,36936,'Aug 2026','Pending Review','amber'],
+          ['RS-3031','Prof. Arun Mehta','Taxation Intensive','22%',154,378000,83160,8316,74844,'Jul 2026','Paid','green'],
+          ['RS-3027','Neha Kulkarni','Life Insurance Elite','30%',131,328000,98400,9840,88560,'Jul 2026','Paid','green'],
+          ['RS-3022','Shalini Nair','Exam Strategy','20%',64,114000,22800,2280,20520,'Jul 2026','Paid','green']
+        ];
+        const money = (n)=> n>=100000 ? '₹'+(n/100000).toFixed(2)+'L' : '₹'+n.toLocaleString('en-IN');
+        const rev = RS.reduce((n,r)=>n+r[5],0), earned = RS.reduce((n,r)=>n+r[6],0);
+        return {
+          poRsKpis: [
+            {label:'REVENUE-SHARE TEACHERS', v:String(new Set(RS.map(r=>r[1])).size), note:'on share agreements', fg:'#0F2A47'},
+            {label:'COURSE REVENUE', v:money(rev), note:'gross, attributed', fg:'#0F2A47'},
+            {label:'SHARE EARNED', v:money(earned), note:'before TDS', fg:'#6D28D9'},
+            {label:'SHARE PAID', v:money(RS.filter(r=>r[10]==='Paid').reduce((n,r)=>n+r[8],0)), note:'net of TDS', fg:'#15803D'},
+            {label:'PENDING', v:money(RS.filter(r=>r[10]!=='Paid').reduce((n,r)=>n+r[8],0)), note:'approved, not disbursed', fg:'#B45309'},
+            {label:'AVG SHARE RATE', v:Math.round(earned/rev*100)+'%', note:'weighted by revenue', fg:'#0B7A6E'}
+          ],
+          poRsRows: RS.map(([id,teacher,course,rate,learners,revenue,share,tds,net,period,status,c],i)=>({
+            id, teacher, course, rate, learners:String(learners), revenue:money(revenue), share:money(share), tds:money(tds), net:money(net), period, status,
+            sBg:BDG[c][0], sFg:BDG[c][1], rowBg: i%2 ? '#FCFBF7' : '#fff',
+            open:()=>this.setState({poTab:'tch', poFin:teacher, poFinTab:'Overview'})}))};
+      })(),
       poRevRows: [
         ['SALE-90211','ORD-88102','IC-38 Full Prep','Aarav Sharma','2026-06-10','₹14,999','₹1,500','₹13,499','₹2,059','₹243','₹0','₹11,197','30%','₹3,359','₹336','₹3,023','Paid','green'],
         ['SALE-90244','ORD-88210','Life Insurance Elite','Ananya Gupta','2026-07-02','₹14,999','₹0','₹14,999','₹2,288','₹270','₹0','₹12,441','30%','₹3,732','₹373','₹3,359','Paid','green'],
@@ -9161,13 +9441,32 @@ class Component extends DCLogic {
         ['ADJ-1086','Neha Kulkarni','TCH-2002','Reimbursement','+₹3,400','Approved travel expense · receipt on file','PAY-2026-000186','2026-07-30','Admin User','Finance Head','Applied','green'],
         ['ADJ-1081','Rahul Kumar','TCH-2003','Advance','-₹10,000','Salary advance recovery · 2 of 3','PAY-2026-000194','2026-07-28','Finance Head','Finance Head','Applied','green'],
         ['ADJ-1077','Mahesh Gowda','TCH-2011','Refund Adjustment','-₹1,824','Revenue share reversed on refunded sale','PAY-2026-000196','2026-07-25','System','Finance Head','Applied','green']
-      ].map(([id,name,tid,kind,amt,reason,payout,date,by,appr,state,c])=>({
-        id,name,tid,kind,amt,reason,payout,date,by,appr,state,
+      ].map(([id,name,tid,kind,amt,reason,payout,date,by,appr,state0,c0])=>{
+        const ov = (s.adjSt||{})[id], state = ov || state0, c = ov==='Approved' ? 'green' : ov==='Rejected' ? 'red' : c0;
+        const open = (label)=>()=>this.setState({fm:'act', fmStep:0, fmErr:null, ac_adjReason:undefined, ac_adjNote:undefined, fmCtx:{label, id, who:name, detail:id+' · '+kind+' · '+amt}});
+        return {id,name,tid,kind,amt,reason,payout,date,by, appr: ov==='Approved' ? 'Admin User' : appr, state,
+        actDisplay: state==='Pending' ? 'inline-flex' : 'none', approve: open('Approve Adjustment'), reject: open('Reject Adjustment'),
         kBg: amt.startsWith('+') ? '#E7F7EE' : '#FDE8E8', kFg: amt.startsWith('+') ? '#15803D' : '#B42318',
         sBg:BDG[c][0], sFg:BDG[c][1],
-        doc: this.act('Supporting document — '+id, reason)})),
+        doc: this.act('Supporting document — '+id, reason)}; }),
       poNewAdj: ()=>this.setState({fm:'adjust', fmCtx:{}, fmStep:0, fmErr:null}),
 
+      ...(()=>{
+        const SL = [
+        ['PS-2026-08-001','Dr. Vikram Verma','TCH-2001','Aug 2026','Salary + Lecture','₹1,08,500','₹14,350','₹94,150','Generated','green'],
+        ['PS-2026-08-002','Neha Kulkarni','TCH-2002','Aug 2026','Salary + Revenue Share','₹1,03,000','₹10,300','₹92,700','Generated','green'],
+        ['PS-2026-08-003','Prof. Arun Mehta','TCH-2005','Aug 2026','Lecture + Revenue Share','₹1,24,800','₹12,480','₹1,12,320','Generated','green'],
+        ['PS-2026-08-004','Ritu Bansal','TCH-2008','Aug 2026','Salary + Lecture','₹86,500','₹9,000','₹77,500','Pending','amber'],
+        ['PS-2026-08-005','Ayesha Khan','TCH-2010','Aug 2026','Salary + Revenue Share','₹65,200','₹6,520','₹58,680','Generated','green']
+      ];
+        const num = (x)=>Number(String(x).replace(/[^0-9]/g,''))||0, net = SL.reduce((a,r)=>a+num(r[7]),0);
+        const gen = SL.filter(r=>r[8]==='Generated').length;
+        return {poPsKpis:[
+          {label:'PAYSLIPS', v:String(SL.length), note:'current cycle', fg:'#0F2A47'},
+          {label:'GENERATED', v:String(gen), note:'available to download', fg:'#15803D'},
+          {label:'PENDING', v:String(SL.length-gen), note:'awaiting cycle close', fg:'#B45309'},
+          {label:'TOTAL NET', v: net>=100000 ? '₹'+(net/100000).toFixed(2)+'L' : '₹'+net.toLocaleString('en-IN'), note:'across all payslips', fg:'#0F2A47'}]};
+      })(),
       poSlips: [
         ['PS-2026-08-001','Dr. Vikram Verma','TCH-2001','Aug 2026','Salary + Lecture','₹1,08,500','₹14,350','₹94,150','Generated','green'],
         ['PS-2026-08-002','Neha Kulkarni','TCH-2002','Aug 2026','Salary + Revenue Share','₹1,03,000','₹10,300','₹92,700','Generated','green'],
@@ -9198,9 +9497,23 @@ class Component extends DCLogic {
         id,name,tid,txn,kind,claimed,calc,diff,comment,response,owner,state,
         init:this.initials(name), avBg:AVc(name), sBg:BDG[c][0], sFg:BDG[c][1],
         resolveDisplay: state==='Resolved' ? 'none' : 'inline-flex',
-        resolve: this.guard('Resolve Dispute',[['Dispute',id],['Teacher',name],['Transaction',txn],['Claimed',claimed],['Calculated',calc],['Difference',diff],['Effect','Adjustment raised in the next cycle if upheld']]),
-        reject: this.guard('Reject Dispute',[['Dispute',id],['Teacher',name],['Reason','Calculation verified as correct'],['Effect','Teacher notified with the calculation breakdown']])})),
+        evidence: ()=>this.setState({fm:'act', fmStep:0, fmErr:null, fmCtx:{label:'View Evidence', dsp:{id,name,tid,txn,kind,claimed,calc,diff,comment}}}),
+        resolve: ()=>this.setState({fm:'act', fmStep:0, fmErr:null, ac_dsDecision:undefined, ac_dsNote:undefined, ac_dsMsg:undefined, fmCtx:{label:'Resolve Dispute', dsp:{id,name,tid,txn,kind,claimed,calc,diff,comment}}}),
+        reject: ()=>this.setState({fm:'act', fmStep:0, fmErr:null, ac_dsReason:undefined, ac_dsMsg:undefined, fmCtx:{label:'Reject Dispute', dsp:{id,name,tid,txn,kind,claimed,calc,diff,comment}}}),
+        resolveOld: this.guard('Resolve Dispute',[['Dispute',id],['Teacher',name],['Transaction',txn],['Claimed',claimed],['Calculated',calc],['Difference',diff],['Effect','Adjustment raised in the next cycle if upheld']]),
+        rejectOld: this.guard('Reject Dispute',[['Dispute',id],['Teacher',name],['Reason','Calculation verified as correct'],['Effect','Teacher notified with the calculation breakdown']])})),
 
+      ...(()=>{
+        const RC = [['₹94,150','Matched'],['₹92,700','Matched'],['₹76,000','Mismatch',1500],['₹58,680','Matched'],['₹0','Unsettled',10800]];
+        const num = (x)=>Number(String(x).replace(/[^0-9]/g,''))||0, paid = RC.reduce((a,r)=>a+num(r[0]),0);
+        const ok = RC.filter(r=>r[1]==='Matched').length, open = RC.reduce((a,r)=>a+(r[2]||0),0), openN = RC.length-ok;
+        const inr = (n)=> n>=100000 ? '₹'+(n/100000).toFixed(2)+'L' : '₹'+n.toLocaleString('en-IN');
+        return {poRecKpis:[
+          {label:'PAYOUTS RECONCILED', v:ok+' / '+RC.length, note:'bank vs ledger', fg:'#15803D'},
+          {label:'TOTAL DISBURSED', v:inr(paid), note:'per bank statement', fg:'#0F2A47'},
+          {label:'OPEN VARIANCE', v:inr(open), note:openN+' payout'+(openN===1?'':'s')+' unmatched', fg:'#B45309'},
+          {label:'LAST RECONCILED', v:'05 Aug', note:'Aug 2026 · Cycle 1', fg:'#0F2A47'}]};
+      })(),
       poRecon: [
         ['PAY-2026-000184','Dr. Vikram Verma','₹94,150','₹94,150','₹0','UTR-88210441','2026-08-05','Matched','green'],
         ['PAY-2026-000186','Neha Kulkarni','₹92,700','₹92,700','₹0','UTR-88210442','2026-08-05','Matched','green'],

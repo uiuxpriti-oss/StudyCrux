@@ -2,14 +2,13 @@ repo: uiuxpriti-oss/StudyCrux
 branch: claude/zealous-lovelace-o9hpsg
 
 ## Last sync
-date: 2026-09-27T10:05:00Z
+date: 2026-09-30T16:40:00Z
 
 ### Updated in this project
-- Coordinators: Live Class Schedule matches Teacher Schedules; class drawer matches Teacher drawer; 6 new Quick Action flows.
-- Teachers: week-cell Copy/Join hover; Course & Batch Allocation matches Coordinator page.
-- Roles & Access: Create Role is a single-page Lead Becho–style form — designation, name, status + screen-level Menu access matrix.
-- Schedules (Teacher + Coordinator): identical Day/Week/Month/Agenda views with Copy/Join hover; By Batch/By Teacher moved into Filters as "View by".
-- Not yet pushed — download the project and commit to the branch.
+- Roles & Access: Access Requests page removed; Invite User is single-page — search system users by name/email/ID + menu access matrix.
+- Students 360 Documents: Verified/Unverified status menu + ⋮ View / Download Doc.
+- Teachers: Students & Attendance row ⋮ menus; Payouts — Teacher KPIs + filters, Lecture filters, Revenue Share page, Adjustment approve/reject, Payslip & Reconciliation KPIs, dispute Evidence/Resolve/Reject forms.
+- Coordinators: Attendance & Leave and Schedule rebuilt to match Teachers (Excel-style column filters, view popup, calendar + class drawer); Payout History invoice/breakup flows. Speakers: Payout Batches table + Create batch form. Not yet pushed — download and commit.
 
 ## Screen map
 | Project screen | Repo files |
@@ -27,6 +26,7 @@ date: 2026-09-27T10:05:00Z
 | images | assets/aarav.png, assets/aditya.png, assets/ananya.png, assets/divya.png, assets/teacher-hero.png |
 
 ## Sync history
+- 2026-09-27T10:05:00Z — Coordinator/Teacher schedules unified; Create Role single-page form.
 - 2026-09-27T07:05:32Z — uploads integrated at project root; photos pulled from repo; launcher links Design System.
 - 2026-09-25T15:40:00Z — Students blank-screen fix; Teachers, Coordinators, Roles & Access flows.
 - 2026-09-25T14:12:28Z — modules integrated from uploads; photos pulled from repo.

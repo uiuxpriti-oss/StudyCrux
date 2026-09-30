@@ -3333,14 +3333,76 @@
                       </div>
                     </sc-if>
 
+                    <sc-if value="{{ sec.isCal }}" hint-placeholder-val="{{ false }}">
+                      <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
+                        <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid #F2F0EA;flex-wrap:wrap;background:#FCFBF7">
+                          <div style="display:flex;gap:2px;background:#fff;border:1px solid #ECEAE2;border-radius:10px;padding:3px">
+                            <sc-for list="{{ sec.cwViews }}" as="v" hint-placeholder-count="4">
+                              <button onClick="{{ v.pick }}" style="height:30px;padding:0 13px;border:0;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;background:{{ v.bg }};color:{{ v.fg }};font-family:inherit">{{ v.v }}</button>
+                            </sc-for>
+                          </div>
+                          <div style="display:flex;align-items:center;gap:6px">
+                            <button onClick="{{ sec.cwPrev }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;cursor:pointer;color:#475467;display:grid;place-items:center" style-hover="background:#F6F5F0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6" /></svg></button>
+                            <button onClick="{{ sec.cwToday }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;cursor:pointer;font-size:12px;font-weight:600;color:#344054;font-family:inherit" style-hover="background:#F6F5F0">Today</button>
+                            <button onClick="{{ sec.cwNext }}" style="width:30px;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;cursor:pointer;color:#475467;display:grid;place-items:center" style-hover="background:#F6F5F0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6" /></svg></button>
+                          </div>
+                          <span style="font-size:14px;font-weight:700;color:#0F2A47">{{ sec.cwTitle }}</span>
+                        </div>
+                        <div style="overflow-x:auto;padding:14px 16px 16px">
+                          <div style="display:grid;grid-template-columns:104px repeat(6,minmax(118px,1fr));gap:7px;min-width:820px">
+                            <span></span>
+                            <sc-for list="{{ sec.cwDays }}" as="dy" hint-placeholder-count="6">
+                              <div style="text-align:center;font-size:11.5px;font-weight:{{ dy.fw }};color:{{ dy.fg }};padding:4px 0 6px">{{ dy.dy }}</div>
+                            </sc-for>
+                          </div>
+                          <sc-for list="{{ sec.cwRows }}" as="rw" hint-placeholder-count="5">
+                            <div style="display:grid;grid-template-columns:104px repeat(6,minmax(118px,1fr));gap:7px;min-width:820px;margin-top:7px">
+                              <div style="display:flex;align-items:center;font-size:11.5px;font-weight:600;color:#475467;white-space:nowrap">{{ rw.slot }}</div>
+                              <sc-for list="{{ rw.cells }}" as="cl" hint-placeholder-count="6">
+                                <div onClick="{{ cl.open }}" style="height:46px;border-radius:8px;border:1px solid {{ cl.bd }};background:{{ cl.bg }};color:{{ cl.fg }};display:grid;place-items:center;font-size:11px;font-weight:600;cursor:{{ cl.cur }};padding:0 6px;text-align:center" style-hover="border-color:{{ cl.hbd }}">{{ cl.lab }}</div>
+                              </sc-for>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </div>
+                    </sc-if>
+
                     <sc-if value="{{ sec.isTable }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:{{ sec.xfShow }};align-items:center;gap:8px;margin-bottom:9px;font-size:12px;color:#0B7A6E;font-weight:600">
+                        <span style="display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:999px;background:#0E9384;color:#fff;font-size:10.5px;font-weight:700">{{ sec.xfCount }}</span>column filter active
+                        <button onClick="{{ sec.xfReset }}" style="height:26px;padding:0 10px;border-radius:7px;border:1px solid #E5E3DC;background:#fff;font-size:11.5px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Clear all</button>
+                      </div>
                       <div style="border:1px solid #F0EEE7;border-radius:12px;overflow:hidden">
                         <div style="overflow-x:auto">
                           <table style="width:100%;border-collapse:collapse">
                             <thead>
                               <tr style="background:#FCFBF7">
                                 <sc-for list="{{ sec.cols }}" as="c" hint-placeholder-count="6">
-                                  <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">{{ c.c }}</th>
+                                  <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">
+                                    <div style="display:inline-flex;align-items:center;gap:5px">{{ c.c }}
+                                      <sc-if value="{{ c.hasF }}" hint-placeholder-val="{{ false }}">
+                                        <button onClick="{{ c.fToggle }}" title="Filter column" style="width:20px;height:20px;border-radius:5px;border:0;background:{{ c.fBg }};color:{{ c.fFg }};display:inline-grid;place-items:center;cursor:pointer;padding:0" style-hover="background:#EEF6F5;color:#0B7A6E"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8.5V19l-4 2v-7.5z" /></svg></button>
+                                      </sc-if>
+                                    </div>
+                                    <div style="display:{{ c.fDisplay }};position:fixed;left:{{ c.fx }};top:{{ c.fy }};z-index:80;width:228px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;text-align:left;letter-spacing:0;text-transform:none;font-weight:500">
+                                      <div onClick="{{ c.sortAsc }}" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;font-size:12.5px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">↑ Sort A → Z</div>
+                                      <div onClick="{{ c.sortDesc }}" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;font-size:12.5px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">↓ Sort Z → A</div>
+                                      <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px 5px;margin-top:4px;border-top:1px solid #F2F0EA">
+                                        <span style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#98A2B3">VALUES</span>
+                                        <button onClick="{{ c.selAll }}" style="border:0;background:transparent;font-size:11.5px;font-weight:700;color:#0B7A6E;cursor:pointer;padding:0;font-family:inherit">{{ c.selAllLabel }}</button>
+                                      </div>
+                                      <div style="max-height:200px;overflow-y:auto">
+                                        <sc-for list="{{ c.opts }}" as="o" hint-placeholder-count="4">
+                                          <div onClick="{{ o.tog }}" style="display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;font-size:12.5px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA">
+                                            <span style="width:16px;height:16px;flex:none;border-radius:4px;border:1.5px solid {{ o.cbBd }};background:{{ o.cbBg }};color:#fff;display:grid;place-items:center;font-size:10px;font-weight:800">{{ o.tick }}</span>{{ o.v }}
+                                          </div>
+                                        </sc-for>
+                                      </div>
+                                      <div style="padding:6px 4px 2px;border-top:1px solid #F2F0EA;margin-top:4px">
+                                        <button onClick="{{ c.clear }}" style="width:100%;height:30px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Clear filter</button>
+                                      </div>
+                                    </div>
+                                  </th>
                                 </sc-for>
                               </tr>
                             </thead>
@@ -3355,15 +3417,93 @@
                                       <sc-if value="{{ cl.isPlain }}" hint-placeholder-val="{{ true }}">{{ cl.v }}</sc-if>
                                     </td>
                                   </sc-for>
-                                  <sc-if value="{{ tr.hasAct }}" hint-placeholder-val="{{ false }}">
-                                    <td style="padding:11px 13px;border-bottom:1px solid #F5F3EE;text-align:right;white-space:nowrap">
-                                      <button onClick="{{ tr.act }}" style="height:29px;padding:0 12px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:11.5px;font-weight:700;color:#0B7A6E;cursor:pointer" style-hover="background:#E2F1EE">{{ tr.actLabel }}</button>
+                                  <sc-if value="{{ tr.hasTail }}" hint-placeholder-val="{{ false }}">
+                                    <td style="padding:8px 13px;border-bottom:1px solid #F5F3EE;text-align:right;white-space:nowrap">
+                                      <div style="display:inline-flex;align-items:center;gap:6px">
+                                        <sc-if value="{{ tr.hasAct }}" hint-placeholder-val="{{ false }}">
+                                          <button onClick="{{ tr.act }}" style="height:29px;padding:0 12px;border-radius:8px;border:1px solid #BFE3DC;background:#EEF6F5;font-size:11.5px;font-weight:700;color:#0B7A6E;cursor:pointer" style-hover="background:#E2F1EE">{{ tr.actLabel }}</button>
+                                        </sc-if>
+                                        <sc-if value="{{ tr.hasView }}" hint-placeholder-val="{{ false }}">
+                                          <button onClick="{{ tr.view }}" title="View" style="width:28px;height:28px;border-radius:7px;border:1px solid #E5E3DC;background:#fff;display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></svg></button>
+                                        </sc-if>
+                                        <sc-if value="{{ tr.hasMenu }}" hint-placeholder-val="{{ false }}">
+                                          <button onClick="{{ tr.menu }}" title="More" style="width:28px;height:28px;border-radius:7px;border:1px solid {{ tr.kBd }};background:{{ tr.kBg }};display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg></button>
+                                          <div style="display:{{ tr.mDisplay }};position:fixed;left:{{ tr.mx }};top:{{ tr.my }};z-index:80;width:170px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;text-align:left">
+                                            <sc-for list="{{ tr.menuItems }}" as="m" hint-placeholder-count="4">
+                                              <div onClick="{{ m.pick }}" style="padding:8px 11px;border-radius:8px;font-size:12.5px;color:{{ m.fg }};cursor:pointer;border-top:{{ m.bt }};margin-top:{{ m.mt }}" style-hover="background:{{ m.hbg }}">{{ m.label }}</div>
+                                            </sc-for>
+                                          </div>
+                                        </sc-if>
+                                      </div>
                                     </td>
                                   </sc-if>
                                 </tr>
                               </sc-for>
                             </tbody>
                           </table>
+                        </div>
+                        <div style="display:{{ sec.emptyShow }};padding:22px;text-align:center;font-size:12.5px;color:#98A2B3">No rows match the column filters.</div>
+                      </div>
+                      <div onClick="{{ sec.pmClose }}" style="display:{{ sec.pmDisplay }};position:fixed;inset:0;z-index:90;background:rgba(11,31,62,.45);place-items:center;padding:24px">
+                        <div onClick="{{ sec.pmStop }}" style="width:600px;max-width:94vw;max-height:88vh;display:flex;flex-direction:column;background:#fff;border-radius:16px;box-shadow:0 30px 80px rgba(11,31,62,.3);overflow:hidden">
+                          <div style="display:flex;align-items:flex-start;gap:12px;padding:20px 22px 16px;border-bottom:1px solid #F0EEE7">
+                            <div style="flex:1;min-width:0">
+                              <div style="font-size:16.5px;font-weight:700;color:#0F2A47">{{ sec.pmTitle }}</div>
+                              <div style="font-size:12.5px;color:#6B7C93;margin-top:3px">{{ sec.pmSub }}</div>
+                            </div>
+                            <button onClick="{{ sec.pmClose }}" style="width:32px;height:32px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;cursor:pointer;color:#475467;font-size:15px" style-hover="background:#F6F5F0">×</button>
+                          </div>
+                          <div style="flex:1;overflow-y:auto;padding:16px 22px 20px;display:flex;flex-direction:column;gap:16px">
+                            <sc-for list="{{ sec.pmGroups }}" as="g" hint-placeholder-count="2">
+                              <div>
+                                <div style="display:flex;align-items:center;gap:9px;margin-bottom:9px"><span style="width:3px;height:13px;border-radius:2px;background:#0E9384"></span><span style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#475467">{{ g.t }}</span></div>
+                                <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                                  <sc-for list="{{ g.rows }}" as="v" hint-placeholder-count="4">
+                                    <div style="display:flex;gap:14px;padding:10px 14px;background:{{ v.bg }};border-bottom:1px solid #F5F3EE">
+                                      <span style="flex:1;font-size:12.5px;color:#7A8699">{{ v.k }}</span>
+                                      <span style="font-size:12.5px;font-weight:{{ v.fw }};color:{{ v.fg }};text-align:right">{{ v.v }}</span>
+                                    </div>
+                                  </sc-for>
+                                </div>
+                              </div>
+                            </sc-for>
+                            <div style="display:{{ sec.pmOptsShow }}">
+                              <div style="font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Format</div>
+                              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+                                <sc-for list="{{ sec.pmFmts }}" as="o" hint-placeholder-count="2"><button onClick="{{ o.pick }}" style="height:34px;padding:0 14px;border-radius:9px;border:1.5px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">{{ o.o }}</button></sc-for>
+                              </div>
+                              <div style="font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Delivery</div>
+                              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                                <sc-for list="{{ sec.pmDels }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.pick }}" style="height:34px;padding:0 14px;border-radius:9px;border:1.5px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">{{ o.o }}</button></sc-for>
+                              </div>
+                            </div>
+                          </div>
+                          <div style="display:flex;justify-content:flex-end;gap:10px;padding:14px 22px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+                            <button onClick="{{ sec.pmClose }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer;font-family:inherit" style-hover="background:#F6F5F0">Close</button>
+                            <button onClick="{{ sec.pmAlt }}" style="display:{{ sec.pmAltShow }};align-items:center;height:38px;padding:0 16px;border-radius:9px;border:1px solid #BFE3DC;background:#fff;font-size:13px;font-weight:600;color:#0B7A6E;cursor:pointer;font-family:inherit" style-hover="background:#EEF6F5">{{ sec.pmAltLabel }}</button>
+                            <button onClick="{{ sec.pmPrimary }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit" style-hover="background:#0B7A6E">{{ sec.pmPrimaryLabel }}</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div onClick="{{ sec.viewClose }}" style="display:{{ sec.viewDisplay }};position:fixed;inset:0;z-index:90;background:rgba(11,31,62,.45);place-items:center;padding:24px">
+                        <div onClick="{{ sec.stop }}" style="width:520px;max-width:94vw;background:#fff;border-radius:16px;box-shadow:0 30px 80px rgba(11,31,62,.3);overflow:hidden">
+                          <div style="display:flex;align-items:flex-start;gap:12px;padding:20px 22px 16px;border-bottom:1px solid #F0EEE7">
+                            <div style="flex:1;min-width:0">
+                              <div style="font-size:16.5px;font-weight:700;color:#0F2A47">{{ sec.viewTitle }}</div>
+                              <div style="font-size:12.5px;color:#6B7C93;margin-top:3px">{{ sec.viewSub }} · details</div>
+                            </div>
+                            <button onClick="{{ sec.viewClose }}" style="width:32px;height:32px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;cursor:pointer;color:#475467;font-size:15px" style-hover="background:#F6F5F0">×</button>
+                          </div>
+                          <div style="padding:18px 22px 22px">
+                            <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                              <sc-for list="{{ sec.viewRows }}" as="v" hint-placeholder-count="6">
+                                <div style="display:flex;gap:14px;padding:10px 14px;background:{{ v.bg }};border-bottom:1px solid #F5F3EE">
+                                  <span style="width:130px;flex:none;font-size:12px;color:#7A8699">{{ v.k }}</span>
+                                  <span style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ v.v }}</span>
+                                </div>
+                              </sc-for>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </sc-if>
@@ -6239,7 +6379,7 @@ const C360 = {
       ['Payment cycle','Monthly · 1–31'],['Payment method','Bank Transfer'],
       ['Bank account','HDFC ••••4482 · verified'],['PAN','ABCPS••••4K · verified'],
       ['Last revision','01 Jul 2026 · +₹3,000'],['Next review','01 Jan 2027']]},
-    {t:'PAYOUT HISTORY', right:'Last 6 cycles', kind:'table',
+    {t:'PAYOUT HISTORY', right:'Last 6 cycles', kind:'table', rowMenu:'pay',
       cols:['Cycle','Gross','Deductions','Net','Paid on','Status'], rows:[
       ['Aug 2026','₹42,000','₹4,200','₹37,800','—',['Pending','amber']],
       ['Jul 2026','₹42,000','₹4,200','₹37,800','01 Aug 2026',['Paid','green']],
@@ -6294,11 +6434,10 @@ const C360 = {
   ],
   'Schedule': [
     {t:'SCHEDULE SNAPSHOT', kind:'cards', rows:[
-      ['Classes this month','142','across 12 batches','#0F2A47'],['Completed','128','90%','#15803D'],
-      ['Upcoming','11','next 7 days','#1D4ED8'],['Cancelled','2','make-ups planned','#B42318'],
-      ['Rescheduled','3','this week','#B45309'],['No instructor','1','needs assignment','#B42318'],
-      ['Recording pending','2','beyond 24 h','#B45309'],['On-time start rate','93%','this month','#15803D']]},
-    {t:'UPCOMING & ACTIVE CLASSES', right:'Next 7 days · rescheduled sessions included', kind:'table', rowAct:'Open Class', cols:['Date','Time','Course','Batch','Teacher','Class Type','Duration','Attendance','Recording','Status'], rows:[
+      ['Upcoming classes','11','next 7 days','#0F2A47'],['Live now','1','IC-11 · BT-310','#15803D'],
+      ['No instructor','1','IC-11 · 17 Aug','#B45309'],['Next class','Today · 18:00','IC-02 · Doubt session','#0B7A6E']]},
+    {t:'CALENDAR VIEW', right:'Same calendar used on the Live Class Schedule page', kind:'calweek'},
+    {t:'UPCOMING & ACTIVE CLASSES', right:'Next 7 days · rescheduled sessions included', kind:'table', rowMenu:'class', cols:['Date','Time','Course','Batch','Teacher','Class Type','Duration','Attendance','Recording','Status'], rows:[
       ['2026-08-16','07:00 – 09:00','IC-01','BT-101','Dr. Vikram Verma','Live class','120 min','40 / 42','Uploaded',['Completed','green']],
       ['2026-08-16','11:00 – 12:30','IC-02','BT-204','Neha Kulkarni','Live class','90 min','32 / 35','Uploaded',['Completed','green']],
       ['2026-08-16','14:00 – 16:00','IC-11','BT-310','Prof. Arun Mehta','Live class','120 min','—','—',['Live','green']],
@@ -6313,44 +6452,34 @@ const C360 = {
     {t:'SCHEDULE ACTIONS', kind:'actions', btns:[['Open Calendar View'],['Schedule Class'],['Reschedule'],['Assign Substitute'],['Change Teacher'],['Send Notification'],['View Recording'],['Cancel Class',1],['Mark Issue',1]]}
   ],
   'Attendance & Leave': [
-    {t:'MY ATTENDANCE KPIS', right:'This coordinator · current month', kind:'cards', rows:[
-      ['Attendance rate','96%','24 of 25 working days','#15803D'],['Present days','24','this month','#15803D'],
-      ['Late arrivals','2','avg 6 min late','#B45309'],['Early exits','1','15 min early','#B45309'],
-      ['Absent days','0','no unplanned absence','#15803D'],['Leave used','2 / 18','16 remaining','#1D4ED8'],
-      ['Avg hours per day','8h 34m','against an 8h target','#15803D'],['Overtime logged','5h 12m','this month','#0F2A47']]},
-    {t:'TODAY\u2019S ATTENDANCE', kind:'kv', rows:[
-      ['Status','Present'],['Scheduled in / out','09:00 \u2014 18:00'],['Actual in / out','08:58 \u2014 in progress'],
-      ['Late by','\u2014'],['Break time','33 min'],['Hours so far','7h 12m'],['Last activity','2 min ago']]},
-    {t:'ATTENDANCE LOG', right:'Daily record with exceptions', kind:'table', rowAct:'Correct',
-      cols:['Date','Status','Scheduled in','Actual in','Late by','Scheduled out','Actual out','Hours','Breaks','Overtime','Exception'], rows:[
-      ['2026-08-16',['Present','green'],'09:00','08:58','\u2014','18:00','18:05','8h 34m','33m','5m','\u2014'],
-      ['2026-08-15',['Present','green'],'09:00','09:02','2 min','18:00','18:14','8h 42m','48m','14m','\u2014'],
-      ['2026-08-14',['Late','amber'],'09:00','09:38','38 min','18:00','18:20','8h 12m','30m','20m','Traffic \u00b7 informed manager'],
-      ['2026-08-13',['Present','green'],'09:00','08:55','\u2014','18:00','17:45','8h 05m','40m','\u2014','Early exit approved'],
-      ['2026-08-12',['On Leave','blue'],'\u2014','\u2014','\u2014','\u2014','\u2014','\u2014','\u2014','\u2014','Planned leave LV-2041']]},
-    {t:'MY ACTIVITY SCORE', right:'Weighted across coordination responsibilities', kind:'bars', rows:[
-      ['Student Support \u2014 weight 25%','96%','#0E9384','142 doubts handled \u00b7 avg 2.4 h'],
-      ['Batch Management \u2014 weight 20%','92%','#0E9384','12 batches \u00b7 6 updates this week'],
-      ['Teacher Coordination \u2014 weight 20%','88%','#5AC0B0','18 faculty \u00b7 4 substitutions arranged'],
-      ['Live Class Operations \u2014 weight 15%','94%','#0E9384','142 classes \u00b7 93% on-time starts'],
-      ['Administrative Tasks \u2014 weight 15%','95%','#0E9384','48 reports \u00b7 all filed on time']]},
-    {t:'ACTIVITY LOG', right:'Today \u00b7 actions taken by this coordinator', kind:'table',
-      cols:['Time','Activity type','Course','Batch','Detail','Status'], rows:[
-      ['10:42 AM','Student Support','IC-01','B07','Doubt resolved \u2014 recorded class access',['Resolved','green']],
-      ['10:25 AM','Batch Update','IC-02','B03','Batch schedule updated for the week',['Completed','green']],
-      ['09:58 AM','Teacher Coordination','IC-11','B02','Substitute confirmed for tomorrow',['Completed','green']],
-      ['09:30 AM','Live Class Operations','IC-01','B01','Class started \u2014 monitored attendance',['Completed','green']],
-      ['09:12 AM','Administrative','\u2014','\u2014','Weekly attendance report filed',['Completed','green']]]},
-    {t:'LEAVE & REGULARIZATION', kind:'table', rowAct:'View',
-      cols:['Reference','Type','Period','Days','Reason','Balance','Status'], rows:[
-      ['LV-2041','Planned leave','16 \u2013 18 Aug 2026','3 days','Family function','8 of 18 remaining',['Approved','green']],
-      ['LV-2033','Half day','02 Aug 2026','0.5 day','Medical appointment','11 of 18 remaining',['Approved','green']],
-      ['RG-8812','Regularization','12 Aug 2026','\u2014','Missing checkout \u2014 forgot to check out','\u2014',['Pending','amber']]]},
+    {t:'ATTENDANCE SUMMARY', right:'This coordinator · current month', kind:'cards', rows:[
+      ['This month','96%','24 of 25 working days','#15803D'],['Work hours','206 h','this month','#0F2A47'],
+      ['Late arrivals','2','last 90 days','#B45309'],['Early exits','1','last 90 days','#B45309'],
+      ['Leave balance','8 days','of 18 annual','#15803D'],['Leave taken','10 days','this year','#0F2A47'],
+      ['Pending requests','1','awaiting approval','#B45309'],['Overtime logged','5h 12m','this month','#6D28D9']]},
+    {t:'DAILY ATTENDANCE', right:'Last 8 working days', kind:'table', rowMenu:1,
+      cols:['Date','Shift','First Login','Last Logout','Late By','Breaks','Work Hours','Status'], rows:[
+      ['2026-08-16','09:00 – 18:00','08:58','18:05','—','33m','8 h 34 m',['Present','green']],
+      ['2026-08-15','09:00 – 18:00','09:02','18:14','2 min','48m','8 h 42 m',['Present','green']],
+      ['2026-08-14','09:00 – 18:00','09:38','18:20','38 min','30m','8 h 12 m',['Late','amber']],
+      ['2026-08-13','09:00 – 18:00','08:55','17:45','—','40m','8 h 05 m',['Early exit','amber']],
+      ['2026-08-12','09:00 – 18:00','—','—','—','—','—',['Approved leave','blue']],
+      ['2026-08-11','09:00 – 18:00','08:57','18:02','—','35m','8 h 30 m',['Present','green']],
+      ['2026-08-10','09:00 – 18:00','08:59','18:10','—','42m','8 h 29 m',['Present','green']],
+      ['2026-08-09','09:00 – 18:00','09:00','18:00','—','30m','8 h 30 m',['Present','green']]]},
+    {t:'LEAVE HISTORY', kind:'table', rowMenu:1, xf:1, view:1,
+      cols:['Leave ID','Type','From','To','Days','Reason','Approved By','Status'], rows:[
+      ['LV-2214','Casual leave','2026-08-14','2026-08-14','1','Family function','Pending',['Pending','amber']],
+      ['LV-2188','Sick leave','2026-08-05','2026-08-05','1','Fever','Vikram Sethi',['Approved','green']],
+      ['LV-2104','Earned leave','2026-06-18','2026-06-22','5','Annual holiday','Vikram Sethi',['Approved','green']],
+      ['LV-2044','Casual leave','2026-04-11','2026-04-13','3','Personal','Vikram Sethi',['Approved','green']],
+      ['RG-8812','Regularization','2026-08-12','2026-08-12','—','Missing checkout','Pending',['Pending','amber']],
+      ['LV-1988','Sick leave','2026-02-20','2026-02-20','1','Medical','HR',['Rejected','red']]]},
     {t:'ATTENDANCE ALERTS', kind:'alerts', rows:[
       ['2 late arrivals recorded this month','14 Aug and 08 Aug \u00b7 both with reasons logged','Medium','grey'],
       ['1 regularization pending approval','RG-8812 \u00b7 missing checkout on 12 Aug','Medium','grey'],
       ['Overtime approaching monthly cap','5h 12m of a 6h soft cap','Informational','blue']]},
-    {t:'ATTENDANCE ACTIONS', kind:'actions', btns:[['Request Regularization'],['Apply for Leave'],['Export Attendance Report'],['Configure Activity Metrics'],['Raise Discrepancy',1]]}
+    {t:'ATTENDANCE ACTIONS', kind:'actions', btns:[['Approve Pending Leave'],['Request Regularization'],['Apply for Leave'],['Export Attendance Report'],['Mark Leave',1]]}
   ],
   'Performance & Reports': [
     {t:'COORDINATOR PERFORMANCE SCORE', kind:'score'},
@@ -9941,7 +10070,9 @@ class Component extends DCLogic {
       scHistory: CLSHIST.map(([when,change,action,reason,by,notified])=>({when,change,action,reason,by,notified})),
 
       qvOpen: !!s.scQV,
-      qvData: (()=>{ const c = CLASSES.find(x=>x[0]===s.scQV) || CLASSES[3];
+      qvData: (()=>{ if (s.scQVc) { const q = s.scQVc, sc = /Live|Completed/.test(q.status)?'green':/Cancel/.test(q.status)?'red':/Sub|No inst|pending/i.test(q.status)?'amber':'blue';
+          return {title:q.title, topic:'', slot:q.slot, status:q.status, sBg:BDG[sc][0], sFg:BDG[sc][1], rows:q.rows.map(([k,v],i)=>({k,v,bg: i%2 ? '#FAF9F4' : '#fff'}))}; }
+        const c = CLASSES.find(x=>x[0]===s.scQV) || CLASSES[3];
         return {title:c[4], topic:c[6], slot:c[1]+' · '+c[2]+' – '+c[3], status:c[11],
           sBg:BDG[c[12]][0], sFg:BDG[c[12]][1],
           rows:[['Batch',c[5]],['Teacher',c[7]],['Substitute',c[8]],['Students',String(c[9])],
@@ -9949,7 +10080,7 @@ class Component extends DCLogic {
             ['Platform',c[14]],['Meeting ID','SCX-'+c[0].slice(3)],['Class ID',c[0]]]
             .map(([k,v],i)=>({k,v,bg: i%2 ? '#FAF9F4' : '#fff'}))};
       })(),
-      closeQV: ()=>this.setState({scQV:null}),
+      closeQV: ()=>this.setState({scQV:null, scQVc:null}),
       qvNotify: [['Teacher','Notified','green'],['Students','42 notified · 1 failed','amber'],['Coordinator','Notified','green']]
         .map(([who,state,c])=>({who,state, sBg:BDG[c][0], sFg:BDG[c][1]})),
       qvRetry: this.act('Retrying failed notifications','1 student · falling back to SMS'),
@@ -9975,7 +10106,7 @@ class Component extends DCLogic {
           const KIND = {'View Class':'qvView','Reschedule':'resched','Assign Substitute':'findSub','Send Reminder':'qvRemind',
             'View Attendance':'qvAtt','Copy Meeting Link':'qvLink','Duplicate':'qvDup','View History':'qvHist','Cancel Class':'cancelClass'}[label];
           return ()=>{ const r={}; Object.keys(this.state).forEach(k=>{ if(/^(qr|qa|ql|qd|qh)[A-Z]/.test(k)) r[k]=undefined; });
-            this.setState({...r, scQV:null, fm:KIND, fmCtx:ctx, fmStep:0, fmErr:null}); };
+            this.setState({...r, scQV:null, scQVc:null, fm:KIND, fmCtx:ctx, fmStep:0, fmErr:null}); };
         })()})),
 
       acKpis: [
@@ -10137,8 +10268,73 @@ class Component extends DCLogic {
           });
         }
         if (sec.kind==='table') {
-          d.cols = sec.cols.map(c=>({c})).concat(sec.rowAct ? [{c:''}] : []);
-          d.trs = sec.rows.map((row,i)=>({bg: i%2 ? '#FCFBF7' : '#fff',
+          const SK = (s.profTab||'Overview')+'|'+sec.t, XF = (s.xf||{})[SK] || {}, XS = (s.xfSort||{})[SK], XO = s.xfOpen && s.xfOpen.k===SK ? s.xfOpen : null;
+          const cv = (v)=>String(Array.isArray(v) ? v[0] : v);
+          const tail = !!(sec.rowAct || sec.rowMenu || sec.view);
+          const setXF = (ci, arr)=>this.setState(x=>({xf:{...(x.xf||{}), [SK]:{...((x.xf||{})[SK]||{}), [ci]:arr}}}));
+          d.cols = sec.cols.map((c,ci)=>{
+            const ex = XF[ci] || [], vals = [...new Set(sec.rows.map(r=>cv(r[ci])))], on = ex.length>0 || (XS && XS.c===ci), open = XO && XO.c===ci;
+            return {c, hasF: !!sec.xf, fFg: on ? '#0E9384' : '#98A2B3', fBg: on ? '#EEF6F5' : 'transparent',
+              fDisplay: open ? 'block' : 'none', fx: open ? XO.x : '0px', fy: open ? XO.y : '0px',
+              fToggle:(e)=>{ e.stopPropagation(); const r = e.currentTarget.getBoundingClientRect(); this.setState({xfOpen: open ? null : {k:SK, c:ci, x:Math.min(window.innerWidth-236, r.left)+'px', y:(r.bottom+6)+'px'}}); },
+              sortAsc:()=>this.setState(x=>({xfSort:{...(x.xfSort||{}), [SK]:{c:ci, d:1}}, xfOpen:null})),
+              sortDesc:()=>this.setState(x=>({xfSort:{...(x.xfSort||{}), [SK]:{c:ci, d:-1}}, xfOpen:null})),
+              clear:()=>{ setXF(ci, []); this.setState(x=>({xfOpen:null, xfSort: (XS && XS.c===ci) ? {...(x.xfSort||{}), [SK]:null} : x.xfSort})); },
+              selAll:()=>setXF(ci, ex.length ? [] : vals.slice()), selAllLabel: ex.length ? 'Select all' : 'Unselect all',
+              opts: vals.map(v=>{ const sel = !ex.includes(v); return {v, tick: sel ? '✓' : '', cbBg: sel ? '#0E9384' : '#fff', cbBd: sel ? '#0E9384' : '#D0D5DD',
+                tog:()=>setXF(ci, sel ? [...ex, v] : ex.filter(x=>x!==v))}; })};
+          }).concat(tail ? [{c:'', hasF:false, fDisplay:'none', opts:[]}] : []);
+          let rowsV = sec.rows.map((r,i)=>[r,i]).filter(([r])=>Object.keys(XF).every(ci=>!(XF[ci]||[]).includes(cv(r[ci]))));
+          if (XS) rowsV.sort((p,q)=>cv(p[0][XS.c]).localeCompare(cv(q[0][XS.c]), undefined, {numeric:true})*XS.d);
+          d.xfCount = String(Object.values(XF).filter(v=>v && v.length).length + (XS ? 1 : 0)); d.xfShow = sec.xf && d.xfCount!=='0' ? 'inline-flex' : 'none';
+          d.xfReset = ()=>this.setState(x=>({xf:{...(x.xf||{}), [SK]:{}}, xfSort:{...(x.xfSort||{}), [SK]:null}}));
+          d.emptyShow = rowsV.length ? 'none' : 'block';
+          const vw = s.xfView && s.xfView.k===SK ? s.xfView : null;
+          d.viewDisplay = vw ? 'grid' : 'none'; d.viewTitle = vw ? cv(sec.rows[vw.i][0]) : ''; d.viewSub = sec.t.charAt(0)+sec.t.slice(1).toLowerCase();
+          d.viewRows = vw ? sec.cols.map((c,ci)=>({k:c, v:cv(sec.rows[vw.i][ci]), bg: ci%2 ? '#FAF9F4' : '#fff'})) : [];
+          d.viewClose = ()=>this.setState({xfView:null}); d.stop = (e)=>e.stopPropagation();
+          const openCls = (row)=>{ const c = cv(row[2]), b = cv(row[3]), tch = cv(row[4]), st = cv(row[9]);
+            this.setState({rmOpen:null, scQV:'LC-4104', scQVc:{title:c+' · '+(tch==='—'?'Unassigned':tch.split(' ').slice(-1)[0]), slot:cv(row[0])+' · '+cv(row[1]), status:st,
+              rows:[['Teacher',tch],['Batch',b],['Course',c],['Date',cv(row[0])],['Slot',cv(row[1])],['Duration',cv(row[6])],['Status',st],['Class type',cv(row[5])],
+                ['Mode','Live Online · StudyCrux Live'],['Attendance',cv(row[7])],['Recording',cv(row[8])],['Coordinator','R. Kumar (COORD-014)'],['Reminders','24 h · 1 h · 15 min before']]}}); };
+          const clsMenu = (row)=>[['Open Class',0,()=>openCls(row)],['View Course',0,this.act('Opening course — '+cv(row[2]),'Course overview · batches, teachers and students')],
+            ['Manage Course',0,this.act('Manage course — '+cv(row[2]),'Curriculum, batches and allocation settings')],
+            ['Reschedule',0,()=>this.setState({rmOpen:null, fm:'resched', fmStep:0, fmErr:null, fmCtx:{id:'LC-4104', cls:cv(row[2])+' · '+cv(row[5]), title:cv(row[2]), batch:cv(row[3]), teacher:cv(row[4]), orig:cv(row[4]), date:cv(row[0]), slot:cv(row[1])}})],
+            ['Join Class',0,this.joinClass('LC-4104', cv(row[2])+' · '+cv(row[3]))]];
+          const pm = s.pmOpen && s.pmOpen.k===SK ? s.pmOpen : null;
+          const payMenu = (row, oi)=>[['View Invoice','inv'],['Download Invoice','dl'],['View Payment Breakup','brk']].map(([lab,kind])=>[lab,0,()=>this.setState({pmOpen:{k:SK, i:oi, kind}, pmFmt:'PDF', pmDel:'Download now'})]);
+          d.pmDisplay = pm ? 'grid' : 'none'; d.pmClose = ()=>this.setState({pmOpen:null}); d.pmStop = (e)=>e.stopPropagation();
+          d.pmGroups = []; d.pmOptsShow = 'none'; d.pmFmts = []; d.pmDels = [];
+          if (pm) {
+            const r = sec.rows[pm.i], cyc = cv(r[0]), n = (x)=>Number(String(x).replace(/[^0-9]/g,''))||0, g = n(r[1]), dd = n(r[2]), net = n(r[3]), paid = cv(r[5])==='Paid';
+            const inr = (x)=>'₹'+Math.round(x).toLocaleString('en-IN'), inv = 'INV-CO-'+cyc.replace(' ','-').toUpperCase(), row2 = (k,v,fg,fw)=>({k, v, fg: fg||'#0F2A47', fw: fw||'600'});
+            const G = (tt, rows)=>({t:tt, rows: rows.map((x,i)=>({...x, bg: i%2 ? '#FAF9F4' : '#fff'}))});
+            const inv0 = G('Invoice', [row2('Invoice no.',inv), row2('Billed to','StudyCrux Learning Pvt Ltd · GSTIN 29AABCS••••1Z5'), row2('Payee','R. Kumar (COORD-014)'),
+              row2('Pay cycle',cyc), row2('Issued on', paid ? cv(r[4]) : 'Generated on cycle close'), row2('Bank','HDFC ••••4482'), row2('Status', cv(r[5]), paid ? '#15803D' : '#B45309', '700')]);
+            const amt = G('Amount', [row2('Gross earnings',inr(g)), row2('Deductions','− '+inr(dd),'#B42318'), row2('Net payable',inr(net),'#0F2A47','800')]);
+            if (pm.kind==='inv') { d.pmTitle = 'Invoice · '+cyc; d.pmSub = inv+' · '+(paid ? 'paid '+cv(r[4]) : 'pending disbursement'); d.pmGroups = [inv0, amt];
+              d.pmPrimaryLabel = 'Download Invoice'; d.pmPrimary = ()=>this.setState({pmOpen:{...pm, kind:'dl'}}); d.pmAltLabel = 'View Payment Breakup'; d.pmAltShow = 'inline-flex'; d.pmAlt = ()=>this.setState({pmOpen:{...pm, kind:'brk'}}); }
+            if (pm.kind==='dl') { d.pmTitle = 'Download Invoice'; d.pmSub = inv+' · '+cyc; d.pmGroups = [G('Summary', [row2('Invoice no.',inv), row2('Net payable',inr(net),'#0F2A47','800'), row2('Status',cv(r[5]))])];
+              d.pmOptsShow = 'block'; const f = s.pmFmt||'PDF', dl = s.pmDel||'Download now';
+              d.pmFmts = ['PDF','Excel (.xlsx)'].map(o=>({o, bd:o===f?'#0E9384':'#E5E3DC', bg:o===f?'#EEF6F5':'#fff', fg:o===f?'#0B7A6E':'#475467', pick:()=>this.setState({pmFmt:o})}));
+              d.pmDels = ['Download now','Email to coordinator','Email to finance'].map(o=>({o, bd:o===dl?'#0E9384':'#E5E3DC', bg:o===dl?'#EEF6F5':'#fff', fg:o===dl?'#0B7A6E':'#475467', pick:()=>this.setState({pmDel:o})}));
+              d.pmPrimaryLabel = dl==='Download now' ? 'Download' : 'Send'; d.pmAltShow = 'none';
+              d.pmPrimary = ()=>{ this.setState({pmOpen:null}); this.fire(dl==='Download now' ? 'Downloading '+inv : 'Invoice sent — '+inv, f+' · '+dl.toLowerCase()); }; }
+            if (pm.kind==='brk') { d.pmTitle = 'Payment Breakup · '+cyc; d.pmSub = 'Monthly retainer · '+inv;
+              d.pmGroups = [G('Earnings', [row2('Basic pay',inr(g*.6)), row2('House rent allowance',inr(g*.24)), row2('Special allowance',inr(g*.1)), row2('Performance incentive',inr(g*.06)), row2('Gross earnings',inr(g),'#0F2A47','800')]),
+                G('Deductions', [row2('TDS u/s 192',inr(dd*.9),'#B42318'), row2('Professional tax',inr(dd*.1),'#B42318'), row2('Total deductions',inr(dd),'#B42318','800')]),
+                G('Settlement', [row2('Net payable',inr(net),'#15803D','800'), row2('Paid on', cv(r[4])), row2('Mode','NEFT · HDFC ••••4482'), row2('UTR', paid ? 'UTR-8821'+(3400+pm.i) : '—')])];
+              d.pmPrimaryLabel = 'View Invoice'; d.pmPrimary = ()=>this.setState({pmOpen:{...pm, kind:'inv'}}); d.pmAltLabel = 'Download Invoice'; d.pmAltShow = 'inline-flex'; d.pmAlt = ()=>this.setState({pmOpen:{...pm, kind:'dl'}}); }
+          }
+          d.trs = rowsV.map(([row,oi],i)=>({bg: i%2 ? '#FCFBF7' : '#fff',
+            hasTail: tail, hasView: !!sec.view, hasMenu: !!sec.rowMenu,
+            view:()=>this.setState({xfView:{k:SK, i:oi}, rmOpen:null}),
+            ...(()=>{ const mk = SK+'|'+oi, open = s.rmOpen && s.rmOpen.k===mk;
+              return {mDisplay: open ? 'block' : 'none', mx: open ? s.rmOpen.x : '0px', my: open ? s.rmOpen.y : '0px', kBg: open ? '#EEF6F5' : '#fff', kBd: open ? '#BFE3DC' : '#E5E3DC',
+                menu:(e)=>{ e.stopPropagation(); const r = e.currentTarget.getBoundingClientRect(); this.setState({rmOpen: open ? null : {k:mk, x:Math.max(8, r.right-170)+'px', y:(r.bottom+6)+'px'}}); },
+                menuItems: (sec.rowMenu==='class' || sec.rowMenu==='pay') ? (sec.rowMenu==='pay' ? payMenu(row, oi) : clsMenu(row)).map(([lab,dg,fn],j)=>({label:lab, fg:'#344054', hbg:'#F7FBFA', bt: j===1?'1px solid #F2F0EA':'none', mt: j===1?'4px':'0',
+                  pick:()=>{ this.setState({rmOpen:null}); fn(); }})) : [['Approve',0],['Reject',1],['Revoke',1],['Cancel',1]].map(([lab,dg],j)=>({label:lab, fg: dg?'#B42318':'#344054', hbg: dg?'#FEF7F6':'#F7FBFA', bt: j===1?'1px solid #F2F0EA':'none', mt: j===1?'4px':'0',
+                  pick:()=>this.setState({rmOpen:null, fm:'act', fmStep:0, fmErr:null, fmCtx:{label:lab+(sec.t==='LEAVE HISTORY'?' Leave':' Attendance'), who:'This coordinator', detail:cv(row[0])}})}))}; })(),
             cursor: sec.rowAct ? 'pointer' : 'default',
             hasAct: !!sec.rowAct, actLabel: sec.rowAct || '',
             act: sec.rowAct === 'View Profile'
@@ -10147,6 +10343,30 @@ class Component extends DCLogic {
             cells: row.map(v => Array.isArray(v)
               ? {isPill:true, isPlain:false, v:v[0], pBg:BDG[v[1]][0], pFg:BDG[v[1]][1]}
               : {isPill:false, isPlain:true, v})}));
+        }
+        d.isCal = sec.kind==='calweek';
+        if (d.isCal) {
+          const view = s.cwView || 'Week';
+          d.cwViews = ['Day','Week','Month','Agenda'].map(v=>({v, bg: v===view?'#0B1F3E':'transparent', fg: v===view?'#fff':'#6B7C93', pick:()=>this.setState({cwView:v})}));
+          d.cwTitle = 'Week 33 · 10 – 16 August 2026';
+          d.cwPrev = this.act('Previous week','Week 32 · 03 – 09 Aug 2026'); d.cwNext = this.act('Next week','Week 34 · 17 – 23 Aug 2026'); d.cwToday = this.act('Jumped to today','Sun 16 Aug 2026');
+          const DAYS = ['Mon 10','Tue 11','Wed 12','Thu 13','Fri 14','Sat 15'], TODAY = 2;
+          const TONE = {b:['#E9F1FD','#D4E3FA','#1D4ED8'], g:['#E7F7EE','#BBE5C9','#15803D'], n:['#F4F5F7','#E4E7EC','#475467'], v:['#F0EAFD','#DCCFF8','#6D28D9'], a:['#FEF3E2','#F6D8A8','#B45309'], r:['#FDE8E8','#F4C7C3','#B42318'], x:['#F2F0EA','#E5E3DC','#98A2B3'], e:['#FCFBF7','#F0EEE7','#C4C2BA']};
+          const G = [
+            ['09:00 – 10:30',[['IC-01 · Verma','b'],['IC-02 · Kulkarni','b'],['IC-01 · Verma','g'],['IC-11 · Mehta','n'],['IC-02 · Kulkarni','n'],['—','e']]],
+            ['11:00 – 12:30',[['IC-02 · Kulkarni','b'],['IC-11 · Mehta','b'],['—','e'],['IC-01 · Verma','n'],['IC-11 · Mehta','n'],['IC-02 · Bansal','n']]],
+            ['14:00 – 16:00',[['IC-11 · Mehta','x'],['Workshop · Khan','v'],['IC-11 · Mehta','n'],['—','e'],['Webinar · Nair','v'],['—','e']]],
+            ['17:00 – 18:00',[['—','e'],['IC-02 · SUB NEEDED','a'],['Doubt · Kulkarni','b'],['—','e'],['Doubt · Bansal','n'],['—','e']]],
+            ['19:00 – 20:30',[['IC-01 · Bansal','b'],['IC-02 · Verma','b'],['IC-11 · Bansal','n'],['IC-01 · CANCELLED','r'],['IC-02 · Verma','n'],['IC-01 · Nair','n']]]];
+          const STAT = {b:'Completed', g:'Live', n:'Scheduled', v:'Scheduled', a:'Substitute needed', r:'Cancelled', x:'Completed'};
+          d.cwDays = DAYS.map((dy,i)=>({dy, fw: i===TODAY?'800':'600', fg: i===TODAY?'#0F2A47':'#7A8699'}));
+          d.cwRows = G.map(([slot,cells])=>({slot, cells: cells.map(([lab,tn],di)=>{ const [bg,bd,fg] = TONE[tn], empty = tn==='e';
+            return {lab, bg, bd, fg, cur: empty?'default':'pointer', hbd: empty?bd:'#0E9384',
+              open: empty ? (()=>{}) : ()=>{ const [crs, who] = lab.split(' · ');
+                this.setState({scQV:'LC-4104', scQVc:{title:lab, slot:slot+' · '+STAT[tn], status:STAT[tn],
+                  rows:[['Teacher',/SUB|CANCEL/.test(who)?'—':who],['Batch',{'IC-01':'BT-101','IC-02':'BT-204','IC-11':'BT-310'}[crs]||'Open cohort'],['Students','48 students'],['Day',DAYS[di]+' Aug 2026'],['Slot',slot],['Status',STAT[tn]],
+                    ['Class type',/Workshop|Webinar|Doubt/.test(crs)?crs:'Regular Class'],['Mode','Live Online · StudyCrux Live'],['Meeting ID','SCX-4412-88'+(20+di)],['Recording','Auto-record and publish'],
+                    ['Coordinator','R. Kumar (COORD-014)'],['Materials','2 PDFs · 1 presentation'],['Reminders','24 h · 1 h · 15 min before']]}}); }}; })}));
         }
         d.kvEditShow='none'; d.kvSaveShow='none';
         if (sec.kind==='kv') {

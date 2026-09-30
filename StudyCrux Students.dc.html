@@ -1917,7 +1917,7 @@
                   </sc-if>
 
                   <sc-if value="{{ sec.isList }}" hint-placeholder-val="{{ false }}">
-                    <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                    <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:visible">
                       <sc-for list="{{ sec.listRows }}" as="r" hint-placeholder-count="5">
                         <div style="display:flex;align-items:center;gap:13px;padding:12px 16px;border-bottom:1px solid #F7F5F0">
                           <span style="width:28px;height:28px;flex:none;border-radius:8px;background:{{ r.icBg }};color:{{ r.icFg }};font-size:12px;font-weight:700;display:grid;place-items:center">{{ r.ic }}</span>
@@ -1935,6 +1935,28 @@
                           </sc-if>
                           <sc-if value="{{ r.isText }}" hint-placeholder-val="{{ false }}">
                             <span style="font-size:13.5px;font-weight:800;color:{{ r.rFg }};flex:none">{{ r.right }}</span>
+                          </sc-if>
+                          <sc-if value="{{ r.isDoc }}" hint-placeholder-val="{{ false }}">
+                            <div style="display:flex;align-items:center;gap:8px;flex:none;position:relative">
+                              <button onClick="{{ r.stToggle }}" title="Document status" style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px 0 11px;border-radius:999px;border:1px solid {{ r.dBd }};background:{{ r.dBg }};color:{{ r.dFg }};font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit">
+                                <span style="width:6px;height:6px;border-radius:50%;background:{{ r.dFg }}"></span>{{ r.docStatus }}
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+                              </button>
+                              <div style="display:{{ r.stDisplay }};position:absolute;top:34px;right:36px;z-index:40;width:172px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:5px">
+                                <sc-for list="{{ r.docOpts }}" as="o" hint-placeholder-count="2">
+                                  <div onClick="{{ o.pick }}" style="display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;font-size:12.5px;font-weight:{{ o.fw }};color:#344054;cursor:pointer" style-hover="background:#F7FBFA">
+                                    <span style="width:8px;height:8px;border-radius:50%;background:{{ o.dot }}"></span>
+                                    <span style="flex:1">{{ o.o }}</span>
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0E9384" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="opacity:{{ o.tick }}"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                                  </div>
+                                </sc-for>
+                              </div>
+                              <button onClick="{{ r.menu }}" title="More" style="width:28px;height:28px;border-radius:8px;border:1px solid {{ r.kBd }};background:{{ r.kBg }};display:grid;place-items:center;cursor:pointer;color:#475467" style-hover="background:#EEF6F5;color:#0B7A6E;border-color:#BFE3DC"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg></button>
+                              <div style="display:{{ r.menuDisplay }};position:absolute;top:34px;right:0;z-index:40;width:172px;background:#fff;border:1px solid #ECEAE2;border-radius:11px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:5px">
+                                <div onClick="{{ r.viewDoc }}" style="display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;font-size:12.5px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></svg>View Doc</div>
+                                <div onClick="{{ r.dlDoc }}" style="display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;font-size:12.5px;color:#344054;cursor:pointer" style-hover="background:#F7FBFA"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>Download Doc</div>
+                              </div>
+                            </div>
                           </sc-if>
                           <sc-if value="{{ r.isBtn }}" hint-placeholder-val="{{ false }}">
                             <button onClick="{{ r.act }}" style="height:30px;padding:0 13px;border-radius:8px;border:1px solid #F0D2CF;background:#fff;font-size:12px;font-weight:600;color:#B42318;cursor:pointer;flex:none" style-hover="background:#FEF7F6">{{ r.right }}</button>
@@ -4507,10 +4529,10 @@ const SEC = {
     {t:'UPLOAD DOCUMENT',type:'upload'},
 
     {t:'DOCUMENTS ON FILE',right:'4 files',type:'list',rows:[
-      L('ID','blue','Aadhaar Card','ID proof · uploaded 22 May 2026 · 1.2 MB',{right:'Verified',...bdg('green')}),
-      L('ID','blue','College ID — IIT Delhi','Institution proof · uploaded 22 May 2026',{right:'Verified',...bdg('green')}),
-      L('PDF','red','Payment receipts','3 files · auto-generated',{right:'On file',...bdg('gray')}),
-      L('IMG','purple','Profile photo','JPEG · uploaded 22 May 2026',{right:'Approved',...bdg('green')})
+      L('ID','blue','Aadhaar Card','ID proof · uploaded 22 May 2026 · 1.2 MB',{kind:'doc',doc:'Verified'}),
+      L('ID','blue','College ID — IIT Delhi','Institution proof · uploaded 22 May 2026',{kind:'doc',doc:'Verified'}),
+      L('PDF','red','Payment receipts','3 files · auto-generated',{kind:'doc',doc:'Unverified'}),
+      L('IMG','purple','Profile photo','JPEG · uploaded 22 May 2026',{kind:'doc',doc:'Verified'})
     ]},
     {t:'ACTIONS',type:'actions',btns:[['Upload Document'],['Download All'],['Request Document']]}
   ],
@@ -5638,8 +5660,20 @@ class Component extends DCLogic {
         del:this.guard('Delete Review',[['Review ID',r.id],['Product',r.product],['Rating',r.rating+' / 5'],['Recoverable','30 days in Trash']])};
     });
     if (d.isUpload) d.up = this.act('Upload dialog opened','Choose file — PDF, JPG or PNG up to 10 MB');
-    if (d.isList) d.listRows = sec.rows.map(r=>({...r, hasTag:!!r.tag, isBadge:r.kind==='badge',
-      isText:r.kind==='text', isBtn:r.kind==='btn', act:this.act(r.right + ' — ' + r.title)}));
+    if (d.isList) d.listRows = sec.rows.map(r=>{
+      const base = {...r, hasTag:!!r.tag, isBadge:r.kind==='badge', isText:r.kind==='text', isBtn:r.kind==='btn', isDoc:r.kind==='doc', act:this.act(r.right + ' — ' + r.title)};
+      if (r.kind!=='doc') return base;
+      const st = (this.state.docSt||{})[r.title] || r.doc, ok = st==='Verified', open = this.state.docMenu===r.title, stOpen = this.state.docStMenu===r.title;
+      const setDoc = (v)=>{ this.setState(x=>({docStMenu:null, docSt:{...(x.docSt||{}), [r.title]:v}})); if (v!==st) this.act('Marked '+v.toLowerCase()+' — '+r.title, 'Status change logged to the audit trail')(); };
+      return {...base, docStatus:st, dBg: ok?'#E7F7EE':'#FEF3E2', dFg: ok?'#15803D':'#B45309', dBd: ok?'#BBE5C9':'#F6D8A8',
+        docOpts:[['Verified','#15803D'],['Unverified','#B45309']].map(([o,dot])=>({o, dot, fw: o===st?'700':'500', tick: o===st?'1':'0', pick:()=>setDoc(o)})),
+        stDisplay: stOpen ? 'block' : 'none',
+        stToggle:(e)=>{ e && e.stopPropagation && e.stopPropagation(); this.setState({docStMenu: stOpen ? null : r.title, docMenu:null}); },
+        menuDisplay: open ? 'block' : 'none', kBg: open ? '#EEF6F5' : '#fff', kBd: open ? '#BFE3DC' : '#E5E3DC',
+        menu:(e)=>{ e && e.stopPropagation && e.stopPropagation(); this.setState({docMenu: open ? null : r.title, docStMenu:null}); },
+        viewDoc:()=>{ this.setState({docMenu:null}); this.act('Opening '+r.title, 'Preview in a new tab')(); },
+        dlDoc:()=>{ this.setState({docMenu:null}); this.act('Downloading '+r.title, r.sub)(); }};
+    });
     if (d.isActions) d.btns = sec.btns.map(b=>({label:b[0],
       border: b[1]?'#F0D2CF':'#E5E3DC', fg: b[1]?'#B42318':'#344054', hbg: b[1]?'#FEF7F6':'#F6F5F0',
       pick: /refund/i.test(b[0]) ? (()=>this.setState({mRef:true, refPick:'', refAmt:'', refReason:'Duplicate payment', refMode:'Original payment method'}))

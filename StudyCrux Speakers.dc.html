@@ -6605,33 +6605,118 @@
                   </div>
                   <button onClick="{{ poCreateBatch }}" style="flex:none;height:36px;padding:0 15px;border-radius:9px;border:0;background:#0E9384;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">+ Create payout batch</button>
                 </div>
-                
-                <table style="width:100%;border-collapse:collapse">
-                  <thead><tr style="background:#FCFBF7">
-                    <th style="padding:10px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCH ID</th>
-                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PERIOD</th>
-                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKERS</th>
-                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EVENTS</th>
-                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">GROSS</th>
-                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">NET</th>
-                    <th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th>
-                    <th style="padding:10px 20px 10px 13px;border-bottom:1px solid #F0EEE7"></th>
-                  </tr></thead>
+                <div style="overflow-x:auto">
+                <table style="width:100%;min-width:1560px;border-collapse:collapse">
+                  <thead><tr style="background:#FCFBF7"><th style="padding:10px 20px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">BATCH ID</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PERIOD</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SPEAKERS</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">EVENTS</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TOTAL GROSS</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">ADJUSTMENTS</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">DEDUCTIONS</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">TOTAL NET</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">CREATED BY</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">APPROVED BY</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">FINAL APPROVAL</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">SCHEDULED</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">PROCESSED</th><th style="padding:10px 13px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#7A8699;border-bottom:1px solid #F0EEE7;white-space:nowrap">STATUS</th><th style="padding:10px 20px 10px 13px;border-bottom:1px solid #F0EEE7"></th></tr></thead>
                   <tbody>
-                    <sc-for list="{{ poBatches }}" as="b" hint-placeholder-count="2">
+                    <sc-for list="{{ poBatches }}" as="b" hint-placeholder-count="4">
                       <tr style-hover="background:#FCFBF7">
-                        <td style="padding:10px 20px;border-bottom:1px solid #F5F3EE;font-size:12px;font-weight:700;font-family:ui-monospace,monospace;color:#0F2A47">{{ b.id }}</td>
-                        <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ b.period }}</td>
-                        <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ b.speakers }}</td>
-                        <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ b.events }}</td>
-                        <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;color:#475467">{{ b.gross }}</td>
-                        <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;font-weight:700;color:#0F2A47">{{ b.net }}</td>
-                        <td style="padding:10px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ b.sBg }};color:{{ b.sFg }}">{{ b.status }}</span></td>
-                        <td style="padding:10px 20px 10px 13px;border-bottom:1px solid #F5F3EE;text-align:right"><span onClick="{{ b.view }}" style="font-size:12px;font-weight:600;color:#0B7A6E;cursor:pointer">View →</span></td>
+                        <td style="padding:12px 20px;border-bottom:1px solid #F5F3EE;font-size:12px;font-weight:700;font-family:ui-monospace,monospace;color:#0F2A47;white-space:nowrap">{{ b.id }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;font-weight:700;color:#0F2A47">{{ b.period }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#475467">{{ b.speakers }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#475467">{{ b.events }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;font-weight:700;color:#0F2A47">{{ b.gross }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#15803D">{{ b.adj }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#B42318">{{ b.ded }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;font-weight:800;color:#0F2A47">{{ b.net }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#475467">{{ b.by }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#475467">{{ b.appr }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#475467">{{ b.final }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#475467">{{ b.sched }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE;font-size:12.5px;white-space:nowrap;color:#475467">{{ b.proc }}</td>
+                        <td style="padding:12px 13px;border-bottom:1px solid #F5F3EE"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ b.sBg }};color:{{ b.sFg }};white-space:nowrap">{{ b.status }}</span></td>
+                        <td style="padding:12px 20px 12px 13px;border-bottom:1px solid #F5F3EE;text-align:right;white-space:nowrap">
+                          <div style="display:inline-flex;gap:6px">
+                            <button onClick="{{ b.view }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">View</button>
+                            <button onClick="{{ b.disburse }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E5E3DC;background:#fff;font-size:12px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Disburse</button>
+                            <button onClick="{{ b.approve }}" style="display:{{ b.approveDisplay }};align-items:center;height:30px;padding:0 12px;border-radius:8px;border:0;background:#0E9384;font-size:12px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Approve</button>
+                          </div>
+                        </td>
                       </tr>
                     </sc-for>
                   </tbody>
                 </table>
+                </div>
+              </div>
+              <div onClick="{{ cbClose }}" style="display:{{ cbDisplay }};position:fixed;inset:0;z-index:90;background:rgba(11,31,62,.45);place-items:center;padding:24px">
+                <div onClick="{{ cbStop }}" style="width:760px;max-width:94vw;max-height:90vh;display:flex;flex-direction:column;background:#fff;border-radius:16px;box-shadow:0 30px 80px rgba(11,31,62,.3);overflow:hidden">
+                  <div style="display:flex;align-items:flex-start;gap:12px;padding:20px 22px 16px;border-bottom:1px solid #F0EEE7">
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:16.5px;font-weight:700;color:#0F2A47">Create payout batch</div>
+                      <div style="font-size:12.5px;color:#6B7C93;margin-top:3px">Group approved speaker payouts into one payment run</div>
+                    </div>
+                    <button onClick="{{ cbClose }}" style="width:32px;height:32px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;cursor:pointer;color:#475467;font-size:15px" style-hover="background:#F6F5F0">×</button>
+                  </div>
+                  <div style="flex:1;overflow-y:auto;padding:18px 22px 20px;display:flex;flex-direction:column;gap:18px">
+                    <div><div style="display:flex;align-items:center;gap:9px;margin-bottom:12px"><span style="width:3px;height:13px;border-radius:2px;background:#0E9384"></span><span style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#475467">BATCH DETAILS</span><span style="flex:1;height:1px;background:#F0EEE7"></span></div>
+                      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
+                        <div style="grid-column:span 2"><div style="font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Pay period *</div><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ cbPeriods }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.pick }}" style="height:34px;padding:0 13px;border-radius:9px;border:1.5px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">{{ o.o }}</button></sc-for></div></div>
+                        <div><div style="font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Scheduled payment date *</div><input type="date" value="{{ cbSched }}" onChange="{{ setCbSched }}" style="width:100%;height:40px;padding:0 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;outline:0;font-family:inherit" /></div>
+                        <div><div style="font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Payment mode</div><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ cbModes }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.pick }}" style="height:34px;padding:0 13px;border-radius:9px;border:1.5px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">{{ o.o }}</button></sc-for></div></div>
+                      </div>
+                    </div>
+                    <div><div style="display:flex;align-items:center;gap:9px;margin-bottom:12px"><span style="width:3px;height:13px;border-radius:2px;background:#0E9384"></span><span style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#475467">SPEAKER PAYOUTS</span><span style="flex:1;height:1px;background:#F0EEE7"></span></div>
+                      <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                        <div style="display:flex;align-items:center;padding:9px 14px;background:#FCFBF7;border-bottom:1px solid #F0EEE7"><span style="flex:1;font-size:11.5px;color:#7A8699">Approved payouts not yet in a batch</span><button onClick="{{ cbAll }}" style="border:0;background:transparent;font-size:12px;font-weight:700;color:#0B7A6E;cursor:pointer;font-family:inherit">{{ cbAllLabel }}</button></div>
+                        <sc-for list="{{ cbLines }}" as="l" hint-placeholder-count="6">
+                          <div onClick="{{ l.tog }}" style="display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid #F5F3EE;cursor:pointer;background:{{ l.rowBg }}" style-hover="background:#F7FBFA">
+                            <span style="width:18px;height:18px;flex:none;border-radius:5px;border:1.5px solid {{ l.cbBd }};background:{{ l.cbBg }};color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800">{{ l.tick }}</span>
+                            <div style="min-width:0;flex:1"><div style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ l.name }}</div><div style="font-size:11px;color:#98A2B3;margin-top:2px">{{ l.ev }}</div></div>
+                            <span style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ l.amt }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px">
+                        <sc-for list="{{ cbSum }}" as="k" hint-placeholder-count="4">
+                          <div style="border:1px solid #F0EEE7;border-radius:10px;padding:10px 12px;background:#FCFBF7"><div style="font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#98A2B3">{{ k.k }}</div><div style="font-size:15px;font-weight:{{ k.fw }};color:#0F2A47;margin-top:4px">{{ k.v }}</div></div>
+                        </sc-for>
+                      </div>
+                    </div>
+                    <div><div style="display:flex;align-items:center;gap:9px;margin-bottom:12px"><span style="width:3px;height:13px;border-radius:2px;background:#0E9384"></span><span style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#475467">APPROVAL</span><span style="flex:1;height:1px;background:#F0EEE7"></span></div>
+                      <div style="font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Send for approval to</div><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ cbApprovers }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.pick }}" style="height:34px;padding:0 13px;border-radius:9px;border:1.5px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">{{ o.o }}</button></sc-for></div>
+                      <div style="margin-top:14px"><div style="font-size:12px;font-weight:600;color:#344054;margin-bottom:7px">Note</div><textarea value="{{ cbNote }}" onChange="{{ setCbNote }}" placeholder="Optional — visible to approvers and in the audit trail." style="width:100%;min-height:72px;padding:10px 12px;border:1px solid #E5E3DC;border-radius:9px;font-size:13px;color:#0F2A47;outline:0;resize:vertical;font-family:inherit"></textarea></div>
+                    </div>
+                    <div style="display:{{ cbErrShow }};padding:11px 13px;border-radius:10px;background:#FDE8E8;color:#B42318;font-size:12.5px;font-weight:600">{{ cbErr }}</div>
+                  </div>
+                  <div style="display:flex;justify-content:flex-end;gap:10px;padding:14px 22px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+                    <button onClick="{{ cbClose }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Cancel</button>
+                    <button onClick="{{ cbDraft }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #BFE3DC;background:#fff;font-size:13px;font-weight:600;color:#0B7A6E;cursor:pointer" style-hover="background:#EEF6F5">Save as draft</button>
+                    <button onClick="{{ cbSubmit }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">{{ cbPrimaryLabel }}</button>
+                  </div>
+                </div>
+              </div>
+              <div onClick="{{ pbClose }}" style="display:{{ pbDisplay }};position:fixed;inset:0;z-index:90;background:rgba(11,31,62,.45);place-items:center;padding:24px">
+                <div onClick="{{ pbStop }}" style="width:680px;max-width:94vw;max-height:88vh;display:flex;flex-direction:column;background:#fff;border-radius:16px;box-shadow:0 30px 80px rgba(11,31,62,.3);overflow:hidden">
+                  <div style="display:flex;align-items:flex-start;gap:12px;padding:20px 22px 16px;border-bottom:1px solid #F0EEE7">
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:16.5px;font-weight:700;color:#0F2A47">{{ pbTitle }}</div>
+                      <div style="font-size:12.5px;color:#6B7C93;margin-top:3px">{{ pbSub }}</div>
+                    </div>
+                    <button onClick="{{ pbClose }}" style="width:32px;height:32px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;cursor:pointer;color:#475467;font-size:15px" style-hover="background:#F6F5F0">×</button>
+                  </div>
+                  <div style="flex:1;overflow-y:auto;padding:16px 22px 20px;display:flex;flex-direction:column;gap:16px">
+                    <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                      <sc-for list="{{ pbRows }}" as="v" hint-placeholder-count="6">
+                        <div style="display:flex;gap:14px;padding:10px 14px;background:{{ v.bg }};border-bottom:1px solid #F5F3EE"><span style="flex:1;font-size:12.5px;color:#7A8699">{{ v.k }}</span><span style="font-size:12.5px;font-weight:{{ v.fw }};color:{{ v.fg }}">{{ v.v }}</span></div>
+                      </sc-for>
+                    </div>
+                    <div>
+                      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#475467;margin-bottom:9px">SPEAKERS IN THIS BATCH</div>
+                      <div style="border:1px solid #F0EEE7;border-radius:11px;overflow:hidden">
+                        <sc-for list="{{ pbLines }}" as="l" hint-placeholder-count="4">
+                          <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid #F5F3EE">
+                            <div style="min-width:0;flex:1"><div style="font-size:12.5px;font-weight:600;color:#0F2A47">{{ l.name }}</div><div style="font-size:11px;color:#98A2B3;margin-top:2px">{{ l.ev }}</div></div>
+                            <span style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ l.net }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="display:flex;justify-content:flex-end;gap:10px;padding:14px 22px;border-top:1px solid #F0EEE7;background:#FCFBF7">
+                    <button onClick="{{ pbExport }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #E5E3DC;background:#fff;font-size:13px;font-weight:600;color:#344054;cursor:pointer" style-hover="background:#F6F5F0">Export batch</button>
+                    <button onClick="{{ pbClose }}" style="height:38px;padding:0 18px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">Done</button>
+                  </div>
+                </div>
               </div>
             </div>
           </sc-if>
@@ -9829,11 +9914,60 @@ class Component extends DCLogic {
       poGenerate: ()=>this.setState({modal:'poGenerate', evErr:null}),
       poRows, poEmpty: poRows.length?'none':'block',
 
-      poBatches: [
-        {id:'BATCH-2041',period:'Aug 2026',speakers:4,events:4,gross:inr(89000),ded:inr(8900),net:inr(80100),status:'Scheduled',c:'blue',date:'01 Sep 2026'},
-        {id:'BATCH-2033',period:'Jul 2026',speakers:2,events:2,gross:inr(70000),ded:inr(7000),net:inr(63000),status:'Completed',c:'green',date:'01 Aug 2026'}
-      ].map(b=>({...b, sBg:BDG2[b.c][0], sFg:BDG2[b.c][1], view:()=>this.fire('Batch — '+b.id, b.speakers+' speakers · '+b.net)})),
-      poCreateBatch: ()=>this.fire('Batch created', 'Approved payouts grouped for the next payment run'),
+      ...(()=>{
+        const PBR = [
+          ['PB-AUG26','Aug 2026',6,9,356000,8500,35600,328900,'Admin User','Finance Admin','—','05 Sep 2026','—','Pending Approval','amber'],
+          ['PB-JUL26','Jul 2026',5,7,298000,6000,29800,274200,'Admin User','Finance Admin','Super Admin','05 Aug 2026','05 Aug 2026','Completed','green'],
+          ['PB-JUN26','Jun 2026',5,6,272000,4500,27200,249300,'Admin User','Finance Admin','Super Admin','05 Jul 2026','05 Jul 2026','Completed','green'],
+          ['PB-MAY26','May 2026',4,5,236000,3000,23600,215400,'Admin User','Finance Admin','Super Admin','05 Jun 2026','05 Jun 2026','Completed','green']];
+        const st = s.pbSt || {}, cur = s.pbView ? PBR.find(r=>r[0]===s.pbView) : null;
+        const LINES = [['Prof. Arun Mehta','Claims Masterclass · 2 sessions',0.32],['Ritu Bansal','IC-11 Revision Recordings',0.22],['Neha Kulkarni','Underwriting Fundamentals',0.16],['Ananya Deshmukh','Life Insurance Webinar',0.14],['Sofia Bergström','Remote session',0.09],['Dr. Ankit Sharma','Exam Strategy Live',0.07]];
+        return {
+          poBatches: PBR.map(r=>{ const [id,period,spk,evs,gross,adj,ded,net,by,appr,final,sched,proc,status0,c0] = r, ov = st[id];
+            const status = ov || status0, c = ov==='Approved' ? 'blue' : ov==='Processing' ? 'violet' : c0;
+            return {id, period, speakers:String(spk), events:String(evs), gross:inr(gross), adj:inr(adj), ded:inr(ded), net:inr(net), by, appr, final: ov ? 'Super Admin' : final, sched, proc: ov==='Processing' ? 'Today' : proc,
+              status, sBg:(BDG2[c]||BDG2.green)[0], sFg:(BDG2[c]||BDG2.green)[1], approveDisplay: status==='Pending Approval' ? 'inline-flex' : 'none',
+              view: ()=>this.setState({pbView:id}),
+              approve: this.raConfirm('Approve payout batch '+id+'?', period+' · '+spk+' speakers · '+inr(net)+' net. Final approval is recorded against your admin ID and the batch moves to disbursement.', 'Approve Batch', false,
+                ()=>{ this.setState(x=>({pbSt:{...(x.pbSt||{}), [id]:'Approved'}})); this.fire('Batch approved — '+id, inr(net)+' ready to disburse', true); }),
+              disburse: status==='Completed'
+                ? this.raConfirm('Batch already disbursed', id+' was processed on '+proc+'. Re-running would create duplicate payments — download the bank file instead.', 'Download bank file', false, ()=>this.fire('Bank file downloading', id+' · NEFT upload file'))
+                : status==='Pending Approval'
+                ? this.raConfirm('Approval required', id+' must be approved before disbursement. Approve it first, then run the payment.', 'Approve & continue', false, ()=>{ this.setState(x=>({pbSt:{...(x.pbSt||{}), [id]:'Approved'}})); this.fire('Batch approved — '+id, 'Now click Disburse to release the payment', true); })
+                : this.raConfirm('Disburse '+inr(net)+'?', id+' · '+spk+' speakers via NEFT from HDFC corporate. This action is permanent and written to the audit trail.', 'Disburse Now', true,
+                  ()=>{ this.setState(x=>({pbSt:{...(x.pbSt||{}), [id]:'Processing'}})); this.fire('Disbursement started — '+id, inr(net)+' · '+spk+' transfers queued', true); })}; }),
+          pbDisplay: cur ? 'grid' : 'none', pbClose: ()=>this.setState({pbView:null}), pbStop: (e)=>e.stopPropagation(),
+          pbTitle: cur ? 'Payout batch · '+cur[0] : '', pbSub: cur ? cur[1]+' · '+(st[cur[0]]||cur[13]) : '',
+          pbRows: cur ? [['Period',cur[1]],['Speakers',String(cur[2])],['Events',String(cur[3])],['Total gross',inr(cur[4])],['Adjustments','+ '+inr(cur[5]),'#15803D'],['Deductions (TDS)','− '+inr(cur[6]),'#B42318'],['Total net',inr(cur[7]),'#0F2A47','800'],
+            ['Created by',cur[8]],['Approved by',cur[9]],['Final approval',st[cur[0]]?'Super Admin':cur[10]],['Scheduled',cur[11]],['Processed',cur[12]],['Mode','NEFT · HDFC corporate']].map(([k,v,fg,fw],i)=>({k,v,fg:fg||'#0F2A47',fw:fw||'600',bg:i%2?'#FAF9F4':'#fff'})) : [],
+          pbLines: cur ? LINES.slice(0,cur[2]).map(([name,ev,p])=>({name, ev, net:inr(Math.round(cur[7]*p/100)*100)})) : [],
+          pbExport: ()=>this.fire('Batch exported', (cur?cur[0]:'')+' · XLSX with speaker-level lines', true)};
+      })(),
+      poCreateBatch: ()=>this.setState({cbOpen:true, cbErr:null, cbPeriod:'Sep 2026', cbSched:'2026-10-05', cbMode:'NEFT · HDFC corporate', cbApprover:'Finance Admin', cbSel:null, cbNote:''}),
+      ...(()=>{
+        const POOL = [['Prof. Arun Mehta','Claims Masterclass · 2 sessions',96000],['Ritu Bansal','IC-11 Revision Recordings',62000],['Neha Kulkarni','Underwriting Fundamentals',38400],
+          ['Ananya Deshmukh','Life Insurance Webinar',47000],['Sofia Bergström','Remote session',15000],['Dr. Ankit Sharma','Exam Strategy Live',28000]];
+        const sel = s.cbSel || POOL.map(p=>p[0]), pick = POOL.filter(p=>sel.includes(p[0]));
+        const gross = pick.reduce((a,p)=>a+p[2],0), tds = Math.round(gross*0.1), net = gross - tds;
+        const chip = (key, val, opts)=>opts.map(o=>({o, bd:o===val?'#0E9384':'#E5E3DC', bg:o===val?'#EEF6F5':'#fff', fg:o===val?'#0B7A6E':'#475467', pick:()=>this.setState({[key]:o})}));
+        return {
+          cbDisplay: s.cbOpen ? 'grid' : 'none', cbClose: ()=>this.setState({cbOpen:false}), cbStop: (e)=>e.stopPropagation(),
+          cbErr: s.cbErr||'', cbErrShow: s.cbErr ? 'flex' : 'none',
+          cbPeriods: chip('cbPeriod', s.cbPeriod||'Sep 2026', ['Sep 2026','Aug 2026 (top-up)','Custom range']),
+          cbModes: chip('cbMode', s.cbMode||'NEFT · HDFC corporate', ['NEFT · HDFC corporate','IMPS','UPI payout']),
+          cbApprovers: chip('cbApprover', s.cbApprover||'Finance Admin', ['Finance Admin','Super Admin','Two approvers']),
+          cbSched: s.cbSched||'', setCbSched: (e)=>this.setState({cbSched:e.target.value}),
+          cbNote: s.cbNote||'', setCbNote: (e)=>this.setState({cbNote:e.target.value}),
+          cbAllLabel: sel.length===POOL.length ? 'Unselect all' : 'Select all',
+          cbAll: ()=>this.setState({cbSel: sel.length===POOL.length ? [] : POOL.map(p=>p[0]), cbErr:null}),
+          cbLines: POOL.map(([name,ev,amt])=>{ const on = sel.includes(name); return {name, ev, amt:inr(amt), tick:on?'✓':'', cbBg:on?'#0E9384':'#fff', cbBd:on?'#0E9384':'#D0D5DD', rowBg:on?'#F7FBFA':'#fff',
+            tog:()=>this.setState({cbSel: on ? sel.filter(x=>x!==name) : [...sel, name], cbErr:null})}; }),
+          cbSum: [['Speakers',String(pick.length)],['Gross',inr(gross)],['TDS (10%)','− '+inr(tds)],['Net payable',inr(net)]].map(([k,v],i)=>({k,v,fw:i===3?'800':'600'})),
+          cbPrimaryLabel: (s.cbApprover||'Finance Admin')==='Super Admin' ? 'Create & submit' : 'Create batch',
+          cbSubmit: ()=>{ if (!pick.length) return this.setState({cbErr:'Select at least one speaker payout.'}); if (!s.cbSched) return this.setState({cbErr:'Choose a scheduled payment date.'});
+            this.setState({cbOpen:false}); this.fire('Payout batch created — '+(s.cbPeriod||'Sep 2026'), pick.length+' speakers · '+inr(net)+' net · sent to '+(s.cbApprover||'Finance Admin')+' for approval', true); },
+          cbDraft: ()=>{ this.setState({cbOpen:false}); this.fire('Batch saved as draft', pick.length+' speakers · '+inr(net)); }};
+      })(),
 
       poAdjustments: [
         {id:'ADJ-501',speaker:'Dr. Ankit Sharma',ev:'Insurance Industry Masterclass',type:'Event Completion Bonus',dir:'Addition',amt:inr(2000),reason:'Exceptional attendance and rating',by:'Finance Admin'},
