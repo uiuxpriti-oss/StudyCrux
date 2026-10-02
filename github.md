@@ -2,13 +2,13 @@ repo: uiuxpriti-oss/StudyCrux
 branch: claude/zealous-lovelace-o9hpsg
 
 ## Last sync
-date: 2026-09-30T16:40:00Z
+date: 2026-10-02T12:20:00Z
 
 ### Updated in this project
-- Roles & Access: Access Requests page removed; Invite User is single-page — search system users by name/email/ID + menu access matrix.
-- Students 360 Documents: Verified/Unverified status menu + ⋮ View / Download Doc.
-- Teachers: Students & Attendance row ⋮ menus; Payouts — Teacher KPIs + filters, Lecture filters, Revenue Share page, Adjustment approve/reject, Payslip & Reconciliation KPIs, dispute Evidence/Resolve/Reject forms.
-- Coordinators: Attendance & Leave and Schedule rebuilt to match Teachers (Excel-style column filters, view popup, calendar + class drawer); Payout History invoice/breakup flows. Speakers: Payout Batches table + Create batch form. Not yet pushed — download and commit.
+- Onboarding pages (Coordinators, Teachers, Speakers): "Add ▾" CTA with Generate Link / Manual Entry and their forms.
+- Speakers Schedule: rebuilt to match Coordinator Live Class Schedule — KPI grid, Schedule Health, icon view switch, tabs (Replacements, Conflicts, Requests, Availability, History), Filters panel.
+- Speakers Payout Batches: Create payout batch form.
+- Not yet pushed — download and commit.
 
 ## Screen map
 | Project screen | Repo files |
@@ -26,6 +26,7 @@ date: 2026-09-30T16:40:00Z
 | images | assets/aarav.png, assets/aditya.png, assets/ananya.png, assets/divya.png, assets/teacher-hero.png |
 
 ## Sync history
+- 2026-09-30T16:40:00Z — Roles & Access invite flow, Teacher payouts, Coordinator 360 attendance/schedule.
 - 2026-09-27T10:05:00Z — Coordinator/Teacher schedules unified; Create Role single-page form.
 - 2026-09-27T07:05:32Z — uploads integrated at project root; photos pulled from repo; launcher links Design System.
 - 2026-09-25T15:40:00Z — Students blank-screen fix; Teachers, Coordinators, Roles & Access flows.

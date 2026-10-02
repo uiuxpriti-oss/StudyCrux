@@ -130,7 +130,7 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 8-3 8h18s-3-1-3-8" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></svg>
           <span style="position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:#E5484D;border:1.5px solid #fff"></span>
         </button>
-          <sc-if value="{{ isAll }}" hint-placeholder-val="{{ false }}">
+          <sc-if value="{{ addCtaShow }}" hint-placeholder-val="{{ false }}">
           <div style="position:relative;flex:none">
             <button onClick="{{ openAdd }}" style="display:flex;align-items:center;gap:7px;flex:none;height:38px;padding:0 16px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Add Coordinator
@@ -9488,7 +9488,7 @@ class Component extends DCLogic {
       isDash: s.route==='dash', isOnboarding: s.route==='onboarding', isPayroll: s.route==='payroll', isAlerts: s.route==='alerts',
       payLifecycle: [['Draft','Payroll generated, not yet reviewed'],['Calculated','Salary, attendance and deductions applied'],['Pending Review','Awaiting Finance Admin verification'],['Approved','Verified and cleared for payment'],['Scheduled','Payment date locked in'],['Processing','Bank transfer initiated'],['Paid','Settled with a UTR reference'],['Exceptions','Failed · On Hold · Disputed · Reversed']].map(([label,note],i)=>({label,note,n:String(i+1),
         bg: i<7 ? '#EEF6F5' : '#FDE8E8', fg: i<7 ? '#0B7A6E' : '#B42318'})),
-      ovShow: (s.route==='all' && !s.prof) ? 'block' : 'none', isAll: s.route==='all' && !s.prof, isProf: s.route==='all' && !!s.prof,
+      ovShow: (s.route==='all' && !s.prof) ? 'block' : 'none', isAll: s.route==='all' && !s.prof, addCtaShow: (s.route==='all' && !s.prof) || s.route==='onboarding', isProf: s.route==='all' && !!s.prof,
       isAlloc: s.route==='allocation',
       isRc: s.route==='rc',
       isSched: s.route==='schedules',

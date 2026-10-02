@@ -111,6 +111,22 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 8-3 8h18s-3-1-3-8" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></svg>
           <span style="position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:#E5484D;border:1.5px solid #fff"></span>
         </button>
+        <sc-if value="{{ isOnboarding }}" hint-placeholder-val="{{ false }}">
+          <div style="position:relative;flex:none">
+            <button onClick="{{ tAddToggle }}" style="display:flex;align-items:center;gap:7px;flex:none;height:38px;padding:0 16px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#0B7A6E">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Add Teacher
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+            </button>
+            <div style="display:{{ tAddOptsDisplay }};position:absolute;top:44px;right:0;width:230px;background:#fff;border:1px solid #ECEAE2;border-radius:12px;box-shadow:0 18px 44px rgba(11,31,62,.16);padding:6px;z-index:40">
+              <sc-for list="{{ tAddOpts }}" as="o" hint-placeholder-count="2">
+                <div onClick="{{ o.pick }}" style="padding:9px 12px;border-radius:8px;cursor:pointer" style-hover="background:#F6F5F0">
+                  <div style="font-size:12.5px;font-weight:700;color:#0F2A47">{{ o.label }}</div>
+                  <div style="font-size:11px;color:#98A2B3;margin-top:2px">{{ o.sub }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
         <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
           <button onClick="{{ addTeacher }}" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:9px;border:0;background:#0E9384;font-size:13px;font-weight:600;color:#fff;cursor:pointer" style-hover="background:#0B7A6E">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Onboard Teacher
@@ -6629,6 +6645,12 @@ class Component extends DCLogic {
 
       goList: ()=>this.setState({route:'list'}),
       addTeacher: ()=>this.setState({fm:'onboard', fmCtx:{}, fmStep:0, fmErr:null}),
+      tAddToggle: ()=>this.setState(x=>({tAddOpen:!x.tAddOpen})),
+      tAddOptsDisplay: s.tAddOpen ? 'block' : 'none',
+      tAddOpts: [
+        ['Generate Link','Send a secure onboarding link',()=>this.setState({tAddOpen:false, fm:'tlink', fmCtx:{}, fmStep:0, fmErr:null, tlName:'', tlMobile:'', tlEmail:'', tlValidity:'7 days', tlChannel:['Email'], tlNote:''})],
+        ['Manual Entry','Enter every detail yourself now',()=>this.setState({tAddOpen:false, fm:'onboard', fmCtx:{}, fmStep:0, fmErr:null})]
+      ].map(([label,sub,pick])=>({label,sub,pick})),
       openSchedule: ()=>this.setState({fm:'schedule', fmCtx:{}, fmStep:0, fmErr:null}),
       openReport: ()=>this.setState({fm:'report', fmCtx:{}, fmStep:0, fmErr:null}),
       openRule: ()=>this.setState({fm:'rule', fmCtx:{}, fmStep:0, fmErr:null}),
@@ -6838,6 +6860,33 @@ class Component extends DCLogic {
         const wrap = (o)=>({...base, ...o, open:true, cancel:close,
           err: err||'', errDisplay: err?'flex':'none'});
 
+        if (kind==='tlink') {
+          const nm = (s.tlName||'').trim(), mob = (s.tlMobile||'').trim(), mail = (s.tlEmail||'').trim();
+          return wrap({title:'Add Teacher', width:'660px',
+            sub:'Enter the contact details — the teacher fills in everything else through the link',
+            groups:[
+              {t:'Teacher contact', fields:[
+                this.f('Full name','tlName','','text',null,{span:'span 3',placeholder:'Optional — e.g. Dr. Kavya Iyer'}),
+                this.f('Mobile number *','tlMobile','','text',null,{span:'span 3',placeholder:'+91 98400 21188'}),
+                this.f('Email ID *','tlEmail','','text',null,{span:'span 3',placeholder:'name@gmail.com'})]},
+              {t:'Link settings', fields:[
+                this.f('Subject area','tlSubj','IC-38','select',['IC-38','Ethics','Health','Motor','Taxation','Reasoning']),
+                this.f('Link validity','tlValidity','7 days','select',['48 hours','7 days','14 days','30 days']),
+                this.fchips('Send link via','tlChannel',['Email'],['Email','SMS','WhatsApp']),
+                this.f('Internal note','tlNote','','text',null,{span:'span 3',placeholder:'Optional — recorded in the audit trail'})]}],
+            info:'The link is unique, secure and time-bound. The teacher completes Stage 1 — application, documents and KYC — then it enters the recruitment pipeline for HR review.',
+            infoDisplay:'flex', primaryLabel:'Generate Onboarding Link',
+            primary: ()=>{
+              if (!mob) return this.setState({fmErr:'Mobile number is required.'});
+              if (!/^(\+91[\s-]?)?[6-9]\d{9}$/.test(mob.replace(/[\s-]/g,''))) return this.setState({fmErr:'Enter a valid 10-digit Indian mobile number.'});
+              if (!mail) return this.setState({fmErr:'Email ID is required.'});
+              if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(mail)) return this.setState({fmErr:'Enter a valid email address.'});
+              const d10 = mob.replace(/\D/g,'').slice(-10);
+              if (TOBLINKS.some(l=>l[2].replace(/\D/g,'').slice(-10)===d10)) return this.setState({fmErr:'This mobile number already has an onboarding link.'});
+              if (TOBLINKS.some(l=>l[3].toLowerCase()===mail.toLowerCase())) return this.setState({fmErr:'This email ID already has an onboarding link.'});
+              this.setState({fm:null});
+              this.fire('Onboarding link generated — '+(nm||mail), 'Valid for '+(s.tlValidity||'7 days')+' · sent via '+((s.tlChannel||['Email']).join(' · '))+' · status: Sent'); }});
+        }
         if (kind==='onboard') {
           const labels = ['Identity & Contact','Professional','Education & Skills','Documents','Recruitment Routing'];
           const groups = [
